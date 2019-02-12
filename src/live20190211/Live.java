@@ -10,11 +10,10 @@ private static final long serialVersionUID = -6748584585155653661L;
 private String host_id;
 private String live_name;
 private Integer live_acc;
-private byte[] live_pic; 
+private byte[] live_pic;
 private Timestamp live_date;
 private Integer live_status;
- //ssssssssssssssssssssssssssssssssssssssssss
-//1233212312312
+       
 public Live() {
 	
 }
