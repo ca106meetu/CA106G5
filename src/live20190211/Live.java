@@ -14,7 +14,6 @@ private byte[] live_pic;
 private Timestamp live_date;
 private Integer live_status;
 
-	
 public Live() {
 	
 }
