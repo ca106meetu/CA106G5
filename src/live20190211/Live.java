@@ -14,6 +14,7 @@ private byte[] live_pic;
 private Timestamp live_date;
 private Integer live_status;
  //ssssssssssssssssssssssssssssssssssssssssss
+//1233212312312
 public Live() {
 	
 }
