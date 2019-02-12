@@ -208,7 +208,7 @@ public class InformJDBCDAO implements InformDAO_interface{
 		}
 		return informVO;
 	}
-
+//111
 	@Override
 	public List<InformVO> getAll() {
 		// TODO Auto-generated method stub
