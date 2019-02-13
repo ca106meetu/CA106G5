@@ -10,5 +10,4 @@ public interface SaleTypeDAO_interface {
     public void delete(String saleTypeID);
     public SaleTypeVO findByPrimaryKey(String saleTypeID);
     public List<SaleTypeVO> getAll();
-//123
 }
