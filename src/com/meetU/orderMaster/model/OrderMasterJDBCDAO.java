@@ -1,4 +1,4 @@
-package com.orderMaster.model;
+package com.meetU.orderMaster.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.product.model.ProductJDBCDAO;
-import com.product.model.ProductVO;
+import com.meetU.product.model.ProductJDBCDAO;
+import com.meetU.product.model.ProductVO;
 
 public class OrderMasterJDBCDAO implements OrderMasterDAO_interface {
 

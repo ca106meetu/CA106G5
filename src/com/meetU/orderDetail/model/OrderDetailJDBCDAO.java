@@ -1,4 +1,4 @@
-package com.orderDetail.model;
+package com.meetU.orderDetail.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,8 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.orderDetail.model.OrderDetailVO;
-import com.product.model.ProductVO;
+import com.meetU.orderDetail.model.OrderDetailVO;
+import com.meetU.product.model.ProductVO;
 
 public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 

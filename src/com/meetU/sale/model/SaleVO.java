@@ -1,4 +1,4 @@
-package com.sale.model;
+package com.meetU.sale.model;
 
 import java.sql.Timestamp;
 

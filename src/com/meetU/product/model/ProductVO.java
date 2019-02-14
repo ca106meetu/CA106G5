@@ -1,4 +1,4 @@
-package com.product.model;
+package com.meetU.product.model;
 
 public class ProductVO {
 	private String prodID;
