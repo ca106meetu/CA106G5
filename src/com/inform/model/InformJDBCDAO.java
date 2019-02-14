@@ -5,9 +5,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.auth.model.AuthVO;
+import com.giftbox.model.GiftboxVO;
 
 public class InformJDBCDAO implements InformDAO_interface{
 
@@ -208,11 +210,64 @@ public class InformJDBCDAO implements InformDAO_interface{
 		}
 		return informVO;
 	}
-//111
+
 	@Override
 	public List<InformVO> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<InformVO> list = new ArrayList<>();
+		InformVO informVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ALL_STMT);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				informVO = new InformVO();
+				informVO.setInform_id(rs.getString("inform_id"));
+				informVO.setInform_status(rs.getInt("inform_status"));
+				informVO.setMem_id(rs.getString("mem_id"));
+				informVO.setInform_content(rs.getString("inform_content"));
+				informVO.setInform_time(rs.getTimestamp("inform_time"));
+				
+				list.add(informVO);
+			}
+			
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
 	}
 
 }
