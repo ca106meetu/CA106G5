@@ -1,4 +1,4 @@
-package com.meetup.model;
+package com.meetU.meetup.model;
 
 public class MeetupVO implements java.io.Serializable{
 	private String meetupId;

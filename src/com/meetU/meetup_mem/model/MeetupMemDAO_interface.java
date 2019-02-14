@@ -1,6 +1,6 @@
-package com.meetup_mem.model;
+package com.meetU.meetup_mem.model;
 
-import com.meetup.model.MeetupVO;
+import com.meetU.meetup.model.MeetupVO;
 
 public interface MeetupMemDAO_interface {
 	
