@@ -1,4 +1,4 @@
-package com.meetup.model;
+package com.meetU.meetup.model;
 
 public interface MeetupDAO_interface {
 	

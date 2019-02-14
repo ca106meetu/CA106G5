@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 public class Live implements Serializable {
 	
 private static final long serialVersionUID = -6748584585155653661L;
-
+ 
 private String host_id;
 private String live_name;
 private Integer live_acc;
