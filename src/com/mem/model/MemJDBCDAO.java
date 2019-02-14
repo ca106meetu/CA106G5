@@ -1,14 +1,7 @@
 package com.mem.model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.giftbox.model.GiftboxVO;
+import java.sql.*;
+import java.util.*;
 
 public class MemJDBCDAO implements MemDAO_interface{
 	
@@ -20,7 +13,7 @@ public class MemJDBCDAO implements MemDAO_interface{
 	private static final String INSERT_STMT = 
 		"INSERT INTO MEM (MEM_ID, MEM_PW, MEM_NAME, MEM_ACC, MEM_NICKNAME, MEM_BDAY, MEM_EMAIL, MEM_PHO, MEM_GEND, MEM_PIC,"
 		+               " MEM_INTRO, MEM_CODE, MEM_STATE, MEM_DATE, MEM_SIGN_DAY, MEM_LOGIN_STATE, MEM_ADDRESS, LAST_PAIR, MEM_HOBBY, MEM_QRCODE,MEM_GET_POINT)"
-		+        " VALUES ( , ?, ?, ?, ?, ?, ?, ?, ?, ?,"
+		+        " VALUES ( 'M'||LPAD(to_char(mem_seq.NEXTVAL), 6, '0'), ?, ?, ?, ?, ?, ?, ?, ?, ?,"
 		+                 " ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
 		"SELECT * FROM MEM";
@@ -337,6 +330,114 @@ public class MemJDBCDAO implements MemDAO_interface{
 			}
 		}
 		return list;
+	}
+	
+    public static void main(String[] args) {
+		
+	    MemJDBCDAO dao = new MemJDBCDAO();
+		// 新增
+		MemVO memVO1 = new MemVO();
+		memVO1.setMem_pw("123456");	
+	    memVO1.setMem_name("約翰"); 
+	    memVO1.setMem_acc("John");
+	    memVO1.setMem_nickname("約翰"); 
+		memVO1.setMem_Bday(java.sql.Date.valueOf("2015-11-17"));
+	    memVO1.setMem_email("bell0901tw@gmail.com");
+	    memVO1.setMem_pho("0958885761");
+		memVO1.setMem_gend("男性");
+	    memVO1.setMem_PIC(null);
+	    memVO1.setMem_intro("John is good man");
+	    memVO1.setMem_code(111);
+	    memVO1.setMem_state(1);
+		memVO1.setMem_date(java.sql.Date.valueOf("2015-11-17"));
+	    memVO1.setMem_sign_day(java.sql.Timestamp.valueOf("2019-1-1 22:30:30.0")); 
+		memVO1.setMem_login_state(1);
+	    memVO1.setMem_address("台北市-信義區-市府路1號"); 
+	    memVO1.setLast_pair(java.sql.Timestamp.valueOf("2019-1-1 22:30:30.0"));
+		memVO1.setMem_hobby("騎單車");
+	    memVO1.setMem_QRCODE(null);
+	    memVO1.setMem_get_point(100);
+		dao.insert(memVO1);
+		
+		//修改
+		MemVO memVO2 = new MemVO();
+		memVO2.setMem_id("M000007");
+	    memVO2.setMem_pw("123456");
+	    memVO2.setMem_name("約翰");
+	    memVO2.setMem_acc("John");
+	    memVO2.setMem_nickname("約翰"); 
+		memVO2.setMem_Bday(java.sql.Date.valueOf("2015-11-17"));
+	    memVO2.setMem_email("bell0901tw@gmail.com"); 
+	    memVO2.setMem_pho("0958885761");
+		memVO2.setMem_gend("男性");
+	    memVO2.setMem_PIC(null); 
+	    memVO2.setMem_intro("John is good man");
+	    memVO2.setMem_code(111); 
+	    memVO2.setMem_state(1);
+		memVO2.setMem_date(java.sql.Date.valueOf("2015-11-17"));
+	    memVO2.setMem_sign_day(java.sql.Timestamp.valueOf("2019-1-1 22:30:30.0")); 
+		memVO2.setMem_login_state(1);
+	    memVO2.setMem_address("台北市-信義區-市府路1號");
+	    memVO2.setLast_pair(java.sql.Timestamp.valueOf("2019-1-1 22:30:30.0"));
+		memVO2.setMem_hobby("騎單車");
+	    memVO2.setMem_QRCODE(null);
+	    memVO2.setMem_get_point(100);
+		dao.update(memVO2);
+		
+		//刪除
+		//dao.delete("M000001");
+		
+		//查詢1
+		MemVO memVO3 = dao.findByPrimaryKey("M000006");
+		
+		System.out.println(memVO3.getMem_id() + ","); 
+		System.out.println(memVO3.getMem_pw() + ","); 
+		System.out.println(memVO3.getMem_name() + ",");
+		System.out.println(memVO3.getMem_acc() + ","); 
+		System.out.println(memVO3.getMem_nickname() + ","); 
+		System.out.println(memVO3.getMem_Bday() + ",");
+		System.out.println(memVO3.getMem_email() + ","); 
+		System.out.println(memVO3.getMem_PIC() + ","); 
+		System.out.println(memVO3.getMem_intro() + ",");
+		System.out.println(memVO3.getMem_code() + ",");
+		System.out.println(memVO3.getMem_state() + ",");
+		System.out.println(memVO3.getMem_date() + ",");
+		System.out.println(memVO3.getMem_sign_day() + ","); 
+		System.out.println(memVO3.getMem_login_state() + ",");
+		System.out.println(memVO3.getMem_address() + ","); 
+		System.out.println(memVO3.getLast_pair() + ",");
+		System.out.println(memVO3.getMem_hobby() + ",");
+		System.out.println(memVO3.getMem_QRCODE() + ",");
+		System.out.println(memVO3.getMem_get_point() + ",");
+		System.out.println("----------------------------");
+		
+		//查詢全
+		List<MemVO> list = dao.getAll();
+		
+		for(MemVO memVO4 : list) {
+			System.out.println(memVO4.getMem_id() + ","); 
+			System.out.println(memVO4.getMem_pw() + ",");
+			System.out.println(memVO4.getMem_name() + ",");
+			System.out.println(memVO4.getMem_acc() + ","); 
+			System.out.println(memVO4.getMem_nickname() + ","); 
+			System.out.println(memVO4.getMem_Bday() + ",");
+			System.out.println(memVO4.getMem_email() + ","); 
+			System.out.println(memVO4.getMem_PIC() + ","); 
+			System.out.println(memVO4.getMem_intro() + ",");
+			System.out.println(memVO4.getMem_code() + ",");
+			System.out.println(memVO4.getMem_state() + ","); 
+			System.out.println(memVO4.getMem_date() + ",");
+			System.out.println(memVO4.getMem_sign_day() + ","); 
+			System.out.println(memVO4.getMem_login_state() + ",");
+			System.out.println(memVO4.getMem_address() + ","); 
+			System.out.println(memVO4.getLast_pair() + ",");
+			System.out.println(memVO4.getMem_hobby() + ",");
+			System.out.println(memVO4.getMem_QRCODE() + ",");
+			System.out.println(memVO4.getMem_get_point() + ",");
+		    System.out.println("----------------------------");
+		}
+		
+
 	}
 
 }
