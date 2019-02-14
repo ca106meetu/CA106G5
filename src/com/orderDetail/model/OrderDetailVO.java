@@ -1,4 +1,4 @@
-package com.meetU.orderDetail.model;
+package com.orderDetail.model;
 
 public class OrderDetailVO {
 

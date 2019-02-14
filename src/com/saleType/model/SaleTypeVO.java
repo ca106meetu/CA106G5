@@ -1,4 +1,4 @@
-package com.meetU.saleType.model;
+package com.saleType.model;
 
 public class SaleTypeVO {
 

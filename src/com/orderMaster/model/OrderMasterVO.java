@@ -1,4 +1,4 @@
-package com.meetU.orderMaster.model;
+package com.orderMaster.model;
 
 import java.sql.Timestamp;
 

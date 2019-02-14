@@ -1,8 +1,8 @@
-package com.meetU.orderDetail.model;
+package com.orderDetail.model;
 
 import java.util.List;
 
-import com.meetU.orderMaster.model.OrderMasterVO;
+import com.orderMaster.model.OrderMasterVO;
 
 public interface OrderDetailDAO_interface {
 

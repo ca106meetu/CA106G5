@@ -1,4 +1,4 @@
-package com.meetU.product.model;
+package com.product.model;
 
 import java.sql.*;
 import java.util.*;
