@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.meetU.friend.model.FriendVO;
+import com.meetU.product.model.ProductJDBCDAO;
+import com.meetU.product.model.ProductVO;
 
 public class GiftboxJDBCDAO implements GiftboxDAO_interface {
 	
@@ -22,11 +24,11 @@ public class GiftboxJDBCDAO implements GiftboxDAO_interface {
 	private static final String GET_ALL_STMT = 
 		"SELECT * FROM GIFTBOX";
 	private static final String GET_ONE_STMT = 
-		"SELECT * FROM GIFTBOX where MEM_ID = ?";
+		"SELECT * FROM GIFTBOX where MEM_ID = ? AND PROD_ID=?";
 	private static final String DELETE = 
-		"DELETE FROM GIFTBOX where MEM_ID = ?";
+		"DELETE FROM GIFTBOX WHERE MEM_ID = ? AND PROD_ID=?";
 	private static final String UPDATE = 
-		"UPDATE GIFTBOX set PROD_ID=?, GIFT_QUANTITY=? where MEM_ID=?";
+		"UPDATE GIFTBOX set GIFT_QUANTITY=? WHERE MEM_ID=? AND PROD_ID=?";
 
 	@Override
 	public void insert(GiftboxVO giftboxVO) {
@@ -80,9 +82,9 @@ public class GiftboxJDBCDAO implements GiftboxDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
 			
-			pstmt.setString(1, giftboxVO.getProd_ID());
-			pstmt.setInt(2, giftboxVO.getGift_quantity());
-			pstmt.setString(3, giftboxVO.getMem_ID());
+			pstmt.setInt(1, giftboxVO.getGift_quantity());
+			pstmt.setString(2, giftboxVO.getMem_ID());
+			pstmt.setString(3, giftboxVO.getProd_ID());
 			
 			pstmt.executeUpdate();
 						
@@ -113,7 +115,7 @@ public class GiftboxJDBCDAO implements GiftboxDAO_interface {
 	}
 
 	@Override
-	public void delete(String mem_id) {
+	public void delete(String mem_ID, String prod_ID) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -121,7 +123,8 @@ public class GiftboxJDBCDAO implements GiftboxDAO_interface {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(DELETE);
-			pstmt.setString(1, mem_id);
+			pstmt.setString(1, mem_ID);
+			pstmt.setString(2, prod_ID);
 			
 			pstmt.executeUpdate();	
 			
@@ -151,7 +154,7 @@ public class GiftboxJDBCDAO implements GiftboxDAO_interface {
 	}
 
 	@Override
-	public GiftboxVO findByPrimaryKey(String mem_id) {
+	public GiftboxVO findByPrimaryKey(String mem_ID, String prod_ID) {
 		GiftboxVO giftboxVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -160,7 +163,8 @@ public class GiftboxJDBCDAO implements GiftboxDAO_interface {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
-			pstmt.setString(1, mem_id);
+			pstmt.setString(1, mem_ID);
+			pstmt.setString(2, prod_ID);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -261,5 +265,43 @@ public class GiftboxJDBCDAO implements GiftboxDAO_interface {
 		}
 		return list;
 	}
+	public static void main(String[] args) {
+		
+		GiftboxJDBCDAO dao = new GiftboxJDBCDAO();
+		// 新增
+		GiftboxVO giftboxVO1 = new GiftboxVO();
+		giftboxVO1.setMem_ID("M000005");
+		giftboxVO1.setProd_ID("P000004");
+		giftboxVO1.setGift_quantity(1);
+		dao.insert(giftboxVO1);
+		
+		//修改
+		GiftboxVO giftboxVO2 = new GiftboxVO();
+		giftboxVO2.setMem_ID("M000005");
+		giftboxVO2.setProd_ID("P000004");
+		giftboxVO2.setGift_quantity(50);
+		dao.update(giftboxVO2);
+		
+		//刪除
+		dao.delete("M000005", "P000004");
+		
+		//查詢1
+		GiftboxVO giftboxVO3 = dao.findByPrimaryKey("M000003","P000001");
+		
+		System.out.println(giftboxVO3.getMem_ID() + ",");
+		System.out.println(giftboxVO3.getProd_ID() + ",");
+		System.out.println(giftboxVO3.getGift_quantity() + ",");
+		System.out.println("----------------------------");
+		//查詢全
+		List<GiftboxVO> list = dao.getAll();
+		
+		for(GiftboxVO giftboxVO4 : list) {
+			System.out.println(giftboxVO4.getMem_ID() + ",");
+			System.out.println(giftboxVO4.getProd_ID() + ",");
+			System.out.println(giftboxVO4.getGift_quantity() + ",");
+			System.out.println("----------------------------");
+		}
+		
 
+	}
 }
