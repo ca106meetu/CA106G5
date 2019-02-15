@@ -1,4 +1,4 @@
-package com.orderMaster.model;
+package com.meetU.orderMaster.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.product.model.ProductJDBCDAO;
-import com.product.model.ProductVO;
+import com.meetU.product.model.ProductJDBCDAO;
+import com.meetU.product.model.ProductVO;
 
 public class OrderMasterJDBCDAO implements OrderMasterDAO_interface {
 
@@ -40,16 +40,16 @@ public class OrderMasterJDBCDAO implements OrderMasterDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
-			pstmt.setString(1, omVO.getMemID());
+			pstmt.setString(1, omVO.getMem_ID());
 			pstmt.setDouble(2, omVO.getPrice());
-			pstmt.setTimestamp(3, omVO.getOrderDate());
+			pstmt.setTimestamp(3, omVO.getOrder_date());
 			pstmt.setString(4, omVO.getTip());
-			pstmt.setString(5, omVO.getOutAdd());
+			pstmt.setString(5, omVO.getOut_add());
 			pstmt.setString(6, omVO.getRecipient());
 			pstmt.setString(7, omVO.getPhone());
-			pstmt.setTimestamp(8, omVO.getOutDate());
-			pstmt.setInt(9, omVO.getOutStatus());
-			pstmt.setInt(10, omVO.getOrderStatus());
+			pstmt.setTimestamp(8, omVO.getOut_date());
+			pstmt.setInt(9, omVO.getOut_status());
+			pstmt.setInt(10, omVO.getOrder_status());
 			
 			pstmt.executeUpdate();
 			
@@ -89,17 +89,17 @@ public class OrderMasterJDBCDAO implements OrderMasterDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
 			
-			pstmt.setString(1, omVO.getMemID());
+			pstmt.setString(1, omVO.getMem_ID());
 			pstmt.setDouble(2, omVO.getPrice());
-			pstmt.setTimestamp(3, omVO.getOrderDate());
+			pstmt.setTimestamp(3, omVO.getOrder_date());
 			pstmt.setString(4, omVO.getTip());
-			pstmt.setString(5, omVO.getOutAdd());
+			pstmt.setString(5, omVO.getOut_add());
 			pstmt.setString(6, omVO.getRecipient());
 			pstmt.setString(7, omVO.getPhone());
-			pstmt.setTimestamp(8, omVO.getOutDate());
-			pstmt.setInt(9, omVO.getOutStatus());
-			pstmt.setInt(10, omVO.getOrderStatus());
-			pstmt.setString(11, omVO.getOrderID());
+			pstmt.setTimestamp(8, omVO.getOut_date());
+			pstmt.setInt(9, omVO.getOut_status());
+			pstmt.setInt(10, omVO.getOrder_status());
+			pstmt.setString(11, omVO.getOrder_ID());
 			
 			pstmt.executeUpdate();
 			
@@ -130,7 +130,7 @@ public class OrderMasterJDBCDAO implements OrderMasterDAO_interface {
 	}
 
 	@Override
-	public void delete(String orderID) {
+	public void delete(String Order_ID) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -138,7 +138,7 @@ public class OrderMasterJDBCDAO implements OrderMasterDAO_interface {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(DELETE);
-			pstmt.setString(1, orderID);
+			pstmt.setString(1, Order_ID);
 			
 			pstmt.executeUpdate();
 			
@@ -168,7 +168,7 @@ public class OrderMasterJDBCDAO implements OrderMasterDAO_interface {
 	}
 
 	@Override
-	public OrderMasterVO findByPrimaryKey(String orderID) {
+	public OrderMasterVO findByPrimaryKey(String Order_ID) {
 		
 		OrderMasterVO orderVO = null;
 		Connection con = null;
@@ -178,22 +178,22 @@ public class OrderMasterJDBCDAO implements OrderMasterDAO_interface {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
-			pstmt.setString(1, orderID);
+			pstmt.setString(1, Order_ID);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				orderVO = new OrderMasterVO();
-				orderVO.setOrderID(rs.getString("ORDER_ID"));
-				orderVO.setMemID(rs.getString("MEM_ID"));
+				orderVO.setOrder_ID(rs.getString("ORDER_ID"));
+				orderVO.setMem_ID(rs.getString("MEM_ID"));
 				orderVO.setPrice(rs.getDouble("PRICE"));
-				orderVO.setOrderDate(rs.getTimestamp("ORDER_DATE"));
+				orderVO.setOrder_date(rs.getTimestamp("ORDER_DATE"));
 				orderVO.setTip(rs.getString("TIP"));
-				orderVO.setOutAdd(rs.getString("OUT_ADD"));
+				orderVO.setOut_add(rs.getString("OUT_ADD"));
 				orderVO.setRecipient(rs.getString("RECIPIENT"));
 				orderVO.setPhone(rs.getString("PHONE"));
-				orderVO.setOutDate(rs.getTimestamp("OUT_DATE"));
-				orderVO.setOutStatus(rs.getInt("OUT_STATUS"));
-				orderVO.setOrderStatus(rs.getInt("ORDER_STATUS"));
+				orderVO.setOut_date(rs.getTimestamp("OUT_DATE"));
+				orderVO.setOut_status(rs.getInt("OUT_STATUS"));
+				orderVO.setOrder_status(rs.getInt("ORDER_STATUS"));
 			}
 			
 			
@@ -247,17 +247,17 @@ public class OrderMasterJDBCDAO implements OrderMasterDAO_interface {
 			
 			while(rs.next()) {
 				orderVO = new OrderMasterVO();
-				orderVO.setOrderID(rs.getString("ORDER_ID"));
-				orderVO.setMemID(rs.getString("MEM_ID"));
+				orderVO.setOrder_ID(rs.getString("ORDER_ID"));
+				orderVO.setMem_ID(rs.getString("MEM_ID"));
 				orderVO.setPrice(rs.getDouble("PRICE"));
-				orderVO.setOrderDate(rs.getTimestamp("ORDER_DATE"));
+				orderVO.setOrder_date(rs.getTimestamp("ORDER_DATE"));
 				orderVO.setTip(rs.getString("TIP"));
-				orderVO.setOutAdd(rs.getString("OUT_ADD"));
+				orderVO.setOut_add(rs.getString("OUT_ADD"));
 				orderVO.setRecipient(rs.getString("RECIPIENT"));
 				orderVO.setPhone(rs.getString("PHONE"));
-				orderVO.setOutDate(rs.getTimestamp("OUT_DATE"));
-				orderVO.setOutStatus(rs.getInt("OUT_STATUS"));
-				orderVO.setOrderStatus(rs.getInt("ORDER_STATUS"));
+				orderVO.setOut_date(rs.getTimestamp("OUT_DATE"));
+				orderVO.setOut_status(rs.getInt("OUT_STATUS"));
+				orderVO.setOrder_status(rs.getInt("ORDER_STATUS"));
 				list.add(orderVO);
 			}
 			
@@ -307,31 +307,31 @@ public class OrderMasterJDBCDAO implements OrderMasterDAO_interface {
 		Date today = new Date();
 		
 		OrderMasterVO orderVO1 = new OrderMasterVO();
-		orderVO1.setMemID("M000002");
+		orderVO1.setMem_ID("M000002");
 		orderVO1.setPrice(new Double(666.99));
-		orderVO1.setOrderDate(new Timestamp(today.getTime()));
+		orderVO1.setOrder_date(new Timestamp(today.getTime()));
 		orderVO1.setTip("一三五七九");
-		orderVO1.setOutAdd("在你心裡");
+		orderVO1.setOut_add("在你心裡");
 		orderVO1.setRecipient("馬小九");
 		orderVO1.setPhone("0800092000");
-		orderVO1.setOutDate(new Timestamp(today.getTime()));
-		orderVO1.setOutStatus(1);
-		orderVO1.setOrderStatus(0);
+		orderVO1.setOut_date(new Timestamp(today.getTime()));
+		orderVO1.setOut_status(1);
+		orderVO1.setOrder_status(0);
 		dao.insert(orderVO1);
 		
 		//修改
 		OrderMasterVO orderVO2 = new OrderMasterVO();
-		orderVO2.setOrderID("OM000002");
-		orderVO2.setMemID("M000002");
+		orderVO2.setOrder_ID("OM000002");
+		orderVO2.setMem_ID("M000002");
 		orderVO2.setPrice(new Double(666.99));
-		orderVO2.setOrderDate(new Timestamp(today.getTime()));
+		orderVO2.setOrder_date(new Timestamp(today.getTime()));
 		orderVO2.setTip("一三五七九");
-		orderVO2.setOutAdd("在你心裡");
+		orderVO2.setOut_add("在你心裡");
 		orderVO2.setRecipient("馬小九");
 		orderVO2.setPhone("0800092000");
-		orderVO2.setOutDate(new Timestamp(today.getTime()));
-		orderVO2.setOutStatus(1);
-		orderVO2.setOrderStatus(0);
+		orderVO2.setOut_date(new Timestamp(today.getTime()));
+		orderVO2.setOut_status(1);
+		orderVO2.setOrder_status(0);
 		dao.update(orderVO2);
 		
 		//刪除
@@ -340,33 +340,33 @@ public class OrderMasterJDBCDAO implements OrderMasterDAO_interface {
 		//查詢1
 		OrderMasterVO orderVO3 = dao.findByPrimaryKey("OM000003");
 //		System.out.println(orderVO3 == null);
-		System.out.println(orderVO3.getOrderID() + ",");
-		System.out.println(orderVO3.getMemID() + ",");
+		System.out.println(orderVO3.getOrder_ID() + ",");
+		System.out.println(orderVO3.getMem_ID() + ",");
 		System.out.println(orderVO3.getPrice() + ",");
-		System.out.println(orderVO3.getOrderDate() + ",");
+		System.out.println(orderVO3.getOrder_date() + ",");
 		System.out.println(orderVO3.getTip() + ",");
-		System.out.println(orderVO3.getOutAdd() + ",");
+		System.out.println(orderVO3.getOut_add() + ",");
 		System.out.println(orderVO3.getRecipient() + ",");
 		System.out.println(orderVO3.getPhone() + ",");
-		System.out.println(orderVO3.getOutDate() + ",");
-		System.out.println(orderVO3.getOutStatus() + ",");
-		System.out.println(orderVO3.getOrderStatus() + ",");
+		System.out.println(orderVO3.getOut_date() + ",");
+		System.out.println(orderVO3.getOut_status() + ",");
+		System.out.println(orderVO3.getOrder_status() + ",");
 		System.out.println("----------------------------");
 		//查詢全
 //		List<OrderMasterVO> list = dao.getAll();
 ////		
 //		for(OrderMasterVO orderVO4 : list) {
-//			System.out.println(orderVO4.getOrderID() + ",");
-//			System.out.println(orderVO4.getMemID() + ",");
+//			System.out.println(orderVO4.getOrder_ID() + ",");
+//			System.out.println(orderVO4.getMem_ID() + ",");
 //			System.out.println(orderVO4.getPrice() + ",");
-//			System.out.println(orderVO4.getOrderDate() + ",");
+//			System.out.println(orderVO4.getOrder_date() + ",");
 //			System.out.println(orderVO4.getTip() + ",");
-//			System.out.println(orderVO4.getOutAdd() + ",");
+//			System.out.println(orderVO4.getOut_add() + ",");
 //			System.out.println(orderVO4.getRecipient() + ",");
 //			System.out.println(orderVO4.getPhone() + ",");
-//			System.out.println(orderVO4.getOutDate() + ",");
-//			System.out.println(orderVO4.getOutStatus() + ",");
-//			System.out.println(orderVO4.getOrderStatus() + ",");
+//			System.out.println(orderVO4.getOut_date() + ",");
+//			System.out.println(orderVO4.getOut_status() + ",");
+//			System.out.println(orderVO4.getOrder_status() + ",");
 //		System.out.println("----------------------------");
 //		}
 

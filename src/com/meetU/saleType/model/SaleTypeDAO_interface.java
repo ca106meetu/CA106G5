@@ -1,8 +1,8 @@
-package com.saleType.model;
+package com.meetU.saleType.model;
 
 import java.util.List;
 
-import com.product.model.ProductVO;
+import com.meetU.product.model.ProductVO;
 
 public interface SaleTypeDAO_interface {
 	public void insert(SaleTypeVO stVO);
