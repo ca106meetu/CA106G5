@@ -1,16 +1,7 @@
 package com.meetU.giftbox.model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.meetU.friend.model.FriendVO;
-import com.meetU.product.model.ProductJDBCDAO;
-import com.meetU.product.model.ProductVO;
+import java.sql.*;
+import java.util.*;
 
 public class GiftboxJDBCDAO implements GiftboxDAO_interface {
 	
