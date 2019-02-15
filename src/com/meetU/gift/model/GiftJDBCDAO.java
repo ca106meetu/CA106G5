@@ -1,14 +1,8 @@
 package com.meetU.gift.model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.*;
+import java.util.*;
 
-import com.meetU.friend.model.FriendVO;
 
 public class GiftJDBCDAO implements GiftDAO_interface{
 
@@ -117,7 +111,7 @@ public class GiftJDBCDAO implements GiftDAO_interface{
 	}
 
 	@Override
-	public void delete(String gift_rec_id) {
+	public void delete(String gift_rec_ID) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -125,7 +119,7 @@ public class GiftJDBCDAO implements GiftDAO_interface{
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(DELETE);
-			pstmt.setString(1, gift_rec_id);
+			pstmt.setString(1, gift_rec_ID);
 			
 			pstmt.executeUpdate();
 			
@@ -156,7 +150,7 @@ public class GiftJDBCDAO implements GiftDAO_interface{
 	}
 
 	@Override
-	public GiftVO findByPrimaryKey(String gift_rec_id) {
+	public GiftVO findByPrimaryKey(String gift_rec_ID) {
 		GiftVO giftVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -165,7 +159,7 @@ public class GiftJDBCDAO implements GiftDAO_interface{
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
-			pstmt.setString(1, gift_rec_id);
+			pstmt.setString(1, gift_rec_ID);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
