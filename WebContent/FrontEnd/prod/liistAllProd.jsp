@@ -14,6 +14,16 @@
 <html>
 <head>
 <title>所有商品資料-listAllProd.jsp</title>
+
+
+
+<style>
+	img{
+		width:345px;
+		height:460px;
+	}
+	
+</style>
 </head>
 <body bgcolor = 'gray'>
 
@@ -53,7 +63,7 @@
 			<td>${prodVO.prod_price}</td>
 			<td>${prodVO.prod_type}</td>
 			<td>${prodVO.prod_stock}</td>
-			<td>${prodVO.prod_pic}</td>
+			<td><img src='/CA106G5/ShowPic?PROD_ID=${prodVO.prod_ID}'></td>
 			<td>${prodVO.prod_promt_status}</td>
 			<td>${prodVO.prod_status}</td>
 			<td>${prodVO.prod_info}</td>
