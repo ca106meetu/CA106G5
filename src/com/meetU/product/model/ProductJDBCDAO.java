@@ -1,5 +1,10 @@
 package com.meetU.product.model;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.*;
 import java.util.*;
 
@@ -278,20 +283,37 @@ public class ProductJDBCDAO implements ProductDAO_interface{
 		return list;
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		
 		ProductJDBCDAO dao = new ProductJDBCDAO();
+		
+		File pic = new File("WebContent/Front end/prod/pic/G8 (1).jpg");
+//		System.out.println(pic.exists());
+//		String fileName = pic.getName();
+//		int dotPos = fileName.indexOf(".");
+//		String fno = fileName.substring(0, dotPos);
+		FileInputStream fis = new FileInputStream(pic);
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		byte[] buffer = new byte[8192];
+		int i;
+		while((i = fis.read(buffer)) != -1) {
+			baos.write(buffer, 0, i);
+		}
+		
 		// 新增
 		ProductVO prodVO1 = new ProductVO();
 		prodVO1.setProd_name("心痛的感覺");
 		prodVO1.setProd_price(new Double(699.88));
 		prodVO1.setProd_type(0);
 		prodVO1.setProd_stock(999);
-		prodVO1.setProd_pic(null);
+		prodVO1.setProd_pic(baos.toByteArray());
 		prodVO1.setProd_promt_status(1);
 		prodVO1.setProd_status(0);
 		prodVO1.setProd_info("痛痛痛痛痛痛痛痛");
 		dao.insert(prodVO1);
+		
+		baos.close();
+		fis.close();
 		
 //		//修改
 //		ProductVO prodVO2 = new ProductVO();
