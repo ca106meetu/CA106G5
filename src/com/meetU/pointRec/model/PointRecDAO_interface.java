@@ -9,7 +9,7 @@ public interface PointRecDAO_interface {
     public void delete(String rec_ID);
     public PointRecVO findByPrimaryKey(String rec_ID);
     public List<PointRecVO> getAll();
-    //¸U¥Î½Æ¦X¬d¸ß(¶Ç¤J°Ñ¼Æ«¬ºAMap)(¦^¶Ç List)
-//   public List<EmpVO> getAll(Map<String, String[]> map); 
+  //è¬ç”¨è¤‡åˆæŸ¥è©¢(å‚³å…¥åƒæ•¸å‹æ…‹Map)(å›å‚³ List)
+//  public List<EmpVO> getAll(Map<String, String[]> map); 
 
 }

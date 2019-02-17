@@ -237,7 +237,7 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 		
 		
 		
-		//·s¼W
+		//æ–°å¢ž
 //		OrderDetailVO odVO1 = new OrderDetailVO();
 //		odVO1.setProd_ID("P000005");
 //		odVO1.setOrder_ID("OM000005");
@@ -245,7 +245,7 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 //		odVO1.setPrice(new Double(123321));
 //		dao.insert(odVO1);
 		
-		//­×§ï
+		//ä¿®æ”¹
 		
 		OrderDetailVO odVO2 = new OrderDetailVO();
 		odVO2.setProd_ID("P000001");
@@ -257,7 +257,7 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 		
 		
 		
-		//¬d¸ß1
+		//æŸ¥è©¢1
 //		OrderDetailVO odVO3 = dao.findByPrimaryKey("P000001", "OM000001");
 //		
 //		System.out.println(odVO3.getProd_ID() + ",");
@@ -268,7 +268,7 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 		
 		
 		
-		//¬d¸ß¥þ
+		//æŸ¥è©¢å…¨
 //		List<OrderDetailVO> list = dao.getAll();
 //				
 //		for(OrderDetailVO odVO4 : list) {

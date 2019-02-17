@@ -276,31 +276,31 @@ public class SaleDetailJDBCDAO implements SaleDetailDAO_interface{
 	public static void main(String[] args) {
 
 		SaleDetailJDBCDAO dao = new SaleDetailJDBCDAO();
-		// ·s¼W
+		// æ–°å¢ž
 //		SaleDetailVO stVO1 = new SaleDetailVO();
 //		stVO1.setProd_ID("P000002");
 //		stVO1.setSale_ID("S000001");
 //		stVO1.setPromt_price(new Double(555));
 //		dao.insert(stVO1);
 		
-		//­×§ï
+		//ä¿®æ”¹
 //		SaleDetailVO stVO2 = new SaleDetailVO();
 //		stVO2.setProd_ID("P000003");
 //		stVO2.setSale_ID("S000001");
 //		stVO2.setPromt_price(new Double(123));
 //		dao.update(stVO2);
 		
-		//§R°£
+		//åˆªé™¤
 //		dao.delete("P000002", "S000001");
 //		
-//		//¬d¸ß1
+//		//æŸ¥è©¢1
 //		SaleDetailVO stVO3 = dao.findByPrimaryKey("P000003", "S000001");
 //		
 //		System.out.println(stVO3.getProd_ID() + ",");
 //		System.out.println(stVO3.getSale_ID() + ",");
 //		System.out.println(stVO3.getPromt_price() + ",");
 //		System.out.println("----------------------------");
-//		//¬d¸ß¥þ
+//		//æŸ¥è©¢å…¨
 		List<SaleDetailVO> list = dao.getAll();
 		
 		for(SaleDetailVO stVO4 : list) {

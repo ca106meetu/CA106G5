@@ -300,38 +300,38 @@ public class ProductJDBCDAO implements ProductDAO_interface{
 			baos.write(buffer, 0, i);
 		}
 		
-		// ·s¼W
+		// æ–°å¢
 		ProductVO prodVO1 = new ProductVO();
-		prodVO1.setProd_name("¤ßµhªº·PÄ±");
+		prodVO1.setProd_name("å¿ƒç—›çš„æ„Ÿè¦º");
 		prodVO1.setProd_price(new Double(699.88));
 		prodVO1.setProd_type(0);
 		prodVO1.setProd_stock(999);
 		prodVO1.setProd_pic(baos.toByteArray());
 		prodVO1.setProd_promt_status(1);
 		prodVO1.setProd_status(0);
-		prodVO1.setProd_info("µhµhµhµhµhµhµhµh");
+		prodVO1.setProd_info("ç—›ç—›ç—›ç—›ç—›ç—›ç—›ç—›");
 		dao.insert(prodVO1);
 		
 		baos.close();
 		fis.close();
 		
-//		//­×§ï
+//		//ä¿®æ”¹
 //		ProductVO prodVO2 = new ProductVO();
 //		prodVO2.setProd_ID("P000006");
-//		prodVO2.setProd_name("¤ßµhªº·PÄ±2");
+//		prodVO2.setProd_name("å¿ƒç—›çš„æ„Ÿè¦º2");
 //		prodVO2.setProd_price(new Double(999.11));
 //		prodVO2.setProd_type(1);
 //		prodVO2.setProd_stock(777);
 //		prodVO2.setProd_pic(null);
 //		prodVO2.setProd_promt_status(0);
 //		prodVO2.setProd_status(1);
-//		prodVO2.setProd_info("¤£µhµhµhµhµhµhµhµh");
+//		prodVO2.setProd_info("ä¸ç—›ç—›ç—›ç—›ç—›ç—›ç—›ç—›");
 //		dao.update(prodVO2);
 //		
-//		//§R°£
+//		//åˆªé™¤
 //		dao.delete("P000006");
 //		
-//		//¬d¸ß1
+//		//æŸ¥è©¢1
 //		ProductVO prodVO3 = dao.findByPrimaryKey("P000003");
 //		
 //		System.out.println(prodVO3.getProd_ID() + ",");
@@ -344,7 +344,7 @@ public class ProductJDBCDAO implements ProductDAO_interface{
 //		System.out.println(prodVO3.getProd_status() + ",");
 //		System.out.println(prodVO3.getProd_info() + ",");
 //		System.out.println("----------------------------");
-//		//¬d¸ß¥ş
+//		//æŸ¥è©¢å…¨
 //		List<ProductVO> list = dao.getAll();
 //		
 //		for(ProductVO prodVO4 : list) {

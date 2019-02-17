@@ -273,67 +273,9 @@ public class ProductDAO implements ProductDAO_interface{
 		return list;
 	}
 
-	public static void main(String[] args) {
-		
-		ProductJDBCDAO dao = new ProductJDBCDAO();
-		// 新增
-		ProductVO prodVO1 = new ProductVO();
-		prodVO1.setProd_name("心痛的感覺");
-		prodVO1.setProd_price(new Double(699.88));
-		prodVO1.setProd_type(0);
-		prodVO1.setProd_stock(999);
-		prodVO1.setProd_pic(null);
-		prodVO1.setProd_promt_status(1);
-		prodVO1.setProd_status(0);
-		prodVO1.setProd_info("痛痛痛痛痛痛痛痛");
-		dao.insert(prodVO1);
-		
-//		//修改
-//		ProductVO prodVO2 = new ProductVO();
-//		prodVO2.setProd_ID("P000006");
-//		prodVO2.setProd_name("心痛的感覺2");
-//		prodVO2.setProd_price(new Double(999.11));
-//		prodVO2.setProd_type(1);
-//		prodVO2.setProd_stock(777);
-//		prodVO2.setProd_pic(null);
-//		prodVO2.setProd_promt_status(0);
-//		prodVO2.setProd_status(1);
-//		prodVO2.setProd_info("不痛痛痛痛痛痛痛痛");
-//		dao.update(prodVO2);
-//		
-//		//刪除
-//		dao.delete("P000006");
-//		
-//		//查詢1
-//		ProductVO prodVO3 = dao.findByPrimaryKey("P000003");
-//		
-//		System.out.println(prodVO3.getProd_ID() + ",");
-//		System.out.println(prodVO3.getProd_name() + ",");
-//		System.out.println(prodVO3.getProd_price() + ",");
-//		System.out.println(prodVO3.getProd_type() + ",");
-//		System.out.println(prodVO3.getProd_stock() + ",");
-//		System.out.println(prodVO3.getProd_pic() + ",");
-//		System.out.println(prodVO3.getProd_promt_status() + ",");
-//		System.out.println(prodVO3.getProd_status() + ",");
-//		System.out.println(prodVO3.getProd_info() + ",");
-//		System.out.println("----------------------------");
-//		//查詢全
-//		List<ProductVO> list = dao.getAll();
-//		
-//		for(ProductVO prodVO4 : list) {
-//		System.out.println(prodVO4.getProd_ID() + ",");
-//		System.out.println(prodVO4.getProd_name() + ",");
-//		System.out.println(prodVO4.getProd_price() + ",");
-//		System.out.println(prodVO4.getProd_type() + ",");
-//		System.out.println(prodVO4.getProd_stock() + ",");
-//		System.out.println(prodVO4.getProd_pic() + ",");
-//		System.out.println(prodVO4.getProd_promt_status() + ",");
-//		System.out.println(prodVO4.getProd_status() + ",");
-//		System.out.println(prodVO4.getProd_info() + ",");
-//		System.out.println("----------------------------");
-//		}
+	
 		
 
-	}
+	
 
 }

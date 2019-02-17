@@ -302,7 +302,7 @@ public class OrderMasterJDBCDAO implements OrderMasterDAO_interface {
 	public static void main(String[] args) {
 		
 		OrderMasterJDBCDAO dao = new OrderMasterJDBCDAO();
-		// ·s¼W
+		// æ–°å¢
 		
 		Date today = new Date();
 		
@@ -310,34 +310,34 @@ public class OrderMasterJDBCDAO implements OrderMasterDAO_interface {
 		orderVO1.setMem_ID("M000002");
 		orderVO1.setPrice(new Double(666.99));
 		orderVO1.setOrder_date(new Timestamp(today.getTime()));
-		orderVO1.setTip("¤@¤T¤­¤C¤E");
-		orderVO1.setOut_add("¦b§A¤ß¸Ì");
-		orderVO1.setRecipient("°¨¤p¤E");
+		orderVO1.setTip("ä¸€ä¸‰äº”ä¸ƒä¹");
+		orderVO1.setOut_add("åœ¨ä½ å¿ƒè£¡");
+		orderVO1.setRecipient("é¦¬å°ä¹");
 		orderVO1.setPhone("0800092000");
 		orderVO1.setOut_date(new Timestamp(today.getTime()));
 		orderVO1.setOut_status(1);
 		orderVO1.setOrder_status(0);
 		dao.insert(orderVO1);
 		
-		//­×§ï
+		//ä¿®æ”¹
 		OrderMasterVO orderVO2 = new OrderMasterVO();
 		orderVO2.setOrder_ID("OM000002");
 		orderVO2.setMem_ID("M000002");
 		orderVO2.setPrice(new Double(666.99));
 		orderVO2.setOrder_date(new Timestamp(today.getTime()));
-		orderVO2.setTip("¤@¤T¤­¤C¤E");
-		orderVO2.setOut_add("¦b§A¤ß¸Ì");
-		orderVO2.setRecipient("°¨¤p¤E");
+		orderVO2.setTip("ä¸€ä¸‰äº”ä¸ƒä¹");
+		orderVO2.setOut_add("åœ¨ä½ å¿ƒè£¡");
+		orderVO2.setRecipient("é¦¬å°ä¹");
 		orderVO2.setPhone("0800092000");
 		orderVO2.setOut_date(new Timestamp(today.getTime()));
 		orderVO2.setOut_status(1);
 		orderVO2.setOrder_status(0);
 		dao.update(orderVO2);
 		
-		//§R°£
+		//åˆªé™¤
 		dao.delete("OM000006");
 		
-		//¬d¸ß1
+		//æŸ¥è©¢1
 		OrderMasterVO orderVO3 = dao.findByPrimaryKey("OM000003");
 //		System.out.println(orderVO3 == null);
 		System.out.println(orderVO3.getOrder_ID() + ",");
@@ -352,7 +352,7 @@ public class OrderMasterJDBCDAO implements OrderMasterDAO_interface {
 		System.out.println(orderVO3.getOut_status() + ",");
 		System.out.println(orderVO3.getOrder_status() + ",");
 		System.out.println("----------------------------");
-		//¬d¸ß¥ş
+		//æŸ¥è©¢å…¨
 //		List<OrderMasterVO> list = dao.getAll();
 ////		
 //		for(OrderMasterVO orderVO4 : list) {

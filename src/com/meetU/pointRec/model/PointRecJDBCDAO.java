@@ -285,7 +285,7 @@ public class PointRecJDBCDAO implements PointRecDAO_interface {
 
 	public static void main(String[] args) {
 		PointRecJDBCDAO dao = new PointRecJDBCDAO();
-		// ·s¼W
+		// æ–°å¢ž
 		Date today = new Date();
 //		PointRecVO prVO1 = new PointRecVO();
 //		prVO1.setMem_ID("M000005");
@@ -294,7 +294,7 @@ public class PointRecJDBCDAO implements PointRecDAO_interface {
 //
 //		dao.insert(prVO1);
 		
-		//­×§ï
+		//ä¿®æ”¹
 //		PointRecVO prVO2 = new PointRecVO();
 //		prVO2.setRec_ID("PR000002");
 //		prVO2.setMem_ID("M000002");
@@ -302,10 +302,10 @@ public class PointRecJDBCDAO implements PointRecDAO_interface {
 //		prVO2.setRec_date(new Timestamp(today.getTime()));
 //		dao.update(prVO2);
 //		
-//		//§R°£
+//		//åˆªé™¤
 //		dao.delete("P000006");
 //		
-		//¬d¸ß1
+		//æŸ¥è©¢1
 		PointRecVO prVO3 = dao.findByPrimaryKey("PR000003");
 		
 		System.out.println(prVO3.getRec_ID() + ",");
@@ -314,7 +314,7 @@ public class PointRecJDBCDAO implements PointRecDAO_interface {
 		System.out.println(prVO3.getRec_date() + ",");
 		
 		System.out.println("----------------------------");
-		//¬d¸ß¥þ
+		//æŸ¥è©¢å…¨
 		List<PointRecVO> list = dao.getAll();
 //		
 		for(PointRecVO prVO4 : list) {
