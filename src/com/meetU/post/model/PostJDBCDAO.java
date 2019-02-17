@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.checkIn.model.CheckInJDBCDAO;
+import com.meetU.checkIn.model.CheckInJDBCDAO;
 
 
 public class PostJDBCDAO implements PostDAO_interface{
