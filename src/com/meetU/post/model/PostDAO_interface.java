@@ -1,4 +1,4 @@
-package com.post.model;
+package com.meetU.post.model;
 
 import java.util.*;
 
@@ -8,7 +8,7 @@ public interface PostDAO_interface {
     public void delete(String post_ID);
 //    public PostVO findByPrimaryKey(String post_ID);
     public List<PostVO> getAll();
-    //¸U¥Î½Æ¦X¬d¸ß(¶Ç¤J°Ñ¼Æ«¬ºAMap)(¦^¶Ç List)
+    //è¬ç”¨è¤‡åˆæŸ¥è©¢(å‚³å…¥åƒæ•¸å‹æ…‹Map)(å›å‚³ List)
 //  public List<PostVO> getAll(Map<String, String[]> map); 
 
 }

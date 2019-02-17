@@ -1,4 +1,4 @@
-package com.post.model;
+package com.meetU.post.model;
 
 import java.sql.Date;
 
