@@ -8,6 +8,6 @@ public interface MemDAO_interface {
     public void delete(String mem_id);
     public MemVO findByPrimaryKey(String mem_id);
     public List<MemVO> getAll();
-    //¸U¥Î½Æ¦X¬d¸ß(¶Ç¤J°Ñ¼Æ«¬ºAMap)(¦^¶Ç List)
+    //è¬ç”¨è¤‡åˆæŸ¥è©¢(å‚³å…¥åƒæ•¸å‹æ…‹Map)(å›å‚³ List)
     //  public List<MemVO> getAll(Map<String, String[]> map); 
 }

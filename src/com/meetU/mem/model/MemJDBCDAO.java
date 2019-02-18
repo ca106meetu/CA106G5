@@ -335,16 +335,16 @@ public class MemJDBCDAO implements MemDAO_interface{
     public static void main(String[] args) {
 		
 	    MemJDBCDAO dao = new MemJDBCDAO();
-		// ·s¼W
+		// æ–°å¢
 		MemVO memVO1 = new MemVO();
 		memVO1.setMem_pw("123456");	
-	    memVO1.setMem_name("¬ù¿«"); 
+	    memVO1.setMem_name("ç´„ç¿°"); 
 	    memVO1.setMem_acc("John");
-	    memVO1.setMem_nickname("¬ù¿«"); 
+	    memVO1.setMem_nickname("ç´„ç¿°"); 
 		memVO1.setMem_Bday(java.sql.Date.valueOf("2015-11-17"));
 	    memVO1.setMem_email("bell0901tw@gmail.com");
 	    memVO1.setMem_pho("0958885761");
-		memVO1.setMem_gend("¨k©Ê");
+		memVO1.setMem_gend("ç”·æ€§");
 	    memVO1.setMem_PIC(null);
 	    memVO1.setMem_intro("John is good man");
 	    memVO1.setMem_code(111);
@@ -352,24 +352,24 @@ public class MemJDBCDAO implements MemDAO_interface{
 		memVO1.setMem_date(java.sql.Date.valueOf("2015-11-17"));
 	    memVO1.setMem_sign_day(java.sql.Timestamp.valueOf("2019-1-1 22:30:30.0")); 
 		memVO1.setMem_login_state(1);
-	    memVO1.setMem_address("¥x¥_¥«-«H¸q°Ï-¥«©²¸ô1¸¹"); 
+	    memVO1.setMem_address("å°åŒ—å¸‚-ä¿¡ç¾©å€-å¸‚åºœè·¯1è™Ÿ"); 
 	    memVO1.setLast_pair(java.sql.Timestamp.valueOf("2019-1-1 22:30:30.0"));
-		memVO1.setMem_hobby("ÃM³æ¨®");
+		memVO1.setMem_hobby("é¨å–®è»Š");
 	    memVO1.setMem_QRCODE(null);
 	    memVO1.setMem_get_point(100);
 		dao.insert(memVO1);
 		
-		//­×§ï
+		//ä¿®æ”¹
 		MemVO memVO2 = new MemVO();
-		memVO2.setMem_ID("M000007");
-	    memVO2.setMem_pw("123456");
-	    memVO2.setMem_name("¬ù¿«");
+		memVO2.setMem_ID("M000014");
+	    memVO2.setMem_pw("12345678");
+	    memVO2.setMem_name("ç´„ç¿°");
 	    memVO2.setMem_acc("John");
-	    memVO2.setMem_nickname("¬ù¿«"); 
+	    memVO2.setMem_nickname("ç´„ç¿°"); 
 		memVO2.setMem_Bday(java.sql.Date.valueOf("2015-11-17"));
 	    memVO2.setMem_email("bell0901tw@gmail.com"); 
 	    memVO2.setMem_pho("0958885761");
-		memVO2.setMem_gend("¨k©Ê");
+		memVO2.setMem_gend("ç”·æ€§");
 	    memVO2.setMem_PIC(null); 
 	    memVO2.setMem_intro("John is good man");
 	    memVO2.setMem_code(111); 
@@ -377,17 +377,17 @@ public class MemJDBCDAO implements MemDAO_interface{
 		memVO2.setMem_date(java.sql.Date.valueOf("2015-11-17"));
 	    memVO2.setMem_sign_day(java.sql.Timestamp.valueOf("2019-1-1 22:30:30.0")); 
 		memVO2.setMem_login_state(1);
-	    memVO2.setMem_address("¥x¥_¥«-«H¸q°Ï-¥«©²¸ô1¸¹");
+	    memVO2.setMem_address("å°åŒ—å¸‚-ä¿¡ç¾©å€-å¸‚åºœè·¯1è™Ÿ");
 	    memVO2.setLast_pair(java.sql.Timestamp.valueOf("2019-1-1 22:30:30.0"));
-		memVO2.setMem_hobby("ÃM³æ¨®");
+		memVO2.setMem_hobby("é¨å–®è»Š");
 	    memVO2.setMem_QRCODE(null);
 	    memVO2.setMem_get_point(100);
 		dao.update(memVO2);
 		
-		//§R°£
-		//dao.delete("M000001");
+		//åˆªé™¤
+		//dao.delete("M000014");
 		
-		//¬d¸ß1
+		//æŸ¥è©¢1
 		MemVO memVO3 = dao.findByPrimaryKey("M000006");
 		
 		System.out.println(memVO3.getMem_ID() + ","); 
@@ -411,7 +411,7 @@ public class MemJDBCDAO implements MemDAO_interface{
 		System.out.println(memVO3.getMem_get_point() + ",");
 		System.out.println("----------------------------");
 		
-		//¬d¸ß¥ş
+		//æŸ¥è©¢å…¨
 		List<MemVO> list = dao.getAll();
 		
 		for(MemVO memVO4 : list) {

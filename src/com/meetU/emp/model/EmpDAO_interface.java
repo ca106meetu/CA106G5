@@ -8,6 +8,6 @@ public interface EmpDAO_interface {
     public void delete(String emp_id);
     public EmpVO findByPrimaryKey(String emp_id);
     public List<EmpVO> getAll();
-    //¸U¥Î½Æ¦X¬d¸ß(¶Ç¤J°Ñ¼Æ«¬ºAMap)(¦^¶Ç List)
+    //è¬ç”¨è¤‡åˆæŸ¥è©¢(å‚³å…¥åƒæ•¸å‹æ…‹Map)(å›å‚³ List)
     //  public List<EmpVO> getAll(Map<String, String[]> map);
 }
