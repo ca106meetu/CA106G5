@@ -287,7 +287,7 @@ public class ProductJDBCDAO implements ProductDAO_interface{
 		
 		ProductJDBCDAO dao = new ProductJDBCDAO();
 		
-		File pic = new File("WebContent/Front end/prod/pic/G8 (1).jpg");
+		File pic = new File("WebContent/FrontEnd/prod/pic/G8 (1).jpg");
 //		System.out.println(pic.exists());
 //		String fileName = pic.getName();
 //		int dotPos = fileName.indexOf(".");

@@ -38,11 +38,11 @@
 	<li><a href='listAllProd.jsp' class="btn btn-link" role="button">List all Prods.</a></li>
 	<br></br>
 	<li>
-		<form method='post' action="">
+		<form method='post' action="prod.do">
 		<div class="input-group mb-3">
-	  		<input type="text" class="form-control" name='empno' placeholder="請輸入商品編號(如P000001)" aria-label="Recipient's username" aria-describedby="button-addon2">
+	  		<input type="text" class="form-control" name='prod_ID' placeholder="請輸入商品編號(如P000001)" aria-label="Recipient's username" aria-describedby="button-addon2">
 	  	<div class="input-group-append">
-	    	<button class="btn btn-info"  name='action' value='getOne_For_Display' type="submit" id="button-addon2">送出</button>
+	    	<button class="btn btn-info" type="submit" id="button-addon2">送出</button>
 	  	</div>
 		</div>
 			<input type='hidden' name='action' value='getOne_For_Display'>
