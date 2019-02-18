@@ -1,7 +1,7 @@
 package com.meetU.live.model;
 
 import java.sql.*;
-import java.util.List;
+import java.util.List; 
 
 public class LiveJDBCDAO implements LiveDAO_interface {
 
