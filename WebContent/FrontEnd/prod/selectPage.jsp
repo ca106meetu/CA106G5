@@ -3,9 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
- 
-</style>
+
  <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -56,7 +54,7 @@
 	<jsp:useBean id='prodSvc' scope='page' class='com.meetU.product.model.ProductService'/>
 	
 	<li>
-		<form method='post' action="">
+		<form method='post' action="prod.do">
 			
 			<div class="input-group">
 			  <select class="custom-select" name='prod_ID' id="inputGroupSelect04" aria-label="Example select with button addon">
@@ -66,7 +64,7 @@
 				</c:forEach>
 			  </select>
 			  <div class="input-group-append">
-			    <button class="btn btn-info" type="button">送出</button>
+			    <button class="btn btn-info" type="submit">送出</button>
 			  </div>
 			</div>
 			<input type='hidden' name='action' value='getOne_For_Display'>
@@ -84,7 +82,7 @@
 	
 	</li>
 	<li>
-		<form method='post' action="">
+		<form method='post' action="prod.do">
 		
 		
 		
@@ -96,7 +94,7 @@
 				</c:forEach>
 			  </select>
 			  <div class="input-group-append">
-			    <button class="btn btn-info" type="button">送出</button>
+			    <button class="btn btn-info" type="submit">送出</button>
 			  </div>
 			</div>
 			<input type='hidden' name='action' value='getOne_For_Display'>

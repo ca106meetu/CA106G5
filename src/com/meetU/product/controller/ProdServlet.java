@@ -36,40 +36,48 @@ public class ProdServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
-		//*****1.錯誤驗證****************
-				String prod_ID = req.getParameter("prod_ID");
-				String prod_IDReg = "^P[0]{4}[0-9]{2}$";
-				if (prod_ID == null || (prod_ID.trim()).length() == 0) {
-					errorMsgs.add("請輸入商品編號");
-				}else if(!prod_ID.trim().matches(prod_IDReg)) {
-					errorMsgs.add("商品編號格式錯誤");	
-				}
-				
-				if(!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/FrontEnd/prod/selectPage.jsp");
-					failureView.forward(req, res);
-					return;
-				}
-				
-		//*****2.查詢資料****************		
-				ProductService prodSvc = new ProductService();
-				ProductVO prodVO = prodSvc.getOneProd(prod_ID);
-				if(prodVO == null) {
-					errorMsgs.add("查無資料");
-				}
-				
-				if(!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/FrontEnd/prod/selectPage.jsp");
-					failureView.forward(req, res);
-					return;
-				}
-		//*******3.查詢完成準備轉交**************************
-				req.setAttribute("prodVO", prodVO);
-				String url = "/FrontEnd/prod/listOneProd.jsp";
-				
-			
+		try {
+			//*****1.錯誤驗證****************
+					String prod_ID = req.getParameter("prod_ID");
+					String prod_IDReg = "^P[0]{4}[0-9]{2}$";
+					if (prod_ID == null || (prod_ID.trim()).length() == 0) {
+						errorMsgs.add("請輸入商品編號");
+					}else if(!prod_ID.trim().matches(prod_IDReg)) {
+						errorMsgs.add("商品編號格式錯誤");	
+					}
+					
+					if(!errorMsgs.isEmpty()) {
+						RequestDispatcher failureView = req
+								.getRequestDispatcher("/FrontEnd/prod/selectPage.jsp");
+						failureView.forward(req, res);
+						return;
+					}
+					
+			//*****2.查詢資料****************		
+					ProductService prodSvc = new ProductService();
+					ProductVO prodVO = prodSvc.getOneProd(prod_ID);
+					if(prodVO == null) {
+						errorMsgs.add("查無資料");
+					}
+					
+					if(!errorMsgs.isEmpty()) {
+						RequestDispatcher failureView = req
+								.getRequestDispatcher("/FrontEnd/prod/selectPage.jsp");
+						failureView.forward(req, res);
+						return;
+					}
+			//*******3.查詢完成準備轉交**************************
+					req.setAttribute("prodVO", prodVO);
+					String url = "/FrontEnd/prod/listOneProd.jsp";
+					RequestDispatcher successView = req.getRequestDispatcher(url);
+					successView.forward(req, res);
+			//************其他錯誤處理************************
+		} catch (Exception e) {
+			errorMsgs.add("無法取得資料" + e.getMessage());
+			RequestDispatcher failureView = req
+					.getRequestDispatcher("/FrontEnd/prod/selectPage.jsp");
+			failureView.forward(req, res);
+		}
 			
 		}
 		
