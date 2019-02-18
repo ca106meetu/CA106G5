@@ -1,4 +1,4 @@
-package com.checkIn.model;
+package com.meetU.checkIn.model;
 
 import java.util.List;
 
@@ -9,6 +9,6 @@ public interface CheckInDAO_interface {
     public void delete(String CheckIn_id);
     public CheckInVO findByPrimaryKey(String CheckIn_id);
     public List<CheckInVO> getAll();
-    //¸U¥Î½Æ¦X¬d¸ß(¶Ç¤J°Ñ¼Æ«¬ºAMap)(¦^¶Ç List)
+    //ï¿½Uï¿½Î½Æ¦Xï¿½dï¿½ï¿½(ï¿½Ç¤Jï¿½Ñ¼Æ«ï¿½ï¿½AMap)(ï¿½^ï¿½ï¿½ List)
 //  public List<CheckInVO> getAll(Map<String, String[]> map); 
 }

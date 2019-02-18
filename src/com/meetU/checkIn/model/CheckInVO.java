@@ -1,4 +1,4 @@
-package com.checkIn.model;
+package com.meetU.checkIn.model;
 
 public class CheckInVO implements java.io.Serializable{
 	private String check_in_id;

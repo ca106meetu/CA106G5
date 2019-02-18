@@ -1,4 +1,4 @@
-package com.checkIn.model;
+package com.meetU.checkIn.model;
 
 import java.sql.*;
 import java.util.*;
@@ -170,7 +170,7 @@ public class CheckInJDBCDAO implements CheckInDAO_interface{
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// empVo ¤]ºÙ¬° Domain objects
+				// empVo ï¿½]ï¿½Ù¬ï¿½ Domain objects
 				checkInVO = new CheckInVO();
 				checkInVO.setCheck_in_id(rs.getString("CHECK_IN_ID"));
 				checkInVO.setCheck_in_name(rs.getString("CHECK_IN_NAME"));
@@ -230,7 +230,7 @@ public class CheckInJDBCDAO implements CheckInDAO_interface{
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// empVO ¤]ºÙ¬° Domain objects
+				// empVO ï¿½]ï¿½Ù¬ï¿½ Domain objects
 				checkInVO = new CheckInVO();
 				checkInVO.setCheck_in_id(rs.getString("CHECK_IN_ID"));
 				checkInVO.setCheck_in_name(rs.getString("CHECK_IN_NAME"));
@@ -278,33 +278,33 @@ public class CheckInJDBCDAO implements CheckInDAO_interface{
 	public static void main(String[] args) {
 		CheckInJDBCDAO dao = new CheckInJDBCDAO();
 		
-		//·s¼W
+		//ï¿½sï¿½W
 //		CheckInVO checkInVO1 = new CheckInVO();
-//		checkInVO1.setCheck_in_name("´ú¸Õ1");
+//		checkInVO1.setCheck_in_name("ï¿½ï¿½ï¿½ï¿½1");
 //		checkInVO1.setCheck_in_lnt(123.0);
 //		checkInVO1.setCheck_in_lat(123.0);
 //		dao.insert(checkInVO1);
 
 		
-		//­×§ï
+		//ï¿½×§ï¿½
 //		CheckInVO checkInVO2 = new CheckInVO();
 //		checkInVO2.setCheck_in_id("CK000004");
-//		checkInVO2.setCheck_in_name("´ú¸Õ2");
+//		checkInVO2.setCheck_in_name("ï¿½ï¿½ï¿½ï¿½2");
 //		checkInVO2.setCheck_in_lnt(456.0);
 //		checkInVO2.setCheck_in_lat(456.0);
 //		dao.update(checkInVO2);
 		
-		//§R°£
+		//ï¿½Rï¿½ï¿½
 //		dao.delete("CK000005");
 		
-		//¬d¸ß¤@µ§
+		//ï¿½dï¿½ß¤@ï¿½ï¿½
 		CheckInVO checkInVO3 = dao.findByPrimaryKey("CK000001");
 		System.out.print(checkInVO3.getCheck_in_id()+",");
 		System.out.print(checkInVO3.getCheck_in_name()+",");
 		System.out.print(checkInVO3.getCheck_in_lnt()+",");
 		System.out.println(checkInVO3.getCheck_in_lat());
 		System.out.println("----------------------------");
-		//¬d¸ß¥þ³¡
+		//ï¿½dï¿½ß¥ï¿½ï¿½ï¿½
 		List<CheckInVO> list = dao.getAll();
 		for(CheckInVO aCheckIn : list) {
 			System.out.print(aCheckIn.getCheck_in_id()+",");
