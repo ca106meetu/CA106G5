@@ -9,7 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/bootstrap4/css/bootstrap.min.css">
 
-    <title>Hello, world!</title>
+    <title>Hello, world!</title> 
   </head>
   <body>
     
