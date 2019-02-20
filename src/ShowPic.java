@@ -1,4 +1,4 @@
-package com.meetU.product.model;
+
 
 
 import java.io.BufferedInputStream;
@@ -22,9 +22,10 @@ import javax.sql.DataSource;
 /**
  * Servlet implementation class ShowPic
  */
-@WebServlet("/ShowPic")
 public class ShowPic extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	public static final String sql_prod = "SELECT PROD_PIC FROM PRODUCT WHERE PROD_ID = '";
+	public static final String sql_live = "SELECT LIVE_PIC FROM LIVE WHERE HOST_ID = '";
 	
 	Connection con;
 	private static DataSource ds = null;
@@ -48,24 +49,38 @@ public class ShowPic extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		
 		Integer eqPos = req.getQueryString().indexOf("=");
 		String column = req.getQueryString().substring(0, eqPos);
-		
 		res.setContentType("image/gif");
 		ServletOutputStream out = res.getOutputStream();
+		String sql = null;
 		Statement stmt = null;
 		ResultSet rs = null;
 		BufferedInputStream in = null;
+		String col_pic= null;
+		
 		
 		if ("PROD_ID".equals(column)) {
+			sql = sql_prod+ req.getParameter(column)+"'";
+			col_pic = "PROD_PIC";
+		}else if ("HOST_ID".equals(column)) {
+			sql = sql_live+ req.getParameter(column)+"'";
+			col_pic = "LIVE_PIC";
+			System.out.println(req.getParameter(column));
+		}
+		
+		
+		
+		
+		
 			try {
 				con = ds.getConnection();
 				stmt = con.createStatement();
-				rs = stmt.executeQuery(
-					"SELECT PROD_PIC FROM PRODUCT WHERE PROD_ID = '"+ req.getParameter(column)+"'");
+				rs = stmt.executeQuery(sql);
 	
 				if (rs.next()) {
-					in = new BufferedInputStream(rs.getBinaryStream("PROD_PIC"));
+					in = new BufferedInputStream(rs.getBinaryStream(col_pic));
 					byte[] buf = new byte[4 * 1024]; // 4K buffer
 					int len;
 					while ((len = in.read(buf)) != -1) {
@@ -77,6 +92,9 @@ public class ShowPic extends HttpServlet {
 			} catch (Exception e) {
 				System.out.println(e);
 			} finally {
+				if(out != null) {
+					out.close();
+				}
 				if(in != null) 
 					in.close();
 				if(rs != null) {
@@ -105,7 +123,6 @@ public class ShowPic extends HttpServlet {
 				}
 				
 			}
-		}
 		
 	}
 

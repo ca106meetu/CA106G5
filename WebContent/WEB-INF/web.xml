@@ -20,4 +20,13 @@
 		<url-pattern>/FrontEnd/prod/prod.do</url-pattern>
 	</servlet-mapping>
 	
+	 <servlet>
+		<servlet-name>ShowPic</servlet-name>
+		<servlet-class>ShowPic</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ShowPic</servlet-name>
+		<url-pattern>/ShowPic</url-pattern>
+	</servlet-mapping>
+	
 </web-app>

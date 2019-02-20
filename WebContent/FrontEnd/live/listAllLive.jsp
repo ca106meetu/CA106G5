@@ -75,7 +75,7 @@
 			<td>${liveVO.host_ID}</td>
 			<td>${liveVO.live_name}</td>
 			<td>${liveVO.live_acc}</td>
-			<td><img class='pic' src='/SmokeChen/ShowPic?HOST_ID=${liveVO.host_ID}'></td>
+			<td><img class='pic' src='/CA106G5/ShowPic?HOST_ID=${liveVO.host_ID}'></td>
 			<td>${liveVO.live_date}</td>
 			<td>${liveVO.live_status}</td>			
 			
