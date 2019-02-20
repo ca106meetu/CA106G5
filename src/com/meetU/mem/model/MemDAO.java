@@ -47,11 +47,11 @@ public class MemDAO implements MemDAO_interface {
 			pstmt.setString(2, memVO.getMem_name());
 			pstmt.setString(3, memVO.getMem_acc());
 			pstmt.setString(4, memVO.getMem_nickname());
-			pstmt.setDate(5, memVO.getMem_Bday());
+			pstmt.setDate(5, memVO.getMem_bday());
 			pstmt.setString(6, memVO.getMem_email());
 			pstmt.setString(7, memVO.getMem_pho());
 			pstmt.setString(8, memVO.getMem_gend());
-			pstmt.setBytes(9, memVO.getMem_PIC());
+			pstmt.setBytes(9, memVO.getMem_pic());
 			pstmt.setString(10, memVO.getMem_intro());
 			
 			pstmt.setInt(11, memVO.getMem_code());
@@ -104,11 +104,11 @@ public class MemDAO implements MemDAO_interface {
 			pstmt.setString(2, memVO.getMem_name());
 			pstmt.setString(3, memVO.getMem_acc());
 			pstmt.setString(4, memVO.getMem_nickname());
-			pstmt.setDate(5, memVO.getMem_Bday());
+			pstmt.setDate(5, memVO.getMem_bday());
 			pstmt.setString(6, memVO.getMem_email());
 			pstmt.setString(7, memVO.getMem_pho());
 			pstmt.setString(8, memVO.getMem_gend());
-			pstmt.setBytes(9, memVO.getMem_PIC());
+			pstmt.setBytes(9, memVO.getMem_pic());
 			pstmt.setString(10, memVO.getMem_intro());
 			
 			pstmt.setInt(11, memVO.getMem_code());
@@ -151,7 +151,7 @@ public class MemDAO implements MemDAO_interface {
 	}
 
 	@Override
-	public void delete(String mem_id) {
+	public void delete(String mem_ID) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -160,7 +160,7 @@ public class MemDAO implements MemDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setString(1, mem_id);
+			pstmt.setString(1, mem_ID);
 
 			pstmt.executeUpdate();
 
@@ -190,7 +190,7 @@ public class MemDAO implements MemDAO_interface {
 	}
 
 	@Override
-	public MemVO findByPrimaryKey(String mem_id) {
+	public MemVO findByPrimaryKey(String mem_ID) {
 		MemVO memVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -201,23 +201,23 @@ public class MemDAO implements MemDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setString(1, mem_id);
+			pstmt.setString(1, mem_ID);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				// memVo 也稱為 Domain objects
 				memVO = new MemVO();
-				memVO.setMem_ID(rs.getString("mem_id"));
+				memVO.setMem_ID(rs.getString("mem_ID"));
 				memVO.setMem_pw(rs.getString("mem_pw"));
 				memVO.setMem_name(rs.getString("mem_name"));
 				memVO.setMem_acc(rs.getString("mem_acc"));
 				memVO.setMem_nickname(rs.getString("mem_nickname"));
-				memVO.setMem_Bday(rs.getDate("mem_Bday"));
+				memVO.setMem_bday(rs.getDate("mem_bday"));
 				memVO.setMem_email(rs.getString("mem_email"));
 				memVO.setMem_pho(rs.getString("mem_pho"));
 				memVO.setMem_gend(rs.getString("mem_gend"));
-				memVO.setMem_PIC(rs.getBytes("mem_PIC"));
+				memVO.setMem_pic(rs.getBytes("mem_pic"));
 				memVO.setMem_intro(rs.getString("mem_intro"));
 				memVO.setMem_code(rs.getInt("mem_code"));
 				memVO.setMem_state(rs.getInt("mem_state"));
@@ -280,16 +280,16 @@ public class MemDAO implements MemDAO_interface {
 			while (rs.next()) {
 				// empVO 也稱為 Domain objects
 				memVO = new MemVO();
-				memVO.setMem_ID(rs.getString("mem_id"));
+				memVO.setMem_ID(rs.getString("mem_ID"));
 				memVO.setMem_pw(rs.getString("mem_pw"));
 				memVO.setMem_name(rs.getString("mem_name"));
 				memVO.setMem_acc(rs.getString("mem_acc"));
 				memVO.setMem_nickname(rs.getString("mem_nickname"));
-				memVO.setMem_Bday(rs.getDate("mem_Bday"));
+				memVO.setMem_bday(rs.getDate("mem_bday"));
 				memVO.setMem_email(rs.getString("mem_email"));
 				memVO.setMem_pho(rs.getString("mem_pho"));
 				memVO.setMem_gend(rs.getString("mem_gend"));
-				memVO.setMem_PIC(rs.getBytes("mem_PIC"));
+				memVO.setMem_pic(rs.getBytes("mem_pic"));
 				memVO.setMem_intro(rs.getString("mem_intro"));
 				memVO.setMem_code(rs.getInt("mem_code"));
 				memVO.setMem_state(rs.getInt("mem_state"));

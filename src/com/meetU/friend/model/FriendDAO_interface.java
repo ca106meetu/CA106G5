@@ -5,9 +5,9 @@ import java.util.List;
 public interface FriendDAO_interface {
     public void insert(FriendVO friendVO);
     public void update(FriendVO friendVO);
-    public void delete(String mem_id);
-    public FriendVO findByPrimaryKey(String mem_id);
+    public void delete(String mem_ID, String friend_mem_ID);
+    public FriendVO findByPrimaryKey(String mem_ID, String friend_mem_ID);
     public List<FriendVO> getAll();
-    //¸U¥Î½Æ¦X¬d¸ß(¶Ç¤J°Ñ¼Æ«¬ºAMap)(¦^¶Ç List)
+    //è¬ç”¨è¤‡åˆæŸ¥è©¢(å‚³å…¥åƒæ•¸å‹æ…‹Map)(å›å‚³ List)
     //  public List<FriendVO> getAll(Map<String, String[]> map);
 }

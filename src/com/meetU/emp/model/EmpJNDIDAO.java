@@ -15,7 +15,7 @@ public class EmpJNDIDAO implements EmpDAO_interface{
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/meetUDB");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/CA106G5DB");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
@@ -23,14 +23,14 @@ public class EmpJNDIDAO implements EmpDAO_interface{
 	private static final String INSERT_STMT = 
 			"INSERT INTO EMP (EMP_ID, EMP_PW, EMP_NAME, EMP_BDAY, EMP_EMAIL, EMP_PHO, EMP_GEND, EMP_PIC, EMP_STATE, EMP_HDAY, EMP_ADDRESS) VALUES "
 			+ " ('E'||LPAD(to_char(emp_seq.NEXTVAL), 6, '0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		private static final String GET_ALL_STMT = 
-			"SELECT * FROM EMP";
-		private static final String GET_ONE_STMT = 
-			"SELECT * FROM EMP where EMP_ID = ?";
-		private static final String DELETE = 
-			"DELETE FROM EMP where EMP_ID=? ";
-		private static final String UPDATE = 
-			"UPDATE EMP set EMP_PW=?, EMP_NAME=?, EMP_BDAY=?, EMP_EMAIL=?, EMP_PHO=?, EMP_GEND=?, EMP_PIC=?, EMP_STATE=?, EMP_HDAY=?, EMP_ADDRESS=? where EMP_ID=?";
+	private static final String GET_ALL_STMT = 
+		"SELECT * FROM EMP";
+	private static final String GET_ONE_STMT = 
+		"SELECT * FROM EMP where EMP_ID = ?";
+	private static final String DELETE = 
+		"DELETE FROM EMP where EMP_ID=? ";
+	private static final String UPDATE = 
+		"UPDATE EMP set EMP_PW=?, EMP_NAME=?, EMP_BDAY=?, EMP_EMAIL=?, EMP_PHO=?, EMP_GEND=?, EMP_PIC=?, EMP_STATE=?, EMP_HDAY=?, EMP_ADDRESS=? where EMP_ID=?";
 		
 	@Override
 	public void insert(EmpVO empVO) {
@@ -124,7 +124,7 @@ public class EmpJNDIDAO implements EmpDAO_interface{
 		}
 	}
 	@Override
-	public void delete(String emp_id) {
+	public void delete(String emp_ID) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -133,7 +133,7 @@ public class EmpJNDIDAO implements EmpDAO_interface{
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setString(1, emp_id);
+			pstmt.setString(1, emp_ID);
 
 			pstmt.executeUpdate();
 
@@ -160,7 +160,7 @@ public class EmpJNDIDAO implements EmpDAO_interface{
 		}
 	}
 	@Override
-	public EmpVO findByPrimaryKey(String emp_id) {
+	public EmpVO findByPrimaryKey(String emp_ID) {
 		EmpVO empVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -171,13 +171,13 @@ public class EmpJNDIDAO implements EmpDAO_interface{
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setString(1, emp_id);
+			pstmt.setString(1, emp_ID);
 			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				empVO = new EmpVO();
-				empVO.setEmp_ID(rs.getString("emp_id"));
+				empVO.setEmp_ID(rs.getString("emp_ID"));
 				empVO.setEmp_pw(rs.getString("emp_pw"));
 				empVO.setEmp_name(rs.getString("emp_name"));
 				empVO.setEmp_bday(rs.getDate("emp_bday"));
@@ -237,7 +237,7 @@ public class EmpJNDIDAO implements EmpDAO_interface{
 
 			while(rs.next()) {
 				empVO = new EmpVO();
-				empVO.setEmp_ID(rs.getString("emp_id"));
+				empVO.setEmp_ID(rs.getString("emp_ID"));
 				empVO.setEmp_pw(rs.getString("emp_pw"));
 				empVO.setEmp_name(rs.getString("emp_name"));
 				empVO.setEmp_bday(rs.getDate("emp_bday"));

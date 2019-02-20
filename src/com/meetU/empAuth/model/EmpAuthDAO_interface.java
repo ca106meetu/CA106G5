@@ -5,9 +5,9 @@ import java.util.List;
 public interface EmpAuthDAO_interface {
     public void insert(EmpAuthVO empAuthVO);
     public void update(EmpAuthVO empAuthVO);
-    public void delete(String emp_id,String auth_id);
-    public EmpAuthVO findByPrimaryKey(String emp_id, String auth_id);
+    public void delete(String emp_ID,String auth_ID);
+    public EmpAuthVO findByPrimaryKey(String emp_ID, String auth_ID);
     public List<EmpAuthVO> getAll();
-    //¸U¥Î½Æ¦X¬d¸ß(¶Ç¤J°Ñ¼Æ«¬ºAMap)(¦^¶Ç List)
+    //è¬ç”¨è¤‡åˆæŸ¥è©¢(å‚³å…¥åƒæ•¸å‹æ…‹Map)(å›å‚³ List)
     //  public List<AuthVO> getAll(Map<String, String[]> map);	
 }

@@ -8,9 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.meetU.auth.model.AuthVO;
-import com.meetU.giftbox.model.GiftboxVO;
-
 public class InformJDBCDAO implements InformDAO_interface{
 
 	String driver = "oracle.jdbc.driver.OracleDriver";
@@ -117,7 +114,7 @@ public class InformJDBCDAO implements InformDAO_interface{
 	}
 
 	@Override
-	public void delete(String inform_id) {
+	public void delete(String inform_ID) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -125,7 +122,7 @@ public class InformJDBCDAO implements InformDAO_interface{
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(DELETE);
-			pstmt.setString(1, inform_id);
+			pstmt.setString(1, inform_ID);
 			
 			pstmt.executeUpdate();
 			
@@ -156,7 +153,7 @@ public class InformJDBCDAO implements InformDAO_interface{
 	}
 
 	@Override
-	public InformVO findByPrimaryKey(String inform_id) {
+	public InformVO findByPrimaryKey(String inform_ID) {
 		InformVO informVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -165,7 +162,7 @@ public class InformJDBCDAO implements InformDAO_interface{
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
-			pstmt.setString(1, inform_id);
+			pstmt.setString(1, inform_ID);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -269,5 +266,46 @@ public class InformJDBCDAO implements InformDAO_interface{
 		}
 		return list;
 	}
-
+	public static void main(String[] args) {
+		
+		InformJDBCDAO dao = new InformJDBCDAO();
+		
+		// 新增
+		InformVO informVO1 = new InformVO();
+		informVO1.setMem_ID("M000003");
+		informVO1.setInform_status(3);
+		informVO1.setInform_content("疼疼疼疼疼疼疼疼疼疼");
+		dao.insert(informVO1);
+		
+		//修改
+		InformVO informVO2 = new InformVO();
+		informVO2.setInform_ID("INF000002");
+		informVO2.setMem_ID("M000003");
+		informVO2.setInform_status(4);
+		informVO2.setInform_content("疼疼寫輪眼");
+		dao.update(informVO2);
+		
+		//刪除
+		dao.delete("INF000006");
+		
+		//查詢1
+		InformVO informVO3 = dao.findByPrimaryKey("INF000001");
+		System.out.println(informVO3.getInform_ID() + ",");
+		System.out.println(informVO3.getInform_status() + ",");
+		System.out.println(informVO3.getMem_ID() + ",");
+		System.out.println(informVO3.getInform_content() + ",");
+		System.out.println(informVO3.getInform_time() + ",");
+		System.out.println("----------------------------");
+		
+		//查詢全
+		List<InformVO> list = dao.getAll();
+		for( InformVO informVO4 : list) {
+			System.out.println(informVO4.getInform_ID() + ",");
+			System.out.println(informVO4.getInform_status() + ",");
+			System.out.println(informVO4.getMem_ID() + ",");
+			System.out.println(informVO4.getInform_content() + ",");
+			System.out.println(informVO4.getInform_time() + ",");
+			System.out.println("----------------------------");
+		}
+	}
 }

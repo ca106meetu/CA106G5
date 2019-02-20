@@ -5,9 +5,9 @@ import java.util.List;
 public interface InformDAO_interface {
     public void insert(InformVO informVO);
     public void update(InformVO informVO);
-    public void delete(String inform_id);
-    public InformVO findByPrimaryKey(String inform_id);
+    public void delete(String inform_ID);
+    public InformVO findByPrimaryKey(String inform_ID);
     public List<InformVO> getAll();
-    //¸U¥Î½Æ¦X¬d¸ß(¶Ç¤J°Ñ¼Æ«¬ºAMap)(¦^¶Ç List)
+    //è¬ç”¨è¤‡åˆæŸ¥è©¢(å‚³å…¥åƒæ•¸å‹æ…‹Map)(å›å‚³ List)
     //  public List<InformVO> getAll(Map<String, String[]> map); 
 }

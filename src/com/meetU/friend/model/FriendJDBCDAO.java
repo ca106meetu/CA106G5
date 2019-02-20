@@ -3,6 +3,7 @@ package com.meetU.friend.model;
 import java.sql.*;
 import java.util.*;
 
+
 public class FriendJDBCDAO implements FriendDAO_interface {
 
 	String driver = "oracle.jdbc.driver.OracleDriver";
@@ -15,11 +16,11 @@ public class FriendJDBCDAO implements FriendDAO_interface {
 	private static final String GET_ALL_STMT = 
 		"SELECT * FROM FRIEND";
 	private static final String GET_ONE_STMT = 
-		"SELECT * FROM FRIEND where MEM_ID = ?";
+		"SELECT * FROM FRIEND where MEM_ID=? AND FRIEND_MEM_ID=?";
 	private static final String DELETE = 
-		"DELETE FROM FRIEND where MEM_ID = ?";
+		"DELETE FROM FRIEND where MEM_ID=? AND FRIEND_MEM_ID=?";
 	private static final String UPDATE = 
-		"UPDATE FRIEND set MEM_ID=?, FRIEND_MEM_ID=?, RELATION_STATUS=?, FRIEND_INTIMATE=? where MEM_ID = ?";
+		"UPDATE FRIEND set RELATION_STATUS=?, FRIEND_INTIMATE=? where MEM_ID = ?AND FRIEND_MEM_ID=?";
 	
 	@Override
 	public void insert(FriendVO friendVO) {
@@ -75,10 +76,11 @@ public class FriendJDBCDAO implements FriendDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
 			
-			pstmt.setString(1, friendVO.getMem_ID());
-			pstmt.setString(2, friendVO.getFriend_mem_ID());
-			pstmt.setInt(3, friendVO.getRelation_status());
-			pstmt.setInt(4, friendVO.getFriend_intimate());
+			
+			pstmt.setInt(1, friendVO.getRelation_status());
+			pstmt.setInt(2, friendVO.getFriend_intimate());
+			pstmt.setString(3, friendVO.getMem_ID());
+			pstmt.setString(4, friendVO.getFriend_mem_ID());
 
 			pstmt.executeUpdate();
 			
@@ -109,7 +111,7 @@ public class FriendJDBCDAO implements FriendDAO_interface {
 	}
 
 	@Override
-	public void delete(String mem_id) {
+	public void delete(String mem_ID, String friend_mem_ID) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -117,10 +119,10 @@ public class FriendJDBCDAO implements FriendDAO_interface {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(DELETE);
-			pstmt.setString(1, mem_id);
 			
+			pstmt.setString(1, mem_ID);
+			pstmt.setString(2, friend_mem_ID);
 			pstmt.executeUpdate();
-			
 			
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. "
@@ -148,7 +150,7 @@ public class FriendJDBCDAO implements FriendDAO_interface {
 	}
 
 	@Override
-	public FriendVO findByPrimaryKey(String mem_id) {
+	public FriendVO findByPrimaryKey(String mem_ID, String friend_mem_ID) {
 		FriendVO friendVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -157,13 +159,14 @@ public class FriendJDBCDAO implements FriendDAO_interface {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
-			pstmt.setString(1, mem_id);
+			pstmt.setString(1, mem_ID);
+			pstmt.setString(2, friend_mem_ID);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				friendVO = new FriendVO();
-				friendVO.setMem_ID(rs.getString("mem_id"));
-				friendVO.setFriend_mem_ID(rs.getString("friend_mem_id"));
+				friendVO.setMem_ID(rs.getString("mem_ID"));
+				friendVO.setFriend_mem_ID(rs.getString("friend_mem_ID"));
 				friendVO.setRelation_status(rs.getInt("relation_status"));
 				friendVO.setFriend_intimate(rs.getInt("friend_intimate"));			
 			}
@@ -218,8 +221,8 @@ public class FriendJDBCDAO implements FriendDAO_interface {
 			
 			while(rs.next()) {
 				friendVO = new FriendVO();
-				friendVO.setMem_ID(rs.getString("mem_id"));
-				friendVO.setFriend_mem_ID(rs.getString("friend_mem_id"));
+				friendVO.setMem_ID(rs.getString("mem_ID"));
+				friendVO.setFriend_mem_ID(rs.getString("friend_mem_ID"));
 				friendVO.setRelation_status(rs.getInt("relation_status"));
 				friendVO.setFriend_intimate(rs.getInt("friend_intimate"));
 
@@ -260,5 +263,47 @@ public class FriendJDBCDAO implements FriendDAO_interface {
 		}
 		return list;
 	}
-
+	/*
+	public static void main(String[] args) {
+		
+		FriendJDBCDAO dao = new FriendJDBCDAO();
+		
+		// 新增
+		FriendVO friendVO1 = new FriendVO();
+		friendVO1.setMem_ID("M000005");
+		friendVO1.setFriend_mem_ID("M000001");
+		friendVO1.setRelation_status(1);
+		friendVO1.setFriend_intimate(10);
+		dao.insert(friendVO1);
+		
+		//修改
+		FriendVO friendVO2 = new FriendVO();
+		friendVO2.setMem_ID("M000005");
+		friendVO2.setFriend_mem_ID("M000002");
+		friendVO2.setRelation_status(1);
+		friendVO2.setFriend_intimate(100);
+		dao.update(friendVO2);
+		
+		//刪除
+		dao.delete("M000005","M000002");
+		
+		//查詢1
+		FriendVO friendVO3 = dao.findByPrimaryKey("M000001", "M000004");
+		System.out.println(friendVO3.getMem_ID() + ",");
+		System.out.println(friendVO3.getFriend_mem_ID() + ",");
+		System.out.println(friendVO3.getRelation_status() + ",");
+		System.out.println(friendVO3.getFriend_intimate() + ",");
+		System.out.println("----------------------------");
+		
+		//查詢全
+		List<FriendVO> list = dao.getAll();
+		for(FriendVO friendVO4 : list) {
+			System.out.println(friendVO4.getMem_ID() + ",");
+			System.out.println(friendVO4.getFriend_mem_ID() + ",");
+			System.out.println(friendVO4.getRelation_status() + ",");
+			System.out.println(friendVO4.getFriend_intimate() + ",");
+			System.out.println("----------------------------");
+		}
+	}
+    */
 }

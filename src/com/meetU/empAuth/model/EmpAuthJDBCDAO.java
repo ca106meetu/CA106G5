@@ -3,6 +3,7 @@ package com.meetU.empAuth.model;
 import java.sql.*;
 import java.util.*;
 
+
 public class EmpAuthJDBCDAO implements EmpAuthDAO_interface{
 	
 	String driver = "oracle.jdbc.driver.OracleDriver";
@@ -11,15 +12,15 @@ public class EmpAuthJDBCDAO implements EmpAuthDAO_interface{
 	String passwd = "123456";
 
 	private static final String INSERT_STMT = 
-		"INSERT INTO EMPAUTH (EMP_ID, AUTH_ID) VALUES (?, ?)";
+		"INSERT INTO EMP_AUTH (EMP_ID, AUTH_ID) VALUES (?, ?)";
 	private static final String GET_ALL_STMT = 
-		"SELECT * FROM EMPAUTH";
+		"SELECT * FROM EMP_AUTH";
 	private static final String GET_ONE_STMT = 
-		"SELECT * FROM EMPAUTH where EMP_ID = ? AND AUTH_ID = ?";
+		"SELECT * FROM EMP_AUTH where EMP_ID = ? AND AUTH_ID = ?";
 	private static final String DELETE = 
-		"DELETE FROM EMPAUTH where EMP_ID = ? AND AUTH_ID = ?";
+		"DELETE FROM EMP_AUTH where EMP_ID = ? AND AUTH_ID = ?";
 	private static final String UPDATE = 
-		"UPDATE EMPAUTH set AUTH_ID=? where EMP_ID=?";
+		"UPDATE EMP_AUTH set AUTH_ID=? where EMP_ID=?";
 	@Override
 	public void insert(EmpAuthVO empAuthVO) {
 		Connection con = null;
@@ -103,7 +104,7 @@ public class EmpAuthJDBCDAO implements EmpAuthDAO_interface{
 		
 	}
 	@Override
-	public void delete(String emp_id, String auth_id) {
+	public void delete(String emp_ID, String auth_ID) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -112,8 +113,8 @@ public class EmpAuthJDBCDAO implements EmpAuthDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(DELETE);
 			
-			pstmt.setString(1, emp_id);
-			pstmt.setString(2, auth_id);
+			pstmt.setString(1, emp_ID);
+			pstmt.setString(2, auth_ID);
 			pstmt.executeUpdate();
 			
 			
@@ -142,7 +143,7 @@ public class EmpAuthJDBCDAO implements EmpAuthDAO_interface{
 		
 	}
 	@Override
-	public EmpAuthVO findByPrimaryKey(String emp_id, String auth_id) {
+	public EmpAuthVO findByPrimaryKey(String emp_ID, String auth_ID) {
 		EmpAuthVO empAuthVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -151,14 +152,14 @@ public class EmpAuthJDBCDAO implements EmpAuthDAO_interface{
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
-			pstmt.setString(1, emp_id);
-			pstmt.setString(2, auth_id);
+			pstmt.setString(1, emp_ID);
+			pstmt.setString(2, auth_ID);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				empAuthVO = new EmpAuthVO();
-				empAuthVO.setEmp_ID(rs.getString("emp_id"));
-				empAuthVO.setAuth_ID(rs.getString("auth_id"));			
+				empAuthVO.setEmp_ID(rs.getString("emp_ID"));
+				empAuthVO.setAuth_ID(rs.getString("auth_ID"));			
 			}
 						
 		} catch (ClassNotFoundException e) {
@@ -209,8 +210,8 @@ public class EmpAuthJDBCDAO implements EmpAuthDAO_interface{
 			
 			while(rs.next()) {
 				empAuthVO = new EmpAuthVO();
-				empAuthVO.setEmp_ID(rs.getString("emp_id"));
-				empAuthVO.setAuth_ID(rs.getString("auth_id"));
+				empAuthVO.setEmp_ID(rs.getString("emp_ID"));
+				empAuthVO.setAuth_ID(rs.getString("auth_ID"));
 				
 				list.add(empAuthVO);
 			}
@@ -249,5 +250,41 @@ public class EmpAuthJDBCDAO implements EmpAuthDAO_interface{
 		}
 		return list;
 	}
-	
+    /*
+	public static void main(String[] args) {
+		
+		EmpAuthJDBCDAO dao = new EmpAuthJDBCDAO();
+		// 新增
+		EmpAuthVO empAuthVO1 = new EmpAuthVO();
+		empAuthVO1.setEmp_ID("E000013");
+		empAuthVO1.setAuth_ID("AUTH00060");	
+		dao.insert(empAuthVO1);
+		
+		//修改
+//		EmpAuthVO empAuthVO2 = new EmpAuthVO();
+//		empAuthVO2.setEmp_ID("E000013");	
+//	    empAuthVO2.setAuth_ID("AUTH00060");
+//		dao.update(empAuthVO2);
+		
+		//刪除
+		dao.delete("E000013", "AUTH00070");
+		
+		//查詢1
+		EmpAuthVO empAuthVO3 = dao.findByPrimaryKey("E000001","AUTH00010");
+		
+		System.out.println(empAuthVO3.getEmp_ID() + ","); 
+		System.out.println(empAuthVO3.getAuth_ID() + ","); 
+		System.out.println("----------------------------");
+		
+		//查詢全
+		List<EmpAuthVO> list = dao.getAll();
+		
+		for(EmpAuthVO empAuthVO4 : list) {
+			System.out.println(empAuthVO4.getEmp_ID() + ","); 
+			System.out.println(empAuthVO4.getAuth_ID() + ","); 
+			System.out.println("----------------------------");
+		}
+		
+	}
+	*/
 }

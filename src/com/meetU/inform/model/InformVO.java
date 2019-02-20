@@ -43,8 +43,5 @@ public class InformVO implements java.io.Serializable {
 	public void setInform_time(Timestamp inform_time) {
 		this.inform_time = inform_time;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 
 }

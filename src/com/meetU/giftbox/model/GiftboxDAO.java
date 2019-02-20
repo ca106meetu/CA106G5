@@ -1,15 +1,21 @@
-package com.meetU.emp.model;
+package com.meetU.giftbox.model;
 
-import java.util.*;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class EmpDAO implements EmpDAO_interface {
+import com.meetU.auth.model.AuthVO;
 
+public class GiftboxDAO implements GiftboxDAO_interface{
+	
 	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
 	private static DataSource ds = null;
 	static {
@@ -21,20 +27,17 @@ public class EmpDAO implements EmpDAO_interface {
 		}
 	}
 	private static final String INSERT_STMT = 
-		"INSERT INTO EMP (EMP_ID, EMP_PW, EMP_NAME, EMP_BDAY, EMP_EMAIL, EMP_PHO, EMP_GEND, EMP_PIC, EMP_STATE, EMP_HDAY, EMP_ADDRESS) VALUES "
-		+ " ('E'||LPAD(to_char(emp_seq.NEXTVAL), 6, '0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		"INSERT INTO GIFTBOX (MEM_ID, PROD_ID, GIFT_QUANTITY) VALUES ( ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
-		"SELECT * FROM EMP";
+		"SELECT * FROM GIFTBOX";
 	private static final String GET_ONE_STMT = 
-		"SELECT * FROM EMP where EMP_ID = ?";
+		"SELECT * FROM GIFTBOX where MEM_ID = ? AND PROD_ID=?";
 	private static final String DELETE = 
-		"DELETE FROM EMP where EMP_ID=? ";
+		"DELETE FROM GIFTBOX WHERE MEM_ID = ? AND PROD_ID=?";
 	private static final String UPDATE = 
-		"UPDATE EMP set EMP_PW=?, EMP_NAME=?, EMP_BDAY=?, EMP_EMAIL=?, EMP_PHO=?, EMP_GEND=?, EMP_PIC=?, EMP_STATE=?, EMP_HDAY=?, EMP_ADDRESS=? where EMP_ID=?";
-	
+		"UPDATE GIFTBOX set GIFT_QUANTITY=? WHERE MEM_ID=? AND PROD_ID=?";
 	@Override
-	public void insert(EmpVO empVO) {
-
+	public void insert(GiftboxVO giftboxVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -43,16 +46,10 @@ public class EmpDAO implements EmpDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setString(1, empVO.getEmp_pw());
-			pstmt.setString(2, empVO.getEmp_name());
-			pstmt.setDate(3, empVO.getEmp_bday());
-			pstmt.setString(4, empVO.getEmp_email());
-			pstmt.setString(5, empVO.getEmp_pho());
-			pstmt.setString(6, empVO.getEmp_gend());
-			pstmt.setBytes(7, empVO.getEmp_pic());
-			pstmt.setInt(8, empVO.getEmp_state());
-			pstmt.setDate(9, empVO.getEmp_hday());
-			pstmt.setString(10, empVO.getEmp_address());
+			pstmt.setString(1, giftboxVO.getMem_ID());
+			pstmt.setString(2, giftboxVO.getProd_ID());
+			pstmt.setInt(3, giftboxVO.getGift_quantity());
+			
 
 			pstmt.executeUpdate();
 
@@ -77,12 +74,9 @@ public class EmpDAO implements EmpDAO_interface {
 				}
 			}
 		}
-
 	}
-
 	@Override
-	public void update(EmpVO empVO) {
-
+	public void update(GiftboxVO giftboxVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -91,17 +85,9 @@ public class EmpDAO implements EmpDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setString(1, empVO.getEmp_pw());
-			pstmt.setString(2, empVO.getEmp_name());
-			pstmt.setDate(3, empVO.getEmp_bday());
-			pstmt.setString(4, empVO.getEmp_email());
-			pstmt.setString(5, empVO.getEmp_pho());
-			pstmt.setString(6, empVO.getEmp_gend());
-			pstmt.setBytes(7, empVO.getEmp_pic());
-			pstmt.setInt(8, empVO.getEmp_state());
-			pstmt.setDate(9, empVO.getEmp_hday());
-			pstmt.setString(10, empVO.getEmp_address());
-			pstmt.setString(11, empVO.getEmp_ID());
+			pstmt.setInt(1, giftboxVO.getGift_quantity());
+			pstmt.setString(2, giftboxVO.getMem_ID());
+			pstmt.setString(3, giftboxVO.getProd_ID());
 
 			pstmt.executeUpdate();
 
@@ -126,12 +112,9 @@ public class EmpDAO implements EmpDAO_interface {
 				}
 			}
 		}
-
 	}
-
 	@Override
-	public void delete(String emp_ID) {
-
+	public void delete(String mem_ID, String prod_ID) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -140,7 +123,8 @@ public class EmpDAO implements EmpDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setString(1, emp_ID);
+			pstmt.setString(1, mem_ID);
+			pstmt.setString(1, prod_ID);
 
 			pstmt.executeUpdate();
 
@@ -165,13 +149,10 @@ public class EmpDAO implements EmpDAO_interface {
 				}
 			}
 		}
-
 	}
-
 	@Override
-	public EmpVO findByPrimaryKey(String emp_ID) {
-
-		EmpVO empVO = null;
+	public GiftboxVO findByPrimaryKey(String mem_ID, String prod_ID) {
+		GiftboxVO giftboxVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -181,24 +162,17 @@ public class EmpDAO implements EmpDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setString(1, emp_ID);
+			pstmt.setString(1, mem_ID);
+			pstmt.setString(2, prod_ID);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// empVo 也稱為 Domain objects
-				empVO = new EmpVO();
-				empVO.setEmp_ID(rs.getString("emp_ID"));
-				empVO.setEmp_pw(rs.getString("emp_pw"));
-				empVO.setEmp_name(rs.getString("emp_name"));
-				empVO.setEmp_bday(rs.getDate("emp_bday"));
-				empVO.setEmp_email(rs.getString("emp_email"));
-				empVO.setEmp_pho(rs.getString("emp_pho"));
-				empVO.setEmp_gend(rs.getString("emp_gend"));
-				empVO.setEmp_pic(rs.getBytes("emp_pic"));
-				empVO.setEmp_state(rs.getInt("emp_state"));
-				empVO.setEmp_hday(rs.getDate("emp_hday"));
-				empVO.setEmp_address(rs.getString("emp_address"));
+				// giftboxVO 也稱為 Domain objects
+				giftboxVO = new GiftboxVO();
+				giftboxVO.setMem_ID(rs.getString("mem_ID"));
+				giftboxVO.setProd_ID(rs.getString("prod_ID"));
+				giftboxVO.setGift_quantity(rs.getInt("gift_quantity"));
 			}
 
 			// Handle any driver errors
@@ -229,13 +203,12 @@ public class EmpDAO implements EmpDAO_interface {
 				}
 			}
 		}
-		return empVO;
+		return giftboxVO;
 	}
-
 	@Override
-	public List<EmpVO> getAll() {
-		List<EmpVO> list = new ArrayList<EmpVO>();
-		EmpVO empVO = null;
+	public List<GiftboxVO> getAll() {
+		List<GiftboxVO> list = new ArrayList<>();
+		GiftboxVO giftboxVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -248,20 +221,13 @@ public class EmpDAO implements EmpDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// empVO 也稱為 Domain objects
-				empVO = new EmpVO();
-				empVO.setEmp_ID(rs.getString("emp_ID"));
-				empVO.setEmp_pw(rs.getString("emp_pw"));
-				empVO.setEmp_name(rs.getString("emp_name"));
-				empVO.setEmp_bday(rs.getDate("emp_bday"));
-				empVO.setEmp_email(rs.getString("emp_email"));
-				empVO.setEmp_pho(rs.getString("emp_pho"));
-				empVO.setEmp_gend(rs.getString("emp_gend"));
-				empVO.setEmp_pic(rs.getBytes("emp_pic"));
-				empVO.setEmp_state(rs.getInt("emp_state"));
-				empVO.setEmp_hday(rs.getDate("emp_hday"));
-				empVO.setEmp_address(rs.getString("emp_address"));
-				list.add(empVO); // Store the row in the list
+				// giftboxVO 也稱為 Domain objects
+				giftboxVO = new GiftboxVO();
+				giftboxVO.setMem_ID(rs.getString("mem_ID"));
+				giftboxVO.setProd_ID(rs.getString("prod_ID"));
+				giftboxVO.setGift_quantity(rs.getInt("gift_quantity"));
+			
+				list.add(giftboxVO);
 			}
 
 			// Handle any driver errors
@@ -294,4 +260,6 @@ public class EmpDAO implements EmpDAO_interface {
 		}
 		return list;
 	}
+	
+	
 }

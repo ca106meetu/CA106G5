@@ -10,11 +10,11 @@ public class MemVO implements java.io.Serializable{
 	private String mem_name;
 	private String mem_acc;
 	private String mem_nickname;
-	private Date mem_Bday;
+	private Date mem_bday;
 	private String mem_email;
 	private String mem_pho;
 	private String mem_gend;
-	private byte[] mem_PIC;
+	private byte[] mem_pic;
 	private String mem_intro;
 	private Integer mem_code;
 	private Integer mem_state;
@@ -56,11 +56,11 @@ public class MemVO implements java.io.Serializable{
 	public void setMem_nickname(String mem_nickname) {
 		this.mem_nickname = mem_nickname;
 	}
-	public Date getMem_Bday() {
-		return mem_Bday;
+	public Date getMem_bday() {
+		return mem_bday;
 	}
-	public void setMem_Bday(Date mem_Bday) {
-		this.mem_Bday = mem_Bday;
+	public void setMem_bday(Date mem_bday) {
+		this.mem_bday = mem_bday;
 	}
 	public String getMem_email() {
 		return mem_email;
@@ -80,11 +80,11 @@ public class MemVO implements java.io.Serializable{
 	public void setMem_gend(String mem_gend) {
 		this.mem_gend = mem_gend;
 	}
-	public byte[] getMem_PIC() {
-		return mem_PIC;
+	public byte[] getMem_pic() {
+		return mem_pic;
 	}
-	public void setMem_PIC(byte[] mem_PIC) {
-		this.mem_PIC = mem_PIC;
+	public void setMem_pic(byte[] mem_pic) {
+		this.mem_pic = mem_pic;
 	}
 	public String getMem_intro() {
 		return mem_intro;

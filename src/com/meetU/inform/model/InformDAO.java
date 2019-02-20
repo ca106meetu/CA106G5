@@ -1,4 +1,4 @@
-package com.meetU.emp.model;
+package com.meetU.inform.model;
 
 import java.util.*;
 import java.sql.*;
@@ -8,8 +8,9 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class EmpDAO implements EmpDAO_interface {
+import com.meetU.emp.model.EmpVO;
 
+public class InformDAO implements InformDAO_interface{
 	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
 	private static DataSource ds = null;
 	static {
@@ -21,20 +22,17 @@ public class EmpDAO implements EmpDAO_interface {
 		}
 	}
 	private static final String INSERT_STMT = 
-		"INSERT INTO EMP (EMP_ID, EMP_PW, EMP_NAME, EMP_BDAY, EMP_EMAIL, EMP_PHO, EMP_GEND, EMP_PIC, EMP_STATE, EMP_HDAY, EMP_ADDRESS) VALUES "
-		+ " ('E'||LPAD(to_char(emp_seq.NEXTVAL), 6, '0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		"INSERT INTO INFORM (INFORM_ID, INFORM_STATUS, MEM_ID, INFORM_CONTENT, INFORM_TIME) VALUES ('INF'||LPAD(to_char(inform_seq.NEXTVAL), 6, '0'), ?, ?, ?, current_timestamp)";
 	private static final String GET_ALL_STMT = 
-		"SELECT * FROM EMP";
+		"SELECT * FROM INFORM";
 	private static final String GET_ONE_STMT = 
-		"SELECT * FROM EMP where EMP_ID = ?";
+		"SELECT * FROM INFORM where INFORM_ID = ?";
 	private static final String DELETE = 
-		"DELETE FROM EMP where EMP_ID=? ";
+		"DELETE FROM INFORM where INFORM_ID = ?";
 	private static final String UPDATE = 
-		"UPDATE EMP set EMP_PW=?, EMP_NAME=?, EMP_BDAY=?, EMP_EMAIL=?, EMP_PHO=?, EMP_GEND=?, EMP_PIC=?, EMP_STATE=?, EMP_HDAY=?, EMP_ADDRESS=? where EMP_ID=?";
-	
+		"UPDATE INFORM set INFORM_STATUS=?, MEM_ID=?, INFORM_CONTENT=?, INFORM_TIME=current_timestamp where INFORM_ID = ?";
 	@Override
-	public void insert(EmpVO empVO) {
-
+	public void insert(InformVO informVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -43,16 +41,9 @@ public class EmpDAO implements EmpDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setString(1, empVO.getEmp_pw());
-			pstmt.setString(2, empVO.getEmp_name());
-			pstmt.setDate(3, empVO.getEmp_bday());
-			pstmt.setString(4, empVO.getEmp_email());
-			pstmt.setString(5, empVO.getEmp_pho());
-			pstmt.setString(6, empVO.getEmp_gend());
-			pstmt.setBytes(7, empVO.getEmp_pic());
-			pstmt.setInt(8, empVO.getEmp_state());
-			pstmt.setDate(9, empVO.getEmp_hday());
-			pstmt.setString(10, empVO.getEmp_address());
+			pstmt.setInt(1, informVO.getInform_status());
+			pstmt.setString(2, informVO.getMem_ID());
+			pstmt.setString(3, informVO.getInform_content());
 
 			pstmt.executeUpdate();
 
@@ -77,12 +68,10 @@ public class EmpDAO implements EmpDAO_interface {
 				}
 			}
 		}
-
+		
 	}
-
 	@Override
-	public void update(EmpVO empVO) {
-
+	public void update(InformVO informVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -91,17 +80,10 @@ public class EmpDAO implements EmpDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setString(1, empVO.getEmp_pw());
-			pstmt.setString(2, empVO.getEmp_name());
-			pstmt.setDate(3, empVO.getEmp_bday());
-			pstmt.setString(4, empVO.getEmp_email());
-			pstmt.setString(5, empVO.getEmp_pho());
-			pstmt.setString(6, empVO.getEmp_gend());
-			pstmt.setBytes(7, empVO.getEmp_pic());
-			pstmt.setInt(8, empVO.getEmp_state());
-			pstmt.setDate(9, empVO.getEmp_hday());
-			pstmt.setString(10, empVO.getEmp_address());
-			pstmt.setString(11, empVO.getEmp_ID());
+			pstmt.setInt(1, informVO.getInform_status());
+			pstmt.setString(2, informVO.getMem_ID());
+			pstmt.setString(3, informVO.getInform_content());
+			pstmt.setString(4, informVO.getInform_ID());
 
 			pstmt.executeUpdate();
 
@@ -126,12 +108,9 @@ public class EmpDAO implements EmpDAO_interface {
 				}
 			}
 		}
-
 	}
-
 	@Override
-	public void delete(String emp_ID) {
-
+	public void delete(String inform_ID) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -140,7 +119,7 @@ public class EmpDAO implements EmpDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setString(1, emp_ID);
+			pstmt.setString(1, inform_ID);
 
 			pstmt.executeUpdate();
 
@@ -167,11 +146,9 @@ public class EmpDAO implements EmpDAO_interface {
 		}
 
 	}
-
 	@Override
-	public EmpVO findByPrimaryKey(String emp_ID) {
-
-		EmpVO empVO = null;
+	public InformVO findByPrimaryKey(String inform_ID) {
+		InformVO informVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -181,24 +158,19 @@ public class EmpDAO implements EmpDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setString(1, emp_ID);
+			pstmt.setString(1, inform_ID);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// empVo 也稱為 Domain objects
-				empVO = new EmpVO();
-				empVO.setEmp_ID(rs.getString("emp_ID"));
-				empVO.setEmp_pw(rs.getString("emp_pw"));
-				empVO.setEmp_name(rs.getString("emp_name"));
-				empVO.setEmp_bday(rs.getDate("emp_bday"));
-				empVO.setEmp_email(rs.getString("emp_email"));
-				empVO.setEmp_pho(rs.getString("emp_pho"));
-				empVO.setEmp_gend(rs.getString("emp_gend"));
-				empVO.setEmp_pic(rs.getBytes("emp_pic"));
-				empVO.setEmp_state(rs.getInt("emp_state"));
-				empVO.setEmp_hday(rs.getDate("emp_hday"));
-				empVO.setEmp_address(rs.getString("emp_address"));
+				// informVO 也稱為 Domain objects
+				informVO = new InformVO();
+				informVO.setInform_ID(rs.getString("inform_ID"));
+				informVO.setInform_status(rs.getInt("inform_status"));
+				informVO.setMem_ID(rs.getString("mem_ID"));
+				informVO.setInform_content(rs.getString("inform_content"));
+				informVO.setInform_time(rs.getTimestamp("inform_time"));
+			
 			}
 
 			// Handle any driver errors
@@ -229,13 +201,12 @@ public class EmpDAO implements EmpDAO_interface {
 				}
 			}
 		}
-		return empVO;
+		return informVO;
 	}
-
 	@Override
-	public List<EmpVO> getAll() {
-		List<EmpVO> list = new ArrayList<EmpVO>();
-		EmpVO empVO = null;
+	public List<InformVO> getAll() {
+		List<InformVO> list = new ArrayList<InformVO>();
+		InformVO informVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -248,20 +219,16 @@ public class EmpDAO implements EmpDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// empVO 也稱為 Domain objects
-				empVO = new EmpVO();
-				empVO.setEmp_ID(rs.getString("emp_ID"));
-				empVO.setEmp_pw(rs.getString("emp_pw"));
-				empVO.setEmp_name(rs.getString("emp_name"));
-				empVO.setEmp_bday(rs.getDate("emp_bday"));
-				empVO.setEmp_email(rs.getString("emp_email"));
-				empVO.setEmp_pho(rs.getString("emp_pho"));
-				empVO.setEmp_gend(rs.getString("emp_gend"));
-				empVO.setEmp_pic(rs.getBytes("emp_pic"));
-				empVO.setEmp_state(rs.getInt("emp_state"));
-				empVO.setEmp_hday(rs.getDate("emp_hday"));
-				empVO.setEmp_address(rs.getString("emp_address"));
-				list.add(empVO); // Store the row in the list
+				// informVO 也稱為 Domain objects
+				informVO = new InformVO();
+				informVO.setInform_ID(rs.getString("inform_ID"));
+				informVO.setInform_status(rs.getInt("inform_status"));
+				informVO.setMem_ID(rs.getString("mem_ID"));
+				informVO.setInform_content(rs.getString("inform_content"));
+				informVO.setInform_time(rs.getTimestamp("inform_time"));
+				
+				list.add(informVO);
+				// Store the row in the list
 			}
 
 			// Handle any driver errors
@@ -294,4 +261,5 @@ public class EmpDAO implements EmpDAO_interface {
 		}
 		return list;
 	}
+		
 }

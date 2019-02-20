@@ -5,9 +5,9 @@ import java.util.*;
 public interface AuthDAO_interface {
     public void insert(AuthVO authVO);
     public void update(AuthVO authVO);
-    public void delete(String auth_id);
-    public AuthVO findByPrimaryKey(String auth_id);
+    public void delete(String auth_ID);
+    public AuthVO findByPrimaryKey(String auth_ID);
     public List<AuthVO> getAll();
-    //¸U¥Î½Æ¦X¬d¸ß(¶Ç¤J°Ñ¼Æ«¬ºAMap)(¦^¶Ç List)
+    //è¬ç”¨è¤‡åˆæŸ¥è©¢(å‚³å…¥åƒæ•¸å‹æ…‹Map)(å›å‚³ List)
     //  public List<AuthVO> getAll(Map<String, String[]> map);
 }

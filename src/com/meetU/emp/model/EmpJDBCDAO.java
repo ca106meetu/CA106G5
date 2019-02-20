@@ -124,7 +124,7 @@ public class EmpJDBCDAO implements EmpDAO_interface {
 		
 	}
 	@Override
-	public void delete(String emp_id) {
+	public void delete(String emp_ID) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -133,7 +133,7 @@ public class EmpJDBCDAO implements EmpDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(DELETE);
 			
-			pstmt.setString(1, emp_id);
+			pstmt.setString(1, emp_ID);
 			pstmt.executeUpdate();
 			
 			
@@ -162,7 +162,7 @@ public class EmpJDBCDAO implements EmpDAO_interface {
 		
 	}
 	@Override
-	public EmpVO findByPrimaryKey(String emp_id) {
+	public EmpVO findByPrimaryKey(String emp_ID) {
 		EmpVO empVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -171,13 +171,13 @@ public class EmpJDBCDAO implements EmpDAO_interface {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
-			pstmt.setString(1, emp_id);
+			pstmt.setString(1, emp_ID);
 			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				empVO = new EmpVO();
-				empVO.setEmp_ID(rs.getString("emp_id"));
+				empVO.setEmp_ID(rs.getString("emp_ID"));
 				empVO.setEmp_pw(rs.getString("emp_pw"));
 				empVO.setEmp_name(rs.getString("emp_name"));
 				empVO.setEmp_bday(rs.getDate("emp_bday"));
@@ -186,7 +186,7 @@ public class EmpJDBCDAO implements EmpDAO_interface {
 				empVO.setEmp_gend(rs.getString("emp_gend"));
 				empVO.setEmp_pic(rs.getBytes("emp_pic"));
 				empVO.setEmp_state(rs.getInt("emp_state"));
-				empVO.setEmp_bday(rs.getDate("emp_bday"));
+				empVO.setEmp_hday(rs.getDate("emp_hday"));
 				empVO.setEmp_address(rs.getString("emp_address"));
 			}
 						
@@ -238,7 +238,7 @@ public class EmpJDBCDAO implements EmpDAO_interface {
 			
 			while(rs.next()) {
 				empVO = new EmpVO();
-				empVO.setEmp_ID(rs.getString("emp_id"));
+				empVO.setEmp_ID(rs.getString("emp_ID"));
 				empVO.setEmp_pw(rs.getString("emp_pw"));
 				empVO.setEmp_name(rs.getString("emp_name"));
 				empVO.setEmp_bday(rs.getDate("emp_bday"));
@@ -247,7 +247,7 @@ public class EmpJDBCDAO implements EmpDAO_interface {
 				empVO.setEmp_gend(rs.getString("emp_gend"));
 				empVO.setEmp_pic(rs.getBytes("emp_pic"));
 				empVO.setEmp_state(rs.getInt("emp_state"));
-				empVO.setEmp_bday(rs.getDate("emp_bday"));
+				empVO.setEmp_hday(rs.getDate("emp_hday"));
 				empVO.setEmp_address(rs.getString("emp_address"));
 			
 				list.add(empVO);
@@ -291,56 +291,56 @@ public class EmpJDBCDAO implements EmpDAO_interface {
     public static void main(String[] args) {
 		
 	    EmpJDBCDAO dao = new EmpJDBCDAO();
-		// 新增
-		EmpVO empVO1 = new EmpVO();
-		empVO1.setEmp_pw("123456");	
-	    empVO1.setEmp_name("王子慶"); 
-	    empVO1.setEmp_bday(java.sql.Date.valueOf("1989-07-17"));
-	    empVO1.setEmp_email("bell0901tw@gmail.com");
-	    empVO1.setEmp_pho("0958885761");
-		empVO1.setEmp_gend("男性");
-	    empVO1.setEmp_pic(null);
-	    empVO1.setEmp_state(1);
-	    empVO1.setEmp_hday(java.sql.Date.valueOf("2017-09-20"));
-	    empVO1.setEmp_address("台北市-信義區-市府路1號");
-		dao.insert(empVO1);
-		
-		//修改
-		EmpVO empVO2 = new EmpVO();
-		empVO2.setEmp_ID("E000011");
-		empVO2.setEmp_pw("123456");	
-	    empVO2.setEmp_name("王子慶2"); 
-	    empVO2.setEmp_bday(java.sql.Date.valueOf("1989-07-17"));
-	    empVO2.setEmp_email("bell0901tw@gmail.com");
-	    empVO2.setEmp_pho("0958885761");
-		empVO2.setEmp_gend("男性");
-	    empVO2.setEmp_pic(null);
-	    empVO2.setEmp_state(1);
-	    empVO2.setEmp_hday(java.sql.Date.valueOf("2017-09-20"));
-	    empVO2.setEmp_address("台北市-信義區-市府路2號");
-		dao.update(empVO2);
-		
-		//刪除
-		dao.delete("E000011");
-		
-		//查詢1
-		EmpVO empVO3 = dao.findByPrimaryKey("E000006");
-		
-		System.out.println(empVO3.getEmp_ID() + ","); 
-		System.out.println(empVO3.getEmp_pw() + ","); 
-		System.out.println(empVO3.getEmp_name() + ",");
-		System.out.println(empVO3.getEmp_bday() + ",");
-		System.out.println(empVO3.getEmp_email() + ",");
-		
-		System.out.println(empVO3.getEmp_pho() + ",");
-		System.out.println(empVO3.getEmp_gend() + ",");
-		System.out.println(empVO3.getEmp_pic() + ","); 
-		System.out.println(empVO3.getEmp_state() + ",");
-		System.out.println(empVO3.getEmp_hday() + ",");
-		System.out.println(empVO3.getEmp_address() + ","); 
-		
-		System.out.println("----------------------------");
-		
+//		//新增
+//		EmpVO empVO1 = new EmpVO();
+//		empVO1.setEmp_pw("123456");	
+//	    empVO1.setEmp_name("王子慶"); 
+//	    empVO1.setEmp_bday(java.sql.Date.valueOf("1989-07-17"));
+//	    empVO1.setEmp_email("bell0901tw@gmail.com");
+//	    empVO1.setEmp_pho("0958885761");
+//		empVO1.setEmp_gend("男性");
+//	    empVO1.setEmp_pic(null);
+//	    empVO1.setEmp_state(1);
+//	    empVO1.setEmp_hday(java.sql.Date.valueOf("2017-09-20"));
+//	    empVO1.setEmp_address("台北市-信義區-市府路1號");
+//		dao.insert(empVO1);
+//		
+//		//修改
+//		EmpVO empVO2 = new EmpVO();
+//		empVO2.setEmp_ID("E000011");
+//		empVO2.setEmp_pw("123456");	
+//	    empVO2.setEmp_name("王子慶2"); 
+//	    empVO2.setEmp_bday(java.sql.Date.valueOf("1989-07-17"));
+//	    empVO2.setEmp_email("bell0901tw@gmail.com");
+//	    empVO2.setEmp_pho("0958885761");
+//		empVO2.setEmp_gend("男性");
+//	    empVO2.setEmp_pic(null);
+//	    empVO2.setEmp_state(1);
+//	    empVO2.setEmp_hday(java.sql.Date.valueOf("2017-09-20"));
+//	    empVO2.setEmp_address("台北市-信義區-市府路2號");
+//		dao.update(empVO2);
+//		
+//		//刪除
+//		dao.delete("E000014");
+//		
+//		//查詢1
+//		EmpVO empVO3 = dao.findByPrimaryKey("E000006");
+//		
+//		System.out.println(empVO3.getEmp_ID() + ","); 
+//		System.out.println(empVO3.getEmp_pw() + ","); 
+//		System.out.println(empVO3.getEmp_name() + ",");
+//		System.out.println(empVO3.getEmp_bday() + ",");
+//		System.out.println(empVO3.getEmp_email() + ",");
+//		
+//		System.out.println(empVO3.getEmp_pho() + ",");
+//		System.out.println(empVO3.getEmp_gend() + ",");
+//		System.out.println(empVO3.getEmp_pic() + ","); 
+//		System.out.println(empVO3.getEmp_state() + ",");
+//		System.out.println(empVO3.getEmp_hday() + ",");
+//		System.out.println(empVO3.getEmp_address() + ","); 
+//		
+//		System.out.println("----------------------------");
+//		
 		//查詢全
 		List<EmpVO> list = dao.getAll();
 		

@@ -259,31 +259,31 @@ public class GiftboxJDBCDAO implements GiftboxDAO_interface {
 	public static void main(String[] args) {
 		
 		GiftboxJDBCDAO dao = new GiftboxJDBCDAO();
-		// ·s¼W
+		// æ–°å¢ž
 		GiftboxVO giftboxVO1 = new GiftboxVO();
 		giftboxVO1.setMem_ID("M000005");
 		giftboxVO1.setProd_ID("P000004");
 		giftboxVO1.setGift_quantity(1);
 		dao.insert(giftboxVO1);
 		
-		//­×§ï
+		//ä¿®æ”¹
 		GiftboxVO giftboxVO2 = new GiftboxVO();
 		giftboxVO2.setMem_ID("M000005");
 		giftboxVO2.setProd_ID("P000004");
 		giftboxVO2.setGift_quantity(50);
 		dao.update(giftboxVO2);
 		
-		//§R°£
+		//åˆªé™¤
 		dao.delete("M000005", "P000004");
 		
-		//¬d¸ß1
+		//æŸ¥è©¢1
 		GiftboxVO giftboxVO3 = dao.findByPrimaryKey("M000003","P000001");
 		
 		System.out.println(giftboxVO3.getMem_ID() + ",");
 		System.out.println(giftboxVO3.getProd_ID() + ",");
 		System.out.println(giftboxVO3.getGift_quantity() + ",");
 		System.out.println("----------------------------");
-		//¬d¸ß¥þ
+		//æŸ¥è©¢å…¨
 		List<GiftboxVO> list = dao.getAll();
 		
 		for(GiftboxVO giftboxVO4 : list) {

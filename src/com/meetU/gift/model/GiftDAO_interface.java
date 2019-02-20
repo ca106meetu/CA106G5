@@ -8,6 +8,6 @@ public interface GiftDAO_interface {
     public void delete(String gift_rec_ID);
     public GiftVO findByPrimaryKey(String gift_rec_ID);
     public List<GiftVO> getAll();
-    //¸U¥Î½Æ¦X¬d¸ß(¶Ç¤J°Ñ¼Æ«¬ºAMap)(¦^¶Ç List)
+    //è¬ç”¨è¤‡åˆæŸ¥è©¢(å‚³å…¥åƒæ•¸å‹æ…‹Map)(å›å‚³ List)
     //  public List<GiftVO> getAll(Map<String, String[]> map);
 }
