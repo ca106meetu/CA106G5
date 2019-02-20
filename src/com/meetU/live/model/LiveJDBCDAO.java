@@ -264,7 +264,7 @@ public class LiveJDBCDAO implements LiveDAO_interface {
 		LiveJDBCDAO dao = new LiveJDBCDAO();
 
 //		新增
-		File pic = new File("WebContent/Smoke_pic/Live/P01.jpg");
+		File pic = new File("WebContent/FrontEnd/live/pic/P01.jpg");
 		FileInputStream fis = new FileInputStream(pic);
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		byte[] buffer = new byte[8000];
