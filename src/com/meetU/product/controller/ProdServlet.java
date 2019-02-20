@@ -1,22 +1,30 @@
 package com.meetU.product.controller;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Base64;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import com.meetU.product.model.ProductService;
 import com.meetU.product.model.ProductVO;
 
-@WebServlet("/ProdServlet")
+@MultipartConfig
 public class ProdServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
        
     public ProdServlet() {
         super();
@@ -171,17 +179,24 @@ public class ProdServlet extends HttpServlet {
 					}
 					
 					String prod_info = req.getParameter("prod_info");
+					Part part = req.getPart("prod_pic");
+					
+					InputStream in = part.getInputStream();
+					byte[] prod_pic = new byte[in.available()];
+					in.read(prod_pic);
+					in.close();
+					System.out.println("buffer length: " + prod_pic.length);
 					
 					ProductVO prodVO = new ProductVO();
 					prodVO.setProd_name(prod_name);
 					prodVO.setProd_price(prod_price);
 					prodVO.setProd_stock(prod_stock);
 					prodVO.setProd_promt_status(prod_promt_status);
+					prodVO.setProd_pic(prod_pic);
 					prodVO.setProd_type(prod_type);
 					prodVO.setProd_info(prod_info);
 					prodVO.setProd_status(prod_status);
 					
-					byte[] prod_pic = null;
 					
 					if(!errorMsgs.isEmpty()) {
 						req.setAttribute("prodVO", prodVO);
@@ -193,7 +208,9 @@ public class ProdServlet extends HttpServlet {
 					//**********************************
 					ProductService prodSvc = new ProductService();
 					prodVO = prodSvc.addprod(prod_name, prod_price, prod_type, prod_stock, prod_pic, prod_promt_status, prod_status, prod_info);
-
+					Base64.Encoder encoder = Base64.getEncoder();
+					String encodeText = encoder.encodeToString(prod_pic);
+					req.setAttribute("encodeText", encodeText);
 					//**********************************
 					String url = "/FrontEnd/prod/listAllProd.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url);
@@ -217,8 +234,12 @@ public class ProdServlet extends HttpServlet {
 				//**********************************************
 				ProductService prodSvc = new ProductService();
 				ProductVO prodVO = prodSvc.getOneProd(prod_ID);
+				Base64.Encoder encoder = Base64.getEncoder();
+				String encodeText = encoder.encodeToString(prodVO.getProd_pic());
+				req.setAttribute("encodeText", encodeText);
 				//**********************************************
 				req.setAttribute("prodVO", prodVO);
+				
 				String url = "/FrontEnd/prod/update_prod_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
@@ -319,22 +340,26 @@ public class ProdServlet extends HttpServlet {
 					}
 					
 					String prod_info = req.getParameter("prod_info");
-					
+					Part part = req.getPart("prod_pic");
+					InputStream in = part.getInputStream();
+					byte[] prod_pic = new byte[in.available()];
+					in.read(prod_pic);
+					in.close();
 					ProductVO prodVO = new ProductVO();
 					prodVO.setProd_ID(prod_ID);
 					prodVO.setProd_name(prod_name);
 					prodVO.setProd_price(prod_price);
 					prodVO.setProd_stock(prod_stock);
 					prodVO.setProd_promt_status(prod_promt_status);
+					prodVO.setProd_pic(prod_pic);
 					prodVO.setProd_type(prod_type);
 					prodVO.setProd_info(prod_info);
 					prodVO.setProd_status(prod_status);
 					
-					byte[] prod_pic = null;
 					
 					if(!errorMsgs.isEmpty()) {
 						req.setAttribute("prodVO", prodVO);
-						RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/prod/addProd.jsp");
+						RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/prod/update_prod_input.jsp");
 						failureView.forward(req, res);
 						return;
 					}
@@ -342,11 +367,15 @@ public class ProdServlet extends HttpServlet {
 					//**********************************
 					ProductService prodSvc = new ProductService();
 					prodVO = prodSvc.updateProd(prod_ID, prod_name, prod_price, prod_type, prod_stock, prod_pic, prod_promt_status, prod_status, prod_info);
-
+					Base64.Encoder encoder = Base64.getEncoder();
+					String encodeText = encoder.encodeToString(prod_pic);
+					req.setAttribute("encodeText", encodeText);
 					//**********************************
+					req.setAttribute("prodVO", prodVO);
 					String url = "/FrontEnd/prod/listOneProd.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url);
 					successView.forward(req, res);
+					
 				} catch (Exception e) {
 					errorMsgs.add("無法取得資料:"+e.getMessage());
 					RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/prod/update_prod_input.jsp");

@@ -52,7 +52,6 @@ public class ProductService {
 	
 	public void deleteProd(String prod_ID) {
 		dao.delete(prod_ID);
-		System.out.println(6666);
 	}
 	
 	public ProductVO getOneProd(String prod_ID) {
