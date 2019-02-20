@@ -27,12 +27,13 @@ public class LiveService {
 	}
 
 //  修改
-	public LiveVO updateLive(String host_ID, String live_name, Integer live_acc, byte[] live_pic, Integer live_status) {
+	public LiveVO updateLive(String host_ID, String live_name, Integer live_acc, byte[] live_pic,Timestamp live_date,Integer live_status) {
 		LiveVO liveVO = new LiveVO();
 		liveVO.setHost_ID(host_ID);
 		liveVO.setLive_name(live_name);
 		liveVO.setLive_acc(live_acc);
 		liveVO.setLive_pic(live_pic);
+		liveVO.setLive_date(live_date);
 		liveVO.setLive_status(live_status);
 		dao.update(liveVO);
 
