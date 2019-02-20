@@ -86,13 +86,13 @@
 			<td>${prodVO.prod_status}</td>
 			<td>${prodVO.prod_info}</td>
 			<td>
-				<form method='post' action='' style="margin-bottom: 0px;">
+				<form method='post' action='prod.do' style="margin-bottom: 0px;">
 					<input type='submit' value='修改'>
-					<input type='hidden' name='prod_ID' value='${prodVO.prod_ID }'>
+					<input type='hidden' name='prod_ID' value='${prodVO.prod_ID}'>
 					<input type='hidden' name='action' value='getOne_For_Update'>				
 				</form></td>
 			<td>	
-				<form method='post' action='' style="margin-bottom: 0px;">
+				<form method='post' action='prod.do' style="margin-bottom: 0px;">
 					<input type='submit' value='刪除'>
 					<input type='hidden' name='prod_ID' value='${prodVO.prod_ID }'>
 					<input type='hidden' name='action' value='delete'>				
