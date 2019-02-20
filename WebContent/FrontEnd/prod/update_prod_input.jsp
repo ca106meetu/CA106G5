@@ -42,7 +42,7 @@
 	</tr>
 	<tr>
 		<td>商品名稱:</td>
-		<td><input type="TEXT" name="prod_ID" size="45" value="<%=prodVO.getProd_name ()%>" /></td>
+		<td><input type="TEXT" name="prod_ID" size="45" value="<%=prodVO.getProd_name()%>" /></td>
 	</tr>
 	<tr>
 		<td>商品價格:</td>
