@@ -355,6 +355,17 @@ public class ProdServlet extends HttpServlet {
 		}
 		
 		
+		if("delete".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			String prod_ID = req.getParameter("prod_ID");
+			ProductService prodSvc = new ProductService();
+			prodSvc.deleteProd(prod_ID);
+			
+		}
+		
+		
 	}
 
 }
