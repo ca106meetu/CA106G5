@@ -57,7 +57,15 @@
 
 </table>
 
-
+<%-- 錯誤列表 --%>
+<c:if test='${not empty errorMsgs }'>
+	<font style='color:red'>請修正以下錯誤</font>
+	<ul>
+		<c:forEach var='message' items='${errorMsgs}'>
+			<li style='color:red'>${message}</li>
+		</c:forEach>
+	</ul>
+</c:if>
 
 <table>
 	<tr>
@@ -94,7 +102,7 @@
 			<td>	
 				<form method='post' action='prod.do' style="margin-bottom: 0px;">
 					<input type='submit' value='刪除'>
-					<input type='hidden' name='prod_ID' value='${prodVO.prod_ID }'>
+					<input type='hidden' name='prod_ID' value='${prodVO.prod_ID}'>
 					<input type='hidden' name='action' value='delete'>				
 				</form>
 			

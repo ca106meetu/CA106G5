@@ -359,9 +359,19 @@ public class ProdServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
-			String prod_ID = req.getParameter("prod_ID");
-			ProductService prodSvc = new ProductService();
-			prodSvc.deleteProd(prod_ID);
+			try {
+				String prod_ID = req.getParameter("prod_ID");
+				ProductService prodSvc = new ProductService();
+				prodSvc.deleteProd(prod_ID);
+				
+				String url = "/FrontEnd/prod/listAllProd.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+			} catch (Exception e) {
+				errorMsgs.add("刪除資料失敗:"+e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/prod/listAllProd.jsp");
+				failureView.forward(req, res);
+			}
 			
 		}
 		
