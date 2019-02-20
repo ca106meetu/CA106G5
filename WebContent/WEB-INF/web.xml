@@ -29,4 +29,13 @@
 		<url-pattern>/ShowPic</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>LiveServlet</servlet-name>
+		<servlet-class>com.meetU.live.controller.LiveServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LiveServlet</servlet-name>
+		<url-pattern>/FrontEnd/live/live.do</url-pattern>
+	</servlet-mapping>
+	
 </web-app>
