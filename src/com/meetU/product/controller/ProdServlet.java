@@ -236,8 +236,12 @@ public class ProdServlet extends HttpServlet {
 				ProductService prodSvc = new ProductService();
 				ProductVO prodVO = prodSvc.getOneProd(prod_ID);
 				Base64.Encoder encoder = Base64.getEncoder();
+				
+				if(prodVO.getProd_pic() != null) {
 				String encodeText = encoder.encodeToString(prodVO.getProd_pic());
 				req.setAttribute("encodeText", encodeText);
+				}
+			
 				//**********************************************
 				req.setAttribute("prodVO", prodVO);
 				
@@ -341,10 +345,16 @@ public class ProdServlet extends HttpServlet {
 					}
 					
 					String prod_info = req.getParameter("prod_info");
-					Part part = req.getPart("prod_pic");
-					InputStream in = part.getInputStream();
-					byte[] prod_pic = new byte[in.available()];
-					in.read(prod_pic);
+					InputStream in = null;
+					byte[] prod_pic = null;
+					try {
+						Part part = req.getPart("prod_pic");
+						in = part.getInputStream();
+						prod_pic = new byte[in.available()];
+						in.read(prod_pic);
+					} catch (Exception e) {
+						errorMsgs.add("尚無圖片: " + e.getMessage());
+					}
 					in.close();
 					ProductVO prodVO = new ProductVO();
 					prodVO.setProd_ID(prod_ID);
