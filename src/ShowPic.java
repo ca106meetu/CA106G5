@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
-/**
+/** 
  * Servlet implementation class ShowPic
  */
 public class ShowPic extends HttpServlet {
