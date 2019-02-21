@@ -1,20 +1,13 @@
 <%@page import="com.meetU.product.model.ProductVO"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<script src="http://code.jquery.com/jquery-2.1.4.min.js">
-</script>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!doctype html>
 <%
 	ProductVO prodVO = (ProductVO) request.getAttribute("prodVO");
 %>
-
-<html>
-<head>
-<meta charset="BIG5">
-
-<title>商品資料新增 - addEmp.jsp</title>
-
-<style>
+<html lang="en">
+  <head>
+  <style>
 	.pic{
 		width:172.5px;
 		height:230px;
@@ -34,27 +27,19 @@
     display: inline;
   }
 </style>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<style>
-  table {
-	width: 450px;
-	background-color: white;
-	margin-top: 1px;
-	margin-bottom: 1px;
-  }
-  table, th, td {
-    border: 0px solid #CCCCFF;
-  }
-  th, td {
-    padding: 1px;
-  }
-</style>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
 
-</head>
-
-<body bgcolor='gray'>
-
-<table id="table-1">
+    <title>Hello, world!</title> 
+  </head>
+  <body>
+    <jsp:include page="/Templates/bootstrap4/backHeader.jsp" />
+    
+    <table id="table-1">
 	<tr><td>
 		 <h3>員工資料新增 - addEmp.jsp</h3></td><td>
 		 <h4><a href="selectPage.jsp"><img src="images/tomcat.png" width="100" height="100" border="0">回首頁</a></h4>
@@ -131,6 +116,18 @@
   		reader.readAsDataURL(input.files[0]);
 	}
 </script>
+    
+    
+    
+    
+    
+    
+    <jsp:include page="/Templates/bootstrap4/backFooter.jsp" />
 
-</body>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery-3.3.1.slim.min.js"></script>
+    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/popper.min.js"></script>
+    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/js/bootstrap.min.js"></script>
+  </body>
 </html>

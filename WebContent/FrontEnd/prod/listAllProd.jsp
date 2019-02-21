@@ -1,8 +1,8 @@
-<%@page import="java.util.*"%>
-<%@page import="com.meetU.product.model.*"%>
-<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="com.meetU.product.model.ProductVO"%>
+<%@page import="java.util.List"%>
+<%@page import="com.meetU.product.model.ProductService"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 
 <%
 	ProductService prodSvc = new ProductService(); 
@@ -11,13 +11,10 @@
 
 %>
 
-<html>
-<head>
-<title>所有商品資料-listAllProd.jsp</title>
-
-
-
-<style>
+<!doctype html>
+<html lang="en">
+  <head>
+  <style>
 	.pic{
 		width:172.5px;
 		height:230px;
@@ -37,10 +34,20 @@
   }
 	
 </style>
-</head>
-<body bgcolor = 'gray'>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<h4>此頁練習採用 EL 的寫法取值:</h4>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
+
+    <title>Hello, world!</title> 
+  </head>
+  <body>
+    <jsp:include page="/Templates/bootstrap4/backHeader.jsp" />
+    
+    
+    <h4>此頁練習採用 EL 的寫法取值:</h4>
  <table id = 'table-1'>
 	<tr><td>
 		<h3>所有商品資料-listAllProd.jsp</h3>
@@ -114,8 +121,17 @@
 	</c:forEach>
 </table>
 <%@ include file="page2.file" %> 
+    
+    
+    
+    
+    
+    <jsp:include page="/Templates/bootstrap4/backFooter.jsp" />
 
-
-
-</body>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery-3.3.1.slim.min.js"></script>
+    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/popper.min.js"></script>
+    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/js/bootstrap.min.js"></script>
+  </body>
 </html>

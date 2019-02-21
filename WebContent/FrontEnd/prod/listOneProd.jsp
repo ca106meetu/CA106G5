@@ -1,13 +1,14 @@
 <%@page import="com.meetU.product.model.ProductVO"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <%
 	ProductVO prodVO =  (ProductVO) request.getAttribute("prodVO");
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<style>
+<!doctype html>
+<html lang="en">
+  <head>
+  <style>
 	.pic{
 		width:172.5px;
 		height:230px;
@@ -27,10 +28,20 @@
   }
 	
 </style>
-<title>Insert title here</title>
-</head>
-<body>
-<h4>此頁暫練習採用 Script 的寫法取值:</h4>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
+
+    <title>Hello, world!</title> 
+  </head>
+  <body>
+    <jsp:include page="/Templates/bootstrap4/backHeader.jsp" />
+    
+    
+    <h4>此頁暫練習採用 Script 的寫法取值:</h4>
 <table id="table-1">
 	<tr><td>
 		 <h3>員工資料 - ListOneProd.jsp</h3>
@@ -62,7 +73,17 @@
 			<td>${prodVO.prod_info}</td>
 	</tr>
 </table>
+    
+    
+    
+    
+    
+    <jsp:include page="/Templates/bootstrap4/backFooter.jsp" />
 
-
-</body>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery-3.3.1.slim.min.js"></script>
+    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/popper.min.js"></script>
+    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/js/bootstrap.min.js"></script>
+  </body>
 </html>
