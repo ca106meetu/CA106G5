@@ -97,8 +97,8 @@
 	</tr>
 	<tr>
 		<td>圖片:</td>
-		<td><input type="file" name="prod_pic" size="45" onchange='readURL(this)'/><br>
-		<img class='pic' src='data:img/png;base64,${encodeText}'></td>
+		<td><input type="file" name="prod_pic" size="45" onchange='readURL(this)' /><br>
+		<img class='pic' src='data:img/png;base64,${encodeText}' ${(prodVO.prod_pic==null)? 'style="display:none"' : ''}></td>
 	</tr>
 	<tr>
 		<td>促銷狀態:</td>
@@ -125,7 +125,7 @@
 	function readURL(input){
 		var reader = new FileReader();
 	  		reader.onload = function (e) {
-     					$(".pic").attr('src', e.target.result);
+     					$(".pic").attr('src', e.target.result).css("display","");
      			
   		}
   		reader.readAsDataURL(input.files[0]);

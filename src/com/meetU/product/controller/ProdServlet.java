@@ -197,6 +197,10 @@ public class ProdServlet extends HttpServlet {
 					prodVO.setProd_info(prod_info);
 					prodVO.setProd_status(prod_status);
 					
+					Base64.Encoder encoder = Base64.getEncoder();
+					String encodeText = encoder.encodeToString(prod_pic);
+					req.setAttribute("encodeText", encodeText);
+					
 					
 					if(!errorMsgs.isEmpty()) {
 						req.setAttribute("prodVO", prodVO);
@@ -208,9 +212,6 @@ public class ProdServlet extends HttpServlet {
 					//**********************************
 					ProductService prodSvc = new ProductService();
 					prodVO = prodSvc.addprod(prod_name, prod_price, prod_type, prod_stock, prod_pic, prod_promt_status, prod_status, prod_info);
-					Base64.Encoder encoder = Base64.getEncoder();
-					String encodeText = encoder.encodeToString(prod_pic);
-					req.setAttribute("encodeText", encodeText);
 					//**********************************
 					String url = "/FrontEnd/prod/listAllProd.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url);
@@ -356,7 +357,9 @@ public class ProdServlet extends HttpServlet {
 					prodVO.setProd_info(prod_info);
 					prodVO.setProd_status(prod_status);
 					
-					
+					Base64.Encoder encoder = Base64.getEncoder();
+					String encodeText = encoder.encodeToString(prod_pic);
+					req.setAttribute("encodeText", encodeText);
 					if(!errorMsgs.isEmpty()) {
 						req.setAttribute("prodVO", prodVO);
 						RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/prod/update_prod_input.jsp");
@@ -367,9 +370,7 @@ public class ProdServlet extends HttpServlet {
 					//**********************************
 					ProductService prodSvc = new ProductService();
 					prodVO = prodSvc.updateProd(prod_ID, prod_name, prod_price, prod_type, prod_stock, prod_pic, prod_promt_status, prod_status, prod_info);
-					Base64.Encoder encoder = Base64.getEncoder();
-					String encodeText = encoder.encodeToString(prod_pic);
-					req.setAttribute("encodeText", encodeText);
+					
 					//**********************************
 					req.setAttribute("prodVO", prodVO);
 					String url = "/FrontEnd/prod/listOneProd.jsp";
