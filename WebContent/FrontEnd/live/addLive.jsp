@@ -2,6 +2,8 @@
 <%@page import="com.meetU.mem.model.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<script src="http://code.jquery.com/jquery-2.1.4.min.js">
+</script>
 <!DOCTYPE html>
 
 <%
@@ -16,6 +18,10 @@
 	background-color: #CCCCFF;
     border: 2px solid black;
     text-align: center;
+  }
+  .pic{
+  width:200px;
+  height:200px;	
   }
   table#table-1 h4 {
     color: red;
@@ -68,7 +74,7 @@
 
 
 
-<FORM METHOD="post" ACTION="live.do" name="form1">
+<FORM METHOD="post" ACTION="live.do" name="form1" enctype='multipart/form-data'>
 <table>
 <jsp:useBean id="memSvc" scope="page" class="com.meetU.mem.model.MemService"/>
 	<tr>
@@ -91,8 +97,8 @@
 	</tr>
 	<tr>
 		<td>直播間封面:</td>
-		<td><input type="TEXT" name="live_pic" 
-			 value="<%= (liveVO==null)? " " : liveVO.getLive_pic()%>" /></td>
+		<td><input type="file" name="live_pic" onchange='readURL(this)'/><br>
+		<img class='pic' src='data:img/png;base64,${encodeText}'  ${(liveVO.live_pic==null) ? 'style="display:none"' : ''}></td>
 	</tr>
 	<tr>
 		<td>直播間狀態:</td>
@@ -103,5 +109,15 @@
 <br>
 <input type="hidden" name="action" value="insert">
 <input type="submit" value="送出新增"></FORM>
+<script>
+	function readURL(input){
+		var reader = new FileReader();
+	  		reader.onload = function (e) {
+     					$(".pic").attr('src', e.target.result).css("display","");
+     			
+  		}
+  		reader.readAsDataURL(input.files[0]);
+	}
+</script>
 </body>
 </html>

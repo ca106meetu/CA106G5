@@ -1,3 +1,5 @@
+<%@page import="com.meetU.live.model.LiveVO"%>
+<%@page import="com.meetU.mem.model.MemService"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -69,6 +71,23 @@
          <c:forEach var="liveVO" items="${liveSvc.all}" > 
           <option value="${liveVO.host_ID}">${liveVO.host_ID}
          </c:forEach>   
+       </select>
+       <input type="hidden" name="action" value="getOne_For_Display">
+       <input type="submit" value="送出">
+    </FORM>
+  </li>
+  
+  <li>
+  <jsp:useBean id="memSvc" scope="page" class="com.meetU.mem.model.MemService"/>
+  
+     <FORM METHOD="post" ACTION="live.do" >
+       <b>選擇直播主姓名:</b>
+       <select size="1" name="host_ID">
+         <c:forEach var="liveVO" items="${liveSvc.all}" > 
+          <option value="${liveVO.host_ID}">
+          <c:set var="host_ID" value="${liveVO.host_ID}"/>       
+          <%= memSvc.getOneMem((String)pageContext.getAttribute("host_ID")).getMem_name()%>      
+           </c:forEach>   
        </select>
        <input type="hidden" name="action" value="getOne_For_Display">
        <input type="submit" value="送出">

@@ -1,19 +1,25 @@
 package com.meetU.live.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Timestamp;
+import java.util.Base64;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+
 import com.meetU.live.model.LiveService;
 import com.meetU.live.model.LiveVO;
 
+@MultipartConfig
 public class LiveServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -133,16 +139,27 @@ public class LiveServlet extends HttpServlet {
 					errorMsgs.add("累積瀏覽人數請填數字.");
 				}
 
-				byte[] live_pic = null;
+				Part part = req.getPart("live_pic");				
+				InputStream in = part.getInputStream();
+				byte[] live_pic = new byte[in.available()];
+				in.read(live_pic);
+				in.close();
+				
 
 				Timestamp live_date = new LiveService().getOneLive(host_ID).getLive_date();
 
 				Integer live_status = null;
+				
 				try {
 					live_status = new Integer(req.getParameter("live_status").trim());
-				} catch (NumberFormatException e) {
-					live_status = 0;
-					errorMsgs.add("直播間狀態請填數字.");
+					String live_statusa =live_status.toString();
+					String regreg = "[^0-1]";
+					if(live_statusa.matches(regreg)) {
+//					if (!live_status.equals(new Integer(0))&&!live_status.equals(new Integer(1)))
+						errorMsgs.add("直播間狀態請填0:關閉或1:正常");}
+				} catch (Exception e) {
+					e.printStackTrace();
+//					errorMsgs.add("直播間狀態請填0:關閉或1:正常");
 				}
 
 				LiveVO liveVO = new LiveVO();
@@ -180,11 +197,11 @@ public class LiveServlet extends HttpServlet {
 
 //       新增
 		if ("insert".equals(action)) { // 來自addEmp.jsp的請求
-			System.out.println(666);
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
+			LiveVO liveVO = new LiveVO();
 
 			try {
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
@@ -202,8 +219,16 @@ public class LiveServlet extends HttpServlet {
 					live_acc = 0;
 					errorMsgs.add("累積瀏覽人數請填數字.");
 				}
+				
+				
+				Part part = req.getPart("live_pic");				
+				InputStream in = part.getInputStream();
+				byte[] live_pic = new byte[in.available()];
+				in.read(live_pic);
+				in.close();
+				
 
-				byte[] live_pic = null;
+				
 
 				Date today = new Date();
 				Timestamp live_date = new Timestamp(today.getTime());
@@ -216,13 +241,19 @@ public class LiveServlet extends HttpServlet {
 					errorMsgs.add("直播間狀態請填數字.");
 				}
 
-				LiveVO liveVO = new LiveVO();
-				liveVO.setHost_ID(host_ID);
+				
+				
 				liveVO.setLive_name(live_name);
 				liveVO.setLive_acc(live_acc);
 				liveVO.setLive_pic(live_pic);
 				liveVO.setLive_date(live_date);
 				liveVO.setLive_status(live_status);
+				liveVO.setHost_ID(host_ID);
+				
+				Base64.Encoder encoder = Base64.getEncoder();
+				String encodeText = encoder.encodeToString(live_pic);
+				req.setAttribute("encodeText", encodeText);
+				
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("liveVO", liveVO); // 含有輸入格式錯誤的empVO物件,也存入req
@@ -241,6 +272,7 @@ public class LiveServlet extends HttpServlet {
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
+				req.setAttribute("liveVO", liveVO); 
 				RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/live/addLive.jsp");
 				failureView.forward(req, res);
 			}

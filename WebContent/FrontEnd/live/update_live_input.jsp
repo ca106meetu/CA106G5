@@ -2,6 +2,8 @@
 <%@page import="com.meetU.mem.model.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<script src="http://code.jquery.com/jquery-2.1.4.min.js">
+</script>
 <!DOCTYPE html>
 
 <%
@@ -22,6 +24,10 @@
     color: red;
     display: block;
     margin-bottom: 1px;
+  }
+  .pic{
+  width:200px;
+  height:200px;	
   }
   h4 {
     color: blue;
@@ -66,12 +72,12 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="live.do" name="form1">
+<FORM METHOD="post" ACTION="live.do" name="form1" enctype='multipart/form-data'>
 <table>
 <jsp:useBean id="memSvc" scope="page" class="com.meetU.mem.model.MemService"/>
 	<tr>
 		<td>會員姓名:</td>
-		<td><%= new MemService().getOneMem(liveVO.getHost_ID()).getMem_name()%></td>		
+		<td><%= memSvc.getOneMem(liveVO.getHost_ID()).getMem_name()%></td>		
 	</tr>
 	<tr>
 		<td>直播主ID:</td>
@@ -89,8 +95,8 @@
 	</tr>
 	<tr>
 		<td>直播間封面:</td>
-		<td><input type="TEXT" name="live_pic" 
-			 value="<%= (liveVO==null)? " " : liveVO.getLive_pic()%>" /></td>
+		<td><input type="file" name="live_pic" onchange='readURL(this)'/><br>
+		<img class='pic' src='data:img/png;base64,${live_pic}' style="display:none"></td>
 	</tr>
 	<tr>
 		<td>直播間狀態:</td>
@@ -102,5 +108,15 @@
 <input type="hidden" name="action" value="update">
 <input type="hidden" name="host_ID" value="<%=liveVO.getHost_ID()%>">
 <input type="submit" value="送出修改"></FORM>
+<script>
+	function readURL(input){
+		var reader = new FileReader();
+	  		reader.onload = function (e) {
+     					$(".pic").attr('src', e.target.result).css("display","");
+     			
+  		}
+  		reader.readAsDataURL(input.files[0]);
+	}
+	</script>
 </body>
 </html>
