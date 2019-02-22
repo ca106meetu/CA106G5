@@ -2,6 +2,7 @@ package com.meetU.product.controller;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
@@ -178,14 +179,26 @@ public class ProdServlet extends HttpServlet {
 						errorMsgs.add("商品狀態:商品狀態請填數字0或1，0下架，1上架");
 					}
 					
+					
 					String prod_info = req.getParameter("prod_info");
+					
+					byte[] prod_pic=null;
 					Part part = req.getPart("prod_pic");
 					
-					InputStream in = part.getInputStream();
-					byte[] prod_pic = new byte[in.available()];
-					in.read(prod_pic);
-					in.close();
-					System.out.println("buffer length: " + prod_pic.length);
+					if(getFileNameFromPart(part) != null) {
+						InputStream in = part.getInputStream();
+						prod_pic = new byte[in.available()];
+						in.read(prod_pic);
+						in.close();
+						Base64.Encoder encoder = Base64.getEncoder();
+						String encodeText = encoder.encodeToString(prod_pic);
+						req.setAttribute("encodeText", encodeText);
+					} else {
+						if(req.getParameter("encodeText") != null && req.getParameter("encodeText").trim().length() !=0) {
+							Base64.Decoder decoder = Base64.getDecoder();
+							prod_pic = decoder.decode(req.getParameter("encodeText"));
+						}
+					}
 					
 					ProductVO prodVO = new ProductVO();
 					prodVO.setProd_name(prod_name);
@@ -197,9 +210,7 @@ public class ProdServlet extends HttpServlet {
 					prodVO.setProd_info(prod_info);
 					prodVO.setProd_status(prod_status);
 					
-					Base64.Encoder encoder = Base64.getEncoder();
-					String encodeText = encoder.encodeToString(prod_pic);
-					req.setAttribute("encodeText", encodeText);
+					
 					
 					
 					if(!errorMsgs.isEmpty()) {
@@ -347,15 +358,17 @@ public class ProdServlet extends HttpServlet {
 					String prod_info = req.getParameter("prod_info");
 					InputStream in = null;
 					byte[] prod_pic = null;
-					try {
-						Part part = req.getPart("prod_pic");
+
+					Part part = req.getPart("prod_pic");
+					if(getFileNameFromPart(part) != null) {
 						in = part.getInputStream();
 						prod_pic = new byte[in.available()];
 						in.read(prod_pic);
-					} catch (Exception e) {
-						errorMsgs.add("尚無圖片: " + e.getMessage());
+						in.close();
+					}else {
+						prod_pic = new ProductService().getOneProd(prod_ID).getProd_pic();
 					}
-					in.close();
+					
 					ProductVO prodVO = new ProductVO();
 					prodVO.setProd_ID(prod_ID);
 					prodVO.setProd_name(prod_name);
@@ -416,6 +429,17 @@ public class ProdServlet extends HttpServlet {
 		}
 		
 		
+	}
+	
+	public String getFileNameFromPart(Part part) {
+		String header = part.getHeader("content-disposition");
+//		System.out.println("header=" + header); // 測試用
+		String filename = new File(header.substring(header.lastIndexOf("=") + 2, header.length() - 1)).getName();
+//		System.out.println("filename=" + filename); // 測試用
+		if (filename.length() == 0) {
+			return null;
+		}
+		return filename;
 	}
 
 }

@@ -1,10 +1,18 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.meetU.product.model.ProductVO"%>
+<%@page import="java.util.List"%>
+<%@page import="com.meetU.product.model.ProductService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
-	ProductVO prodVO =  (ProductVO) request.getAttribute("prodVO");
+	ProductService prodSvc = new ProductService(); 
+	List<ProductVO> list = prodSvc.getAll();
+	pageContext.setAttribute("list", list);
+	List<String> pt = (ArrayList<String>) application.getAttribute("pt");
+
 %>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -41,38 +49,62 @@
     <jsp:include page="/Templates/bootstrap4/backHeader.jsp" />
     
     
-    <h4>此頁暫練習採用 Script 的寫法取值:</h4>
-<table id="table-1">
+    <h4>此頁練習採用 EL 的寫法取值:</h4>
+ <table id = 'table-1'>
 	<tr><td>
-		 <h3>員工資料 - ListOneProd.jsp</h3>
-		 <h4><a href="selectPage.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
+		<h3>所有商品資料-listAllProd.jsp</h3>
+		<h4><a href='selectPage.jsp'><img src="images/back1.gif" width="100" height="32">回首頁</a></h4>
+	
+	
+	</td>
+	
+	
+	</tr>
+
+
+
+
 </table>
+
+<%-- 錯誤列表 --%>
+<c:if test='${not empty errorMsgs }'>
+	<font style='color:red'>請修正以下錯誤</font>
+	<ul>
+		<c:forEach var='message' items='${errorMsgs}'>
+			<li style='color:red'>${message}</li>
+		</c:forEach>
+	</ul>
+</c:if>
 
 <table>
 	<tr>
-		<th>商品編號</th>
 		<th>商品名稱</th>
 		<th>商品價格</th>
 		<th>類型</th>
 		<th>庫存量</th>
 		<th>圖片</th>
-		<th>促銷狀態</th>
-		<th>上架狀態</th>
 		<th>商品資訊</th>
 	</tr>
-	<tr>
-		<td>${prodVO.prod_ID}</td>
-		<td>${prodVO.prod_name}</td>
-		<td>${prodVO.prod_price}</td>
-		<td>${prodVO.prod_type}</td>
-		<td>${prodVO.prod_stock}</td>
-		<td><img class='pic' src='/CA106G5/ShowPic?PROD_ID=${prodVO.prod_ID}'></td>
-		<td>${prodVO.prod_promt_status}</td>
-		<td>${prodVO.prod_status}</td>
-		<td>${prodVO.prod_info}</td>
-	</tr>
+	<%@ include file="page1.file" %> 
+	<c:forEach var="prodVO" items= "${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+		<tr>
+			<td>${prodVO.prod_name}</td>
+			<td>${prodVO.prod_price}</td>
+			<td>${pt[prodVO.prod_type]}</td>
+			<td>${prodVO.prod_stock}</td>
+			<td><img class='pic' src='/CA106G5/ShowPic?PROD_ID=${prodVO.prod_ID}'></td>
+			<td>${prodVO.prod_info}</td>
+			<td>
+				<form method='post' action='prod.do' style="margin-bottom: 0px;">
+					<input type='submit' value='加入購物車'>
+					<input type='hidden' name='prod_ID' value='${prodVO.prod_ID}'>
+					<input type='hidden' name='action' value='getOne_For_Update'>				
+				</form></td>
+		</tr>
+ 	
+	</c:forEach>
 </table>
+<%@ include file="page2.file" %> 
     
     
     

@@ -14,13 +14,12 @@
 	width:172.5px;
 	height:230px;
 }
-
-</style>
-    <!-- Required meta tags -->
+ </style>
+<!--     Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
+<!--     Bootstrap CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
 
     <title>Hello, world!</title> 
@@ -103,7 +102,7 @@
 	    		reader.onload = function (e) {
 	       			
 	       					
-	       					$(".pic").attr('src', e.target.result);
+	       					$(".pic").attr('src', e.target.result).css('display', '');
 	       					
 	       			
 	    		}
