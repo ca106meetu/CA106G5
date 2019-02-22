@@ -23,7 +23,7 @@ public class PostDAO implements PostDAO_interface{
 				ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
 			} catch (NamingException e) {
 				e.printStackTrace();
-			}
+			} 
 		}
 	
 	private static final String INSERT_STMT = 

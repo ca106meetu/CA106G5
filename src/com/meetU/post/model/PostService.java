@@ -18,7 +18,7 @@ public class PostService {
 		
 		postVO.setPoster_ID(poster_ID);
 		postVO.setMem_ID(mem_ID);
-		postVO.setCheck_in_ID(check_in_ID);
+		postVO.setCheck_in_ID(check_in_ID); 
 		postVO.setPublish_time(publish_time);
 		postVO.setPost_content(post_content);
 		postVO.setPost_visb(post_visb);
