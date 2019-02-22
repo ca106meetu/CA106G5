@@ -1,22 +1,30 @@
 package com.meetU.post.model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.meetU.checkIn.model.CheckInJDBCDAO;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
 
-public class PostJDBCDAO implements PostDAO_interface{
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "CA106G5";
-	String passwd = "123456";
+public class PostDAO implements PostDAO_interface{
+	
+	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
+		private static DataSource ds = null;
+		static {
+			try {
+				Context ctx = new InitialContext();
+				ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+			} catch (NamingException e) {
+				e.printStackTrace();
+			}
+		}
 	
 	private static final String INSERT_STMT = 
 			"INSERT INTO POST (POST_ID,POSTER_ID,MEM_ID,CHECK_IN_ID,POST_CONTENT,PUBLISH_TIME,POST_LIKE,POST_VISB) VALUES ('P'||LPAD(to_char(post_seq.NEXTVAL),6,'0'),?,?,?,?,?,0,?)";
@@ -34,8 +42,7 @@ public class PostJDBCDAO implements PostDAO_interface{
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
 			pstmt.setString(1, postVO.getPoster_ID());
@@ -47,10 +54,6 @@ public class PostJDBCDAO implements PostDAO_interface{
 			
 			pstmt.executeUpdate();
 			
-			// Handle any driver errors
-		} catch(ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 			// Handle any SQL errors
 		} catch(SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -81,8 +84,7 @@ public class PostJDBCDAO implements PostDAO_interface{
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 			
 			pstmt.setString(1,postVO.getPoster_ID());
@@ -90,16 +92,12 @@ public class PostJDBCDAO implements PostDAO_interface{
 			pstmt.setString(3, postVO.getCheck_in_ID());
 			pstmt.setString(4, postVO.getPost_content());
 			pstmt.setTimestamp(5, postVO.getPublish_time());
-			pstmt.setInt(6, postVO.getPost_visb());
-			pstmt.setInt(7, postVO.getPost_like());
+			pstmt.setInt(6, postVO.getPost_like());
+			pstmt.setInt(7, postVO.getPost_visb());
 			pstmt.setString(8, postVO.getPost_ID());
 			
 			pstmt.executeUpdate();
 			
-			// Handle any driver errors
-		} catch(ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 			// Handle any SQL errors
 		} catch(SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -131,18 +129,13 @@ public class PostJDBCDAO implements PostDAO_interface{
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 			
 			pstmt.setString(1, post_ID);
 			
 			pstmt.executeUpdate();
 			
-			// Handle any driver errors
-		} catch(ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 			// Handle any SQL errors
 		} catch(SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -177,8 +170,7 @@ public class PostJDBCDAO implements PostDAO_interface{
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
 			pstmt.setString(1, post_ID);
@@ -198,10 +190,6 @@ public class PostJDBCDAO implements PostDAO_interface{
 				postVO.setPost_visb(rs.getInt("POST_VISB"));
 			}
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -244,8 +232,7 @@ public class PostJDBCDAO implements PostDAO_interface{
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 
@@ -264,10 +251,6 @@ public class PostJDBCDAO implements PostDAO_interface{
 				list.add(postVO); // Store the row in the list
 			}
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "

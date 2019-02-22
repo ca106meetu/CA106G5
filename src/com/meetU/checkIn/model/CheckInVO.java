@@ -1,17 +1,19 @@
 package com.meetU.checkIn.model;
 
 public class CheckInVO implements java.io.Serializable{
-	private String check_in_id;
+	private String check_in_ID;
 	private String check_in_name;
 	private Double check_in_lnt;
+	
+	public String getCheck_in_ID() {
+		return check_in_ID;
+	}
+	public void setCheck_in_ID(String check_in_ID) {
+		this.check_in_ID = check_in_ID;
+	}
 	private Double check_in_lat;
 	
-	public String getCheck_in_id() {
-		return check_in_id;
-	}
-	public void setCheck_in_id(String check_in_id) {
-		this.check_in_id = check_in_id;
-	}
+	
 	public String getCheck_in_name() {
 		return check_in_name;
 	}

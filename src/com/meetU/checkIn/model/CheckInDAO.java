@@ -3,12 +3,24 @@ package com.meetU.checkIn.model;
 import java.sql.*;
 import java.util.*;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
-public class CheckInJDBCDAO implements CheckInDAO_interface{
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "CA106G5";
-	String passwd = "123456";
+
+public class CheckInDAO implements CheckInDAO_interface{
+	
+	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	private static final String INSERT_STMT = 
 			"INSERT INTO CHECK_IN (CHECK_IN_ID,CHECK_IN_NAME,CHECK_IN_LNT,CHECK_IN_LAT) VALUES ('CK'||LPAD(to_char(check_in_seq.NEXTVAL),6,'0'),?,?,?)";
@@ -22,25 +34,20 @@ public class CheckInJDBCDAO implements CheckInDAO_interface{
 			"UPDATE CHECK_IN SET CHECK_IN_NAME=?,CHECK_IN_LNT=?,CHECK_IN_LAT=? WHERE CHECK_IN_ID = ?";
 
 	@Override
-	public void insert(CheckInVO CheckInVO) {
+	public void insert(CheckInVO checkInVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
-			pstmt.setString(1, CheckInVO.getCheck_in_name());
-			pstmt.setDouble(2, CheckInVO.getCheck_in_lnt());
-			pstmt.setDouble(3, CheckInVO.getCheck_in_lat());
+			pstmt.setString(1, checkInVO.getCheck_in_name());
+			pstmt.setDouble(2, checkInVO.getCheck_in_lnt());
+			pstmt.setDouble(3, checkInVO.getCheck_in_lat());
 			
 			pstmt.executeUpdate();
 			
-			// Handle any driver errors
-		} catch(ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 			// Handle any SQL errors
 		} catch(SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -65,26 +72,21 @@ public class CheckInJDBCDAO implements CheckInDAO_interface{
 	}
 
 	@Override
-	public void update(CheckInVO CheckInVO) {
+	public void update(CheckInVO checkInVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 			
-			pstmt.setString(1, CheckInVO.getCheck_in_name());
-			pstmt.setDouble(2, CheckInVO.getCheck_in_lnt());
-			pstmt.setDouble(3, CheckInVO.getCheck_in_lat());
-			pstmt.setString(4, CheckInVO.getCheck_in_ID());
+			pstmt.setString(1, checkInVO.getCheck_in_name());
+			pstmt.setDouble(2, checkInVO.getCheck_in_lnt());
+			pstmt.setDouble(3, checkInVO.getCheck_in_lat());
+			pstmt.setString(4, checkInVO.getCheck_in_ID());
 			
 			pstmt.executeUpdate();
 			
-			// Handle any driver errors
-		} catch(ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 			// Handle any SQL errors
 		} catch(SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -110,23 +112,18 @@ public class CheckInJDBCDAO implements CheckInDAO_interface{
 	}
 
 	@Override
-	public void delete(String CheckIn_ID) {
+	public void delete(String checkIn_ID) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 			
-			pstmt.setString(1, CheckIn_ID);
+			pstmt.setString(1, checkIn_ID);
 			
 			pstmt.executeUpdate();
 			
-			// Handle any driver errors
-		} catch(ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 			// Handle any SQL errors
 		} catch(SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -152,7 +149,7 @@ public class CheckInJDBCDAO implements CheckInDAO_interface{
 	}
 
 	@Override
-	public CheckInVO findByPrimaryKey(String CheckIn_ID) {
+	public CheckInVO findByPrimaryKey(String checkIn_ID) {
 		
 		CheckInVO checkInVO = null;
 		Connection con = null;
@@ -161,11 +158,10 @@ public class CheckInJDBCDAO implements CheckInDAO_interface{
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setString(1, CheckIn_ID);
+			pstmt.setString(1, checkIn_ID);
 
 			rs = pstmt.executeQuery();
 
@@ -178,10 +174,6 @@ public class CheckInJDBCDAO implements CheckInDAO_interface{
 				checkInVO.setCheck_in_lat(rs.getDouble("CHECK_IN_LAT"));
 			}
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -224,8 +216,7 @@ public class CheckInJDBCDAO implements CheckInDAO_interface{
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 
@@ -240,10 +231,6 @@ public class CheckInJDBCDAO implements CheckInDAO_interface{
 				list.add(checkInVO); // Store the row in the list
 			}
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "

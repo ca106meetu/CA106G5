@@ -1,6 +1,7 @@
 package com.meetU.post.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class PostVO implements java.io.Serializable{
 	private String post_ID;
@@ -8,7 +9,7 @@ public class PostVO implements java.io.Serializable{
 	private String mem_ID; 
 	private String check_in_ID;
 	private String post_content;
-	private Date publish_time;
+	private Timestamp publish_time;
 	private Integer post_like;
 	private Integer post_visb;
 	
@@ -42,10 +43,10 @@ public class PostVO implements java.io.Serializable{
 	public void setPost_content(String post_content) {
 		this.post_content = post_content;
 	}
-	public Date getPublish_time() {
+	public Timestamp getPublish_time() {
 		return publish_time;
 	}
-	public void setPublish_time(Date publish_time) {
+	public void setPublish_time(Timestamp publish_time) {
 		this.publish_time = publish_time;
 	}
 	public Integer getPost_like() {
