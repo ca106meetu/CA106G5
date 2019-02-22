@@ -100,6 +100,12 @@ public class LiveServlet extends HttpServlet {
 				LiveService liveSvc = new LiveService();
 				LiveVO liveVO = liveSvc.getOneLive(host_ID);
 
+				if (liveVO.getLive_pic() != null) {
+					Base64.Encoder encoder = Base64.getEncoder();
+					String encodeText = encoder.encodeToString(liveVO.getLive_pic());
+					req.setAttribute("encodeText", encodeText);
+				}
+
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				req.setAttribute("liveVO", liveVO); // 資料庫取出的empVO物件,存入req
 				String url = "/FrontEnd/live/update_live_input.jsp";
@@ -139,24 +145,30 @@ public class LiveServlet extends HttpServlet {
 					errorMsgs.add("累積瀏覽人數請填數字.");
 				}
 
-				Part part = req.getPart("live_pic");				
-				InputStream in = part.getInputStream();
-				byte[] live_pic = new byte[in.available()];
-				in.read(live_pic);
+				InputStream in = null;
+				byte[] live_pic = null;
+				try {
+					Part part = req.getPart("live_pic");
+					in = part.getInputStream();
+					live_pic = new byte[in.available()];
+					in.read(live_pic);
+				} catch (Exception e) {
+					errorMsgs.add("尚無圖片: " + e.getMessage());
+				}
 				in.close();
-				
 
 				Timestamp live_date = new LiveService().getOneLive(host_ID).getLive_date();
 
 				Integer live_status = null;
-				
+
 				try {
 					live_status = new Integer(req.getParameter("live_status").trim());
-					String live_statusa =live_status.toString();
+					String live_statusa = live_status.toString();
 					String regreg = "[^0-1]";
-					if(live_statusa.matches(regreg)) {
+					if (live_statusa.matches(regreg)) {
 //					if (!live_status.equals(new Integer(0))&&!live_status.equals(new Integer(1)))
-						errorMsgs.add("直播間狀態請填0:關閉或1:正常");}
+						errorMsgs.add("直播間狀態請填0:關閉或1:正常");
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 //					errorMsgs.add("直播間狀態請填0:關閉或1:正常");
@@ -169,6 +181,10 @@ public class LiveServlet extends HttpServlet {
 				liveVO.setLive_pic(live_pic);
 				liveVO.setLive_date(live_date);
 				liveVO.setLive_status(live_status);
+
+				Base64.Encoder encoder = Base64.getEncoder();
+				String encodeText = encoder.encodeToString(live_pic);
+				req.setAttribute("encodeText", encodeText);
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
@@ -219,16 +235,12 @@ public class LiveServlet extends HttpServlet {
 					live_acc = 0;
 					errorMsgs.add("累積瀏覽人數請填數字.");
 				}
-				
-				
-				Part part = req.getPart("live_pic");				
+
+				Part part = req.getPart("live_pic");
 				InputStream in = part.getInputStream();
 				byte[] live_pic = new byte[in.available()];
 				in.read(live_pic);
 				in.close();
-				
-
-				
 
 				Date today = new Date();
 				Timestamp live_date = new Timestamp(today.getTime());
@@ -241,19 +253,17 @@ public class LiveServlet extends HttpServlet {
 					errorMsgs.add("直播間狀態請填數字.");
 				}
 
-				
-				
 				liveVO.setLive_name(live_name);
 				liveVO.setLive_acc(live_acc);
 				liveVO.setLive_pic(live_pic);
 				liveVO.setLive_date(live_date);
 				liveVO.setLive_status(live_status);
 				liveVO.setHost_ID(host_ID);
-				
+
 				Base64.Encoder encoder = Base64.getEncoder();
 				String encodeText = encoder.encodeToString(live_pic);
 				req.setAttribute("encodeText", encodeText);
-				
+
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("liveVO", liveVO); // 含有輸入格式錯誤的empVO物件,也存入req
@@ -272,7 +282,7 @@ public class LiveServlet extends HttpServlet {
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
-				req.setAttribute("liveVO", liveVO); 
+				req.setAttribute("liveVO", liveVO);
 				RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/live/addLive.jsp");
 				failureView.forward(req, res);
 			}

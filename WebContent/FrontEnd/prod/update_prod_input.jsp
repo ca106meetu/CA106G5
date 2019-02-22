@@ -87,7 +87,7 @@
 	<tr>
 		<td>圖片:</td>
 		<td><input type="file" name="prod_pic" size="45" onchange='readURL(this)'/><br>
-		<img class='pic' src="data:img/png;base64,${encodeText}" ></td>
+		<img class='pic' src="data:img/png;base64,${encodeText}" ${(prodVO.prod_pic==null)? 'style="display:none"' : ''}></td>
 		
 	</tr>
 </table>
