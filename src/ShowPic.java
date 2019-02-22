@@ -1,6 +1,3 @@
-
-
-
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -19,13 +16,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
-/** 
+/**
  * Servlet implementation class ShowPic
  */
 public class ShowPic extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public static final String sql_prod = "SELECT PROD_PIC FROM PRODUCT WHERE PROD_ID = '";
 	public static final String sql_live = "SELECT LIVE_PIC FROM LIVE WHERE HOST_ID = '";
+	public static final String sql_meetup = "SELECT MEETUP_PIC FROM MEETUP WHERE MEETUP_ID = '";
 	
 	Connection con;
 	private static DataSource ds = null;
@@ -68,6 +66,9 @@ public class ShowPic extends HttpServlet {
 			sql = sql_live+ req.getParameter(column)+"'";
 			col_pic = "LIVE_PIC";
 			System.out.println(req.getParameter(column));
+		}else if("MEETUP_ID".equals(column)) {
+			sql = sql_meetup+ req.getParameter(column)+"'";
+			col_pic = "MEETUP_PIC";
 		}
 		
 		
