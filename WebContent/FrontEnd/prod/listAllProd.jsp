@@ -89,16 +89,21 @@
 		<th>刪除</th>		
 	</tr>
 	<%@ include file="page1.file" %> 
+	<%
+		if(request.getAttribute("lastPage") != null &&(boolean)request.getAttribute("lastPage")){
+			pageIndex = pageIndexArray[pageNumber-1];
+		}
+	%>
 	<c:forEach var="prodVO" items= "${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		<tr>
 			<td>${prodVO.prod_ID}</td>
 			<td>${prodVO.prod_name}</td>
 			<td>${prodVO.prod_price}</td>
-			<td>${prodVO.prod_type}</td>
+			<td>${pt[prodVO.prod_type]}</td>
 			<td>${prodVO.prod_stock}</td>
 			<td><img class='pic' src='/CA106G5/ShowPic?PROD_ID=${prodVO.prod_ID}'></td>
-			<td>${prodVO.prod_promt_status}</td>
-			<td>${prodVO.prod_status}</td>
+			<td>${pps[prodVO.prod_promt_status]}</td>
+			<td>${ps[prodVO.prod_status]}</td>
 			<td>${prodVO.prod_info}</td>
 			<td>
 				<form method='post' action='prod.do' style="margin-bottom: 0px;">

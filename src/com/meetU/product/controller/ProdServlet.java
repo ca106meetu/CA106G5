@@ -95,7 +95,7 @@ public class ProdServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
-				try {
+//				try {
 					String prod_name = req.getParameter("prod_name");
 					String prod_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 					if(prod_name == null || prod_name.trim().length() ==0) {
@@ -185,18 +185,20 @@ public class ProdServlet extends HttpServlet {
 					byte[] prod_pic=null;
 					Part part = req.getPart("prod_pic");
 					
+					Base64.Encoder encoder = Base64.getEncoder();
 					if(getFileNameFromPart(part) != null) {
 						InputStream in = part.getInputStream();
 						prod_pic = new byte[in.available()];
 						in.read(prod_pic);
 						in.close();
-						Base64.Encoder encoder = Base64.getEncoder();
 						String encodeText = encoder.encodeToString(prod_pic);
 						req.setAttribute("encodeText", encodeText);
 					} else {
 						if(req.getParameter("encodeText") != null && req.getParameter("encodeText").trim().length() !=0) {
 							Base64.Decoder decoder = Base64.getDecoder();
 							prod_pic = decoder.decode(req.getParameter("encodeText"));
+							String encodeText = encoder.encodeToString(prod_pic);
+							req.setAttribute("encodeText", encodeText);
 						}
 					}
 					
@@ -223,15 +225,16 @@ public class ProdServlet extends HttpServlet {
 					//**********************************
 					ProductService prodSvc = new ProductService();
 					prodVO = prodSvc.addprod(prod_name, prod_price, prod_type, prod_stock, prod_pic, prod_promt_status, prod_status, prod_info);
+					req.setAttribute("lastPage", true);
 					//**********************************
 					String url = "/FrontEnd/prod/listAllProd.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url);
 					successView.forward(req, res);
-				} catch (Exception e) {
-					errorMsgs.add("無法取得資料:"+e.getMessage());
-					RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/prod/addProd.jsp");
-					failureView.forward(req, res);
-				}
+//				} catch (Exception e) {
+//					errorMsgs.add("無法取得資料:"+e.getMessage());
+//					RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/prod/addProd.jsp");
+//					failureView.forward(req, res);
+//				}
 			
 		}
 		
@@ -394,7 +397,7 @@ public class ProdServlet extends HttpServlet {
 					//**********************************
 					ProductService prodSvc = new ProductService();
 					prodVO = prodSvc.updateProd(prod_ID, prod_name, prod_price, prod_type, prod_stock, prod_pic, prod_promt_status, prod_status, prod_info);
-					
+					req.setAttribute("lastPage", true);
 					//**********************************
 					req.setAttribute("prodVO", prodVO);
 					String url = "/FrontEnd/prod/listOneProd.jsp";
@@ -417,7 +420,7 @@ public class ProdServlet extends HttpServlet {
 				String prod_ID = req.getParameter("prod_ID");
 				ProductService prodSvc = new ProductService();
 				prodSvc.deleteProd(prod_ID);
-				
+				req.setAttribute("lastPage", true);
 				String url = "/FrontEnd/prod/listAllProd.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);

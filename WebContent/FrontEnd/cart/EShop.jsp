@@ -9,7 +9,6 @@
 	ProductService prodSvc = new ProductService(); 
 	List<ProductVO> list = prodSvc.getAll();
 	pageContext.setAttribute("list", list);
-	List<String> pt = (ArrayList<String>) application.getAttribute("pt");
 
 %>
 
@@ -17,10 +16,13 @@
 <html lang="en">
   <head>
   <style>
-	.pic{
-		width:172.5px;
-		height:230px;
+  	.card-img-top {
+    width:172.5px; 
+ 	height:230px; 
+    border-top-left-radius: calc(.25rem - 1px);
+    border-top-right-radius: calc(.25rem - 1px);
 	}
+ 
 	table {
 	width: 800px;
 	background-color: white;
@@ -48,63 +50,70 @@
   <body>
     <jsp:include page="/Templates/bootstrap4/backHeader.jsp" />
     
-    
-    <h4>此頁練習採用 EL 的寫法取值:</h4>
- <table id = 'table-1'>
-	<tr><td>
-		<h3>所有商品資料-listAllProd.jsp</h3>
-		<h4><a href='selectPage.jsp'><img src="images/back1.gif" width="100" height="32">回首頁</a></h4>
 	
+
+<div class='container'>
+<%for(int j =0; j<(list.size()+1)/3; j++){%>
+<div class="card-deck">
+<%for(int i =0; i<=2; i++){
+	ProductVO prodVO = list.get(3*j+i);%>	
+  <div class="card border-danger mb-3">
+    <img src="/CA106G5/ShowPic?PROD_ID=<%=prodVO.getProd_ID()%>" id='pic' class="card-img-top">
+    <div class="card-body ">
+      <h5 class="card-title"><%=prodVO.getProd_name()%></h5>
+      <p class="card-text text-warning"><%=prodVO.getProd_info()%></p>
+    </div>
+    <div class="card-footer">
+      <small class="text-muted">價錢: <%=prodVO.getProd_price()%> 元</small>
+    </div>
+  </div>
+ <%};%> 
+</div><br>	
+ <%};%>	
+</div>	
 	
-	</td>
-	
-	
-	</tr>
 
 
-
-
-</table>
 
 <%-- 錯誤列表 --%>
-<c:if test='${not empty errorMsgs }'>
-	<font style='color:red'>請修正以下錯誤</font>
-	<ul>
-		<c:forEach var='message' items='${errorMsgs}'>
-			<li style='color:red'>${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
+<%-- <c:if test='${not empty errorMsgs }'> --%>
+<!-- 	<font style='color:red'>請修正以下錯誤</font> -->
+<!-- 	<ul> -->
+<%-- 		<c:forEach var='message' items='${errorMsgs}'> --%>
+<%-- 			<li style='color:red'>${message}</li> --%>
+<%-- 		</c:forEach> --%>
+<!-- 	</ul> -->
+<%-- </c:if> --%>
 
-<table>
-	<tr>
-		<th>商品名稱</th>
-		<th>商品價格</th>
-		<th>類型</th>
-		<th>庫存量</th>
-		<th>圖片</th>
-		<th>商品資訊</th>
-	</tr>
-	<%@ include file="page1.file" %> 
-	<c:forEach var="prodVO" items= "${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-		<tr>
-			<td>${prodVO.prod_name}</td>
-			<td>${prodVO.prod_price}</td>
-			<td>${pt[prodVO.prod_type]}</td>
-			<td>${prodVO.prod_stock}</td>
-			<td><img class='pic' src='/CA106G5/ShowPic?PROD_ID=${prodVO.prod_ID}'></td>
-			<td>${prodVO.prod_info}</td>
-			<td>
-				<form method='post' action='prod.do' style="margin-bottom: 0px;">
-					<input type='submit' value='加入購物車'>
-					<input type='hidden' name='prod_ID' value='${prodVO.prod_ID}'>
-					<input type='hidden' name='action' value='getOne_For_Update'>				
-				</form></td>
-		</tr>
+<!-- <table> -->
+<!-- 	<tr> -->
+<!-- 		<th>商品名稱</th> -->
+<!-- 		<th>商品價格</th> -->
+<!-- 		<th>類型</th> -->
+<!-- 		<th>庫存量</th> -->
+<!-- 		<th>圖片</th> -->
+<!-- 		<th>商品資訊</th> -->
+<!-- 	</tr> -->
+<%-- 	<%@ include file="page1.file" %>  --%>
+<%-- 	<c:forEach var="prodVO" items= "${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>"> --%>
+<!-- 		<tr> -->
+<%-- 			<td>${prodVO.prod_name}</td> --%>
+<%-- 			<td>${prodVO.prod_price}</td> --%>
+<%-- 			<td>${pt[prodVO.prod_type]}</td> --%>
+<%-- 			<td>${prodVO.prod_stock}</td> --%>
+<%-- 			<td><img class='pic' src='/CA106G5/ShowPic?PROD_ID=${prodVO.prod_ID}'></td> --%>
+<%-- 			<td>${prodVO.prod_info}</td> --%>
+<!-- 			<td> -->
+<!-- 				<form method='post' action='prod.do' style="margin-bottom: 0px;"> -->
+<!-- 					<input type='submit' value='加入購物車'> -->
+<%-- 					<input type='hidden' name='prod_ID' value='${prodVO.prod_ID}'> --%>
+<!-- 					<input type='hidden' name='action' value='getOne_For_Update'>				 -->
+<!-- 				</form></td> -->
+<!-- 		</tr> -->
  	
-	</c:forEach>
-</table>
-<%@ include file="page2.file" %> 
+<%-- 	</c:forEach> --%>
+<!-- </table> -->
+<%-- <%@ include file="page2.file" %>  --%>
     
     
     

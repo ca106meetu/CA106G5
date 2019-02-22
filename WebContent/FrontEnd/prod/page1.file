@@ -8,6 +8,7 @@
 %>
 
 <%  
+	
     rowNumber=list.size();
     if (rowNumber%rowsPerPage !=0)
          pageNumber=rowNumber/rowsPerPage + 1;
@@ -30,6 +31,10 @@
               pageIndex=pageIndexArray[pageNumber-1];
          }
     } 
+    if(request.getAttribute("lastPage") != null && (boolean)request.getAttribute("lastPage")){
+			whichPage=pageNumber;
+			pageIndex = pageIndexArray[pageNumber-1];
+		}
 %>
 
 <%if (pageNumber>0){%>
