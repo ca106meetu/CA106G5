@@ -27,7 +27,8 @@ public class LiveService {
 	}
 
 //  修改
-	public LiveVO updateLive(String host_ID, String live_name, Integer live_acc, byte[] live_pic,Timestamp live_date,Integer live_status) {
+	public LiveVO updateLive(String host_ID, String live_name, Integer live_acc, byte[] live_pic, Timestamp live_date,
+			Integer live_status) {
 		LiveVO liveVO = new LiveVO();
 		liveVO.setHost_ID(host_ID);
 		liveVO.setLive_name(live_name);
