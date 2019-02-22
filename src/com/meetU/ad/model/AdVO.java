@@ -1,6 +1,7 @@
 package com.meetU.ad.model;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 public class AdVO implements Serializable {
 
@@ -11,8 +12,8 @@ public class AdVO implements Serializable {
 	private byte[] ad_cont;
 	private Integer ad_cost;
 	private Integer apply_status;
-	private Integer ad_star;
-	private Integer ad_end;
+	private Date ad_star;
+	private Date ad_end;
 
 	public AdVO() {
 
@@ -66,19 +67,19 @@ public class AdVO implements Serializable {
 		this.apply_status = apply_status;
 	}
 
-	public Integer getAd_star() {
+	public Date getAd_star() {
 		return ad_star;
 	}
 
-	public void setAd_star(Integer ad_star) {
+	public void setAd_star(Date ad_star) {
 		this.ad_star = ad_star;
 	}
 
-	public Integer getAd_end() {
+	public Date getAd_end() {
 		return ad_end;
 	}
 
-	public void setAd_end(Integer ad_end) {
+	public void setAd_end(Date ad_end) {
 		this.ad_end = ad_end;
 	}
 

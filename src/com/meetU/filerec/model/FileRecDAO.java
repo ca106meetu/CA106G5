@@ -10,21 +10,29 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
-public class FileRecJDBCDAO implements FileRecDAO_interface {
+public class FileRecDAO implements FileRecDAO_interface {
 
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "CA106G5";
-	String passwd = "123456";
-
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/CA106G5DB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 	private static final String INSERT_STMT = "INSERT INTO FILEREC (FILE_ID, HOST_ID, FILE_NAME, LIVE_DES, FILE_CONT, FILE_DATE, FILE_POP) VALUES ('FM'||LPAD(to_char(filer_seq.NEXTVAL), 6, '0'),?,?,?,?,?,?)";
 	private static final String UPDATE = "UPDATE FILEREC set FILE_NAME = ?, LIVE_DES = ?, FILE_CONT = ?, FILE_POP = ?  where FILE_ID = ?";
 	private static final String DELETE = "DELETE FROM FILEREC where FILE_ID = ?";
 	private static final String GET_ONE_STMT = "SELECT * FROM FILEREC where FILE_ID = ?";
 	private static final String GET_ALL_STMT = "SELECT * FROM FILEREC";
 
-	public FileRecJDBCDAO() {
+	public FileRecDAO() {
 
 	}
 
@@ -34,8 +42,7 @@ public class FileRecJDBCDAO implements FileRecDAO_interface {
 		PreparedStatement pstmt = null;
 
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setString(1, filerecVO.getHost_ID());
@@ -47,8 +54,6 @@ public class FileRecJDBCDAO implements FileRecDAO_interface {
 
 			pstmt.executeUpdate();
 
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
@@ -75,8 +80,7 @@ public class FileRecJDBCDAO implements FileRecDAO_interface {
 		PreparedStatement pstmt = null;
 
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
 			pstmt.setString(1, filerecVO.getFile_name());
@@ -87,8 +91,6 @@ public class FileRecJDBCDAO implements FileRecDAO_interface {
 
 			pstmt.executeUpdate();
 
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
@@ -115,16 +117,13 @@ public class FileRecJDBCDAO implements FileRecDAO_interface {
 		PreparedStatement pstmt = null;
 
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
+
 			pstmt.setString(1, filerecVO.getFile_ID());
 
 			pstmt.executeUpdate();
 
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
@@ -153,10 +152,11 @@ public class FileRecJDBCDAO implements FileRecDAO_interface {
 		ResultSet rs = null;
 
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
+
 			pstmt.setString(1, file_ID);
+
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -171,8 +171,6 @@ public class FileRecJDBCDAO implements FileRecDAO_interface {
 				filerecVO.setFile_pop(rs.getInt("FILE_POP"));
 			}
 
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
@@ -212,9 +210,9 @@ public class FileRecJDBCDAO implements FileRecDAO_interface {
 		ResultSet rs = null;
 
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
+
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				filerecVO = new FileRecVO();
@@ -229,8 +227,6 @@ public class FileRecJDBCDAO implements FileRecDAO_interface {
 
 				list.add(filerecVO);
 			}
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
@@ -257,66 +253,5 @@ public class FileRecJDBCDAO implements FileRecDAO_interface {
 			}
 		}
 		return list;
-	}
-
-	// 以下測試
-	public static void main(String[] args) throws IOException {
-		FileRecJDBCDAO dao = new FileRecJDBCDAO();
-
-//			新增
-		Date today = new Date();
-		FileRecVO filerecVO1 = new FileRecVO();
-		filerecVO1.setHost_ID("M000007");
-
-		filerecVO1.setFile_name("測試房間新增");
-		filerecVO1.setLive_des("測試房間新增");
-		filerecVO1.setFile_cont("測試房間新增");
-		filerecVO1.setFile_date(new Timestamp(today.getTime()));
-		filerecVO1.setFile_pop(100);
-		dao.insert(filerecVO1);
-
-		System.out.println("成功新增");
-
-//			修改
-		FileRecVO filerecVO2 = new FileRecVO();
-
-		filerecVO2.setFile_name("測試房間修改");
-		filerecVO2.setLive_des("測試房間修改");
-		filerecVO2.setFile_cont("測試房間修改");
-		filerecVO2.setFile_pop(888);
-		filerecVO2.setFile_ID("FM000007");
-		dao.update(filerecVO2);
-		System.out.println("修改成功");
-
-//			刪除
-		FileRecVO filerecVO3 = new FileRecVO();
-
-		filerecVO3.setFile_ID("FM000009");
-		dao.delete(filerecVO3);
-		System.out.println("刪除成功");
-
-//			條件查詢
-		FileRecVO filerecVO4 = dao.findByPrimaryKey("FM000006");
-		System.out.print(filerecVO4.getFile_ID() + ", ");
-		System.out.print(filerecVO4.getHost_ID() + ", ");
-		System.out.print(filerecVO4.getFile_name() + ", ");
-		System.out.print(filerecVO4.getLive_des() + ", ");
-		System.out.print(filerecVO4.getFile_cont() + ", ");
-		System.out.print(filerecVO4.getFile_date() + ", ");
-		System.out.print(filerecVO4.getFile_pop() + " ");
-		System.out.print("----------------------------");
-
-//			查詢全部	
-		List<FileRecVO> list = dao.getALL();
-		for (FileRecVO filerecVO5 : list) {
-			System.out.print(filerecVO5.getFile_ID() + ", ");
-			System.out.print(filerecVO5.getHost_ID() + ", ");
-			System.out.print(filerecVO5.getFile_name() + ", ");
-			System.out.print(filerecVO5.getLive_des() + ", ");
-			System.out.print(filerecVO5.getFile_cont() + ", ");
-			System.out.print(filerecVO5.getFile_date() + ", ");
-			System.out.println(filerecVO5.getFile_pop() + " ");
-			System.out.println("----------------------------");
-		}
 	}
 }

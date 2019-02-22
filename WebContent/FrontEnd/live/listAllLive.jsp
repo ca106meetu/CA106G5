@@ -2,6 +2,7 @@
 <%@page import="com.meetU.live.model.*"%>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
 <%
@@ -73,6 +74,7 @@ td {
 			<th>刪除</th>
 		</tr>
 		<%@ include file="page1.file"%>
+
 		<c:forEach var="liveVO" items="${list}" begin="<%=pageIndex%>"
 			end="<%=pageIndex+rowsPerPage-1%>">
 			<tr>
@@ -83,7 +85,10 @@ td {
 						<img class='pic'
 							src='/SmokeChen/ShowPic?HOST_ID=${liveVO.host_ID}'>
 					</c:if></td>
-				<td>${liveVO.live_date}</td>
+
+
+				<td><fmt:formatDate value="${liveVO.live_date}"
+						pattern="yyyy-MM-dd HH:mm" /></td>
 				<td>${liveVO.live_status}</td>
 
 				<td>
