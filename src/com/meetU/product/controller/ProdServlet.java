@@ -383,6 +383,7 @@ public class ProdServlet extends HttpServlet {
 					Base64.Encoder encoder = Base64.getEncoder();
 					String encodeText = encoder.encodeToString(prod_pic);
 					req.setAttribute("encodeText", encodeText);
+					
 					if(!errorMsgs.isEmpty()) {
 						req.setAttribute("prodVO", prodVO);
 						RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/prod/update_prod_input.jsp");
