@@ -38,4 +38,13 @@
 		<url-pattern>/FrontEnd/live/live.do</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>PostServlet</servlet-name>
+		<servlet-class>com.meetU.post.controller.PostServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PostServlet</servlet-name>
+		<url-pattern>/FrontEnd/post/post.do</url-pattern>
+	</servlet-mapping>
+	
 </web-app>
