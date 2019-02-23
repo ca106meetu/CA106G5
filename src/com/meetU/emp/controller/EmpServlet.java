@@ -4,17 +4,37 @@ import java.io.*;
 import java.util.*;
 
 import javax.servlet.*;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 
 import com.meetU.emp.model.*;
 
-
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 public class EmpServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
   
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 		doPost(req, res);
+		
+//		req.setCharacterEncoding("UTF-8");
+//		res.setContentType("image/jpeg");
+//		ServletOutputStream out = res.getOutputStream();
+//		
+//		try {
+//			String emp_ID = req.getParameter("emp_ID").trim();
+//			EmpService empSvc = new EmpService();
+//			EmpVO empVO = empSvc.getOneEmp(emp_ID);
+//			byte[] pic = empVO.getEmp_pic();
+//			out.write(pic);
+//		}catch(Exception e) {
+//			InputStream in = getServletContext().getResourceAsStream("/");
+//			byte[] buf = new byte[in.available()];
+//			in.read(buf);
+//			out.write(buf);
+//			in.close();
+//		}
+		
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -176,7 +196,13 @@ public class EmpServlet extends HttpServlet {
 				//	errorMsgs.add("員工性別: 只能是中、英文字母 , 且長度必需在10以內");
 	            //}
 				
+								
 				byte[] emp_pic = null;//??
+				Part part = req.getPart("emp_pic");
+				InputStream in = part.getInputStream();
+				emp_pic = new byte[in.available()];
+				in.read(emp_pic);
+				in.close();
 				
 				Integer emp_state = null;
 				try {
@@ -310,7 +336,13 @@ public class EmpServlet extends HttpServlet {
 				//	errorMsgs.add("員工性別: 只能是中、英文字母 , 且長度必需在10以內");
 	            //}
 				
+				
 				byte[] emp_pic = null;//??
+				Part part = req.getPart("emp_pic");
+				InputStream in = part.getInputStream();
+				emp_pic = new byte[in.available()];
+				in.read(emp_pic);
+				in.close();
 				
 				Integer emp_state = null;
 				try {

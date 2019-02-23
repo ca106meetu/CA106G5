@@ -20,9 +20,9 @@ public class MemDAO implements MemDAO_interface {
 	
 	private static final String INSERT_STMT = 
 		"INSERT INTO MEM (MEM_ID, MEM_PW, MEM_NAME, MEM_ACC, MEM_NICKNAME, MEM_BDAY, MEM_EMAIL, MEM_PHO, MEM_GEND, MEM_PIC,"
-				+               " MEM_INTRO, MEM_CODE, MEM_STATE, MEM_DATE, MEM_SIGN_DAY, MEM_LOGIN_STATE, MEM_ADDRESS, LAST_PAIR, MEM_HOBBY, MEM_QRCODE,MEM_GET_POINT)"
-				+        " VALUES ( 'M'||LPAD(to_char(mem_seq.NEXTVAL), 6, '0'), ?, ?, ?, ?, ?, ?, ?, ?, ?,"
-				+                 " ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		+               " MEM_INTRO, MEM_CODE, MEM_STATE, MEM_DATE, MEM_SIGN_DAY, MEM_LOGIN_STATE, MEM_ADDRESS, LAST_PAIR, MEM_HOBBY, MEM_QRCODE,MEM_GET_POINT)"
+		+        " VALUES ( 'M'||LPAD(to_char(mem_seq.NEXTVAL), 6, '0'), ?, ?, ?, ?, ?, ?, ?, ?, ?,"
+		+                 " ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
 		"SELECT * FROM MEM";
 	private static final String GET_ONE_STMT = 
@@ -30,9 +30,11 @@ public class MemDAO implements MemDAO_interface {
 	private static final String DELETE = 
 		"DELETE FROM MEM where MEM_ID = ?";
 	private static final String UPDATE = 
-		"UPDATE MEM set MEM_PW=?, MEM_NAME=?, MEM_ACC=?, MEM_NICKNAME=?, MEM_BDAY=?, MEM_EMAIL=?, MEM_PHO=?, MEM_GEND=?, MEM_PIC=?,"
-		+              "MEM_INTRO=?, MEM_CODE=?, MEM_STATE=?, MEM_DATE=?, MEM_SIGN_DAY=?, MEM_LOGIN_STATE=?, MEM_ADDRESS=?, LAST_PAIR=?, MEM_HOBBY=?, MEM_QRCODE=?,MEM_GET_POINT=?"
-		+              " where MEM_ID=?";
+		"UPDATE MEM set MEM_PW=?, MEM_NAME=?, MEM_ACC=?, MEM_NICKNAME=?, MEM_BDAY=?,"
+		+             " MEM_EMAIL=?, MEM_PHO=?, MEM_GEND=?, MEM_PIC=?, MEM_INTRO=?,"
+		+             " MEM_CODE=?, MEM_STATE=?, MEM_DATE=?, MEM_SIGN_DAY=?, MEM_LOGIN_STATE=?,"
+		+             " MEM_ADDRESS=?, LAST_PAIR=?, MEM_HOBBY=?, MEM_QRCODE=?,MEM_GET_POINT=?"
+		+             " where MEM_ID=?";
 	
 	@Override
 	public void insert(MemVO memVO) {
@@ -64,7 +66,7 @@ public class MemDAO implements MemDAO_interface {
 			pstmt.setString(18, memVO.getMem_hobby());
 			pstmt.setBytes(19, memVO.getMem_QRCODE());
 			pstmt.setInt(20, memVO.getMem_get_point());
-			
+						
 			pstmt.executeUpdate();
 			
 			

@@ -20,7 +20,7 @@ public class EmpAuthJDBCDAO implements EmpAuthDAO_interface{
 	private static final String DELETE = 
 		"DELETE FROM EMP_AUTH where EMP_ID = ? AND AUTH_ID = ?";
 	private static final String UPDATE = 
-		"UPDATE EMP_AUTH set AUTH_ID=? where EMP_ID=?";
+		"UPDATE EMP_AUTH set EMP_ID=?, AUTH_ID=? where EMP_ID=? AND AUTH_ID = ?";//??
 	@Override
 	public void insert(EmpAuthVO empAuthVO) {
 		Connection con = null;
@@ -72,9 +72,11 @@ public class EmpAuthJDBCDAO implements EmpAuthDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
 			
-			pstmt.setString(1, empAuthVO.getAuth_ID());
-			pstmt.setString(2, empAuthVO.getEmp_ID());
-						
+			pstmt.setString(1, empAuthVO.getEmp_ID());
+			pstmt.setString(2, empAuthVO.getAuth_ID());
+			pstmt.setString(3, empAuthVO.getEmp_ID());//??
+			pstmt.setString(4, empAuthVO.getAuth_ID());
+			
 			pstmt.executeUpdate();
 			
 			

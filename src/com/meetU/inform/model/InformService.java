@@ -1,6 +1,5 @@
 package com.meetU.inform.model;
 
-import java.sql.*;
 import java.util.*;
 
 public class InformService {
@@ -43,6 +42,10 @@ public class InformService {
 	
 	public InformVO getOneInform(String inform_ID) {
 		return dao.findByPrimaryKey(inform_ID);
+	}
+	
+	public List<InformVO> getAll() {
+		return dao.getAll();
 	}
 	
 }

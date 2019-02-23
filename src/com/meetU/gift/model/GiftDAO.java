@@ -1,4 +1,4 @@
-package com.meetU.inform.model;
+package com.meetU.gift.model;
 
 import java.util.*;
 import java.sql.*;
@@ -8,7 +8,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class InformDAO implements InformDAO_interface{
+public class GiftDAO implements GiftDAO_interface{
 	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
 	private static DataSource ds = null;
 	static {
@@ -20,17 +20,17 @@ public class InformDAO implements InformDAO_interface{
 		}
 	}
 	private static final String INSERT_STMT = 
-		"INSERT INTO INFORM (INFORM_ID, INFORM_STATUS, MEM_ID, INFORM_CONTENT, INFORM_TIME) VALUES ('INF'||LPAD(to_char(inform_seq.NEXTVAL), 6, '0'), ?, ?, ?, current_timestamp)";
+		"INSERT INTO GIFT (GIFT_REC_ID, RECV_ID, SEND_ID, PROD_ID, GIFT_QUANTITY) VALUES ( 'GR'||LPAD(to_char(GIFT_REC_SEQ.NEXTVAL), 6, '0'), ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
-		"SELECT * FROM INFORM";
+		"SELECT * FROM GIFT";
 	private static final String GET_ONE_STMT = 
-		"SELECT * FROM INFORM where INFORM_ID = ?";
+		"SELECT * FROM GIFT where GIFT_REC_ID = ?";
 	private static final String DELETE = 
-		"DELETE FROM INFORM where INFORM_ID = ?";
+		"DELETE FROM GIFT where GIFT_REC_ID = ?";
 	private static final String UPDATE = 
-		"UPDATE INFORM set INFORM_STATUS=?, MEM_ID=?, INFORM_CONTENT=?, INFORM_TIME=current_timestamp where INFORM_ID = ?";
+		"UPDATE GIFT set RECV_ID=?, SEND_ID=?, PROD_ID=?, GIFT_QUANTITY=? where GIFT_REC_ID=?";
 	@Override
-	public void insert(InformVO informVO) {
+	public void insert(GiftVO giftVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -39,9 +39,10 @@ public class InformDAO implements InformDAO_interface{
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setInt(1, informVO.getInform_status());
-			pstmt.setString(2, informVO.getMem_ID());
-			pstmt.setString(3, informVO.getInform_content());
+			pstmt.setString(1, giftVO.getRecv_ID());
+			pstmt.setString(2, giftVO.getSend_ID());
+			pstmt.setString(3, giftVO.getProd_ID());
+			pstmt.setInt(4, giftVO.getGift_quantity());
 
 			pstmt.executeUpdate();
 
@@ -66,10 +67,9 @@ public class InformDAO implements InformDAO_interface{
 				}
 			}
 		}
-		
 	}
 	@Override
-	public void update(InformVO informVO) {
+	public void update(GiftVO giftVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -78,10 +78,11 @@ public class InformDAO implements InformDAO_interface{
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setInt(1, informVO.getInform_status());
-			pstmt.setString(2, informVO.getMem_ID());
-			pstmt.setString(3, informVO.getInform_content());
-			pstmt.setString(4, informVO.getInform_ID());
+			pstmt.setString(1, giftVO.getRecv_ID());
+			pstmt.setString(2, giftVO.getSend_ID());
+			pstmt.setString(3, giftVO.getProd_ID());
+			pstmt.setInt(4, giftVO.getGift_quantity());
+			pstmt.setString(5, giftVO.getGift_rec_ID());
 
 			pstmt.executeUpdate();
 
@@ -108,7 +109,7 @@ public class InformDAO implements InformDAO_interface{
 		}
 	}
 	@Override
-	public void delete(String inform_ID) {
+	public void delete(String gift_rec_ID) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -117,7 +118,7 @@ public class InformDAO implements InformDAO_interface{
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setString(1, inform_ID);
+			pstmt.setString(1, gift_rec_ID);
 
 			pstmt.executeUpdate();
 
@@ -142,11 +143,10 @@ public class InformDAO implements InformDAO_interface{
 				}
 			}
 		}
-
 	}
 	@Override
-	public InformVO findByPrimaryKey(String inform_ID) {
-		InformVO informVO = null;
+	public GiftVO findByPrimaryKey(String gift_rec_ID) {
+		GiftVO giftVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -156,18 +156,17 @@ public class InformDAO implements InformDAO_interface{
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setString(1, inform_ID);
+			pstmt.setString(1, gift_rec_ID);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// informVO 也稱為 Domain objects
-				informVO = new InformVO();
-				informVO.setInform_ID(rs.getString("inform_ID"));
-				informVO.setInform_status(rs.getInt("inform_status"));
-				informVO.setMem_ID(rs.getString("mem_ID"));
-				informVO.setInform_content(rs.getString("inform_content"));
-				informVO.setInform_time(rs.getTimestamp("inform_time"));
+				giftVO = new GiftVO();
+				giftVO.setGift_rec_ID(rs.getString("gift_rec_ID"));
+				giftVO.setRecv_ID(rs.getString("recv_ID"));
+				giftVO.setSend_ID(rs.getString("send_ID"));
+				giftVO.setProd_ID(rs.getString("prod_ID"));
+				giftVO.setGift_quantity(rs.getInt("gift_quantity"));			
 			
 			}
 
@@ -199,12 +198,12 @@ public class InformDAO implements InformDAO_interface{
 				}
 			}
 		}
-		return informVO;
+		return giftVO;
 	}
 	@Override
-	public List<InformVO> getAll() {
-		List<InformVO> list = new ArrayList<InformVO>();
-		InformVO informVO = null;
+	public List<GiftVO> getAll() {
+		List<GiftVO> list = new ArrayList<>();
+		GiftVO giftVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -217,16 +216,13 @@ public class InformDAO implements InformDAO_interface{
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// informVO 也稱為 Domain objects
-				informVO = new InformVO();
-				informVO.setInform_ID(rs.getString("inform_ID"));
-				informVO.setInform_status(rs.getInt("inform_status"));
-				informVO.setMem_ID(rs.getString("mem_ID"));
-				informVO.setInform_content(rs.getString("inform_content"));
-				informVO.setInform_time(rs.getTimestamp("inform_time"));
-				
-				list.add(informVO);
-				// Store the row in the list
+				giftVO = new GiftVO();
+				giftVO.setGift_rec_ID(rs.getString("gift_rec_ID"));
+				giftVO.setRecv_ID(rs.getString("recv_ID"));
+				giftVO.setSend_ID(rs.getString("send_ID"));
+				giftVO.setProd_ID(rs.getString("prod_ID"));
+				giftVO.setGift_quantity(rs.getInt("gift_quantity"));
+				list.add(giftVO);
 			}
 
 			// Handle any driver errors
@@ -259,5 +255,5 @@ public class InformDAO implements InformDAO_interface{
 		}
 		return list;
 	}
-		
+			
 }

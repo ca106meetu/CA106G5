@@ -45,7 +45,8 @@ public class MemService {
 	public MemVO updateMem(String mem_pw, String mem_name, String mem_acc, String mem_nickname, java.sql.Date mem_bday,
 			String mem_email, String mem_pho, String mem_gend, byte[] mem_pic, String mem_intro,
 			Integer mem_code, Integer mem_state, java.sql.Date mem_date, java.sql.Timestamp mem_sign_day, Integer mem_login_state,
-			String mem_address, java.sql.Timestamp last_pair, String mem_hobby,byte[] mem_QRCODE,Integer mem_get_point ) {
+			String mem_address, java.sql.Timestamp last_pair, String mem_hobby,byte[] mem_QRCODE,Integer mem_get_point, 
+			String mem_ID) {
 		
 		MemVO memVO = new MemVO();
 		memVO.setMem_pw(mem_pw);
@@ -58,6 +59,7 @@ public class MemService {
 		memVO.setMem_gend(mem_gend);
 		memVO.setMem_pic(mem_pic);
 		memVO.setMem_intro(mem_intro);
+		
 		memVO.setMem_code(mem_code);
 		memVO.setMem_state(mem_state);
 		memVO.setMem_date(mem_date);
@@ -68,6 +70,7 @@ public class MemService {
 		memVO.setMem_hobby(mem_hobby);
 		memVO.setMem_QRCODE(mem_QRCODE);
 		memVO.setMem_get_point(mem_get_point);
+		memVO.setMem_ID(mem_ID);
 		
 		dao.update(memVO);
 		
