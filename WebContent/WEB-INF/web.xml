@@ -47,6 +47,16 @@
 		<url-pattern>/FrontEnd/post/post.do</url-pattern>
 	</servlet-mapping>
 	
+	<!-- 權限controller -->
+  <servlet>
+    <servlet-name>AuthServlet</servlet-name>
+    <servlet-class>com.meetU.auth.controller.AuthServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AuthServlet</servlet-name>
+    <url-pattern>/back-end/auth/auth.do</url-pattern>
+  </servlet-mapping>
+  
 	<!-- 員工controller -->
   <servlet>
     <servlet-name>EmpServlet</servlet-name>
