@@ -9,5 +9,5 @@ public interface EmpAuthDAO_interface {
     public EmpAuthVO findByPrimaryKey(String emp_ID, String auth_ID);
     public List<EmpAuthVO> getAll();
     //萬用複合查詢(傳入參數型態Map)(回傳 List)
-    //  public List<AuthVO> getAll(Map<String, String[]> map);	
+    //  public List<EmpAuthVO> getAll(Map<String, String[]> map);	
 }
