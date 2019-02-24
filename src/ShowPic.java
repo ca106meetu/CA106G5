@@ -25,7 +25,6 @@ public class ShowPic extends HttpServlet {
 	public static final String sql_live = "SELECT LIVE_PIC FROM LIVE WHERE HOST_ID = '";
 	public static final String sql_meetup = "SELECT MEETUP_PIC FROM MEETUP WHERE MEETUP_ID = '";
 	
-	Connection con;
 	private static DataSource ds = null;
 	static {
 		try {
@@ -48,6 +47,7 @@ public class ShowPic extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
+		Connection con = null;
 		Integer eqPos = req.getQueryString().indexOf("=");
 		String column = req.getQueryString().substring(0, eqPos);
 		res.setContentType("image/gif");

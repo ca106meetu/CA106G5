@@ -3,6 +3,10 @@ package com.meetU.product.model;
 import java.io.Serializable;
 
 public class ProductVO implements Serializable{
+	
+	private Integer quantity;
+	
+	
 	private String prod_ID;
 	private String prod_name;
 	private Double prod_price;
@@ -14,6 +18,39 @@ public class ProductVO implements Serializable{
 	private String prod_info;
 	
 	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((prod_ID == null) ? 0 : prod_ID.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ProductVO other = (ProductVO) obj;
+		if (prod_ID == null) {
+			if (other.prod_ID != null)
+				return false;
+		} else if (!prod_ID.equals(other.prod_ID))
+			return false;
+		return true;
+	}
+
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+
 	public ProductVO() {
 		
 	}

@@ -36,6 +36,11 @@
     padding: 2px;
     text-align: center;
   }
+  .shopping-cart{
+  	width:40px;
+  	height:40px;
+  	float:right;
+  }
 	
 </style>
     <!-- Required meta tags -->
@@ -53,7 +58,7 @@
 	
 
 <div class='container'>
-<%for(int j =0; j<(list.size()+1)/3; j++){%>
+<%for(int j =0; j<(list.size())/3; j++){%>
 <div class="card-deck">
 <%for(int i =0; i<=2; i++){
 	ProductVO prodVO = list.get(3*j+i);%>	
@@ -65,6 +70,19 @@
     </div>
     <div class="card-footer">
       <small class="text-muted">價錢: <%=prodVO.getProd_price()%> 元</small>
+     
+     
+	  <form method='post' action="ShoppingServlet">
+	  	<input type='hidden' name='prod_ID' value=<%=prodVO.getProd_ID()%>>
+	  	<div class="input-group mb-3">
+	  		<input class="form-control" type="number" min="1" max="5" value="1" id="example-number-input" name='quantity'>
+	  	<div class="input-group-append">
+	    	<input class='shopping-cart' type='image' src='images/shopping-cart.png' alt='submit'>
+	  	</div>
+		</div>
+	  	
+	  	<input type='hidden' name='action' value='add'>
+	  </form>     
     </div>
   </div>
  <%};%> 
@@ -72,8 +90,6 @@
  <%};%>	
 </div>	
 	
-
-
 
 <%-- 錯誤列表 --%>
 <%-- <c:if test='${not empty errorMsgs }'> --%>
@@ -85,40 +101,6 @@
 <!-- 	</ul> -->
 <%-- </c:if> --%>
 
-<!-- <table> -->
-<!-- 	<tr> -->
-<!-- 		<th>商品名稱</th> -->
-<!-- 		<th>商品價格</th> -->
-<!-- 		<th>類型</th> -->
-<!-- 		<th>庫存量</th> -->
-<!-- 		<th>圖片</th> -->
-<!-- 		<th>商品資訊</th> -->
-<!-- 	</tr> -->
-<%-- 	<%@ include file="page1.file" %>  --%>
-<%-- 	<c:forEach var="prodVO" items= "${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>"> --%>
-<!-- 		<tr> -->
-<%-- 			<td>${prodVO.prod_name}</td> --%>
-<%-- 			<td>${prodVO.prod_price}</td> --%>
-<%-- 			<td>${pt[prodVO.prod_type]}</td> --%>
-<%-- 			<td>${prodVO.prod_stock}</td> --%>
-<%-- 			<td><img class='pic' src='/CA106G5/ShowPic?PROD_ID=${prodVO.prod_ID}'></td> --%>
-<%-- 			<td>${prodVO.prod_info}</td> --%>
-<!-- 			<td> -->
-<!-- 				<form method='post' action='prod.do' style="margin-bottom: 0px;"> -->
-<!-- 					<input type='submit' value='加入購物車'> -->
-<%-- 					<input type='hidden' name='prod_ID' value='${prodVO.prod_ID}'> --%>
-<!-- 					<input type='hidden' name='action' value='getOne_For_Update'>				 -->
-<!-- 				</form></td> -->
-<!-- 		</tr> -->
- 	
-<%-- 	</c:forEach> --%>
-<!-- </table> -->
-<%-- <%@ include file="page2.file" %>  --%>
-    
-    
-    
-    
-    
     <jsp:include page="/Templates/bootstrap4/backFooter.jsp" />
 
     <!-- Optional JavaScript -->
