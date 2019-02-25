@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import com.meetU.product.model.ProductService;
 import com.meetU.product.model.ProductVO;
 
+
 /**
  * Servlet implementation class ShoppingServlet
  */
@@ -30,13 +31,13 @@ public class ShoppingServlet extends HttpServlet {
 		res.setCharacterEncoding("UTF-8");
 		HttpSession session = req.getSession();
 		@SuppressWarnings("unchecked")
-		List<ProductVO> buyList = (Vector<ProductVO>) session.getAttribute("shappingCart");
+		List<ProductVO> buyList = (Vector<ProductVO>) session.getAttribute("shoppingCart");
+		ProductService prodSvc = new ProductService();
 		
 		//新增
 		String action = req.getParameter("action");
 		if("add".equals(action)) {
 			
-			ProductService prodSvc = new ProductService();
 			ProductVO prodVO = prodSvc.getOneProd(req.getParameter("prod_ID"));
 			System.out.println(prodVO);
 			ProductVO innerProdVO =null;
@@ -60,12 +61,43 @@ public class ShoppingServlet extends HttpServlet {
 					System.out.println(prodVO.getQuantity());
 				}
 			}
-			session.setAttribute("shappingCart", buyList);
+			session.setAttribute("shoppingCart", buyList);
 			
 			RequestDispatcher rd = req.getRequestDispatcher("/FrontEnd/cart/EShop.jsp");
 			rd.forward(req, res);
 					
 		}
+		
+		if ("del".equals(action)) {
+			if(buyList != null) {
+				String prod_ID = req.getParameter("prod_ID");
+				buyList.remove(prodSvc.getOneProd(prod_ID));
+				session.setAttribute("shoppingCart", buyList);
+				RequestDispatcher rd = req.getRequestDispatcher("/FrontEnd/cart/cart.jsp");
+				
+				rd.forward(req, res);
+			}
+		}
+		
+		if ("checkOut".equals(action)) {
+			if(buyList != null) {
+				double total = 0;
+				for (int i = 0; i < buyList.size(); i++) {
+					ProductVO prodVO = buyList.get(i);
+					Double price = prodVO.getProd_price();
+					Integer quantity = prodVO.getQuantity();
+					total += (price * quantity);
+				}
+
+				String amount = String.valueOf(total);
+				req.setAttribute("amount", amount);
+				String url = "/FrontEnd/cart/checkOut.jsp";
+				RequestDispatcher rd = req.getRequestDispatcher(url);
+				rd.forward(req, res);
+			}
+
+			}
+		
 	
 	}
 	

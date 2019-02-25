@@ -33,44 +33,37 @@
     
     <div class="container">
       <div class="row">
-      	<div class="col-1"><input type='checkbox'></div>
         <div class="col-5">商品</div>
         <div class="col-3">單價</div>
-        <div class="col-1">數量</div>
-        <div class="col-1">總計</div>
-        <div class="col-1">操作</div>
+        <div class="col-2">數量</div>
+        <div class="col-2">總計</div>
       </div>
       <br>
       
       <c:forEach var="prodVO" items= "${shoppingCart}">
       <div class="row">
-      	<div class="col-1"><input type='checkbox'></div>
         <div class="col-1"><img class='pic' src='/CA106G5/ShowPic?PROD_ID=${prodVO.prod_ID}'></div>
         <div class="col-2">${prodVO.prod_name}</div>
         <div class="col-2"></div>
         <div class="col-3">$${prodVO.prod_price}</div>
-        <div class="col-1">${prodVO.quantity}</div>
-        <div class="col-1">${prodVO.prod_price*prodVO.quantity}</div>
-        <div class="col-1">
-        		<form method='post' action='ShoppingServlet' style="margin-bottom: 0px;">
-					<input type='submit' value='刪除'>
-					<input type='hidden' name='prod_ID' value='${prodVO.prod_ID}'>
-					<input type='hidden' name='action' value='del'>				
-				</form>
-        </div>
+        <div class="col-2">${prodVO.quantity}</div>
+        <div class="col-2">${prodVO.prod_price*prodVO.quantity}</div>
       </div>
       </c:forEach>
       
-      <div class='row'>
-      	<div class="col-8"></div>
-        <div class="col-3">
+      <div class="row">
+        <div class="col-9"></div>
+        <div class="col-1">
         	<form method='post' action='ShoppingServlet'>
-        		<input type='hidden' name='action' value='checkOut'>
-        		<button type="submit" class="btn btn-warning">前往結帳</button>
+        		<input type='hidden' name='action' value='pay'>
+        		<button type="submit" class="btn btn-warning">付款</button>
         	</form>
         </div>
-        <div class="col-1"></div>
-      </div>
+        <div class="col-2">共${amount}元</div>
+      </div><br>
+      
+      
+      
 
     </div>
     

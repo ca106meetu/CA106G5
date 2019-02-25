@@ -89,7 +89,7 @@
 </div><br>	
  <%};%>	
 </div>	
-	
+	<a class="btn btn-primary" href="cart.jsp" role="button">查看購物車</a>
 
 <%-- 錯誤列表 --%>
 <%-- <c:if test='${not empty errorMsgs }'> --%>
