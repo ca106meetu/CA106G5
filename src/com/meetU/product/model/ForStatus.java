@@ -45,7 +45,7 @@ public class ForStatus extends HttpServlet {
 		getServletContext().setAttribute("pt", pt);
 		getServletContext().setAttribute("ps", ps);
 		getServletContext().setAttribute("pps", pps);
-		System.out.println("陳彥彰臭雞雞");
+		System.out.println("阿彌陀佛阿門阿拉~BUG不要來");
 		
 		
 		
