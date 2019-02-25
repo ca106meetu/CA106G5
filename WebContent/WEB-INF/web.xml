@@ -106,5 +106,33 @@
     <servlet-name>MemServlet</servlet-name>
     <url-pattern>/back-end/mem/mem.do</url-pattern>
   </servlet-mapping>
+  
+  <!-- 聯誼controller -->
+   <servlet>
+    <servlet-name>MeetupServlet</servlet-name>
+    <servlet-class>com.meetU.meetup.controller.MeetupServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MeetupServlet</servlet-name>
+    <url-pattern>/meetup/meetup.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>MeetupMemServlet</servlet-name>
+    <servlet-class>com.meetU.meetup_mem.controller.MeetupMemServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MeetupMemServlet</servlet-name>
+    <url-pattern>/meetupMem/meetupMem.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>MeetupChatServlet</servlet-name>
+    <servlet-class>com.meetU.meetup.controller.MeetupChatServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MeetupChatServlet</servlet-name>
+    <url-pattern>/meetupChat/meetup.do</url-pattern>
+  </servlet-mapping>
 	
 </web-app>
