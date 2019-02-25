@@ -68,5 +68,9 @@ public class OrderMasterService {
 	public List<OrderMasterVO> getAll(){
 		return dao.getAll();
 	}
+	
+	public List<OrderMasterVO> getOmByMem(String order_ID){
+		return dao.getOmByMem(order_ID);
+	}
 
 }

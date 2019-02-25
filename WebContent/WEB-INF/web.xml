@@ -11,13 +11,22 @@
   </welcome-file-list>
   
   
-  <servlet>
+  	<servlet>
 		<servlet-name>ProdServlet</servlet-name>
 		<servlet-class>com.meetU.product.controller.ProdServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ProdServlet</servlet-name>
 		<url-pattern>/FrontEnd/prod/prod.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>omServlet</servlet-name>
+		<servlet-class>com.meetU.orderMaster.controller.OmServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>omServlet</servlet-name>
+		<url-pattern>/back-end/om/om.do</url-pattern>
 	</servlet-mapping>
 	
 	 <servlet>

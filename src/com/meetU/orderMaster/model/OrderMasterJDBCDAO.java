@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.meetU.product.model.ProductJDBCDAO;
 import com.meetU.product.model.ProductVO;
@@ -370,6 +371,20 @@ public class OrderMasterJDBCDAO implements OrderMasterDAO_interface {
 //		System.out.println("----------------------------");
 //		}
 
+	}
+
+	@Override
+	public List<OrderMasterVO> getAll(Map<String, String[]> map) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public List<OrderMasterVO> getOmByMem(String mem_ID) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

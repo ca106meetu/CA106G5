@@ -17,7 +17,6 @@ import com.meetU.orderMaster.model.OrderMasterService;
 import com.meetU.orderMaster.model.OrderMasterVO;
 
 
-@MultipartConfig
 public class OmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -33,6 +32,7 @@ public class OmServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
+		
 		
 		if ("getOne_For_Display".equals(action)) {
 			
@@ -51,7 +51,7 @@ public class OmServlet extends HttpServlet {
 					
 					if(!errorMsgs.isEmpty()) {
 						RequestDispatcher failureView = req
-								.getRequestDispatcher("/FrontEnd/om/selectPage.jsp");
+								.getRequestDispatcher("/back-end/om/selectPageOm.jsp");
 						failureView.forward(req, res);
 						return;
 					}
@@ -65,20 +65,20 @@ public class OmServlet extends HttpServlet {
 					
 					if(!errorMsgs.isEmpty()) {
 						RequestDispatcher failureView = req
-								.getRequestDispatcher("/FrontEnd/om/selectPage.jsp");
+								.getRequestDispatcher("/back-end/om/selectPageOm.jsp");
 						failureView.forward(req, res);
 						return;
 					}
 			//*******3.查詢完成準備轉交**************************
 					req.setAttribute("omVO", omVO);
-					String url = "/FrontEnd/om/listOneOm.jsp";
+					String url = "/back-end/om/listOneOm.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url);
 					successView.forward(req, res);
 			//************其他錯誤處理************************
 		} catch (Exception e) {
 			errorMsgs.add("無法取得資料" + e.getMessage());
 			RequestDispatcher failureView = req
-					.getRequestDispatcher("/FrontEnd/om/selectPage.jsp");
+					.getRequestDispatcher("/back-end/om/selectPageOm.jsp");
 			failureView.forward(req, res);
 		}
 			
@@ -90,8 +90,8 @@ public class OmServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
-//				try {
-					String mem_ID = req.getParameter("mem_name");
+				try {
+					String mem_ID = req.getParameter("mem_ID");
 					
 					
 
@@ -108,7 +108,9 @@ public class OmServlet extends HttpServlet {
 					
 					
 					
-					String tip = req.getParameter("tip");
+					String tip = req.getParameter("tip").trim();
+					
+					
 					String out_add = req.getParameter("out_add");
 					String recipient = req.getParameter("recipient");
 					String phone = req.getParameter("phone");
@@ -144,7 +146,7 @@ public class OmServlet extends HttpServlet {
 					
 					if(!errorMsgs.isEmpty()) {
 						req.setAttribute("omVO", omVO);
-						RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/om/addOm.jsp");
+						RequestDispatcher failureView = req.getRequestDispatcher("/back-end/om/addOm.jsp");
 						failureView.forward(req, res);
 						return;
 					}
@@ -154,14 +156,14 @@ public class OmServlet extends HttpServlet {
 					omVO = omSvc.addOm(mem_ID, price, order_date, tip, out_add, recipient, phone, out_date, out_status, order_status);
 					req.setAttribute("lastPage", true);
 					//**********************************
-					String url = "/FrontEnd/om/listAllOm.jsp";
+					String url = "/back-end/om/listAllOm.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url);
 					successView.forward(req, res);
-//				} catch (Exception e) {
-//					errorMsgs.add("無法取得資料:"+e.getMessage());
-//					RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/om/addOm.jsp");
-//					failureView.forward(req, res);
-//				}
+				} catch (Exception e) {
+					errorMsgs.add("無法取得資料:"+e.getMessage());
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/om/addOm.jsp");
+					failureView.forward(req, res);
+				}
 			
 		}
 		
@@ -180,12 +182,12 @@ public class OmServlet extends HttpServlet {
 				//**********************************************
 				req.setAttribute("omVO", omVO);
 				
-				String url = "/FrontEnd/om/update_om_input.jsp";
+				String url = "/back-end/om/update_om_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:"+e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/om/addom.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/om/addOm.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -246,7 +248,7 @@ public class OmServlet extends HttpServlet {
 					
 					if(!errorMsgs.isEmpty()) {
 						req.setAttribute("omVO", omVO);
-						RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/om/update_om_input.jsp");
+						RequestDispatcher failureView = req.getRequestDispatcher("/back-end/om/update_om_input.jsp");
 						failureView.forward(req, res);
 						return;
 					}
@@ -263,7 +265,7 @@ public class OmServlet extends HttpServlet {
 					
 				} catch (Exception e) {
 					errorMsgs.add("無法取得資料:"+e.getMessage());
-					RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/om/update_om_input.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/om/update_om_input.jsp");
 					failureView.forward(req, res);
 				}
 		}
@@ -283,7 +285,7 @@ public class OmServlet extends HttpServlet {
 				successView.forward(req, res);
 			} catch (Exception e) {
 				errorMsgs.add("刪除資料失敗:"+e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/om/listAllOm.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/om/listAllOm.jsp");
 				failureView.forward(req, res);
 			}
 			

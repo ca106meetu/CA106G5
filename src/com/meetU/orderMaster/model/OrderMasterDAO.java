@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -39,6 +40,8 @@ public class OrderMasterDAO implements OrderMasterDAO_interface {
 		"SELECT ORDER_ID, MEM_ID, PRICE, ORDER_DATE, TIP, OUT_ADD, RECIPIENT, PHONE, OUT_DATE, OUT_STATUS, ORDER_STATUS FROM ORDER_MASTER where ORDER_ID = ?";
 	private static final String DELETE = 
 		"DELETE FROM ORDER_MASTER where ORDER_ID = ?";
+	private static final String GET_OM_BY_MEM =
+		"SELECT ORDER_ID, MEM_ID, PRICE, ORDER_DATE, TIP, OUT_ADD, RECIPIENT, PHONE, OUT_DATE, OUT_STATUS, ORDER_STATUS FROM ORDER_MASTER WHERE MEM_ID = ?";
 	private static final String UPDATE = 
 		"UPDATE ORDER_MASTER set MEM_ID=?, PRICE=?, ORDER_DATE=?, TIP=?, OUT_ADD=?, RECIPIENT=?, PHONE=?, OUT_DATE=?, OUT_STATUS=?, ORDER_STATUS=?  where ORDER_ID = ?";
 	@Override
@@ -298,6 +301,77 @@ public class OrderMasterDAO implements OrderMasterDAO_interface {
 	}
 
 	public OrderMasterDAO() {
+	}
+
+	@Override
+	public List<OrderMasterVO> getAll(Map<String, String[]> map) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public List<OrderMasterVO> getOmByMem(String mem_ID) {
+		List<OrderMasterVO> list = new ArrayList<>();
+		OrderMasterVO orderVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = ds.getConnection();
+			
+			pstmt = con.prepareStatement(GET_OM_BY_MEM);
+			pstmt.setString(1, mem_ID);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				orderVO = new OrderMasterVO();
+				orderVO.setOrder_ID(rs.getString("ORDER_ID"));
+				orderVO.setMem_ID(rs.getString("MEM_ID"));
+				orderVO.setPrice(rs.getDouble("PRICE"));
+				orderVO.setOrder_date(rs.getTimestamp("ORDER_DATE"));
+				orderVO.setTip(rs.getString("TIP"));
+				orderVO.setOut_add(rs.getString("OUT_ADD"));
+				orderVO.setRecipient(rs.getString("RECIPIENT"));
+				orderVO.setPhone(rs.getString("PHONE"));
+				orderVO.setOut_date(rs.getTimestamp("OUT_DATE"));
+				orderVO.setOut_status(rs.getInt("OUT_STATUS"));
+				orderVO.setOrder_status(rs.getInt("ORDER_STATUS"));
+				list.add(orderVO);
+			}
+			
+			
+		
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
 	}
 
 }
