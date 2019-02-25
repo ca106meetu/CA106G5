@@ -65,11 +65,11 @@
 		<td>${prodVO.prod_ID}</td>
 		<td>${prodVO.prod_name}</td>
 		<td>${prodVO.prod_price}</td>
-		<td>${prodVO.prod_type}</td>
+		<td>${pt[prodVO.prod_type]}</td>
 		<td>${prodVO.prod_stock}</td>
 		<td><img class='pic' src='/CA106G5/ShowPic?PROD_ID=${prodVO.prod_ID}'></td>
-		<td>${prodVO.prod_promt_status}</td>
-		<td>${prodVO.prod_status}</td>
+		<td>${pt[prodVO.prod_promt_status]}</td>
+		<td>${pt[prodVO.prod_status]}</td>
 		<td>${prodVO.prod_info}</td>
 	</tr>
 </table>

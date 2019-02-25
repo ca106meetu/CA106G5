@@ -63,7 +63,12 @@
 	</tr>
 	<tr>
 		<td>商品種類:</td>
-		<td><input type="TEXT" name="prod_type" size="45" value="<%=prodVO.getProd_type()%>" /></td>
+		<td><select name='prod_type'>
+		<c:forEach var='prod_type' items='${pt}'>
+			<option value='${pt.indexOf(prod_type)}' 
+							${prodVO.prod_type==pt.indexOf(prod_type) ? 'selected' : '' }> ${prod_type}		
+		</c:forEach>
+		</select></td>
 	</tr>
 	<tr>
 		<td>庫存量:</td>
@@ -72,11 +77,21 @@
 	
 	<tr>
 		<td>促銷狀態:</td>
-		<td><input type="TEXT" name="prod_promt_status" size="45" value="<%=prodVO.getProd_promt_status()%>" /></td>
+		<td><select name='prod_promt_status'>
+		<c:forEach var='prod_promt_status' items='${pps}'>
+			<option value='${pps.indexOf(prod_promt_status)}' 
+							${prodVO.prod_promt_status==pps.indexOf(prod_promt_status) ? 'selected' : '' }> ${prod_promt_status}		
+		</c:forEach>
+		</select></td>
 	</tr>
 	<tr>
 		<td>上架狀態:</td>
-		<td><input type="TEXT" name="prod_status" size="45" value="<%=prodVO.getProd_status()%>" /></td>
+		<td><select name='prod_status'>
+		<c:forEach var='prod_status' items='${ps}'>
+			<option value='${ps.indexOf(prod_status)}' 
+							${prodVO.prod_status==ps.indexOf(prod_status) ? 'selected' : '' }> ${prod_status}		
+		</c:forEach>
+		</select></td>
 	</tr>
 	<tr>
 		<td>商品資訊:</td>

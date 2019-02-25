@@ -74,9 +74,11 @@
 	<tr>
 		<td>類型:</td>
 		<td>
+		
 		<select name='prod_type'>
 		<c:forEach var='prod_type' items='${pt}'>
-			<option value='${pt.indexOf(prod_type)}'> ${prod_type}		
+			<option value='${pt.indexOf(prod_type)}' 
+							${prodVO.prod_type==pt.indexOf(prod_type) ? 'selected' : '' }> ${prod_type}		
 		</c:forEach>
 		</select>
 		
@@ -100,7 +102,7 @@
 		<select name='prod_promt_status'>
 		<c:forEach var='prod_promt_status' items='${pps}'>
 			<option value='${pps.indexOf(prod_promt_status)}' 
-							${prodVO.prod_type==pps.indexOf(prod_promt_status) ? 'selected' : '' }> ${prod_promt_status}		
+							${prodVO.prod_promt_status==pps.indexOf(prod_promt_status) ? 'selected' : '' }> ${prod_promt_status}		
 		</c:forEach>
 		</select>
 		</td>
@@ -110,10 +112,11 @@
 		<td>
 		<select name='prod_status'>
 		<c:forEach var='prod_status' items='${ps}'>
-			<option value='${ps.indexOf(prod_status)}'> ${prod_status}		
+			<option value='${ps.indexOf(prod_status)}' 
+							${prodVO.prod_status==ps.indexOf(prod_status) ? 'selected' : '' }> ${prod_status}		
 		</c:forEach>
 		</select>
-		</td>
+		</td> 	
 	</tr>
 	<tr>
 		<td>商品資訊:</td>
