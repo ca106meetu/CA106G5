@@ -8,7 +8,7 @@ public class Live_chatVO implements Serializable {
 	private static final long serialVersionUID = -7051155640795167972L;
 	private String chat_ID;
 	private String host_ID;
-	private String men_ID;
+	private String mem_ID;
 	private String chat_cont;
 	private Timestamp chat_date;
 
@@ -32,12 +32,12 @@ public class Live_chatVO implements Serializable {
 		this.host_ID = host_ID;
 	}
 
-	public String getMen_ID() {
-		return men_ID;
+	public String getMem_ID() {
+		return mem_ID;
 	}
 
-	public void setMen_ID(String men_ID) {
-		this.men_ID = men_ID;
+	public void setMem_ID(String mem_ID) {
+		this.mem_ID = mem_ID;
 	}
 
 	public String getChat_cont() {

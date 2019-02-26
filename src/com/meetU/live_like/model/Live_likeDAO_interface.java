@@ -10,7 +10,7 @@ public interface Live_likeDAO_interface {
 
 	public void delete(Live_likeVO live_likeVO);
 
-	public Live_likeVO findByPrimaryKey(String men_ID, String host_ID);
+	public Live_likeVO findByPrimaryKey(String mem_ID, String host_ID);
 
 	public List<Live_likeVO> getALL();
 

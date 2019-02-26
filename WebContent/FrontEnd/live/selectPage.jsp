@@ -99,8 +99,9 @@ h4 {
 				<b>選擇直播主姓名:</b> <select size="1" name="host_ID">
 					<c:forEach var="liveVO" items="${liveSvc.all}">
 						<option value="${liveVO.host_ID}">
-							<c:set var="host_ID" value="${liveVO.host_ID}" />
-							<%=memSvc.getOneMem((String) pageContext.getAttribute("host_ID")).getMem_name()%>
+<%-- 							<c:set var="host_ID" value="${liveVO.host_ID}" /> --%>
+							${memSvc.getOneMem(liveVO.host_ID).mem_name}
+<%-- 							<%=memSvc.getOneMem((String) pageContext.getAttribute("host_ID")).getMem_name()%> --%>
 					</c:forEach>
 				</select> <input type="hidden" name="action" value="getOne_For_Display">
 				<input type="submit" value="送出">
