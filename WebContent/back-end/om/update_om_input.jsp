@@ -1,9 +1,9 @@
-<%@page import="com.meetU.product.model.ProductVO"%>
+<%@page import="com.meetU.orderMaster.model.OrderMasterVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
-	ProductVO prodVO = (ProductVO) request.getAttribute("prodVO");
+	OrderMasterVO omVO = (OrderMasterVO) request.getAttribute("omVO");
 %>
 
 <!doctype html>
@@ -30,8 +30,8 @@
     
     <table id="table-1">
 	<tr><td>
-		 <h3>商品資料修改- update_prod_input.jsp</h3>
-		 <h4><a href="selectPage.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
+		 <h3>訂單資料修改- update_prod_input.jsp</h3>
+		 <h4><a href="selectPageOm.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
 	</td></tr>
 </table>
 
@@ -49,83 +49,92 @@
 
 <FORM METHOD="post" ACTION="prod.do" name="form1" enctype='multipart/form-data'>
 <table>
+
 	<tr>
-		<td>商品編號:<font color=red><b>*</b></font></td>
-		<td><%=prodVO.getProd_ID()%></td>
+		<td>訂單編號: </td>
+		<td>${omVO.order_ID}</td>
+	
+	
 	</tr>
 	<tr>
-		<td>商品名稱:</td>
-		<td><input type="TEXT" name="prod_name" size="45" value="<%=prodVO.getProd_name()%>" /></td>
+		<td>會員名稱:</td>
+		<td><div class="input-group">
+			  <select class="custom-select" name='mem_ID' id="inputGroupSelect04" aria-label="Example select with button addon">
+			    <c:forEach var='memVO' items='${memSvc.all}'>
+					<option value='${memVO.mem_ID}' 
+						${memSvc.getOneMem(omVO.mem_ID).mem_ID == omVO.memID ? 'selected' : ''}>${memVO.mem_name}
+				</c:forEach>
+			  </select>
+			  <div class="input-group-append">
+			    <button class="btn btn-info" type="submit">送出</button>
+			  </div>
+			</div>
+		</td>
 	</tr>
 	<tr>
-		<td>商品價格:</td>
-		<td><input type="TEXT" name="prod_price" size="45" value="<%=prodVO.getProd_price()%>" /></td>
+		<td>訂單金額:</td>
+		<td><input type="TEXT" name="price" size="45"
+			 value='${omVO.price}'/></td>
 	</tr>
+<!-- 	<tr> -->
+<!-- 		<td>類型:</td> -->
+<!-- 		<td> -->
+		
+<!-- 		<select name='prod_type'> -->
+<%-- 		<c:forEach var='prod_type' items='${pt}'> --%>
+<%-- 			<option value='${pt.indexOf(prod_type)}'  --%>
+<%-- 							${omVO.prod_type==pt.indexOf(prod_type) ? 'selected' : '' }> ${prod_type}		 --%>
+<%-- 		</c:forEach> --%>
+<!-- 		</select> -->
+		
+		
+<!-- 		</td> -->
+<!-- 	</tr> -->
 	<tr>
-		<td>商品種類:</td>
-		<td><select name='prod_type'>
-		<c:forEach var='prod_type' items='${pt}'>
-			<option value='${pt.indexOf(prod_type)}' 
-							${prodVO.prod_type==pt.indexOf(prod_type) ? 'selected' : '' }> ${prod_type}		
-		</c:forEach>
-		</select></td>
-	</tr>
-	<tr>
-		<td>庫存量:</td>
-		<td><input name="prod_stock" type="text" value="<%=prodVO.getProd_stock()%>"></td>
+		<td>出貨地址:</td>
+		<td><input type="TEXT" name='out_add' size="45"
+			 value='${omVO.out_add}' /></td>
 	</tr>
 	
 	<tr>
-		<td>促銷狀態:</td>
-		<td><select name='prod_promt_status'>
-		<c:forEach var='prod_promt_status' items='${pps}'>
-			<option value='${pps.indexOf(prod_promt_status)}' 
-							${prodVO.prod_promt_status==pps.indexOf(prod_promt_status) ? 'selected' : '' }> ${prod_promt_status}		
-		</c:forEach>
-		</select></td>
+		<td>收件人:</td>
+		<td><input type="TEXT" name="recipient" size="45"
+			 value='${omVO.recipient}'/></td>
 	</tr>
+	
 	<tr>
-		<td>上架狀態:</td>
-		<td><select name='prod_status'>
-		<c:forEach var='prod_status' items='${ps}'>
-			<option value='${ps.indexOf(prod_status)}' 
-							${prodVO.prod_status==ps.indexOf(prod_status) ? 'selected' : '' }> ${prod_status}		
-		</c:forEach>
-		</select></td>
+		<td>收件人電話:</td>
+		<td><input type="TEXT" name="phone" size="45"
+			 value='${omVO.phone}'/></td>
 	</tr>
+	
 	<tr>
-		<td>商品資訊:</td>
-		<td><input type="TEXT" name="prod_info" size="45" value="<%=prodVO.getProd_info()%>" /></td>
+		<td>出貨狀態:</td>
+		<td><input type="TEXT" name="out_status" size="45"
+			 value='${omVO.out_status}'/></td>
 	</tr>
-
+	
 	<tr>
-		<td>圖片:</td>
-		<td><input type="file" name="prod_pic" size="45" onchange='readURL(this)'/><br>
-		<img class='pic' src="data:img/png;base64,${encodeText}" ${(prodVO.prod_pic==null)? 'style="display:none"' : ''}></td>
-		
+		<td>訂單狀態:</td>
+		<td><input type="TEXT" name="order_status" size="45"
+			 value='${omVO.order_status}'/></td>
+	</tr>
+	
+	<tr>
+		<td>備註:</td>
+		<td>
+			<div class="form-group">
+			    <label for="exampleFormControlTextarea1">Example textarea</label>
+			    <textarea class="form-control" name='tip' id="exampleFormControlTextarea1" 
+			    rows="3">${omVO.tip}</textarea>
+		  	</div>
+		</td>
 	</tr>
 </table>
 <br>
 <input type="hidden" name="action" value="update">
-<input type="hidden" name="prod_ID" value="<%=prodVO.getProd_ID()%>">
+<input type="hidden" name="order_ID" value="<%=omVO.getOrder_ID()%>">
 <input type="submit" value="送出修改"></FORM>
-<script>
-			
-			
-			function readURL(input){
-				var reader = new FileReader();
-	    		reader.onload = function (e) {
-	       			
-	       					
-	       					$(".pic").attr('src', e.target.result).css('display', '');
-	       					
-	       			
-	    		}
-	    		reader.readAsDataURL(input.files[0]);
-			}
-
-
-		</script>
 </body>
     
     

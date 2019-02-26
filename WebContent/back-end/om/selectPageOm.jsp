@@ -85,7 +85,6 @@
 			    <button class="btn btn-info" type="submit">送出</button>
 			  </div>
 			</div>
-			<input type='hidden' name='action' value='getOne_For_Display'>
 		</form>
 	
 	</li>
