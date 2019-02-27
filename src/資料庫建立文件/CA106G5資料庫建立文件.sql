@@ -795,11 +795,11 @@ CREATE SEQUENCE order_master_seq
   NOMAXVALUE
   NOCACHE
   NOCYCLE;
-INSERT INTO ORDER_MASTER (ORDER_ID, MEM_ID, PRICE, ORDER_DATE, TIP, OUT_ADD, RECIPIENT, PHONE, OUT_DATE, OUT_STATUS, ORDER_STATUS) VALUES ('PM'||LPAD(to_char(order_master_seq.NEXTVAL), 6, '0'), 'M000001', 8500, current_timestamp, '安安你好幾歲住哪給虧嗎', '雲林縣林內鄉', '黃豆仔', '0999887766', NULL, 0, 0);
-INSERT INTO ORDER_MASTER (ORDER_ID, MEM_ID, PRICE, ORDER_DATE, TIP, OUT_ADD, RECIPIENT, PHONE, OUT_DATE, OUT_STATUS, ORDER_STATUS) VALUES ('PM'||LPAD(to_char(order_master_seq.NEXTVAL), 6, '0'), 'M000002', 1500, current_timestamp, '快點送來', '中華民國重災淪陷區首都北京', '習D', '458523547777', NULL, 1, 2);
-INSERT INTO ORDER_MASTER (ORDER_ID, MEM_ID, PRICE, ORDER_DATE, TIP, OUT_ADD, RECIPIENT, PHONE, OUT_DATE, OUT_STATUS, ORDER_STATUS) VALUES ('PM'||LPAD(to_char(order_master_seq.NEXTVAL), 6, '0'), 'M000005', 500, current_timestamp, '我好餓喔', '雲林縣莿桐鄉', '黃文柔', '099988485136', NULL, 1, 0);
-INSERT INTO ORDER_MASTER (ORDER_ID, MEM_ID, PRICE, ORDER_DATE, TIP, OUT_ADD, RECIPIENT, PHONE, OUT_DATE, OUT_STATUS, ORDER_STATUS) VALUES ('PM'||LPAD(to_char(order_master_seq.NEXTVAL), 6, '0'), 'M000006', 3000, current_timestamp, '新年快樂', '雲林縣中壢鄉', '劉品萱', '099988775466', NULL, 2, 0);
-INSERT INTO ORDER_MASTER (ORDER_ID, MEM_ID, PRICE, ORDER_DATE, TIP, OUT_ADD, RECIPIENT, PHONE, OUT_DATE, OUT_STATUS, ORDER_STATUS) VALUES ('PM'||LPAD(to_char(order_master_seq.NEXTVAL), 6, '0'), 'M000003', 2000, current_timestamp, '枯藤老樹昏鴉小橋流水人家古道西風瘦馬夕陽西下貨還沒送到', '發大財的高雄', '韓國瑜', '0999885766', NULL, 2, 2);
+INSERT INTO ORDER_MASTER (ORDER_ID, MEM_ID, PRICE, ORDER_DATE, TIP, OUT_ADD, RECIPIENT, PHONE, OUT_DATE, OUT_STATUS, ORDER_STATUS) VALUES ('OM'||LPAD(to_char(order_master_seq.NEXTVAL), 6, '0'), 'M000001', 8500, current_timestamp, '安安你好幾歲住哪給虧嗎', '雲林縣林內鄉', '黃豆仔', '0999887766', NULL, 0, 0);
+INSERT INTO ORDER_MASTER (ORDER_ID, MEM_ID, PRICE, ORDER_DATE, TIP, OUT_ADD, RECIPIENT, PHONE, OUT_DATE, OUT_STATUS, ORDER_STATUS) VALUES ('OM'||LPAD(to_char(order_master_seq.NEXTVAL), 6, '0'), 'M000002', 1500, current_timestamp, '快點送來', '中華民國重災淪陷區首都北京', '習D', '458523547777', NULL, 1, 2);
+INSERT INTO ORDER_MASTER (ORDER_ID, MEM_ID, PRICE, ORDER_DATE, TIP, OUT_ADD, RECIPIENT, PHONE, OUT_DATE, OUT_STATUS, ORDER_STATUS) VALUES ('OM'||LPAD(to_char(order_master_seq.NEXTVAL), 6, '0'), 'M000005', 500, current_timestamp, '我好餓喔', '雲林縣莿桐鄉', '黃文柔', '099988485136', NULL, 1, 0);
+INSERT INTO ORDER_MASTER (ORDER_ID, MEM_ID, PRICE, ORDER_DATE, TIP, OUT_ADD, RECIPIENT, PHONE, OUT_DATE, OUT_STATUS, ORDER_STATUS) VALUES ('OM'||LPAD(to_char(order_master_seq.NEXTVAL), 6, '0'), 'M000006', 3000, current_timestamp, '新年快樂', '雲林縣中壢鄉', '劉品萱', '099988775466', NULL, 2, 0);
+INSERT INTO ORDER_MASTER (ORDER_ID, MEM_ID, PRICE, ORDER_DATE, TIP, OUT_ADD, RECIPIENT, PHONE, OUT_DATE, OUT_STATUS, ORDER_STATUS) VALUES ('OM'||LPAD(to_char(order_master_seq.NEXTVAL), 6, '0'), 'M000003', 2000, current_timestamp, '枯藤老樹昏鴉小橋流水人家古道西風瘦馬夕陽西下貨還沒送到', '發大財的高雄', '韓國瑜', '0999885766', NULL, 2, 2);
 ------------------------------------------------
 -- for Table ORDER_DETAIL
 ------------------------------------------------

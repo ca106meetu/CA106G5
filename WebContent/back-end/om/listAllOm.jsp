@@ -47,7 +47,6 @@
     <jsp:include page="/Templates/bootstrap4/backHeader.jsp" />
     
     
-    <h4>此頁練習採用 EL 的寫法取值:</h4>
  <table id = 'table-1'>
 	<tr><td>
 		<h3>所有訂單資料-listAllOm.jsp</h3>
@@ -107,8 +106,8 @@
 			<td>${omVO.recipient}</td>
 			<td>${omVO.phone}</td>
 			<td>${omVO.out_date}</td>
-			<td>${omVO.out_status}</td>
-			<td>${omVO.order_status}</td>
+			<td>${outs[omVO.out_status]}</td>
+			<td>${ords[omVO.order_status]}</td>
 			<td>${omVO.tip}</td>
 			<td>
 				<form method='post' action='om.do' style="margin-bottom: 0px;">

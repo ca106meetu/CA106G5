@@ -47,33 +47,32 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="prod.do" name="form1" enctype='multipart/form-data'>
+<FORM METHOD="post" ACTION="om.do" name="form1" >
 <table>
 
 	<tr>
 		<td>訂單編號: </td>
-		<td>${omVO.order_ID}</td>
+		<td><span class="input-group-text" id="inputGroup-sizing-sm">【${omVO.order_ID}】</span></td>
 	
 	
 	</tr>
+	<jsp:useBean id='memSvc' scope='page' class='com.meetU.mem.model.MemService'/>
 	<tr>
 		<td>會員名稱:</td>
-		<td><div class="input-group">
+		<td>
+			<div class="input-group">
 			  <select class="custom-select" name='mem_ID' id="inputGroupSelect04" aria-label="Example select with button addon">
 			    <c:forEach var='memVO' items='${memSvc.all}'>
 					<option value='${memVO.mem_ID}' 
-						${memSvc.getOneMem(omVO.mem_ID).mem_ID == omVO.memID ? 'selected' : ''}>${memVO.mem_name}
+						${memVO.mem_ID == omVO.mem_ID ? 'selected' : ''}>【${memVO.mem_ID}】${memVO.mem_name}
 				</c:forEach>
 			  </select>
-			  <div class="input-group-append">
-			    <button class="btn btn-info" type="submit">送出</button>
-			  </div>
 			</div>
 		</td>
 	</tr>
 	<tr>
 		<td>訂單金額:</td>
-		<td><input type="TEXT" name="price" size="45"
+		<td><input type="TEXT" class='form-control' name="price" size="45"
 			 value='${omVO.price}'/></td>
 	</tr>
 <!-- 	<tr> -->
@@ -92,39 +91,48 @@
 <!-- 	</tr> -->
 	<tr>
 		<td>出貨地址:</td>
-		<td><input type="TEXT" name='out_add' size="45"
+		<td><input type="TEXT" class='form-control' name='out_add' size="45"
 			 value='${omVO.out_add}' /></td>
 	</tr>
 	
 	<tr>
 		<td>收件人:</td>
-		<td><input type="TEXT" name="recipient" size="45"
+		<td><input type="TEXT"  class='form-control' name="recipient" size="45"
 			 value='${omVO.recipient}'/></td>
 	</tr>
 	
 	<tr>
 		<td>收件人電話:</td>
-		<td><input type="TEXT" name="phone" size="45"
+		<td><input type="TEXT" class='form-control' name="phone" size="45"
 			 value='${omVO.phone}'/></td>
 	</tr>
 	
 	<tr>
 		<td>出貨狀態:</td>
-		<td><input type="TEXT" name="out_status" size="45"
-			 value='${omVO.out_status}'/></td>
+		<td><select name='out_status' class='form-control'>
+		<c:forEach var='out_status' items='${outs}'>
+			<option  value='${outs.indexOf(out_status)}' 
+							${omVO.out_status==outs.indexOf(out_status) ? 'selected' : '' }> ${out_status}		
+		</c:forEach>
+		</select></td>
 	</tr>
 	
 	<tr>
 		<td>訂單狀態:</td>
-		<td><input type="TEXT" name="order_status" size="45"
-			 value='${omVO.order_status}'/></td>
+		<td>
+		<select name='order_status' class='form-control'>
+		<c:forEach var='order_status' items='${ords}'>
+			<option  value='${ords.indexOf(order_status)}' 
+							${omVO.order_status==ords.indexOf(order_status) ? 'selected' : '' }> ${order_status}		
+		</c:forEach>
+		</select>
+		</td>
 	</tr>
 	
 	<tr>
 		<td>備註:</td>
 		<td>
 			<div class="form-group">
-			    <label for="exampleFormControlTextarea1">Example textarea</label>
 			    <textarea class="form-control" name='tip' id="exampleFormControlTextarea1" 
 			    rows="3">${omVO.tip}</textarea>
 		  	</div>
@@ -134,7 +142,8 @@
 <br>
 <input type="hidden" name="action" value="update">
 <input type="hidden" name="order_ID" value="<%=omVO.getOrder_ID()%>">
-<input type="submit" value="送出修改"></FORM>
+<button type='submit' class="btn btn-outline-success">送出修改</button>
+</FORM>
 </body>
     
     

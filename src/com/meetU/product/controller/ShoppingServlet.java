@@ -1,7 +1,10 @@
 package com.meetU.product.controller;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
 
@@ -13,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.meetU.orderMaster.model.OrderMasterService;
+import com.meetU.orderMaster.model.OrderMasterVO;
 import com.meetU.product.model.ProductService;
 import com.meetU.product.model.ProductVO;
 
@@ -97,6 +102,88 @@ public class ShoppingServlet extends HttpServlet {
 			}
 
 			}
+		
+		if("insert".equals(action)) {
+			
+			List<String> errorMsgs = new LinkedList<>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+				try {
+					String mem_ID = req.getParameter("mem_ID");
+					
+					
+
+					Double price = null;
+					try {
+						price = new Double(req.getParameter("price").trim());
+						if (price < 0)
+							errorMsgs.add("訂單價格:訂單價格必須大於0");
+					} catch (NumberFormatException e) {
+						price = 0.0;
+						errorMsgs.add("訂單價格:訂單價格請填數字");
+					}
+					
+					
+					
+					
+					String tip = req.getParameter("tip").trim();
+					
+					
+					String out_add = req.getParameter("out_add");
+					String recipient = req.getParameter("recipient");
+					String phone = req.getParameter("phone");
+					Timestamp out_date = null;
+					
+					String out_statusStr = req.getParameter("out_status");
+					Integer out_status = Integer.parseInt(out_statusStr);
+					
+					String order_statusStr = req.getParameter("order_status");
+					Integer order_status = Integer.parseInt(order_statusStr);					
+					
+					
+					
+					
+					Date now = new Date();
+					Timestamp order_date = new Timestamp(now.getTime());
+					
+					OrderMasterVO omVO = new OrderMasterVO();
+					
+					omVO.setMem_ID(mem_ID);
+					omVO.setPrice(price);
+					omVO.setOrder_date(order_date);
+					omVO.setTip(tip);
+					omVO.setOut_add(out_add);
+					omVO.setRecipient(recipient);
+					omVO.setPhone(phone);
+					omVO.setOut_date(out_date);
+					omVO.setOut_status(out_status);
+					omVO.setOrder_status(order_status);
+					
+					
+					
+					
+					if(!errorMsgs.isEmpty()) {
+						req.setAttribute("omVO", omVO);
+						RequestDispatcher failureView = req.getRequestDispatcher("/back-end/om/addOm.jsp");
+						failureView.forward(req, res);
+						return;
+					}
+					
+					//**********************************
+					OrderMasterService omSvc = new OrderMasterService();
+					omVO = omSvc.addOm(mem_ID, price, order_date, tip, out_add, recipient, phone, out_date, out_status, order_status);
+					req.setAttribute("lastPage", true);
+					//**********************************
+					String url = "/back-end/om/listAllOm.jsp";
+					RequestDispatcher successView = req.getRequestDispatcher(url);
+					successView.forward(req, res);
+				} catch (Exception e) {
+					errorMsgs.add("無法取得資料:"+e.getMessage());
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/om/addOm.jsp");
+					failureView.forward(req, res);
+				}
+			
+		}
 		
 	
 	}

@@ -72,8 +72,8 @@
 		<td>${omVO.recipient}</td>
 		<td>${omVO.phone}</td>
 		<td>${omVO.out_date}</td>
-		<td>${omVO.out_status}</td>
-		<td>${omVO.order_status}</td>
+		<td>${outs[omVO.out_status]}</td>
+		<td>${ords[omVO.order_status]}</td>
 		<td>${omVO.tip}</td>
 	</tr>
 </table>

@@ -1,3 +1,4 @@
+package com.meetU.toolClass;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -19,6 +20,7 @@ import javax.sql.DataSource;
 /**
  * Servlet implementation class ShowPic
  */
+@WebServlet("/ShowPic")
 public class ShowPic extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public static final String sql_prod = "SELECT PROD_PIC FROM PRODUCT WHERE PROD_ID = '";

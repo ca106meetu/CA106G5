@@ -233,8 +233,9 @@ public class OmServlet extends HttpServlet {
 					
 					OrderMasterVO omVO = new OrderMasterVO();
 					
-					omVO.setMem_ID(order_ID);
+					omVO.setOrder_ID(order_ID);
 					omVO.setMem_ID(mem_ID);
+					System.out.println(mem_ID);
 					omVO.setPrice(price);
 					omVO.setOrder_date(order_date);
 					omVO.setTip(tip);
@@ -258,8 +259,9 @@ public class OmServlet extends HttpServlet {
 					omVO = omSvc.updateOm(order_ID, mem_ID, price, order_date, tip, out_add, recipient, phone, out_date, out_status, order_status);
 					req.setAttribute("lastPage", true);
 					//**********************************
+					
 					req.setAttribute("omVO", omVO);
-					String url = "/FrontEnd/om/listOneOm.jsp";
+					String url = "/back-end/om/listOneOm.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url);
 					successView.forward(req, res);
 					
@@ -280,7 +282,7 @@ public class OmServlet extends HttpServlet {
 				OrderMasterService omSvc = new OrderMasterService();
 				omSvc.deleteOm(order_ID);
 				req.setAttribute("lastPage", true);
-				String url = "/FrontEnd/om/listAllOm.jsp";
+				String url = "/back-end/om/listAllOm.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 			} catch (Exception e) {

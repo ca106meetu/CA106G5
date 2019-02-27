@@ -9,54 +9,42 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <listener>
+    <listener-class>com.meetU.toolClass.InitializeStatus</listener-class>
+  </listener>
+  <servlet>
+    <servlet-name>ProdServlet</servlet-name>
+    <servlet-class>com.meetU.product.controller.ProdServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProdServlet</servlet-name>
+    <url-pattern>/FrontEnd/prod/prod.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>omServlet</servlet-name>
+    <servlet-class>com.meetU.orderMaster.controller.OmServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>omServlet</servlet-name>
+    <url-pattern>/back-end/om/om.do</url-pattern>
+  </servlet-mapping>
   
-  
-  	<servlet>
-		<servlet-name>ProdServlet</servlet-name>
-		<servlet-class>com.meetU.product.controller.ProdServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>ProdServlet</servlet-name>
-		<url-pattern>/FrontEnd/prod/prod.do</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>omServlet</servlet-name>
-		<servlet-class>com.meetU.orderMaster.controller.OmServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>omServlet</servlet-name>
-		<url-pattern>/back-end/om/om.do</url-pattern>
-	</servlet-mapping>
-	
-	 <servlet>
-		<servlet-name>ShowPic</servlet-name>
-		<servlet-class>ShowPic</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>ShowPic</servlet-name>
-		<url-pattern>/ShowPic</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>LiveServlet</servlet-name>
-		<servlet-class>com.meetU.live.controller.LiveServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>LiveServlet</servlet-name>
-		<url-pattern>/FrontEnd/live/live.do</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>PostServlet</servlet-name>
-		<servlet-class>com.meetU.post.controller.PostServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>PostServlet</servlet-name>
-		<url-pattern>/FrontEnd/post/post.do</url-pattern>
-	</servlet-mapping>
-	
-	<!-- 權限controller -->
+  <servlet>
+    <servlet-name>LiveServlet</servlet-name>
+    <servlet-class>com.meetU.live.controller.LiveServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LiveServlet</servlet-name>
+    <url-pattern>/FrontEnd/live/live.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>PostServlet</servlet-name>
+    <servlet-class>com.meetU.post.controller.PostServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PostServlet</servlet-name>
+    <url-pattern>/FrontEnd/post/post.do</url-pattern>
+  </servlet-mapping>
   <servlet>
     <servlet-name>AuthServlet</servlet-name>
     <servlet-class>com.meetU.auth.controller.AuthServlet</servlet-class>
@@ -65,8 +53,6 @@
     <servlet-name>AuthServlet</servlet-name>
     <url-pattern>/back-end/auth/auth.do</url-pattern>
   </servlet-mapping>
-  
-	<!-- 員工controller -->
   <servlet>
     <servlet-name>EmpServlet</servlet-name>
     <servlet-class>com.meetU.emp.controller.EmpServlet</servlet-class>
@@ -75,8 +61,6 @@
     <servlet-name>EmpServlet</servlet-name>
     <url-pattern>/back-end/emp/emp.do</url-pattern>
   </servlet-mapping>
-  
-  <!-- 送禮紀錄controller --> 
   <servlet>
     <servlet-name>GiftServlet</servlet-name>
     <servlet-class>com.meetU.gift.controller.GiftServlet</servlet-class>
@@ -85,8 +69,6 @@
     <servlet-name>GiftServlet</servlet-name>
     <url-pattern>/back-end/gift/gift.do</url-pattern>
   </servlet-mapping>
-  
-  <!-- 禮物盒controller -->
   <servlet>
     <servlet-name>GiftboxServlet</servlet-name>
     <servlet-class>com.meetU.giftbox.controller.GiftboxServlet</servlet-class>
@@ -95,8 +77,6 @@
     <servlet-name>GiftboxServlet</servlet-name>
     <url-pattern>/back-end/giftbox/giftbox.do</url-pattern>
   </servlet-mapping>
-  
-  <!-- 通知controller -->
   <servlet>
     <servlet-name>InformServlet</servlet-name>
     <servlet-class>com.meetU.inform.controller.InformServlet</servlet-class>
@@ -105,8 +85,6 @@
     <servlet-name>InformServlet</servlet-name>
     <url-pattern>/back-end/inform/inform.do</url-pattern>
   </servlet-mapping>
-  
-  <!-- 會員controller -->
   <servlet>
     <servlet-name>MemServlet</servlet-name>
     <servlet-class>com.meetU.mem.controller.MemServlet</servlet-class>
@@ -115,9 +93,7 @@
     <servlet-name>MemServlet</servlet-name>
     <url-pattern>/back-end/mem/mem.do</url-pattern>
   </servlet-mapping>
-  
-  <!-- 聯誼controller -->
-   <servlet>
+  <servlet>
     <servlet-name>MeetupServlet</servlet-name>
     <servlet-class>com.meetU.meetup.controller.MeetupServlet</servlet-class>
   </servlet>
@@ -125,7 +101,6 @@
     <servlet-name>MeetupServlet</servlet-name>
     <url-pattern>/meetup/meetup.do</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>MeetupMemServlet</servlet-name>
     <servlet-class>com.meetU.meetup_mem.controller.MeetupMemServlet</servlet-class>
@@ -134,7 +109,6 @@
     <servlet-name>MeetupMemServlet</servlet-name>
     <url-pattern>/meetupMem/meetupMem.do</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>MeetupChatServlet</servlet-name>
     <servlet-class>com.meetU.meetup.controller.MeetupChatServlet</servlet-class>
@@ -143,5 +117,4 @@
     <servlet-name>MeetupChatServlet</servlet-name>
     <url-pattern>/meetupChat/meetup.do</url-pattern>
   </servlet-mapping>
-	
 </web-app>

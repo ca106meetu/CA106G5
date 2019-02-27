@@ -48,10 +48,9 @@
     <jsp:include page="/Templates/bootstrap4/backHeader.jsp" />
     
     
-    <h4>此頁練習採用 EL 的寫法取值:</h4>
  <table id = 'table-1'>
 	<tr><td>
-		<h3>所有訂單資料-listAllOm.jsp</h3>
+		<h3>所有訂單資料-listOmByMem.jsp</h3>
 		<h4><a href='selectPageOm.jsp'><img src="images/back1.gif" width="100" height="32">回首頁</a></h4>
 	
 	
@@ -92,11 +91,7 @@
 		<th>刪除</th>		
 	</tr>
 	<%@ include file="page1.file" %> 
-	<%
-		if(request.getAttribute("lastPage") != null &&(boolean)request.getAttribute("lastPage")){
-			pageIndex = pageIndexArray[pageNumber-1];
-		}
-	%>
+	
 	<jsp:useBean id='memSvc' scope='page' class='com.meetU.mem.model.MemService'/>
 	<c:forEach var="omVO" items= "${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		<tr>
@@ -108,8 +103,8 @@
 			<td>${omVO.recipient}</td>
 			<td>${omVO.phone}</td>
 			<td>${omVO.out_date}</td>
-			<td>${omVO.out_status}</td>
-			<td>${omVO.order_status}</td>
+			<td>${outs[omVO.out_status]}</td>
+			<td>${ords[omVO.order_status]}</td>
 			<td>${omVO.tip}</td>
 			<td>
 				<form method='post' action='om.do' style="margin-bottom: 0px;">
