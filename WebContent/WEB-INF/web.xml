@@ -45,6 +45,8 @@
     <servlet-name>PostServlet</servlet-name>
     <url-pattern>/FrontEnd/post/post.do</url-pattern>
   </servlet-mapping>
+  
+  <!-- 權限controller -->
   <servlet>
     <servlet-name>AuthServlet</servlet-name>
     <servlet-class>com.meetU.auth.controller.AuthServlet</servlet-class>
@@ -53,6 +55,7 @@
     <servlet-name>AuthServlet</servlet-name>
     <url-pattern>/back-end/auth/auth.do</url-pattern>
   </servlet-mapping>
+  <!-- 員工controller -->
   <servlet>
     <servlet-name>EmpServlet</servlet-name>
     <servlet-class>com.meetU.emp.controller.EmpServlet</servlet-class>
@@ -61,6 +64,7 @@
     <servlet-name>EmpServlet</servlet-name>
     <url-pattern>/back-end/emp/emp.do</url-pattern>
   </servlet-mapping>
+  <!-- 送禮紀錄controller -->
   <servlet>
     <servlet-name>GiftServlet</servlet-name>
     <servlet-class>com.meetU.gift.controller.GiftServlet</servlet-class>
@@ -70,6 +74,7 @@
     <url-pattern>/back-end/gift/gift.do</url-pattern>
   </servlet-mapping>
   <servlet>
+  <!-- 禮物盒controller -->
     <servlet-name>GiftboxServlet</servlet-name>
     <servlet-class>com.meetU.giftbox.controller.GiftboxServlet</servlet-class>
   </servlet>
@@ -77,6 +82,7 @@
     <servlet-name>GiftboxServlet</servlet-name>
     <url-pattern>/back-end/giftbox/giftbox.do</url-pattern>
   </servlet-mapping>
+  <!-- 通知controller -->
   <servlet>
     <servlet-name>InformServlet</servlet-name>
     <servlet-class>com.meetU.inform.controller.InformServlet</servlet-class>
@@ -85,6 +91,7 @@
     <servlet-name>InformServlet</servlet-name>
     <url-pattern>/back-end/inform/inform.do</url-pattern>
   </servlet-mapping>
+  <!-- 會員controller -->
   <servlet>
     <servlet-name>MemServlet</servlet-name>
     <servlet-class>com.meetU.mem.controller.MemServlet</servlet-class>
@@ -93,6 +100,25 @@
     <servlet-name>MemServlet</servlet-name>
     <url-pattern>/back-end/mem/mem.do</url-pattern>
   </servlet-mapping>
+  <!-- 好友controller -->
+  <servlet>
+    <servlet-name>FriendServlet</servlet-name>
+    <servlet-class>com.meetU.friend.controller.FriendServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FriendServlet</servlet-name>
+    <url-pattern>/back-end/friend/friend.do</url-pattern>
+  </servlet-mapping>
+  <!-- 員工權限controller -->
+  <servlet>
+    <servlet-name>EmpAuthServlet</servlet-name>
+    <servlet-class>com.meetU.empAuth.controller.EmpAuthServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EmpAuthServlet</servlet-name>
+    <url-pattern>/back-end/empAuth/empAuth.do</url-pattern>
+  </servlet-mapping>
+  
   <servlet>
     <servlet-name>MeetupServlet</servlet-name>
     <servlet-class>com.meetU.meetup.controller.MeetupServlet</servlet-class>
