@@ -105,25 +105,6 @@
 		</td>
 	</tr>
 	<tr>
-		<td>訂單金額:</td>
-		<td><input type="TEXT" name="price" size="45" class='form-control'
-			 value='<%= (omVO==null)? "699.5" : omVO.getPrice()%>'/></td>
-	</tr>
-<!-- 	<tr> -->
-<!-- 		<td>類型:</td> -->
-<!-- 		<td> -->
-		
-<!-- 		<select name='prod_type'> -->
-<%-- 		<c:forEach var='prod_type' items='${pt}'> --%>
-<%-- 			<option value='${pt.indexOf(prod_type)}'  --%>
-<%-- 							${omVO.prod_type==pt.indexOf(prod_type) ? 'selected' : '' }> ${prod_type}		 --%>
-<%-- 		</c:forEach> --%>
-<!-- 		</select> -->
-		
-		
-<!-- 		</td> -->
-<!-- 	</tr> -->
-	<tr>
 		<td>出貨地址:</td>
 		<td><input type="TEXT" name='out_add' size="45" class='form-control'
 			 value='<%= (omVO==null)? "中央大學" : omVO.getOut_add()%>' /></td>
@@ -176,7 +157,7 @@
 	</tr>
 
 </table>
-
+<input type='hidden' name='price' value='${amount}'>
 <input type='hidden' name='action' value='insert'>
 <button type='submit' class="btn btn-outline-success">送出新增</button>
 </form>

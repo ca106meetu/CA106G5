@@ -33,6 +33,7 @@ public class ShoppingServlet extends HttpServlet {
         super();
     }
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
 		res.setCharacterEncoding("UTF-8");
 		HttpSession session = req.getSession();
 		@SuppressWarnings("unchecked")
