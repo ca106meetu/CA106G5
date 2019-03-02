@@ -130,7 +130,7 @@
   <servlet>
     <servlet-name>MeetupMemServlet</servlet-name>
     <servlet-class>com.meetU.meetup_mem.controller.MeetupMemServlet</servlet-class>
-  </servlet>
+  </servlet> 
   <servlet-mapping>
     <servlet-name>MeetupMemServlet</servlet-name>
     <url-pattern>/meetupMem/meetupMem.do</url-pattern>
