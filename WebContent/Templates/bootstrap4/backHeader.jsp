@@ -102,7 +102,7 @@
        <form  METHOD="post" ACTION="backLogin.do" name="form1">
   	      <div class="form-group">
    		     <label for="InputEmp_ID">員工ID</label>
-   		     <input type="text" name="emp_ID" class="form-control" id="InputEmp_ID" aria-describedby="ACCHelp" placeholder="輸入您的帳號">
+   		     <input type="text" name="emp_ID" class="form-control" id="InputEmp_ID" aria-describedby="ACCHelp" placeholder="輸入您的ID">
    		     <!-- <small id="ACCHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
  		  </div>
 	     <div class="form-group">
