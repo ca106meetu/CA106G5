@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Vector;
 
 import com.meetU.orderDetail.model.OrderDetailVO;
+import com.meetU.orderMaster.model.OrderMasterVO;
 import com.meetU.product.model.ProductVO;
 
 public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
@@ -291,7 +292,7 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 	}
 
 	@Override
-	public void insertList(Vector<ProductVO> buyList) {
+	public void insertList(OrderMasterVO omVO, List<ProductVO> buyList) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -90,6 +90,59 @@ public class OrderMasterDAO implements OrderMasterDAO_interface {
 			}
 		}
 	}
+	
+	public String insert(Connection con, OrderMasterVO omVO) {
+		PreparedStatement pstmt = null;
+		ResultSet rs=null;
+		String key = null;
+		String[] cols = { "ORDER_ID" };
+		try {
+		
+			pstmt = con.prepareStatement(INSERT_STMT, cols);
+			pstmt.setString(1, omVO.getMem_ID());
+			pstmt.setDouble(2, omVO.getPrice());
+			pstmt.setTimestamp(3, omVO.getOrder_date());
+			pstmt.setString(4, omVO.getTip());
+			pstmt.setString(5, omVO.getOut_add());
+			pstmt.setString(6, omVO.getRecipient());
+			pstmt.setString(7, omVO.getPhone());
+			pstmt.setTimestamp(8, omVO.getOut_date());
+			pstmt.setInt(9, omVO.getOut_status());
+			pstmt.setInt(10, omVO.getOrder_status());
+			
+			pstmt.executeUpdate();
+			
+			rs = pstmt.getGeneratedKeys();
+			rs.next();
+			key = rs.getString(1);
+			
+
+			
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			
+			
+		}
+		return key;
+	}
 
 	@Override
 	public void update(OrderMasterVO omVO) {

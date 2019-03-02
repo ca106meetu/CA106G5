@@ -14,6 +14,8 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import com.meetU.orderDetail.model.OrderDetailVO;
+import com.meetU.orderMaster.model.OrderMasterDAO;
+import com.meetU.orderMaster.model.OrderMasterVO;
 import com.meetU.product.model.ProductVO;
 
 public class OrderDetailDAO implements OrderDetailDAO_interface{
@@ -28,6 +30,7 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 		}
 	}
 
+	
 	private static final String INSERT_STMT = 
 		"INSERT INTO ORDER_DETAIL (PROD_ID, ORDER_ID, QUANTITY, PRICE) VALUES (?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
@@ -270,51 +273,65 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 	public OrderDetailDAO() {
 	}
 
+
 	@Override
-	public void insertList(Vector<ProductVO> buyList) {
-		// TODO Auto-generated method stub
+	public void insertList(OrderMasterVO omVO, List<ProductVO> buyList) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		OrderMasterDAO ordDAO = new OrderMasterDAO();
+		try {
+			
+			
+			con = ds.getConnection();
+			con.setAutoCommit(false);
+			String key = ordDAO.insert(con, omVO);
+			
+			
+			pstmt = con.prepareStatement(INSERT_STMT);
+			
+			for(ProductVO prodVO: buyList) {
+			pstmt.setString(1, prodVO.getProd_ID());
+			pstmt.setString(2, key);
+			pstmt.setInt(3, prodVO.getQuantity());
+			pstmt.setDouble(4, prodVO.getProd_price());
+			pstmt.executeUpdate();
+			pstmt.clearParameters();
+			}
+			
+			
+			con.commit();
+			con.setAutoCommit(true);
+			
+			
+		} catch (SQLException se) {
+			try {
+				con.rollback();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
 		
 	}
 
-//	@Override
-//	public void insertList(Vector<ProductVO> buyList) {
-//		
-//		Connection con = null;
-//		PreparedStatement pstmt = null;
-//		try {
-//			
-//			
-//			con = ds.getConnection();
-//			pstmt = con.prepareStatement(INSERT_STMT);
-//			
-//			pstmt.setString(1, odVO.getProd_ID());
-//			pstmt.setString(2, odVO.getOrder_ID());
-//			pstmt.setInt(3, odVO.getQuantity());
-//			pstmt.setDouble(4, odVO.getPrice());
-//			pstmt.executeUpdate();
-//			
-//			
-//		} catch (SQLException se) {
-//			throw new RuntimeException("A database error occured. "
-//					+ se.getMessage());
-//		} finally {
-//			if (pstmt != null) {
-//				try {
-//					pstmt.close();
-//				} catch (SQLException e) {
-//					e.printStackTrace(System.err);
-//				}
-//			}
-//			
-//			if (con != null) {
-//				try {
-//					con.close();
-//				} catch (SQLException e) {
-//					e.printStackTrace(System.err);
-//				}
-//			}
-//		}
-//		
-//	}
 	
 }
