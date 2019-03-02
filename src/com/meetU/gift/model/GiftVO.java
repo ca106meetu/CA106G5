@@ -1,6 +1,8 @@
 package com.meetU.gift.model;
 
-public class GiftVO implements java.io.Serializable{
+import java.io.Serializable;
+
+public class GiftVO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private String gift_rec_ID;
@@ -40,6 +42,15 @@ public class GiftVO implements java.io.Serializable{
 	public void setGift_quantity(Integer gift_quantity) {
 		this.gift_quantity = gift_quantity;
 	}
-	
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || !(obj instanceof GiftVO)) {
+            return false;
+        }
+        return this.getGift_rec_ID().equals(((GiftVO) obj).getGift_rec_ID());
+    }
 	
 }

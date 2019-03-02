@@ -1,6 +1,8 @@
 package com.meetU.empAuth.model;
 
-public class EmpAuthVO implements java.io.Serializable {
+import java.io.Serializable;
+
+public class EmpAuthVO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private String emp_ID;

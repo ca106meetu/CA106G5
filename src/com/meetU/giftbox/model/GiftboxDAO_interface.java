@@ -6,6 +6,7 @@ public interface GiftboxDAO_interface {
     public void insert(GiftboxVO giftboxVO);
     public void update(GiftboxVO giftboxVO);
     public void delete(String mem_ID, String prod_ID);
+    public List<GiftboxVO> findByPartOfOnePrimaryKey(String mem_ID);
     public GiftboxVO findByPrimaryKey(String mem_ID, String prod_ID);
     public List<GiftboxVO> getAll();
     //萬用複合查詢(傳入參數型態Map)(回傳 List)

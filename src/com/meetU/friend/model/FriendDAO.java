@@ -24,6 +24,8 @@ public class FriendDAO implements FriendDAO_interface{
 			"INSERT INTO FRIEND (MEM_ID, FRIEND_MEM_ID, RELATION_STATUS, FRIEND_INTIMATE) VALUES (?, ?, ?, ?)";
 		private static final String GET_ALL_STMT = 
 			"SELECT * FROM FRIEND";
+		private static final String GET_PART_OF_ONE_STMT = 
+			"SELECT * FROM FRIEND where MEM_ID = ? ";
 		private static final String GET_ONE_STMT = 
 			"SELECT * FROM FRIEND where MEM_ID=? AND FRIEND_MEM_ID=?";
 		private static final String DELETE = 
@@ -147,6 +149,65 @@ public class FriendDAO implements FriendDAO_interface{
 			}
 
 		}
+		
+		@Override
+		public List<FriendVO> findByPartOfOnePrimaryKey(String mem_ID) {
+			List<FriendVO> list = new ArrayList<>();
+			FriendVO friendVO = null;
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+
+			try {
+
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(GET_PART_OF_ONE_STMT);
+
+				pstmt.setString(1, mem_ID);
+				
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					// friendVO 也稱為 Domain objects
+					friendVO = new FriendVO();
+					friendVO.setMem_ID(rs.getString("mem_ID"));
+					friendVO.setFriend_mem_ID(rs.getString("friend_mem_ID"));
+					friendVO.setRelation_status(rs.getInt("relation_status"));
+					friendVO.setFriend_intimate(rs.getInt("friend_intimate"));
+					list.add(friendVO);
+				}
+
+				// Handle any driver errors
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+				// Clean up JDBC resources
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+			return list;
+		}
+		
 		@Override
 		public FriendVO findByPrimaryKey(String mem_ID, String friend_mem_ID) {
 			FriendVO friendVO = null;

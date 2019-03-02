@@ -3,6 +3,8 @@ package com.meetU.giftbox.model;
 import java.sql.*;
 import java.util.*;
 
+import com.meetU.friend.model.FriendVO;
+
 public class GiftboxJDBCDAO implements GiftboxDAO_interface {
 	
 	String driver = "oracle.jdbc.driver.OracleDriver";
@@ -14,8 +16,10 @@ public class GiftboxJDBCDAO implements GiftboxDAO_interface {
 		"INSERT INTO GIFTBOX (MEM_ID, PROD_ID, GIFT_QUANTITY) VALUES ( ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
 		"SELECT * FROM GIFTBOX";
+	private static final String GET_PART_OF_ONE_STMT = 
+		"SELECT * FROM GIFTBOX where MEM_ID = ? ";
 	private static final String GET_ONE_STMT = 
-		"SELECT * FROM GIFTBOX where MEM_ID = ? AND PROD_ID=?";
+		"SELECT * FROM GIFTBOX where MEM_ID = ? AND PROD_ID=? ";
 	private static final String DELETE = 
 		"DELETE FROM GIFTBOX WHERE MEM_ID = ? AND PROD_ID=?";
 	private static final String UPDATE = 
@@ -145,6 +149,64 @@ public class GiftboxJDBCDAO implements GiftboxDAO_interface {
 	}
 
 	@Override
+	public List<GiftboxVO> findByPartOfOnePrimaryKey(String mem_ID) {
+		List<GiftboxVO> list = new ArrayList<>();
+		GiftboxVO giftboxVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_PART_OF_ONE_STMT);
+			
+			pstmt.setString(1, mem_ID);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				giftboxVO = new GiftboxVO();
+				giftboxVO.setMem_ID(rs.getString("mem_ID"));
+				giftboxVO.setProd_ID(rs.getString("prod_ID"));
+				giftboxVO.setGift_quantity(rs.getInt("gift_quantity"));
+				list.add(giftboxVO);
+			}
+			
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	@Override
 	public GiftboxVO findByPrimaryKey(String mem_ID, String prod_ID) {
 		GiftboxVO giftboxVO = null;
 		Connection con = null;
@@ -162,7 +224,7 @@ public class GiftboxJDBCDAO implements GiftboxDAO_interface {
 				giftboxVO = new GiftboxVO();
 				giftboxVO.setMem_ID(rs.getString("mem_ID"));
 				giftboxVO.setProd_ID(rs.getString("prod_ID"));
-				giftboxVO.setGift_quantity(rs.getInt("gift_quantity"));
+				giftboxVO.setGift_quantity(rs.getInt("gift_quantity"));		
 			}
 			
 			
@@ -199,7 +261,6 @@ public class GiftboxJDBCDAO implements GiftboxDAO_interface {
 		}
 		return giftboxVO;
 	}
-
 	@Override
 	public List<GiftboxVO> getAll() {
 		List<GiftboxVO> list = new ArrayList<>();
@@ -277,16 +338,19 @@ public class GiftboxJDBCDAO implements GiftboxDAO_interface {
 		dao.delete("M000005", "P000004");
 		
 		//查詢1
-		GiftboxVO giftboxVO3 = dao.findByPrimaryKey("M000003","P000001");
+		List<GiftboxVO> list = dao.findByPartOfOnePrimaryKey("M000003");
 		
-		System.out.println(giftboxVO3.getMem_ID() + ",");
-		System.out.println(giftboxVO3.getProd_ID() + ",");
-		System.out.println(giftboxVO3.getGift_quantity() + ",");
-		System.out.println("----------------------------");
+		for(GiftboxVO giftboxVO3 : list) {
+			System.out.println(giftboxVO3.getMem_ID() + ",");
+			System.out.println(giftboxVO3.getProd_ID() + ",");
+			System.out.println(giftboxVO3.getGift_quantity() + ",");
+			System.out.println("----------------------------");
+		}
+		
 		//查詢全
-		List<GiftboxVO> list = dao.getAll();
+		List<GiftboxVO> list2 = dao.getAll();
 		
-		for(GiftboxVO giftboxVO4 : list) {
+		for(GiftboxVO giftboxVO4 : list2) {
 			System.out.println(giftboxVO4.getMem_ID() + ",");
 			System.out.println(giftboxVO4.getProd_ID() + ",");
 			System.out.println(giftboxVO4.getGift_quantity() + ",");

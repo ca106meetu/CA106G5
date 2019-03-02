@@ -199,10 +199,28 @@ public class EmpServlet extends HttpServlet {
 								
 				byte[] emp_pic = null;//??
 				Part part = req.getPart("emp_pic");
-				InputStream in = part.getInputStream();
-				emp_pic = new byte[in.available()];
-				in.read(emp_pic);
-				in.close();
+				
+				Base64.Encoder encoder = Base64.getEncoder();
+				if(getFileNameFromPart(part) != null) {
+					InputStream in = part.getInputStream();
+					emp_pic = new byte[in.available()];
+					in.read(emp_pic);
+					in.close();
+					String encodeText = encoder.encodeToString(emp_pic);
+					req.setAttribute("encodeText", encodeText);
+				} else {
+					if(req.getParameter("encodeText") != null && req.getParameter("encodeText").trim().length() !=0) {
+						Base64.Decoder decoder = Base64.getDecoder();
+						emp_pic = decoder.decode(req.getParameter("encodeText"));
+						String encodeText = encoder.encodeToString(emp_pic);
+						req.setAttribute("encodeText", encodeText);
+					}
+				}
+				
+				//InputStream in = part.getInputStream();
+				//emp_pic = new byte[in.available()];
+				//in.read(emp_pic);
+				//in.close();
 				
 				Integer emp_state = null;
 				try {
@@ -339,10 +357,26 @@ public class EmpServlet extends HttpServlet {
 				
 				byte[] emp_pic = null;//??
 				Part part = req.getPart("emp_pic");
-				InputStream in = part.getInputStream();
-				emp_pic = new byte[in.available()];
-				in.read(emp_pic);
-				in.close();
+				Base64.Encoder encoder = Base64.getEncoder();
+				if(getFileNameFromPart(part) != null) {
+					InputStream in = part.getInputStream();
+					emp_pic = new byte[in.available()];
+					in.read(emp_pic);
+					in.close();
+					String encodeText = encoder.encodeToString(emp_pic);
+					req.setAttribute("encodeText", encodeText);
+				} else {
+					if(req.getParameter("encodeText") != null && req.getParameter("encodeText").trim().length() !=0) {
+						Base64.Decoder decoder = Base64.getDecoder();
+						emp_pic = decoder.decode(req.getParameter("encodeText"));
+						String encodeText = encoder.encodeToString(emp_pic);
+						req.setAttribute("encodeText", encodeText);
+					}
+				}
+				//InputStream in = part.getInputStream();
+				//emp_pic = new byte[in.available()];
+				//in.read(emp_pic);
+				//in.close();
 				
 				Integer emp_state = null;
 				try {
@@ -443,5 +477,15 @@ public class EmpServlet extends HttpServlet {
 		}
 		
 	}
-
+	
+	public String getFileNameFromPart(Part part) {
+		String header = part.getHeader("content-disposition");
+//		System.out.println("header=" + header); // 測試用
+		String filename = new File(header.substring(header.lastIndexOf("=") + 2, header.length() - 1)).getName();
+//		System.out.println("filename=" + filename); // 測試用
+		if (filename.length() == 0) {
+			return null;
+		}
+		return filename;
+	}
 }

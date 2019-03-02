@@ -12,7 +12,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import com.meetU.friend.model.FriendVO;
+import com.meetU.giftbox.model.GiftboxVO;
 
 public class EmpAuthDAO implements EmpAuthDAO_interface {
 	private static DataSource ds = null;
@@ -28,6 +28,8 @@ public class EmpAuthDAO implements EmpAuthDAO_interface {
 		"INSERT INTO EMP_AUTH (EMP_ID, AUTH_ID) VALUES (?, ?)";
 	private static final String GET_ALL_STMT = 
 		"SELECT * FROM EMP_AUTH";
+	private static final String GET_PART_OF_ONE_STMT = 
+		"SELECT * FROM EMP_AUTH where EMP_ID = ? ";
 	private static final String GET_ONE_STMT = 
 		"SELECT * FROM EMP_AUTH where EMP_ID = ? AND AUTH_ID = ?";
 	private static final String DELETE = 
@@ -147,6 +149,64 @@ public class EmpAuthDAO implements EmpAuthDAO_interface {
 		}
 		
 	}
+	
+	@Override
+	public List<EmpAuthVO> findByPartOfOnePrimaryKey(String emp_ID) {
+		List<EmpAuthVO> list = new ArrayList<>();
+		EmpAuthVO empAuthVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_PART_OF_ONE_STMT);
+
+			pstmt.setString(1, emp_ID);
+			
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// empAuthVO 也稱為 Domain objects
+				empAuthVO = new EmpAuthVO();
+				empAuthVO.setEmp_ID(rs.getString("emp_ID"));
+				empAuthVO.setAuth_ID(rs.getString("auth_ID"));
+				
+				list.add(empAuthVO);
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
 	@Override
 	public EmpAuthVO findByPrimaryKey(String emp_ID, String auth_ID) {
 		EmpAuthVO empAuthVO = null;

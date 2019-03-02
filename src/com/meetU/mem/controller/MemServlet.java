@@ -202,10 +202,27 @@ public class MemServlet extends HttpServlet {
 												
 				byte[] mem_pic = null;
 				Part part = req.getPart("mem_pic");//10會員大頭照
-				InputStream in = part.getInputStream();
-				mem_pic = new byte[in.available()];
-				in.read(mem_pic);
-				in.close();
+				Base64.Encoder encoder = Base64.getEncoder();
+				if(getFileNameFromPart(part) != null) {
+					InputStream in = part.getInputStream();
+					mem_pic = new byte[in.available()];
+					in.read(mem_pic);
+					in.close();
+					String encodeText = encoder.encodeToString(mem_pic);
+					req.setAttribute("encodeText", encodeText);
+				} else {
+					if(req.getParameter("encodeText") != null && req.getParameter("encodeText").trim().length() !=0) {
+						Base64.Decoder decoder = Base64.getDecoder();
+						mem_pic = decoder.decode(req.getParameter("encodeText"));
+						String encodeText = encoder.encodeToString(mem_pic);
+						req.setAttribute("encodeText", encodeText);
+					}
+				}
+				
+				//InputStream in = part.getInputStream();
+				//mem_pic = new byte[in.available()];
+				//in.read(mem_pic);
+				//in.close();
 				
 				String mem_intro = req.getParameter("mem_intro").trim();//11
 				String mem_introReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{0,1000}$";
@@ -274,10 +291,27 @@ public class MemServlet extends HttpServlet {
 				
 				byte[] mem_QRCODE = null;
 				Part part2 = req.getPart("mem_QRCODE");//20會員QRCODE
-				InputStream in2 = part.getInputStream();
-				mem_QRCODE = new byte[in2.available()];
-				in2.read(mem_QRCODE);
-				in2.close();
+				Base64.Encoder encoder2 = Base64.getEncoder();
+				if(getFileNameFromPart(part2) != null) {
+					InputStream in2 = part2.getInputStream();
+					mem_QRCODE = new byte[in2.available()];
+					in2.read(mem_QRCODE);
+					in2.close();
+					String encodeText2 = encoder2.encodeToString(mem_QRCODE);
+					req.setAttribute("encodeText2", encodeText2);
+				} else {
+					if(req.getParameter("encodeText2") != null && req.getParameter("encodeText2").trim().length() !=0) {
+						Base64.Decoder decoder2 = Base64.getDecoder();
+						mem_pic = decoder2.decode(req.getParameter("encodeText2"));
+						String encodeText2 = encoder2.encodeToString(mem_QRCODE);
+						req.setAttribute("encodeText2", encodeText2);
+					}
+				}
+				
+				//InputStream in2 = part.getInputStream();
+				//mem_QRCODE = new byte[in2.available()];
+				//in2.read(mem_QRCODE);
+				//in2.close();
 				
 				Integer mem_get_point = null;//21會員點數
 				try {
@@ -428,10 +462,27 @@ public class MemServlet extends HttpServlet {
 												
 				byte[] mem_pic = null;
 				Part part = req.getPart("mem_pic");//10會員大頭照
-				InputStream in = part.getInputStream();
-				mem_pic = new byte[in.available()];
-				in.read(mem_pic);
-				in.close();
+				Base64.Encoder encoder = Base64.getEncoder();
+				if(getFileNameFromPart(part) != null) {
+					InputStream in = part.getInputStream();
+					mem_pic = new byte[in.available()];
+					in.read(mem_pic);
+					in.close();
+					String encodeText = encoder.encodeToString(mem_pic);
+					req.setAttribute("encodeText", encodeText);
+				} else {
+					if(req.getParameter("encodeText") != null && req.getParameter("encodeText").trim().length() !=0) {
+						Base64.Decoder decoder = Base64.getDecoder();
+						mem_pic = decoder.decode(req.getParameter("encodeText"));
+						String encodeText = encoder.encodeToString(mem_pic);
+						req.setAttribute("encodeText", encodeText);
+					}
+				}
+				
+				//InputStream in = part.getInputStream();
+				//mem_pic = new byte[in.available()];
+				//in.read(mem_pic);
+				//in.close();
 				
 				StringBuffer bf_intro = new StringBuffer();
 				
@@ -504,10 +555,27 @@ public class MemServlet extends HttpServlet {
 				
 				byte[] mem_QRCODE = null;
 				Part part2 = req.getPart("mem_QRCODE");//20會員QRCODE
-				InputStream in2 = part.getInputStream();
-				mem_QRCODE = new byte[in2.available()];
-				in2.read(mem_QRCODE);
-				in2.close();
+				Base64.Encoder encoder2 = Base64.getEncoder();
+				if(getFileNameFromPart(part2) != null) {
+					InputStream in2 = part2.getInputStream();
+					mem_QRCODE = new byte[in2.available()];
+					in2.read(mem_QRCODE);
+					in2.close();
+					String encodeText2 = encoder2.encodeToString(mem_QRCODE);
+					req.setAttribute("encodeText2", encodeText2);
+				} else {
+					if(req.getParameter("encodeText2") != null && req.getParameter("encodeText2").trim().length() !=0) {
+						Base64.Decoder decoder2 = Base64.getDecoder();
+						mem_pic = decoder2.decode(req.getParameter("encodeText2"));
+						String encodeText2 = encoder2.encodeToString(mem_QRCODE);
+						req.setAttribute("encodeText2", encodeText2);
+					}
+				}
+				
+				//InputStream in2 = part.getInputStream();
+				//mem_QRCODE = new byte[in2.available()];
+				//in2.read(mem_QRCODE);
+				//in2.close();
 				
 				Integer mem_get_point = null;//21會員點數
 				try {
@@ -603,6 +671,17 @@ public class MemServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+	}
+	
+	public String getFileNameFromPart(Part part) {
+		String header = part.getHeader("content-disposition");
+//		System.out.println("header=" + header); // 測試用
+		String filename = new File(header.substring(header.lastIndexOf("=") + 2, header.length() - 1)).getName();
+//		System.out.println("filename=" + filename); // 測試用
+		if (filename.length() == 0) {
+			return null;
+		}
+		return filename;
 	}
 
 }

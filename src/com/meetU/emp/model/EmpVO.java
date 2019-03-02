@@ -1,8 +1,10 @@
 package com.meetU.emp.model;
 
 import java.sql.Date;
+import java.io.Serializable;
 
-public class EmpVO implements java.io.Serializable {
+
+public class EmpVO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -85,6 +87,15 @@ public class EmpVO implements java.io.Serializable {
 	public void setEmp_address(String emp_address) {
 		this.emp_address = emp_address;
 	}
-	
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || !(obj instanceof EmpVO)) {
+            return false;
+        }
+        return this.getEmp_ID().equals(((EmpVO) obj).getEmp_ID());
+    }
 	
 }

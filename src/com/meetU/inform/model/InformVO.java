@@ -1,8 +1,9 @@
 package com.meetU.inform.model;
 
 import java.sql.Timestamp;
+import java.io.Serializable;
 
-public class InformVO implements java.io.Serializable {
+public class InformVO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private String inform_ID;
@@ -43,5 +44,14 @@ public class InformVO implements java.io.Serializable {
 	public void setInform_time(Timestamp inform_time) {
 		this.inform_time = inform_time;
 	}
-
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || !(obj instanceof InformVO)) {
+            return false;
+        }
+        return this.getInform_ID().equals(((InformVO) obj).getInform_ID());
+    }
 }

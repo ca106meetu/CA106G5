@@ -1,6 +1,8 @@
 package com.meetU.friend.model;
 
-public class FriendVO implements java.io.Serializable{
+import java.io.Serializable;
+
+public class FriendVO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private String mem_ID;

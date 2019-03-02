@@ -6,6 +6,7 @@ public interface FriendDAO_interface {
     public void insert(FriendVO friendVO);
     public void update(FriendVO friendVO);
     public void delete(String mem_ID, String friend_mem_ID);
+    public List<FriendVO> findByPartOfOnePrimaryKey(String mem_ID);
     public FriendVO findByPrimaryKey(String mem_ID, String friend_mem_ID);
     public List<FriendVO> getAll();
     //萬用複合查詢(傳入參數型態Map)(回傳 List)

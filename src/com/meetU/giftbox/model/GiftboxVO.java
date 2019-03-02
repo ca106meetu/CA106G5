@@ -1,6 +1,8 @@
 package com.meetU.giftbox.model;
 
-public class GiftboxVO implements java.io.Serializable{
+import java.io.Serializable;
+
+public class GiftboxVO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private String mem_ID;

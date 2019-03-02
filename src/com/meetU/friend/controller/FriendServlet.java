@@ -1,4 +1,4 @@
-package com.meetU.giftbox.controller;
+package com.meetU.friend.controller;
 
 import java.io.IOException;
 import java.util.*;
@@ -10,15 +10,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.meetU.giftbox.model.*;
+import com.meetU.friend.model.*;
 
-
-public class GiftboxServlet extends HttpServlet {
-	
+@WebServlet("/FriendServlet")
+public class FriendServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-
-    public void doGet(HttpServletRequest req, HttpServletResponse res)
+    
+	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 		doPost(req, res);
 	}
@@ -26,83 +25,7 @@ public class GiftboxServlet extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-		if("getSome_For_Display".equals(action)) {
-
-			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs);
-			try {
-				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
-				String str1 = req.getParameter("mem_ID");
-//				String str2 = req.getParameter("prod_ID");
-				if (str1 == null || (str1.trim()).length() == 0) {
-					errorMsgs.add("請輸入會員ID");
-				}
-//				if (str2== null || (str2.trim()).length() == 0) {
-//					errorMsgs.add("請輸入禮物ID");
-//				}
-				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/giftbox/select_page.jsp");
-					failureView.forward(req, res);
-					return;//程式中斷
-				}
-				
-				String mem_ID = null;
-				try {
-					mem_ID = new String(str1);
-				} catch (Exception e) {
-					errorMsgs.add("會員ID格式不正確");
-				}
-				
-//				String prod_ID = null;
-//				try {
-//					prod_ID = new String(str2);
-//				} catch (Exception e) {
-//					errorMsgs.add("禮物ID格式不正確");
-//				}
-				
-				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/giftbox/select_page.jsp");
-					failureView.forward(req, res);
-					return;//程式中斷
-				}
-				
-				/***************************2.開始查詢資料*****************************************/
-				GiftboxService giftboxSvc = new GiftboxService();//???
-				List<GiftboxVO> list  = giftboxSvc.getPartOfOneGiftbox(mem_ID);
-				
-				if (list.isEmpty() == true) {
-					errorMsgs.add("查無資料");
-				}
-				
-				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/giftbox/select_page.jsp");
-					failureView.forward(req, res);
-					return;//程式中斷
-				}
-				
-				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
-				req.getSession().setAttribute("list", list); // 資料庫取出的giftboxVO物件,存入req
-				String url = "/back-end/giftbox/listSomeGiftbox.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // ���\��� listOneGiftbox.jsp
-				successView.forward(req, res);
-
-			/***************************其他可能的錯誤處理*************************************/
-			} catch (Exception e) {
-				errorMsgs.add("無法取得資料:" + e.getMessage());
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/giftbox/select_page.jsp");
-				failureView.forward(req, res);
-			}
-		}
-		if ("getOne_For_Display".equals(action)) { // 來自addGiftbox.jsp的請求
+		if ("getSome_For_Display".equals(action)) { // 來自addFriend.jsp的請求
 			
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -111,17 +34,17 @@ public class GiftboxServlet extends HttpServlet {
 			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				String str1 = req.getParameter("mem_ID");
-				String str2 = req.getParameter("prod_ID");
+//				String str2 = req.getParameter("friend_mem_ID");
 				if (str1 == null || (str1.trim()).length() == 0) {
 					errorMsgs.add("請輸入會員ID");
 				}
-				if (str2== null || (str2.trim()).length() == 0) {
-					errorMsgs.add("請輸入禮物ID");
-				}
+//				if (str2== null || (str2.trim()).length() == 0) {
+//					errorMsgs.add("請輸入對方ID");
+//				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/giftbox/select_page.jsp");
+							.getRequestDispatcher("/back-end/friend/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -133,53 +56,129 @@ public class GiftboxServlet extends HttpServlet {
 					errorMsgs.add("會員ID格式不正確");
 				}
 				
-				String prod_ID = null;
-				try {
-					prod_ID = new String(str2);
-				} catch (Exception e) {
-					errorMsgs.add("禮物ID格式不正確");
-				}
+//				String friend_mem_ID = null;
+//				try {
+//					friend_mem_ID = new String(str2);
+//				} catch (Exception e) {
+//					errorMsgs.add("對方ID格式不正確");
+//				}
 				
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/giftbox/select_page.jsp");
+							.getRequestDispatcher("/back-end/friend/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
 				
 				/***************************2.開始查詢資料*****************************************/
-				GiftboxService giftboxSvc = new GiftboxService();//???
-				GiftboxVO giftboxVO  = giftboxSvc.getOneGiftbox(mem_ID, prod_ID);
+				FriendService friendSvc = new FriendService();//???
+				List<FriendVO> list  = friendSvc.getPartOfOneFriend(mem_ID);
 				
-				if (giftboxVO == null) {
+				if (list.isEmpty() == true) {
 					errorMsgs.add("查無資料");
 				}
 				
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/giftbox/select_page.jsp");
+							.getRequestDispatcher("/back-end/friend/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("giftboxVO", giftboxVO); // 資料庫取出的giftboxVO物件,存入req
-				String url = "/back-end/giftbox/listOneGiftbox.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // ���\��� listOneGiftbox.jsp
+				req.getSession().setAttribute("list", list); // 資料庫取出的friendVO物件,存入req
+				String url = "/back-end/friend/listSomeFriend.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // ���\��� listOneFriend.jsp
 				successView.forward(req, res);
 
 			/***************************其他可能的錯誤處理*************************************/
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/giftbox/select_page.jsp");
+						.getRequestDispatcher("/back-end/friend/select_page.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		if ("getOne_For_Display".equals(action)) { // 來自addFriend.jsp的請求
+			
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+				String str1 = req.getParameter("mem_ID");
+				String str2 = req.getParameter("friend_mem_ID");
+				if (str1 == null || (str1.trim()).length() == 0) {
+					errorMsgs.add("請輸入會員ID");
+				}
+				if (str2== null || (str2.trim()).length() == 0) {
+					errorMsgs.add("請輸入對方ID");
+				}
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/back-end/friend/select_page.jsp");
+					failureView.forward(req, res);
+					return;//程式中斷
+				}
+				
+				String mem_ID = null;
+				try {
+					mem_ID = new String(str1);
+				} catch (Exception e) {
+					errorMsgs.add("會員ID格式不正確");
+				}
+				
+				String friend_mem_ID = null;
+				try {
+					friend_mem_ID = new String(str2);
+				} catch (Exception e) {
+					errorMsgs.add("對方ID格式不正確");
+				}
+				
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/back-end/friend/select_page.jsp");
+					failureView.forward(req, res);
+					return;//程式中斷
+				}
+				
+				/***************************2.開始查詢資料*****************************************/
+				FriendService friendSvc = new FriendService();//???
+				FriendVO friendVO  = friendSvc.getOneFriend(mem_ID, friend_mem_ID);
+				
+				if (friendVO == null) {
+					errorMsgs.add("查無資料");
+				}
+				
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/back-end/friend/select_page.jsp");
+					failureView.forward(req, res);
+					return;//程式中斷
+				}
+				
+				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
+				req.setAttribute("friendVO", friendVO); // 資料庫取出的friendVO物件,存入req
+				String url = "/back-end/friend/listOneFriend.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // ���\��� listOneFriend.jsp
+				successView.forward(req, res);
+
+			/***************************其他可能的錯誤處理*************************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/back-end/friend/select_page.jsp");
 				failureView.forward(req, res);
 			}
 		}
 		
-		if ("getOne_For_Update".equals(action)) { // 來自listAllGiftbox.jsp的請求
+		if ("getOne_For_Update".equals(action)) { // 來自listAllFriend.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -189,90 +188,98 @@ public class GiftboxServlet extends HttpServlet {
 			try {
 				/***************************1.接收請求參數****************************************/
 				String mem_ID = new String(req.getParameter("mem_ID"));
-				String prod_ID = new String(req.getParameter("prod_ID"));
+				String friend_mem_ID = new String(req.getParameter("friend_mem_ID"));
 				
 				/***************************2.開始查詢資料****************************************/
-				GiftboxService giftboxSvc = new GiftboxService();
-				GiftboxVO giftboxVO = giftboxSvc.getOneGiftbox(mem_ID, prod_ID);
+				FriendService friendSvc = new FriendService();
+				FriendVO friendVO = friendSvc.getOneFriend(mem_ID, friend_mem_ID);
 								
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
-				req.setAttribute("giftboxVO", giftboxVO);         // 資料庫取出的giftboxVO物件,存入req
-				String url = "/back-end/giftbox/update_giftbox_input.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_giftbox_input.jsp
+				req.setAttribute("friendVO", friendVO);         // 資料庫取出的friendVO物件,存入req
+				String url = "/back-end/friend/update_friend_input.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_friend_input.jsp
 				successView.forward(req, res);
 
 				/***************************其他可能的錯誤處理**********************************/
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/giftbox/listAllGiftbox.jsp");
+						.getRequestDispatcher("/back-end/friend/listAllFriend.jsp");
 				failureView.forward(req, res);
 			}
 		}
 		
 		
-		if ("update".equals(action)) { // 來自update_giftbox_input.jsp的請求
+		if ("update".equals(action)) { // 來自update_friend_input.jsp的請求
 			
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 		
-//			try {
+			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				String mem_ID = new String(req.getParameter("mem_ID").trim());
-				String prod_ID = new String(req.getParameter("prod_ID").trim());
+				String friend_mem_ID = new String(req.getParameter("friend_mem_ID").trim());
 				
-				Integer gift_quantity = null;
+				Integer relation_status = null;
 				try {
-					gift_quantity = new Integer(req.getParameter("gift_quantity").trim());
+					relation_status = new Integer(req.getParameter("relation_status").trim());
 				} catch (NumberFormatException e) {
-					gift_quantity = 0;
-					errorMsgs.add("禮物數量請填數字.");
+					relation_status = 0;
+					errorMsgs.add("好友關係狀態請填數字.");
 				}
 								
-		        GiftboxVO giftboxVO = new GiftboxVO();
-				giftboxVO.setMem_ID(mem_ID);
-				giftboxVO.setProd_ID(prod_ID);
-				giftboxVO.setGift_quantity(gift_quantity);
+				Integer friend_intimate = null;
+				try {
+					friend_intimate = new Integer(req.getParameter("friend_intimate").trim());
+				} catch (NumberFormatException e) {
+					relation_status = 0;
+					errorMsgs.add("好友親密度請填數字.");
+				}
+				FriendVO friendVO = new FriendVO();
+				friendVO.setMem_ID(mem_ID);
+				friendVO.setFriend_mem_ID(friend_mem_ID);
+				friendVO.setRelation_status(relation_status);
+				friendVO.setFriend_intimate(friend_intimate);
 				System.out.println("檢查點 1");
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					System.out.println("檢查點 2");
 
-					req.setAttribute("giftboxVO", giftboxVO); // 含有輸入格式錯誤的giftboxVO物件,也存入req
+					req.setAttribute("friendVO", friendVO); // 含有輸入格式錯誤的friendVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/giftbox/update_giftbox_input.jsp");
+							.getRequestDispatcher("/back-end/friend/update_friend_input.jsp");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
 				
 				/***************************2.開始修改資料*****************************************/
-				GiftboxService giftboxSvc = new GiftboxService();
-				giftboxVO = giftboxSvc.updateGiftbox(mem_ID, prod_ID, gift_quantity);
+				FriendService friendSvc = new FriendService();
+				friendVO = friendSvc.updateFriend(mem_ID, friend_mem_ID, relation_status, friend_intimate);
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("giftboxVO", giftboxVO); // 資料庫update成功後,正確的的giftboxVO物件,存入req
-				String url = "/back-end/giftbox/listOneGiftbox.jsp";
+				req.setAttribute("friendVO", friendVO); // 資料庫update成功後,正確的的friendVO物件,存入req
+				String url = "/back-end/friend/listOneFriend.jsp";
 				System.out.println("檢查點 3");
 
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneGiftbox.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneFriend.jsp
 				successView.forward(req, res);
 
 				/***************************其他可能的錯誤處理*************************************/
-//			} catch (Exception e) {
-//				System.out.println("檢查點 4");
-//
-//				errorMsgs.add("修改資料失敗:"+e.getMessage());
-//				RequestDispatcher failureView = req
-//						.getRequestDispatcher("/back-end/giftbox/update_giftbox_input.jsp");
-//				failureView.forward(req, res);
-//			}
+			} catch (Exception e) {
+				System.out.println("檢查點 4");
+
+				errorMsgs.add("修改資料失敗:"+e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/back-end/friend/update_friend_input.jsp");
+				failureView.forward(req, res);
+			}
 		}
 		
 		
-		if ("insert".equals(action)) { // 來自addGiftbox.jsp的請求  
+		if ("insert".equals(action)) { // 來自addfriend.jsp的請求  
 			
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -289,46 +296,56 @@ public class GiftboxServlet extends HttpServlet {
 					errorMsgs.add("會員ID:只能是英文字母、數字 , 且長度必需在7到20之間");
 	            }
 				
-				String prod_ID = req.getParameter("prod_ID");
-				String prod_IDReg = "^[(a-zA-Z0-9_)]{7,20}$";
-				if (prod_ID == null || prod_ID.trim().length() == 0) {
-					errorMsgs.add("禮物ID: 請勿空白");
-				} else if(!prod_ID.trim().matches(prod_IDReg)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("禮物ID:只能是英文字母、數字 , 且長度必需在7到20之間");
+				String friend_mem_ID = req.getParameter("friend_mem_ID");
+				String friend_mem_IDReg = "^[(a-zA-Z0-9_)]{7,20}$";
+				if (friend_mem_ID == null || friend_mem_ID.trim().length() == 0) {
+					errorMsgs.add("對方ID: 請勿空白");
+				} else if(!friend_mem_ID.trim().matches(friend_mem_IDReg)) { //以下練習正則(規)表示式(regular-expression)
+					errorMsgs.add("對方ID:只能是英文字母、數字 , 且長度必需在7到20之間");
 	            }
 				
-				Integer gift_quantity = null;
+				Integer relation_status = null;
 				try {
-					gift_quantity = new Integer(req.getParameter("gift_quantity").trim());
+					relation_status = new Integer(req.getParameter("relation_status").trim());
 				} catch (NumberFormatException e) {
-					gift_quantity = 0;
-					errorMsgs.add("禮物數量請填數字.");
+					relation_status = 0;
+					errorMsgs.add("好友關係狀態請填數字.");
 				}
-				
-				GiftboxVO giftboxVO = new GiftboxVO();
-				giftboxVO.setGift_quantity(gift_quantity);
+								
+				Integer friend_intimate = null;
+				try {
+					friend_intimate = new Integer(req.getParameter("friend_intimate").trim());
+				} catch (NumberFormatException e) {
+					relation_status = 0;
+					errorMsgs.add("好友親密度請填數字.");
+				}
+				FriendVO friendVO = new FriendVO();
+				friendVO.setMem_ID(mem_ID);
+				friendVO.setFriend_mem_ID(friend_mem_ID);
+				friendVO.setRelation_status(relation_status);
+				friendVO.setFriend_intimate(friend_intimate);
 				System.out.println("檢查點 1");
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					System.out.println("檢查點 2");
-					req.setAttribute("giftboxVO", giftboxVO); // 含有輸入格式錯誤的giftboxVO物件,也存入req
+					req.setAttribute("friendVO", friendVO); // 含有輸入格式錯誤的friendVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/giftbox/addGiftbox.jsp");
+							.getRequestDispatcher("/back-end/friend/addFriend.jsp");
 					failureView.forward(req, res);
 					return;
 				}
 				
 				/***************************2.開始新增資料***************************************/
-				GiftboxService giftboxSvc = new GiftboxService();
+				FriendService friendSvc = new FriendService();
 				System.out.println(mem_ID);
-				System.out.println(prod_ID);
-				giftboxVO = giftboxSvc.addGiftbox(mem_ID, prod_ID, gift_quantity);
+				System.out.println(friend_mem_ID);
+				friendVO = friendSvc.addFriend(mem_ID, friend_mem_ID, relation_status, friend_intimate);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/back-end/giftbox/listAllGiftbox.jsp";
+				String url = "/back-end/friend/listAllFriend.jsp";
 				System.out.println("檢查點 3");
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllGiftbox.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllFriend.jsp
 				successView.forward(req, res);				
 				
 				/***************************其他可能的錯誤處理**********************************/
@@ -336,13 +353,13 @@ public class GiftboxServlet extends HttpServlet {
 				errorMsgs.add(e.getMessage());
 				System.out.println("檢查點 4");
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/giftbox/addGiftbox.jsp");
+						.getRequestDispatcher("/back-end/friend/addFriend.jsp");
 				failureView.forward(req, res);
 			}
 		}
 		
 		
-		if ("delete".equals(action)) { // 來自listAllGiftbox.jsp
+		if ("delete".equals(action)) { // 來自listAllFriend.jsp
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -352,14 +369,14 @@ public class GiftboxServlet extends HttpServlet {
 			try {
 				/***************************1.接收請求參數***************************************/
 				String mem_ID = new String(req.getParameter("mem_ID"));
-				String prod_ID = new String(req.getParameter("prod_ID"));
+				String friend_mem_ID = new String(req.getParameter("friend_mem_ID"));
 				
 				/***************************2.開始刪除資料***************************************/
-				GiftboxService giftboxSvc = new GiftboxService();
-				giftboxSvc.deleteGiftbox(mem_ID, prod_ID);
+				FriendService friendSvc = new FriendService();
+				friendSvc.deleteFriend(mem_ID, friend_mem_ID);
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-				String url = "/back-end/giftbox/listAllGiftbox.jsp";
+				String url = "/back-end/friend/listAllFriend.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 				
@@ -367,7 +384,7 @@ public class GiftboxServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("刪除資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/giftbox/listAllGiftbox.jsp");
+						.getRequestDispatcher("/back-end/friend/listAllFriend.jsp");
 				failureView.forward(req, res);
 			}
 		}

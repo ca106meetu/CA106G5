@@ -35,6 +35,10 @@ public class GiftboxService {
 		dao.delete(mem_ID, prod_ID);
 	}
 	
+	public List<GiftboxVO> getPartOfOneGiftbox(String mem_ID) {
+		return dao.findByPartOfOnePrimaryKey(mem_ID);
+	}
+	
 	public GiftboxVO getOneGiftbox(String mem_ID, String prod_ID) {
 		return dao.findByPrimaryKey(mem_ID, prod_ID);
 	}

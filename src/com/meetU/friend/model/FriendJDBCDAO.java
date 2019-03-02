@@ -15,6 +15,8 @@ public class FriendJDBCDAO implements FriendDAO_interface {
 		"INSERT INTO FRIEND (MEM_ID, FRIEND_MEM_ID, RELATION_STATUS, FRIEND_INTIMATE) VALUES (?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
 		"SELECT * FROM FRIEND";
+	private static final String GET_PART_OF_ONE_STMT = 
+		"SELECT * FROM FRIEND where MEM_ID = ? ";
 	private static final String GET_ONE_STMT = 
 		"SELECT * FROM FRIEND where MEM_ID=? AND FRIEND_MEM_ID=?";
 	private static final String DELETE = 
@@ -207,6 +209,67 @@ public class FriendJDBCDAO implements FriendDAO_interface {
 	}
 
 	@Override
+	public List<FriendVO> findByPartOfOnePrimaryKey(String mem_ID) {
+		List<FriendVO> list = new ArrayList<>();
+		FriendVO friendVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_PART_OF_ONE_STMT);
+			
+			pstmt.setString(1, mem_ID);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				friendVO = new FriendVO();
+				friendVO.setMem_ID(rs.getString("mem_ID"));
+				friendVO.setFriend_mem_ID(rs.getString("friend_mem_ID"));
+				friendVO.setRelation_status(rs.getInt("relation_status"));
+				friendVO.setFriend_intimate(rs.getInt("friend_intimate"));
+
+				list.add(friendVO);
+			}
+			
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	@Override
 	public List<FriendVO> getAll() {
 		List<FriendVO> list = new ArrayList<>();
 		FriendVO friendVO = null;
@@ -263,7 +326,7 @@ public class FriendJDBCDAO implements FriendDAO_interface {
 		}
 		return list;
 	}
-	/*
+	
 	public static void main(String[] args) {
 		
 		FriendJDBCDAO dao = new FriendJDBCDAO();
@@ -302,8 +365,17 @@ public class FriendJDBCDAO implements FriendDAO_interface {
 			System.out.println(friendVO4.getFriend_mem_ID() + ",");
 			System.out.println(friendVO4.getRelation_status() + ",");
 			System.out.println(friendVO4.getFriend_intimate() + ",");
+			System.out.println("**----------------------------");
+		}
+		//查詢2
+		List<FriendVO> list2 = dao.findByPartOfOnePrimaryKey("M000001");
+		for(FriendVO friendVO5 : list2) {
+			System.out.println(friendVO5.getMem_ID() + ",");
+			System.out.println(friendVO5.getFriend_mem_ID() + ",");
+			System.out.println(friendVO5.getRelation_status() + ",");
+			System.out.println(friendVO5.getFriend_intimate() + ",");
 			System.out.println("----------------------------");
 		}
 	}
-    */
+    
 }

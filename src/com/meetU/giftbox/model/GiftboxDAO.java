@@ -13,6 +13,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import com.meetU.auth.model.AuthVO;
+import com.meetU.friend.model.FriendVO;
 
 public class GiftboxDAO implements GiftboxDAO_interface{
 	
@@ -30,8 +31,10 @@ public class GiftboxDAO implements GiftboxDAO_interface{
 		"INSERT INTO GIFTBOX (MEM_ID, PROD_ID, GIFT_QUANTITY) VALUES ( ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
 		"SELECT * FROM GIFTBOX";
+	private static final String GET_PART_OF_ONE_STMT = 
+		"SELECT * FROM GIFTBOX where MEM_ID = ? ";
 	private static final String GET_ONE_STMT = 
-		"SELECT * FROM GIFTBOX where MEM_ID = ? AND PROD_ID=?";
+		"SELECT * FROM GIFTBOX where MEM_ID = ? AND PROD_ID=? ";
 	private static final String DELETE = 
 		"DELETE FROM GIFTBOX WHERE MEM_ID = ? AND PROD_ID=?";
 	private static final String UPDATE = 
@@ -151,12 +154,68 @@ public class GiftboxDAO implements GiftboxDAO_interface{
 		}
 	}
 	@Override
-	public GiftboxVO findByPrimaryKey(String mem_ID, String prod_ID) {
+	public List<GiftboxVO> findByPartOfOnePrimaryKey(String mem_ID) {
+		List<GiftboxVO> list = new ArrayList<>();
 		GiftboxVO giftboxVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_PART_OF_ONE_STMT);
+
+			pstmt.setString(1, mem_ID);
+			
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// giftboxVO 也稱為 Domain objects
+				giftboxVO = new GiftboxVO();
+				giftboxVO.setMem_ID(rs.getString("mem_ID"));
+				giftboxVO.setProd_ID(rs.getString("prod_ID"));
+				giftboxVO.setGift_quantity(rs.getInt("gift_quantity"));
+				list.add(giftboxVO);
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	@Override
+	public GiftboxVO findByPrimaryKey(String mem_ID, String prod_ID) {
+		GiftboxVO giftboxVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
 		try {
 
 			con = ds.getConnection();
@@ -203,6 +262,7 @@ public class GiftboxDAO implements GiftboxDAO_interface{
 				}
 			}
 		}
+		
 		return giftboxVO;
 	}
 	@Override

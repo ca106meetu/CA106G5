@@ -1,8 +1,9 @@
 package com.meetU.mem.model;
 
 import java.sql.*;
+import java.io.Serializable;
 
-public class MemVO implements java.io.Serializable{
+public class MemVO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private String mem_ID;
@@ -152,5 +153,14 @@ public class MemVO implements java.io.Serializable{
 	public void setMem_get_point(Integer mem_get_point) {
 		this.mem_get_point = mem_get_point;
 	}
-		
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || !(obj instanceof MemVO)) {
+            return false;
+        }
+        return this.getMem_ID().equals(((MemVO) obj).getMem_ID());
+    }	
 }
