@@ -46,12 +46,97 @@
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
+      	<!-- Button trigger modal -->
+		<button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#login">
+		  登入
+		</button>
+		<button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#register">
+		  註冊
+		</button>
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
   </div>
 </nav>
-    
+<!-- Modal -->
+<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="loginLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loginLabel">登入</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <form METHOD="post" ACTION="frontLogin.do" >
+  	      <div class="form-group">
+   		     <label for="exampleInputACC">帳號</label>
+   		     <input type="email" class="form-control" id="exampleInputACC" aria-describedby="ACCHelp" placeholder="輸入您的帳號">
+   		     <!-- <small id="ACCHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+ 		  </div>
+	     <div class="form-group">
+	         <label for="exampleInputPassword1">密碼</label>
+	         <input type="password" class="form-control" id="exampleInputPassword1" placeholder="輸入您的密碼">
+	     </div>
+	     <!-- <div class="form-check">
+	         <input type="checkbox" class="form-check-input" id="exampleCheck1">
+	         <label class="form-check-label" for="exampleCheck1">Check me out</label>
+	     </div> -->
+	   <button type="submit" class="btn btn-success">登入</button>
+	 </form>
+      </div>
+      <div class="modal-footer">
+       <!--  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="registerLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="registerLabel">註冊</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <formMETHOD="post" ACTION="registerLogin.do">
+  	      <div class="form-group">
+   		     <label for="exampleInputACC">會員帳號</label>
+   		     <input type="email" class="form-control" id="exampleInputACC" aria-describedby="ACCHelp" placeholder="輸入您的帳號">
+   		     <!-- <small id="ACCHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+ 		  </div>
+	     <div class="form-group">
+	         <label for="InputPassword">會員密碼</label>
+	         <input type="password" class="form-control" id="InputPassword" placeholder="輸入您的密碼">
+	     </div>
+	     <div class="form-group">
+	         <label for="InputEmail">E-mail</label>
+	         <input type="password" class="form-control" id="InputEmail" placeholder="輸入您的E-mail">
+	     </div>
+	     <div class="form-group">
+	         <label for="InputAddress">居住地</label>
+	         <input type="password" class="form-control" id="InputAddress" placeholder="輸入您的居住地">
+	     </div>
+	     
+	     <!-- <div class="form-check">
+	         <input type="checkbox" class="form-check-input" id="exampleCheck1">
+	         <label class="form-check-label" for="exampleCheck1">Check me out</label>
+	     </div> -->
+	   <button type="submit" class="btn btn-success">註冊</button>
+	 </form>
+	 </div>
+      <div class="modal-footer">
+       <!--  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>    
     
     
     
