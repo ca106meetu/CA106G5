@@ -35,6 +35,8 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 		"INSERT INTO ORDER_DETAIL (PROD_ID, ORDER_ID, QUANTITY, PRICE) VALUES (?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
 		"SELECT * FROM ORDER_DETAIL";
+	private static final String GET_OD_BY_OM = 
+			"SELECT * FROM ORDER_DETAIL where ORDER_ID = ?";
 	private static final String GET_ONE_STMT = 
 		"SELECT * FROM ORDER_DETAIL where PROD_ID = ? AND ORDER_ID = ?";
 	private static final String UPDATE = 
@@ -331,6 +333,63 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 			}
 		}
 		
+	}
+
+	@Override
+	public List<OrderDetailVO> findOdByOm(String order_ID) {
+		List<OrderDetailVO> list = new ArrayList<>();
+		OrderDetailVO odVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_OD_BY_OM);
+			pstmt.setString(1, order_ID);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				odVO = new OrderDetailVO();
+				odVO.setProd_ID(rs.getString("PROD_ID"));
+				odVO.setOrder_ID(rs.getString("ORDER_ID"));
+				odVO.setQuantity(rs.getInt("QUANTITY"));
+				odVO.setPrice(rs.getDouble("PRICE"));
+				list.add(odVO);
+				
+			}
+			
+			
+		
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
 	}
 
 	

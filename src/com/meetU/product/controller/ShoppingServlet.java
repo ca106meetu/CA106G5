@@ -110,7 +110,7 @@ public class ShoppingServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
-//				try {
+				try {
 					String mem_ID = req.getParameter("mem_ID");
 					
 					
@@ -166,7 +166,7 @@ public class ShoppingServlet extends HttpServlet {
 					
 					if(!errorMsgs.isEmpty()) {
 						req.setAttribute("omVO", omVO);
-						RequestDispatcher failureView = req.getRequestDispatcher("/back-end/om/addOm.jsp");
+						RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/cart/checkOut.jsp");
 						failureView.forward(req, res);
 						return;
 					}
@@ -176,14 +176,14 @@ public class ShoppingServlet extends HttpServlet {
 					odSvc.insertOmOd(mem_ID, price, order_date, tip, out_add, recipient, phone, out_date, out_status, order_status, buyList);
 					req.setAttribute("lastPage", true);
 					//**********************************
-					String url = "/back-end/om/listAllOm.jsp";
+					String url = "/FrontEnd/od/listOdByOm.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url);
 					successView.forward(req, res);
-//				} catch (Exception e) {
-//					errorMsgs.add("無法取得資料:"+e.getMessage());
-//					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/om/addOm.jsp");
-//					failureView.forward(req, res);
-//				}
+				} catch (Exception e) {
+					errorMsgs.add("無法取得資料:"+e.getMessage());
+					RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/cart/checkOut.jsp");
+					failureView.forward(req, res);
+				}
 			
 		}
 		

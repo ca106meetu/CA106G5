@@ -296,4 +296,10 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public List<OrderDetailVO> findOdByOm(String order_ID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

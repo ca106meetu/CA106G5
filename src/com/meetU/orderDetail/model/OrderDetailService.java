@@ -81,5 +81,9 @@ public class OrderDetailService {
 		return dao.getAll();
 	}
 	
+	public List<OrderDetailVO> findOdByOm(String order_ID){
+		return dao.findOdByOm(order_ID);
+	}
+	
 
 }
