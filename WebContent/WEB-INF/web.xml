@@ -118,7 +118,7 @@
     <servlet-name>EmpAuthServlet</servlet-name>
     <url-pattern>/back-end/empAuth/empAuth.do</url-pattern>
   </servlet-mapping>
-  
+  <!--  -->
   <servlet>
     <servlet-name>MeetupServlet</servlet-name>
     <servlet-class>com.meetU.meetup.controller.MeetupServlet</servlet-class>
