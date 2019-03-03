@@ -6,11 +6,11 @@ public interface Live_chatDAO_interface {
 
 	public void insert(Live_chatVO live_chatVO);
 
-	public void update(Live_chatVO live_chatVO);
+//	public void update(Live_chatVO live_chatVO);
 
-	public void delete(Live_chatVO live_chatVO);
+//	public void delete(Live_chatVO live_chatVO);
 
-	public Live_chatVO findByPrimaryKey(String chat_ID);
+	public List<Live_chatVO> findByPrimaryKey(String host_ID);
 
 	public List<Live_chatVO> getALL();
 

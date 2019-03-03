@@ -1,5 +1,8 @@
 package com.meetU.ad.model;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,6 +16,7 @@ import java.util.List;
 
 import com.meetU.filerec.model.FileRecJDBCDAO;
 import com.meetU.filerec.model.FileRecVO;
+import com.meetU.live.model.LiveVO;
 
 public class AdJDBCDAO implements AdDAO_interface {
 
@@ -272,10 +276,19 @@ public class AdJDBCDAO implements AdDAO_interface {
 		AdJDBCDAO dao = new AdJDBCDAO();
 
 //				新增
+		File pic = new File("WebContent/FrontEnd/live/pic/P01.jpg");
+		FileInputStream fis = new FileInputStream(pic);
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		byte[] buffer = new byte[8000];
+		int i;
+		while ((i = fis.read(buffer)) != -1) {
+			baos.write(buffer, 0, i);
+		}
+
 		AdVO adVO1 = new AdVO();
 		adVO1.setHost_ID("M000006");
 		adVO1.setAd_name("測試新增");
-		adVO1.setAd_cont(null);
+		adVO1.setAd_cont(baos.toByteArray());
 		adVO1.setAd_cost(50007);
 		adVO1.setApply_status(0);
 		adVO1.setAd_star(java.sql.Date.valueOf("2019-04-01"));

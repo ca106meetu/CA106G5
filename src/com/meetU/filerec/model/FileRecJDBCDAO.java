@@ -21,7 +21,7 @@ public class FileRecJDBCDAO implements FileRecDAO_interface {
 	private static final String INSERT_STMT = "INSERT INTO FILEREC (FILE_ID, HOST_ID, FILE_NAME, LIVE_DES, FILE_CONT, FILE_DATE, FILE_POP) VALUES ('FM'||LPAD(to_char(filer_seq.NEXTVAL), 6, '0'),?,?,?,?,?,?)";
 	private static final String UPDATE = "UPDATE FILEREC set FILE_NAME = ?, LIVE_DES = ?, FILE_CONT = ?, FILE_POP = ?  where FILE_ID = ?";
 	private static final String DELETE = "DELETE FROM FILEREC where FILE_ID = ?";
-	private static final String GET_ONE_STMT = "SELECT * FROM FILEREC where FILE_ID = ?";
+	private static final String GET_ONE_STMT = "SELECT * FROM FILEREC where HOST_ID = ?";
 	private static final String GET_ALL_STMT = "SELECT * FROM FILEREC";
 
 	public FileRecJDBCDAO() {
@@ -146,7 +146,8 @@ public class FileRecJDBCDAO implements FileRecDAO_interface {
 	}
 
 	@Override
-	public FileRecVO findByPrimaryKey(String file_ID) {
+	public List<FileRecVO> findByPrimaryKey(String host_ID) {
+		List<FileRecVO> list = new ArrayList<>();
 		FileRecVO filerecVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -156,7 +157,7 @@ public class FileRecJDBCDAO implements FileRecDAO_interface {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
-			pstmt.setString(1, file_ID);
+			pstmt.setString(1, host_ID);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -169,6 +170,9 @@ public class FileRecJDBCDAO implements FileRecDAO_interface {
 				filerecVO.setFile_cont(rs.getString("FILE_CONT"));
 				filerecVO.setFile_date(rs.getTimestamp("FILE_DATE"));
 				filerecVO.setFile_pop(rs.getInt("FILE_POP"));
+
+				list.add(filerecVO);
+
 			}
 
 		} catch (ClassNotFoundException e) {
@@ -200,7 +204,7 @@ public class FileRecJDBCDAO implements FileRecDAO_interface {
 				}
 			}
 		}
-		return filerecVO;
+		return list;
 	}
 
 	@Override
@@ -296,19 +300,21 @@ public class FileRecJDBCDAO implements FileRecDAO_interface {
 		System.out.println("刪除成功");
 
 //			條件查詢
-		FileRecVO filerecVO4 = dao.findByPrimaryKey("FM000006");
-		System.out.print(filerecVO4.getFile_ID() + ", ");
-		System.out.print(filerecVO4.getHost_ID() + ", ");
-		System.out.print(filerecVO4.getFile_name() + ", ");
-		System.out.print(filerecVO4.getLive_des() + ", ");
-		System.out.print(filerecVO4.getFile_cont() + ", ");
-		System.out.print(filerecVO4.getFile_date() + ", ");
-		System.out.print(filerecVO4.getFile_pop() + " ");
-		System.out.print("----------------------------");
+		List<FileRecVO> list = dao.findByPrimaryKey("M000006");
+		for (FileRecVO filerecVO4 : list) {
+			System.out.print(filerecVO4.getFile_ID() + ", ");
+			System.out.print(filerecVO4.getHost_ID() + ", ");
+			System.out.print(filerecVO4.getFile_name() + ", ");
+			System.out.print(filerecVO4.getLive_des() + ", ");
+			System.out.print(filerecVO4.getFile_cont() + ", ");
+			System.out.print(filerecVO4.getFile_date() + ", ");
+			System.out.println(filerecVO4.getFile_pop() + " ");
+			System.out.println("----------------------------");
+		}
 
 //			查詢全部	
-		List<FileRecVO> list = dao.getALL();
-		for (FileRecVO filerecVO5 : list) {
+		List<FileRecVO> list1 = dao.getALL();
+		for (FileRecVO filerecVO5 : list1) {
 			System.out.print(filerecVO5.getFile_ID() + ", ");
 			System.out.print(filerecVO5.getHost_ID() + ", ");
 			System.out.print(filerecVO5.getFile_name() + ", ");

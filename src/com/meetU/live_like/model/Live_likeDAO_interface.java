@@ -6,11 +6,11 @@ public interface Live_likeDAO_interface {
 
 	public void insert(Live_likeVO live_likeVO);
 
-	public void update(Live_likeVO live_likeVO);
+//	public void update(Live_likeVO live_likeVO);  收藏不能修改,直接刪除再新增
 
 	public void delete(Live_likeVO live_likeVO);
 
-	public Live_likeVO findByPrimaryKey(String mem_ID, String host_ID);
+	public List<Live_likeVO> findByPrimaryKey(String mem_ID);
 
 	public List<Live_likeVO> getALL();
 

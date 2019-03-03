@@ -10,7 +10,7 @@ public interface FileRecDAO_interface {
 
 	public void delete(FileRecVO filerecVO);
 
-	public FileRecVO findByPrimaryKey(String file_ID);
+	public List<FileRecVO> findByPrimaryKey(String host_ID);
 
 	public List<FileRecVO> getALL();
 

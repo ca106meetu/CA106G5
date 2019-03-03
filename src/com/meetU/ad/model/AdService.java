@@ -53,7 +53,7 @@ public class AdService {
 	}
 
 //	條件查詢
-	public AdVO getOneFileRec(String ad_ID) {
+	public AdVO getOneAd(String ad_ID) {
 		AdVO adVO = dao.findByPrimaryKey(ad_ID);
 		return adVO;
 	}

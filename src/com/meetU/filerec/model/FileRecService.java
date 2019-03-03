@@ -52,9 +52,9 @@ public class FileRecService {
 	}
 
 //	條件查詢
-	public FileRecVO getOneFileRec(String file_ID) {
-		FileRecVO filerecVO = dao.findByPrimaryKey(file_ID);
-		return filerecVO;
+	public List<FileRecVO> getOneFileRec(String host_ID) {
+		List<FileRecVO> list = dao.findByPrimaryKey(host_ID);
+		return list;
 	}
 
 //	查詢全部

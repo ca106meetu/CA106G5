@@ -121,7 +121,6 @@ public class AdDAO implements AdDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt = con.prepareStatement(DELETE);
 			pstmt.setString(1, adVO.getAd_ID());
 
 			pstmt.executeUpdate();

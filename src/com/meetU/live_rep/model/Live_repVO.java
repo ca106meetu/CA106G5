@@ -8,7 +8,7 @@ public class Live_repVO implements Serializable {
 	private static final long serialVersionUID = 5059624854099057176L;
 	private String rep_ID;
 	private String host_ID;
-	private String men_ID;
+	private String mem_ID;
 	private String rep_cont;
 	private Timestamp rep_date;
 	private Integer rep_status;
@@ -35,12 +35,12 @@ public class Live_repVO implements Serializable {
 		this.host_ID = host_ID;
 	}
 
-	public String getMen_ID() {
-		return men_ID;
+	public String getMem_ID() {
+		return mem_ID;
 	}
 
-	public void setMen_ID(String men_ID) {
-		this.men_ID = men_ID;
+	public void setMem_ID(String mem_ID) {
+		this.mem_ID = mem_ID;
 	}
 
 	public String getRep_cont() {

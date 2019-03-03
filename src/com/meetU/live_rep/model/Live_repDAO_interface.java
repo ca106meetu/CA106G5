@@ -8,9 +8,9 @@ public interface Live_repDAO_interface {
 
 	public void update(Live_repVO live_repVO);
 
-	public void delete(Live_repVO live_repVO);
+//	public void delete(Live_repVO live_repVO);
 
-	public Live_repVO findByPrimaryKey(String rep_ID);
+	public List<Live_repVO> findByPrimaryKey(String mem_ID);
 
 	public List<Live_repVO> getALL();
 
