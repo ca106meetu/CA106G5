@@ -445,14 +445,12 @@ CREATE SEQUENCE filer_seq
   NOMAXVALUE
   NOCYCLE
   NOCACHE;
-INSERT INTO FILEREC (FILE_ID, HOST_ID, FILE_NAME, LIVE_DES, FILE_CONT, FILE_DATE, FILE_POP) VALUES ('FM'||LPAD(to_char(filer_seq.NEXTVAL), 6, '0'),'M000001','湯姆初次開吃','開台首吃好緊張!!','https://reurl.cc/7jgLQ',current_timestamp,0);
-INSERT INTO FILEREC (FILE_ID, HOST_ID, FILE_NAME, LIVE_DES, FILE_CONT, FILE_DATE, FILE_POP) VALUES ('FM'||LPAD(to_char(filer_seq.NEXTVAL), 6, '0'),'M000002','志明新春直播','大家來幫我找春嬌','https://reurl.cc/7jgLQ',current_timestamp,0);
-INSERT INTO FILEREC (FILE_ID, HOST_ID, FILE_NAME, LIVE_DES, FILE_CONT, FILE_DATE, FILE_POP) VALUES ('FM'||LPAD(to_char(filer_seq.NEXTVAL), 6, '0'),'M000003','春嬌的第一次','今天來開箱!!','https://reurl.cc/7jgLQ',current_timestamp,0);
-INSERT INTO FILEREC (FILE_ID, HOST_ID, FILE_NAME, LIVE_DES, FILE_CONT, FILE_DATE, FILE_POP) VALUES ('FM'||LPAD(to_char(filer_seq.NEXTVAL), 6, '0'),'M000004','安妮的小天地','我的影片裡有各種可愛的東西','https://reurl.cc/7jgLQ',current_timestamp,0);
-INSERT INTO FILEREC (FILE_ID, HOST_ID, FILE_NAME, LIVE_DES, FILE_CONT, FILE_DATE, FILE_POP) VALUES ('FM'||LPAD(to_char(filer_seq.NEXTVAL), 6, '0'),'M000005','茱蒂第一支影片','來看我翻看蒂蒂','https://reurl.cc/7jgLQ',current_timestamp,0);
-INSERT INTO FILEREC (FILE_ID, HOST_ID, FILE_NAME, LIVE_DES, FILE_CONT, FILE_DATE, FILE_POP) VALUES ('FM'||LPAD(to_char(filer_seq.NEXTVAL), 6, '0'),'M000006','艾達來聊聊','談談你想成為怎樣的炮王','https://reurl.cc/7jgLQ',current_timestamp,0);
-
-
+INSERT INTO FILEREC (FILE_ID, HOST_ID, FILE_NAME, LIVE_DES, FILE_CONT, FILE_DATE, FILE_POP) VALUES ('FM'||LPAD(to_char(filer_seq.NEXTVAL), 6, '0'),'M000001','湯姆初次開吃','開台首吃好緊張!!','https://www.youtube.com/embed/moyV8-g-SwM',current_timestamp,0);
+INSERT INTO FILEREC (FILE_ID, HOST_ID, FILE_NAME, LIVE_DES, FILE_CONT, FILE_DATE, FILE_POP) VALUES ('FM'||LPAD(to_char(filer_seq.NEXTVAL), 6, '0'),'M000002','志明新春直播','大家來幫我找春嬌','https://www.youtube.com/embed/moyV8-g-SwM',current_timestamp,0);
+INSERT INTO FILEREC (FILE_ID, HOST_ID, FILE_NAME, LIVE_DES, FILE_CONT, FILE_DATE, FILE_POP) VALUES ('FM'||LPAD(to_char(filer_seq.NEXTVAL), 6, '0'),'M000003','春嬌的第一次','今天來開箱!!','https://www.youtube.com/embed/moyV8-g-SwM',current_timestamp,0);
+INSERT INTO FILEREC (FILE_ID, HOST_ID, FILE_NAME, LIVE_DES, FILE_CONT, FILE_DATE, FILE_POP) VALUES ('FM'||LPAD(to_char(filer_seq.NEXTVAL), 6, '0'),'M000004','安妮的小天地','我的影片裡有各種可愛的東西','https://www.youtube.com/embed/moyV8-g-SwM',current_timestamp,0);
+INSERT INTO FILEREC (FILE_ID, HOST_ID, FILE_NAME, LIVE_DES, FILE_CONT, FILE_DATE, FILE_POP) VALUES ('FM'||LPAD(to_char(filer_seq.NEXTVAL), 6, '0'),'M000005','茱蒂第一支影片','來看我翻看蒂蒂','https://www.youtube.com/embed/moyV8-g-SwM',current_timestamp,0);
+INSERT INTO FILEREC (FILE_ID, HOST_ID, FILE_NAME, LIVE_DES, FILE_CONT, FILE_DATE, FILE_POP) VALUES ('FM'||LPAD(to_char(filer_seq.NEXTVAL), 6, '0'),'M000006','艾達來聊聊','談談你想成為怎樣的炮王','https://www.youtube.com/embed/moyV8-g-SwM',current_timestamp,0);
 
 ----------------------------
 --  for Table AD
