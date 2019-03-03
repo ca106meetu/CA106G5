@@ -10,7 +10,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
 
-    <title>Hello, world!</title> 
+    <title>Hello, world!</title>  
   </head>
   <body>
     <jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
