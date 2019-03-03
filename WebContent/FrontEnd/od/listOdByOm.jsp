@@ -86,8 +86,12 @@
 	<c:forEach var="odVO" items= "${list}" begin="0" end="${list.size()-1}" >
 		
 		<tr>
+		
+			<c:set scope="page" var="prod_type">
+    				<c:out value="${prodSvc.getOneProd(odVO.prod_ID).prod_type}"/> 
+			</c:set>
 			<td>${prodSvc.getOneProd(odVO.prod_ID).prod_name}</td>
-			<td>${pt[prodSvc.getOneProd(odVO.prod_ID).prod_type]}</td>
+			<td>${pt[prod_type]}</td>
 			<td>${odVO.price}</td>
 			<td>${odVO.quantity}</td>
 			<td><img class='pic' src='/CA106G5/ShowPic?PROD_ID=${prodSvc.getOneProd(odVO.prod_ID).prod_ID}'></td>
