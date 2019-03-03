@@ -8,6 +8,7 @@
 </head>
 <body>
 <br>
+<center>
 	<table border='1' cellpadding='5' cellspacing='0' width='400'>
 		<tr bgcolor='orange' align='center' valign='middle' height='20'>
 			 <td>   
@@ -16,8 +17,6 @@
 			 </td>
 		</tr>
 	</table>
-	<b> <br>
-	<br>                以下留空....
-	</b>
+</center>
 </body>
 </html>
