@@ -10,7 +10,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
 
-    <title>Hello, world!</title> 
+    <title>Hello, world!</title>  
   </head>
   <body>
     <jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
@@ -26,7 +26,7 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery-3.3.1.slim.min.js"></script>
+    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/popper.min.js"></script>
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/js/bootstrap.min.js"></script>
   </body>

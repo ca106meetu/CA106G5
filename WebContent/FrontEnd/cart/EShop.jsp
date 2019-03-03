@@ -61,7 +61,7 @@
 <%for(int j =0; j<=(list.size())/3; j++){%>
 <div class="card-deck">
 <%for(int i =0; i<=2; i++){
-	if(3*j+i < list.size()-1){
+	if(3*j+i <= list.size()-1){
 	ProductVO prodVO = list.get(3*j+i);%>	
   <div class="card border-danger mb-3">
     <img src="/CA106G5/ShowPic?PROD_ID=<%=prodVO.getProd_ID()%>" id='pic' class="card-img-top">
@@ -99,15 +99,6 @@
 </div>	
 	<a class="btn btn-primary" href="cart.jsp" role="button">查看購物車</a>
 
-<%-- 錯誤列表 --%>
-<%-- <c:if test='${not empty errorMsgs }'> --%>
-<!-- 	<font style='color:red'>請修正以下錯誤</font> -->
-<!-- 	<ul> -->
-<%-- 		<c:forEach var='message' items='${errorMsgs}'> --%>
-<%-- 			<li style='color:red'>${message}</li> --%>
-<%-- 		</c:forEach> --%>
-<!-- 	</ul> -->
-<%-- </c:if> --%>
 
     <jsp:include page="/Templates/bootstrap4/frontFooter.jsp" />
 

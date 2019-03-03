@@ -1,7 +1,6 @@
 package com.meetU.orderDetail.model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,25 +8,41 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import com.meetU.orderDetail.model.OrderDetailVO;
+import com.meetU.orderMaster.model.OrderMasterDAO;
 import com.meetU.orderMaster.model.OrderMasterVO;
 import com.meetU.product.model.ProductVO;
 
-public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
+public class OrderDetailDAO implements OrderDetailDAO_interface{
 
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "CA106G5";
-	String passwd = "123456";
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/CA106G5DB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 
+	
 	private static final String INSERT_STMT = 
 		"INSERT INTO ORDER_DETAIL (PROD_ID, ORDER_ID, QUANTITY, PRICE) VALUES (?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
 		"SELECT * FROM ORDER_DETAIL";
+	private static final String GET_OD_BY_OM = 
+			"SELECT * FROM ORDER_DETAIL where ORDER_ID = ?";
 	private static final String GET_ONE_STMT = 
 		"SELECT * FROM ORDER_DETAIL where PROD_ID = ? AND ORDER_ID = ?";
 	private static final String UPDATE = 
 		"UPDATE ORDER_DETAIL set QUANTITY=?, PRICE=? where PROD_ID = ? AND ORDER_ID = ?";
+	private static final String DELETE = 
+			"DELETE FROM ORDER_DETAIL where PROD_ID = ? AND ORDER_ID = ?";
 		
 
 	@Override
@@ -35,8 +50,8 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
 			pstmt.setString(1, odVO.getProd_ID());
@@ -46,9 +61,6 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 			pstmt.executeUpdate();
 			
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -76,8 +88,9 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			
+
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 			
 			pstmt.setInt(1, odVO.getQuantity());
@@ -87,9 +100,6 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 			pstmt.executeUpdate();
 			
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -114,18 +124,18 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 	}
 
 	@Override
-	public OrderDetailVO findByPrimaryKey(String Prod_ID, String Order_ID) {
+	public OrderDetailVO findByPrimaryKey(String prod_ID, String order_ID) {
 		
 		OrderDetailVO odVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
-			pstmt.setString(1, Prod_ID);
-			pstmt.setString(2, Order_ID);
+			pstmt.setString(1, prod_ID);
+			pstmt.setString(2, order_ID);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -138,9 +148,7 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 			}
 			
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+		
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -171,6 +179,42 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 		}
 		return odVO;
 	}
+	
+	public void delete(String prod_ID, String order_ID) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(DELETE);
+			pstmt.setString(1, prod_ID);
+			pstmt.setString(2, order_ID);
+			
+			pstmt.executeUpdate();
+			
+			
+		
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
 
 	@Override
 	public List<OrderDetailVO> getAll() {
@@ -180,8 +224,8 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 			
@@ -196,9 +240,7 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 			}
 			
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+		
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -230,76 +272,125 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 		return list;
 	}
 
-	public OrderDetailJDBCDAO() {
-	}
-	
-	public static void main(String[] args) {
-		
-		OrderDetailJDBCDAO dao = new OrderDetailJDBCDAO();
-		
-		
-		
-		//新增
-//		OrderDetailVO odVO1 = new OrderDetailVO();
-//		odVO1.setProd_ID("P000005");
-//		odVO1.setOrder_ID("OM000005");
-//		odVO1.setQuantity(5);
-//		odVO1.setPrice(new Double(123321));
-//		dao.insert(odVO1);
-		
-		//修改
-		
-		OrderDetailVO odVO2 = new OrderDetailVO();
-		odVO2.setProd_ID("P000001");
-		odVO2.setOrder_ID("OM000005");
-		odVO2.setQuantity(6);
-		odVO2.setPrice(new Double(321123));
-		dao.update(odVO2);
-		
-		
-		
-		
-		//查詢1
-//		OrderDetailVO odVO3 = dao.findByPrimaryKey("P000001", "OM000001");
-//		
-//		System.out.println(odVO3.getProd_ID() + ",");
-//		System.out.println(odVO3.getOrder_ID() + ",");
-//		System.out.println(odVO3.getQuantity() + ",");
-//		System.out.println(odVO3.getPrice() + ",");
-//		System.out.println("----------------------------");
-		
-		
-		
-		//查詢全
-//		List<OrderDetailVO> list = dao.getAll();
-//				
-//		for(OrderDetailVO odVO4 : list) {
-//			System.out.println(odVO4.getProd_ID() + ",");
-//			System.out.println(odVO4.getOrder_ID() + ",");
-//			System.out.println(odVO4.getQuantity() + ",");
-//			System.out.println(odVO4.getPrice() + ",");
-//			System.out.println("----------------------------");
-//		}
-
-		
-		
+	public OrderDetailDAO() {
 	}
 
-	@Override
-	public void delete(String prodID, String orderID) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void insertList(OrderMasterVO omVO, List<ProductVO> buyList) {
-		// TODO Auto-generated method stub
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		OrderMasterDAO ordDAO = new OrderMasterDAO();
+		try {
+			
+			
+			con = ds.getConnection();
+			con.setAutoCommit(false);
+			String key = ordDAO.insert(con, omVO);
+			
+			
+			pstmt = con.prepareStatement(INSERT_STMT);
+			
+			for(ProductVO prodVO: buyList) {
+			pstmt.setString(1, prodVO.getProd_ID());
+			pstmt.setString(2, key);
+			pstmt.setInt(3, prodVO.getQuantity());
+			pstmt.setDouble(4, prodVO.getProd_price());
+			pstmt.executeUpdate();
+			pstmt.clearParameters();
+			}
+			
+			
+			con.commit();
+			con.setAutoCommit(true);
+			
+			
+		} catch (SQLException se) {
+			try {
+				con.rollback();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
 		
 	}
 
 	@Override
 	public List<OrderDetailVO> findOdByOm(String order_ID) {
-		// TODO Auto-generated method stub
-		return null;
+		List<OrderDetailVO> list = new ArrayList<>();
+		OrderDetailVO odVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_OD_BY_OM);
+			pstmt.setString(1, order_ID);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				odVO = new OrderDetailVO();
+				odVO.setProd_ID(rs.getString("PROD_ID"));
+				odVO.setOrder_ID(rs.getString("ORDER_ID"));
+				odVO.setQuantity(rs.getInt("QUANTITY"));
+				odVO.setPrice(rs.getDouble("PRICE"));
+				list.add(odVO);
+				
+			}
+			
+			
+		
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
 	}
+
+	
 }

@@ -1,3 +1,5 @@
+<%@page import="com.meetU.orderDetail.model.OrderDetailVO"%>
+<%@page import="com.meetU.orderDetail.model.OrderDetailService"%>
 <%@page import="com.meetU.orderMaster.model.OrderMasterVO"%>
 <%@page import="com.meetU.orderMaster.model.OrderMasterService"%>
 <%@page import="java.util.List"%>
@@ -5,10 +7,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
-	OrderMasterService omSvc = new OrderMasterService(); 
-	List<OrderMasterVO> list = omSvc.getAll();
+	OrderDetailService odSvc = new OrderDetailService();
+	OrderMasterService omSvc = new OrderMasterService();
+	String order_ID = request.getParameter("order_ID");
+	List<OrderDetailVO> list = odSvc.findOdByOm(order_ID);
 	pageContext.setAttribute("list", list);
 
+	
+	java.text.DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
+	String order_date = df.format(omSvc.getOneOm(order_ID).getOrder_date());
 %>
 
 <!doctype html>
@@ -16,9 +23,9 @@
   <head>
   <style>
 	.pic{
-		width:172.5px;
-		height:230px;
-	}
+		width:86.25px;
+		height:115px;
+		}
 	table {
 	width: 800px;
 	background-color: white;
@@ -48,19 +55,12 @@
     
     
  <table id = 'table-1'>
-	<tr><td>
-		<h3>所有訂單資料-listAllOm.jsp</h3>
-		<h4><a href='selectPageOm.jsp'><img src="images/back1.gif" width="100" height="32">回首頁</a></h4>
-	
-	
-	</td>
-	
-	
+	<tr>
+		<td>
+			<h3>訂單明細【<%=order_ID%>】</h3>
+			<h4>訂單成立時間: <%=order_date%></h4>
+		</td>
 	</tr>
-
-
-
-
 </table>
 
 <%-- 錯誤列表 --%>
@@ -75,68 +75,50 @@
 
 <table>
 	<tr>
-		<th>訂單編號</th>
-		<th>會員名稱</th>
-		<th>訂單金額</th>
-		<th>訂單日期</th>
-		<th>出貨地址</th>
-		<th>收件人</th>
-		<th>收件人電話</th>
-		<th>出貨日期</th>
-		<th>出貨狀態</th>
-		<th>訂單狀態</th>
-		<th>備註</th>
-		<th>明細</th>
+		<th>商品名稱</th>
+		<th>類型</th>
+		<th>商品單價</th>
+		<th>數量</th>
+		<th>圖片</th>
 		<th>修改</th>
-		<th>刪除</th>		
+		<th>刪除</th>
 	</tr>
-	<%@ include file="page1.file" %> 
-	<%
-		if(request.getAttribute("lastPage") != null &&(boolean)request.getAttribute("lastPage")){
-			pageIndex = pageIndexArray[pageNumber-1];
-		}
-	%>
-	<jsp:useBean id='memSvc' scope='page' class='com.meetU.mem.model.MemService'/>
-	<c:forEach var="omVO" items= "${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+	
+	<jsp:useBean id='prodSvc' scope='page' class='com.meetU.product.model.ProductService'/>
+	<c:forEach var="odVO" items= "${list}" begin="0" end="${list.size()-1}" >
+		
 		<tr>
-			<td>${omVO.order_ID}</td>
-			<td>${memSvc.getOneMem(omVO.mem_ID).mem_name}</td>
-			<td>${omVO.price}</td>
-			<td>${omVO.order_date}</td>
-			<td>${omVO.out_add}</td>
-			<td>${omVO.recipient}</td>
-			<td>${omVO.phone}</td>
-			<td>${omVO.out_date}</td>
-			<td>${outs[omVO.out_status]}</td>
-			<td>${ords[omVO.order_status]}</td>
-			<td>${omVO.tip}</td>
+			<c:set scope="page" var="prod_type">
+    				<c:out value="${prodSvc.getOneProd(odVO.prod_ID).prod_type}"/> 
+			</c:set>
+		
+			<td>${prodSvc.getOneProd(odVO.prod_ID).prod_name}</td>
+			<td>${pt[prod_type]}</td>
+			<td>${odVO.price}</td>
+			<td>${odVO.quantity}</td>
+			<td><img class='pic' src='/CA106G5/ShowPic?PROD_ID=${prodSvc.getOneProd(odVO.prod_ID).prod_ID}'></td>
+			
 			<td>
-				<form method='post' action='listDetail.jsp' style="margin-bottom: 0px;">
-					<input type='submit' value='查看明細'>
-					<input type='hidden' name='order_ID' value='${omVO.order_ID}'>
-				</form>
-			</td>
-			<td>
-				<form method='post' action='om.do' style="margin-bottom: 0px;">
+				<form method='post' action='od.do' style="margin-bottom: 0px;">
 					<input type='submit' value='修改'>
-					<input type='hidden' name='order_ID' value='${omVO.order_ID}'>
+					<input type='hidden' name='order_ID' value='<%=order_ID%>'>
+					<input type='hidden' name='order_ID' value='${prodSvc.getOneProd(odVO.prod_ID).prod_ID}'>
 					<input type='hidden' name='action' value='getOne_For_Update'>				
 				</form></td>
 			<td>	
-				<form method='post' action='om.do' style="margin-bottom: 0px;">
+				<form method='post' action='od.do' style="margin-bottom: 0px;">
 					<input type='submit' value='刪除'>
-					<input type='hidden' name='order_ID' value='${omVO.order_ID}'>
+					<input type='hidden' name='order_ID' value='<%=order_ID%>'>
+					<input type='hidden' name='order_ID' value='${prodSvc.getOneProd(odVO.prod_ID).prod_ID}'>
 					<input type='hidden' name='action' value='delete'>				
 				</form>
 			
 			</td>
-		
-		
+			
 		</tr>
  	
 	</c:forEach>
-</table>
-<%@ include file="page2.file" %> 
+</table> 
     
     
     

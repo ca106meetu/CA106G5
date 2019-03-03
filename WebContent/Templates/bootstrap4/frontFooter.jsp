@@ -12,7 +12,7 @@
   </head>
   <body>
     <!-- Footer -->
-<footer class="page-footer font-small mdb-color pt-4">
+<footer class="page-footer font-small mdb-color pt-4 bg-warning">
 
     <!-- Footer Links -->
     <div class="container text-center text-md-left">

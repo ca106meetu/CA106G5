@@ -5,8 +5,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
-	OrderMasterService omSvc = new OrderMasterService(); 
-	List<OrderMasterVO> list = omSvc.getAll();
+	OrderMasterService omSvc = new OrderMasterService();
+	String mem_ID = request.getParameter("mem_ID");
+	List<OrderMasterVO> list = omSvc.getOmByMem(mem_ID);
 	pageContext.setAttribute("list", list);
 
 %>
@@ -44,12 +45,12 @@
     <title>Hello, world!</title> 
   </head>
   <body>
-    <jsp:include page="/Templates/bootstrap4/backHeader.jsp" />
+    <jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
     
     
  <table id = 'table-1'>
 	<tr><td>
-		<h3>所有訂單資料-listAllOm.jsp</h3>
+		<h3>所有訂單資料-listOmByMem.jsp</h3>
 		<h4><a href='selectPageOm.jsp'><img src="images/back1.gif" width="100" height="32">回首頁</a></h4>
 	
 	
@@ -87,15 +88,10 @@
 		<th>訂單狀態</th>
 		<th>備註</th>
 		<th>明細</th>
-		<th>修改</th>
-		<th>刪除</th>		
+
 	</tr>
 	<%@ include file="page1.file" %> 
-	<%
-		if(request.getAttribute("lastPage") != null &&(boolean)request.getAttribute("lastPage")){
-			pageIndex = pageIndexArray[pageNumber-1];
-		}
-	%>
+	
 	<jsp:useBean id='memSvc' scope='page' class='com.meetU.mem.model.MemService'/>
 	<c:forEach var="omVO" items= "${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		<tr>
@@ -110,28 +106,13 @@
 			<td>${outs[omVO.out_status]}</td>
 			<td>${ords[omVO.order_status]}</td>
 			<td>${omVO.tip}</td>
+			
 			<td>
-				<form method='post' action='listDetail.jsp' style="margin-bottom: 0px;">
+				<form method='post' action='listOdByOm.jsp' style="margin-bottom: 0px;">
 					<input type='submit' value='查看明細'>
 					<input type='hidden' name='order_ID' value='${omVO.order_ID}'>
 				</form>
 			</td>
-			<td>
-				<form method='post' action='om.do' style="margin-bottom: 0px;">
-					<input type='submit' value='修改'>
-					<input type='hidden' name='order_ID' value='${omVO.order_ID}'>
-					<input type='hidden' name='action' value='getOne_For_Update'>				
-				</form></td>
-			<td>	
-				<form method='post' action='om.do' style="margin-bottom: 0px;">
-					<input type='submit' value='刪除'>
-					<input type='hidden' name='order_ID' value='${omVO.order_ID}'>
-					<input type='hidden' name='action' value='delete'>				
-				</form>
-			
-			</td>
-		
-		
 		</tr>
  	
 	</c:forEach>
@@ -142,7 +123,7 @@
     
     
     
-    <jsp:include page="/Templates/bootstrap4/backFooter.jsp" />
+    <jsp:include page="/Templates/bootstrap4/frontFooter.jsp" />
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
