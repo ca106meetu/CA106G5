@@ -88,7 +88,7 @@
 		<tr>
 		
 			<c:set scope="page" var="prod_type">
-    				<c:out value="${prodSvc.getOneProd(odVO.prod_ID).prod_type}"/> 
+    				<c:out value="${prodSvc.getOneProd(odVO.prod_ID).prod_type}"/>  
 			</c:set>
 			<td>${prodSvc.getOneProd(odVO.prod_ID).prod_name}</td>
 			<td>${pt[prod_type]}</td>
