@@ -19,6 +19,8 @@ public class EmpJDBCDAO implements EmpDAO_interface {
 		"SELECT * FROM EMP";
 	private static final String GET_ONE_STMT = 
 		"SELECT * FROM EMP where EMP_ID = ?";
+	private static final String GET_ONE_ACC = 
+		"SELECT * FROM EMP where EMP_ID=? AND EMP_PW=?";
 	private static final String DELETE = 
 		"DELETE FROM EMP where EMP_ID=? ";
 	private static final String UPDATE = 
@@ -188,6 +190,69 @@ public class EmpJDBCDAO implements EmpDAO_interface {
 				empVO.setEmp_state(rs.getInt("emp_state"));
 				empVO.setEmp_hday(rs.getDate("emp_hday"));
 				empVO.setEmp_address(rs.getString("emp_address"));
+			}
+						
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		} 
+		return empVO;
+	}
+	@Override
+	public EmpVO findByACC(String emp_ID, String emp_pw) {
+		EmpVO empVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ONE_ACC);
+			pstmt.setString(1, emp_ID);
+			pstmt.setString(2, emp_pw);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				empVO = new EmpVO();
+				empVO.setEmp_ID(rs.getString("emp_ID"));
+				empVO.setEmp_pw(rs.getString("emp_pw"));
+				empVO.setEmp_name(rs.getString("emp_name"));
+				empVO.setEmp_bday(rs.getDate("emp_bday"));
+				empVO.setEmp_email(rs.getString("emp_email"));
+				empVO.setEmp_pho(rs.getString("emp_pho"));
+				empVO.setEmp_gend(rs.getString("emp_gend"));
+				empVO.setEmp_pic(rs.getBytes("emp_pic"));
+				empVO.setEmp_state(rs.getInt("emp_state"));
+				empVO.setEmp_hday(rs.getDate("emp_hday"));
+				empVO.setEmp_address(rs.getString("emp_address"));	
 			}
 						
 		} catch (ClassNotFoundException e) {

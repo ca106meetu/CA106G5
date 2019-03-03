@@ -84,6 +84,10 @@ public class MemService {
 		return dao.findByPrimaryKey(mem_ID);
 	}
 	
+	public MemVO getOneMem(String mem_acc, String mem_pw) {
+		return dao.findByACC(mem_acc, mem_pw);
+	}
+	
 	public List<MemVO> getAll() {
 		return dao.getAll();
 	}

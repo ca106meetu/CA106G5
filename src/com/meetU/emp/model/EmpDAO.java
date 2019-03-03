@@ -27,6 +27,8 @@ public class EmpDAO implements EmpDAO_interface {
 		"SELECT * FROM EMP";
 	private static final String GET_ONE_STMT = 
 		"SELECT * FROM EMP where EMP_ID = ?";
+	private static final String GET_ONE_ACC = 
+		"SELECT * FROM EMP where EMP_ID=? AND EMP_PW=?";
 	private static final String DELETE = 
 		"DELETE FROM EMP where EMP_ID=? ";
 	private static final String UPDATE = 
@@ -231,7 +233,77 @@ public class EmpDAO implements EmpDAO_interface {
 		}
 		return empVO;
 	}
+	
+	@Override
+	public EmpVO findByACC(String emp_ID, String emp_pw) {
+		EmpVO empVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		boolean flag = false;
+		try {
 
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ONE_ACC);
+
+			pstmt.setString(1, emp_ID);
+			pstmt.setString(2, emp_pw);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// empVo 也稱為 Domain objects
+				empVO = new EmpVO();
+				empVO.setEmp_ID(rs.getString("emp_ID"));
+				empVO.setEmp_pw(rs.getString("emp_pw"));
+				empVO.setEmp_name(rs.getString("emp_name"));
+				empVO.setEmp_bday(rs.getDate("emp_bday"));
+				empVO.setEmp_email(rs.getString("emp_email"));
+				empVO.setEmp_pho(rs.getString("emp_pho"));
+				empVO.setEmp_gend(rs.getString("emp_gend"));
+				empVO.setEmp_pic(rs.getBytes("emp_pic"));
+				empVO.setEmp_state(rs.getInt("emp_state"));
+				empVO.setEmp_hday(rs.getDate("emp_hday"));
+				empVO.setEmp_address(rs.getString("emp_address"));
+			}
+			
+//			if(!(empVO.getEmp_ID().isEmpty() && empVO.getEmp_pw().isEmpty())) {
+//				flag = true;
+//			}else {
+//				flag = false;
+//			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return empVO;
+	}
+	
 	@Override
 	public List<EmpVO> getAll() {
 		List<EmpVO> list = new ArrayList<EmpVO>();
