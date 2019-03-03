@@ -108,6 +108,8 @@
 <br>
 <input type="hidden" name="action" value="update">
 <input type="hidden" name="prod_ID" value="<%=prodVO.getProd_ID()%>">
+<input type='hidden' name='whichPage' value='${param.whichPage}'>				
+<input type='hidden' name='requestURL' value='<%=request.getServletPath()%>'>
 <input type="submit" value="送出修改"></FORM>
 <script>
 			
@@ -136,7 +138,7 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery-3.3.1.slim.min.js"></script>
+    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/popper.min.js"></script>
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/js/bootstrap.min.js"></script>
   </body>

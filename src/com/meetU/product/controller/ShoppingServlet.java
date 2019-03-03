@@ -176,7 +176,7 @@ public class ShoppingServlet extends HttpServlet {
 					odSvc.insertOmOd(mem_ID, price, order_date, tip, out_add, recipient, phone, out_date, out_status, order_status, buyList);
 					req.setAttribute("lastPage", true);
 					//**********************************
-					String url = "/FrontEnd/od/listOdByOm.jsp";
+					String url = "/FrontEnd/cart/success.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url);
 					successView.forward(req, res);
 				} catch (Exception e) {

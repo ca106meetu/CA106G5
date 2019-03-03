@@ -305,6 +305,9 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 			con.commit();
 			con.setAutoCommit(true);
 			
+			Vector<ProductVO> list = (Vector<ProductVO>) buyList;
+			list.removeAllElements();
+			
 			
 		} catch (SQLException se) {
 			try {

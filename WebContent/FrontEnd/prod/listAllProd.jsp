@@ -95,7 +95,7 @@
 		}
 	%>
 	<c:forEach var="prodVO" items= "${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-		<tr>
+		<tr ${(prodVO.prod_ID==param.prod_ID) ? 'bgcolor=#CCCCFF':''}>
 			<td>${prodVO.prod_ID}</td>
 			<td>${prodVO.prod_name}</td>
 			<td>${prodVO.prod_price}</td>
@@ -109,13 +109,17 @@
 				<form method='post' action='prod.do' style="margin-bottom: 0px;">
 					<input type='submit' value='修改'>
 					<input type='hidden' name='prod_ID' value='${prodVO.prod_ID}'>
-					<input type='hidden' name='action' value='getOne_For_Update'>				
+					<input type='hidden' name='action' value='getOne_For_Update'>
+					<input type='hidden' name='whichPage' value='${param.whichPage}'>				
+					<input type='hidden' name='requestURL' value='<%=request.getServletPath()%>'>				
 				</form></td>
 			<td>	
 				<form method='post' action='prod.do' style="margin-bottom: 0px;">
 					<input type='submit' value='刪除'>
-					<input type='hidden' name='prod_ID' value='${prodVO.prod_ID}'>
 					<input type='hidden' name='action' value='delete'>				
+					<input type='hidden' name='prod_ID' value='${prodVO.prod_ID}'>
+					<input type='hidden' name='whichPage' value='${param.whichPage}'>				
+					<input type='hidden' name='requestURL' value='<%=request.getServletPath()%>'>				
 				</form>
 			
 			</td>
@@ -135,7 +139,7 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery-3.3.1.slim.min.js"></script>
+    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/popper.min.js"></script>
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/js/bootstrap.min.js"></script>
   </body>

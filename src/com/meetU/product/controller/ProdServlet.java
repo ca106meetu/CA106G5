@@ -397,10 +397,9 @@ public class ProdServlet extends HttpServlet {
 					//**********************************
 					ProductService prodSvc = new ProductService();
 					prodVO = prodSvc.updateProd(prod_ID, prod_name, prod_price, prod_type, prod_stock, prod_pic, prod_promt_status, prod_status, prod_info);
-					req.setAttribute("lastPage", true);
 					//**********************************
 					req.setAttribute("prodVO", prodVO);
-					String url = "/FrontEnd/prod/listOneProd.jsp";
+					String url = "/FrontEnd/prod/listAllProd.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url);
 					successView.forward(req, res);
 					
@@ -420,7 +419,6 @@ public class ProdServlet extends HttpServlet {
 				String prod_ID = req.getParameter("prod_ID");
 				ProductService prodSvc = new ProductService();
 				prodSvc.deleteProd(prod_ID);
-				req.setAttribute("lastPage", true);
 				String url = "/FrontEnd/prod/listAllProd.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);

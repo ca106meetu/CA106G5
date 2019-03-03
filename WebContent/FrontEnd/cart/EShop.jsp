@@ -16,6 +16,16 @@
 <html lang="en">
   <head>
   <style>
+	  	div {
+			  font-family:DFKai-sb;
+			}
+	  #menu {
+	  position: fixed;
+	  right: 0;
+	  top: 50%;
+	  width: 8em;
+	  margin-top: -2.5em;
+	}
   	.card-img-top {
     width:auto; 
  	height:auto; 
@@ -70,7 +80,7 @@
       <p class="card-text text-warning"><%=prodVO.getProd_info()%></p>
     </div>
     <div class="card-footer">
-      <small class="text-muted">價錢: <%=prodVO.getProd_price()%> 元</small>
+      <small class="text-muted" >價錢: <%=prodVO.getProd_price()%> 元</small>
      
      
 	  <form method='post' action="ShoppingServlet">
@@ -96,15 +106,17 @@
  <%}};%> 
 </div><br>	
  <%};%>	
+</div>
+<div id='menu'>
+<a class="btn btn-primary" href="cart.jsp" role="button">查看購物車</a>
 </div>	
-	<a class="btn btn-primary" href="cart.jsp" role="button">查看購物車</a>
 
 
     <jsp:include page="/Templates/bootstrap4/frontFooter.jsp" />
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery-3.3.1.slim.min.js"></script>
+    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/popper.min.js"></script>
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/js/bootstrap.min.js"></script>
   </body>

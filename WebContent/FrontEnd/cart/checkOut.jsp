@@ -94,14 +94,15 @@
 	<tr>
 		<td>會員名稱:</td>
 		<td>
-			<div class="input-group">
-			  <select class="custom-select" name='mem_ID' id="inputGroupSelect04" aria-label="Example select with button addon">
-			    <c:forEach var='memVO' items='${memSvc.all}'>
-					<option value='${memVO.mem_ID}' 
-						${memVO.mem_ID == omVO.mem_ID ? 'selected' : ''}>【${memVO.mem_ID}】${memVO.mem_name}
-				</c:forEach>
-			  </select>
-			</div>
+			${memVO.mem_name}
+<!-- 			<div class="input-group"> -->
+<!-- 			  <select class="custom-select" name='mem_ID' id="inputGroupSelect04" aria-label="Example select with button addon"> -->
+<%-- 			    <c:forEach var='memVO' items='${memSvc.all}'> --%>
+<%-- 					<option value='${memVO.mem_ID}'  --%>
+<%-- 						${memVO.mem_ID == omVO.mem_ID ? 'selected' : ''}>【${memVO.mem_ID}】${memVO.mem_name} --%>
+<%-- 				</c:forEach> --%>
+<!-- 			  </select> -->
+<!-- 			</div> -->
 		</td>
 	</tr>
 	<tr>
@@ -174,7 +175,7 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery-3.3.1.slim.min.js"></script>
+    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/popper.min.js"></script>
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/js/bootstrap.min.js"></script>
   </body>

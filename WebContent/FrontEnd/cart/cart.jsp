@@ -32,6 +32,14 @@
     
     
     <div class="container">
+      
+      <div class="row bg-info">
+      	<div class="col-5"></div>
+      	<div class="col-2"><h2 class="text-dark">購物車內容</h2></div>
+      	<div class="col-5"></div>
+      </div>
+      <br>
+      <br>
       <div class="row">
       	<div class="col-1"><input type='checkbox'></div>
         <div class="col-5">商品</div>
@@ -81,7 +89,7 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery-3.3.1.slim.min.js"></script>
+    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/popper.min.js"></script>
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/js/bootstrap.min.js"></script>
   </body>

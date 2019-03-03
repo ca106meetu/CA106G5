@@ -175,6 +175,7 @@
   <filter-mapping>
     <filter-name>frontLoginFilter</filter-name>
     <url-pattern>/protected/select_page2_protected.jsp</url-pattern>
+    <url-pattern>/FrontEnd/cart/checkOut.jsp</url-pattern>
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>INCLUDE</dispatcher>
