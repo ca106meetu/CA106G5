@@ -107,7 +107,7 @@ public class OrderMasterDAO implements OrderMasterDAO_interface {
 			pstmt.setString(6, omVO.getRecipient());
 			pstmt.setString(7, omVO.getPhone());
 			pstmt.setTimestamp(8, omVO.getOut_date());
-			pstmt.setInt(9, omVO.getOut_status());
+			pstmt.setInt(9, omVO.getOut_status()); 
 			pstmt.setInt(10, omVO.getOrder_status());
 			
 			pstmt.executeUpdate();
