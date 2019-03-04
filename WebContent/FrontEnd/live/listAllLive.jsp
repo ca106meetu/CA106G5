@@ -1,5 +1,6 @@
 <%@page import="java.util.*"%>
 <%@page import="com.meetU.live.model.*"%>
+<%@page import="com.meetU.filerec.model.*"%>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -70,6 +71,7 @@ td {
 			<th>直播間封面</th>
 			<th>直播間創立時間</th>
 			<th>直播間狀態</th>
+			<th>查看房間</th>
 			<th>修改</th>
 			<th>刪除</th>
 		</tr>
@@ -90,6 +92,14 @@ td {
 				<td><fmt:formatDate value="${liveVO.live_date}"
 						pattern="yyyy-MM-dd HH:mm" /></td>
 				<td>${liveVO.live_status}</td>
+				
+				<td>
+					<form method='post' action='<%=request.getContextPath()%>/FrontEnd/fileRec/fileRec.do' style="margin-bottom: 0px;">
+					 <input type='submit' value='進入直播主房間'>
+					 <input type='hidden'name='host_ID' value='${liveVO.host_ID}'> 
+					 <input	type='hidden' name='action' value='go_to_fileRec'>
+					</form>
+				</td>
 
 				<td>
 					<form method='post' action='live.do' style="margin-bottom: 0px;">

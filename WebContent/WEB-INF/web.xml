@@ -151,6 +151,14 @@
     <servlet-name>MeetupRepServlet</servlet-name>
     <url-pattern>/meetupRep/meetupRep.do</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>FileRecServlet</servlet-name>
+    <servlet-class>com.meetU.filerec.controller.FileRecServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FileRecServlet</servlet-name>
+    <url-pattern>/FrontEnd/fileRec/fileRec.do</url-pattern>
+  </servlet-mapping>
   
 <!-- 後端登入濾器 -->
 <filter>
