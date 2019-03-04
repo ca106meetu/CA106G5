@@ -1,6 +1,7 @@
 package com.meetU.product.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,6 +16,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.meetU.orderDetail.model.OrderDetailService;
 import com.meetU.orderMaster.model.OrderMasterService;
@@ -43,13 +47,15 @@ public class ShoppingServlet extends HttpServlet {
 		
 		//新增
 		String action = req.getParameter("action");
+		System.out.println(action);
 		if("add".equals(action)) {
-			
+			System.out.println(req.getParameter("prod_ID"));
 			ProductVO prodVO = prodSvc.getOneProd(req.getParameter("prod_ID"));
 			System.out.println(prodVO);
 			ProductVO innerProdVO =null;
 			if(buyList == null) {
 				buyList = new Vector<ProductVO>();
+				System.out.println(req.getParameter("quantity"));
 				prodVO.setQuantity(Integer.valueOf(req.getParameter("quantity")));
 				buyList.add(prodVO);
 			
@@ -69,10 +75,20 @@ public class ShoppingServlet extends HttpServlet {
 				}
 			}
 			session.setAttribute("shoppingCart", buyList);
+			PrintWriter out = res.getWriter();
+			JSONObject object = new JSONObject();
+			try {
+				object.put("QQ", "成功加入購物車");
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			out.write("{}");
+			out.flush();
+			out.close();
 			
-			RequestDispatcher rd = req.getRequestDispatcher("/FrontEnd/cart/EShop.jsp");
-			rd.forward(req, res);
-					
+//			RequestDispatcher rd = req.getRequestDispatcher("/FrontEnd/cart/EShop.jsp");
+//			rd.forward(req, res);
+//					
 		}
 		
 		if ("del".equals(action)) {
@@ -124,10 +140,6 @@ public class ShoppingServlet extends HttpServlet {
 						price = 0.0;
 						errorMsgs.add("訂單價格:訂單價格請填數字");
 					}
-					
-					
-					
-					
 					String tip = req.getParameter("tip").trim();
 					
 					

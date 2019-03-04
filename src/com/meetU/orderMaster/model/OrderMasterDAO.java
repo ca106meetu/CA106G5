@@ -119,6 +119,12 @@ public class OrderMasterDAO implements OrderMasterDAO_interface {
 
 			
 		} catch (SQLException se) {
+			try {
+				con.rollback();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
 		} finally {

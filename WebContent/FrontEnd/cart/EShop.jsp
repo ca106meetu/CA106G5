@@ -58,6 +58,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
+    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
 
     <title>Hello, world!</title> 
@@ -83,26 +84,32 @@
       <small class="text-muted" >價錢: <%=prodVO.getProd_price()%> 元</small>
      
      
-	  <form method='post' action="ShoppingServlet">
-	  	<input type='hidden' name='prod_ID' value=<%=prodVO.getProd_ID()%>>
+<!-- 	  <form method='post' action="ShoppingServlet"> -->
+<%-- 	  	<input type='hidden' name='prod_ID' value=<%=prodVO.getProd_ID()%>> --%>
+<!-- 	  	<div class="input-group mb-3"> -->
+<!-- 	  		<input class="form-control" type="number" min="1" max="5" value="1" id="example-number-input" name='quantity'> -->
+<!-- 	  	<div class="input-group-append"> -->
+<!-- 	    	<input class='shopping-cart  cart' type='image' src='images/shopping-cart.png' alt='submit'> -->
+<!-- 	  	</div> -->
+<!-- 		</div> -->
+	  	
+<!-- 	  	<input type='hidden' name='action' value='add'> -->
+<!-- 	  </form>      -->
 	  	<div class="input-group mb-3">
 	  		<input class="form-control" type="number" min="1" max="5" value="1" id="example-number-input" name='quantity'>
-	  	<div class="input-group-append">
-	    	<input class='shopping-cart' type='image' src='images/shopping-cart.png' alt='submit'>
-	  	</div>
+		  	
+		  	<div class="input-group-append">
+		    	<input class='shopping-cart cart' type='image' src='images/shopping-cart.png'>
+				<input type='hidden' name='prod_ID' value=<%=prodVO.getProd_ID()%>>
+		  	</div>
 		</div>
 	  	
 	  	<input type='hidden' name='action' value='add'>
-	  </form>     
     </div>
   </div>
  <%}else{%> 
   <div class="card">
-     
-     
   </div>
-  
-  
  <%}};%> 
 </div><br>	
  <%};%>	
@@ -113,10 +120,31 @@
 
 
     <jsp:include page="/Templates/bootstrap4/frontFooter.jsp" />
+    
+    <script>
+    
+    $(document).ready(function(){
+		 $('.cart').click(function(){
+			 $.ajax({
+				 type: "POST",
+				 url: "ShoppingServlet",
+				 data: {"prod_ID":$(this).next().attr('value'), "action":"add", "quantity":$(this).parent().prev().val()},
+				 dataType: "json",
+				 success: function(){
+					 alert("555");
+					},
+			     
+	             error: function(){alert("AJAX-grade發生錯誤囉!")}
+	         });
+	 });
+    })
+    
+    
+    
+    </script>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/popper.min.js"></script>
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/js/bootstrap.min.js"></script>
   </body>
