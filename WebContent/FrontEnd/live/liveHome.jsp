@@ -136,5 +136,6 @@ th, td {
 		src="<%=request.getContextPath()%>/Templates/bootstrap4/popper.min.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/Templates/bootstrap4/js/bootstrap.min.js"></script>
+	
 </body>
 </html>

@@ -41,7 +41,7 @@
 #live_rep {
 	position: fixed;
 	right: 0;
-	top: 55%;
+	top: 57%;
 	width: 8em;
 	margin-top: -2.5em;
 }

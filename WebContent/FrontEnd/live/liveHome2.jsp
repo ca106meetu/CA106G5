@@ -37,7 +37,7 @@
 			<input type='hidden' name='host_ID' value='${host_ID}'>
 			<input type='submit' class="btn btn-primary" value='觀看直播主影片'>
 		</form>
-<%-- 		<a class="btn btn-primary" href="<%=request.getContextPath()%>/FrontEnd/fileRec/fileRecHome.jsp" role="button">收藏直播主</a> --%>
+
 	</div>
 	
     
