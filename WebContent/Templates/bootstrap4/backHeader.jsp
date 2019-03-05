@@ -17,7 +17,7 @@
     
     
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#"><img class='meetULogo' alt="" src="<%=request.getContextPath()%>/Templates/meetULogoback.png"></a>
+  <a class="navbar-brand" href="#"><img class='meetULogo' alt="" src="<%=request.getContextPath()%>/Templates/meetULogo.png"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -31,7 +31,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="#">帳號管理</a>
-          <a class="dropdown-item" href="#">權限管理</a>
+          
         </div>
       </li>
 
@@ -41,10 +41,9 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="#">商品上架/下架</a>
-          <a class="dropdown-item" href="#">限時活動管理</a>
           <a class="dropdown-item" href="#">訂單管理</a>
           <a class="dropdown-item" href="#">點數管理</a>
-          <a class="dropdown-item" href="#">退貨管理</a>
+          
         </div>
       </li>
       
@@ -65,8 +64,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="#">直播檢舉管理</a>
           <a class="dropdown-item" href="#">聯誼檢舉管理</a>
-          <a class="dropdown-item" href="#">塗鴉牆檢舉管理</a>
-          <a class="dropdown-item" href="#">社團檢舉管理</a>
+
         </div>
              <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -81,9 +79,9 @@
     </ul>
     
     <form class="form-inline my-2 my-lg-0">
-    	<button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#login">
-		  	登入
-		</button>
+<!--     	<button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#login"> -->
+<!-- 		  	登入 -->
+<!-- 		</button> -->
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
@@ -99,7 +97,7 @@
         </button>
       </div>
       <div class="modal-body">
-       <form  METHOD="post" ACTION="backLogin.do" name="form1">
+       <form  METHOD="post" ACTION="BackLoginHandler">
   	      <div class="form-group">
    		     <label for="InputEmp_ID">員工ID</label>
    		     <input type="text" name="emp_ID" class="form-control" id="InputEmp_ID" aria-describedby="ACCHelp" placeholder="輸入您的ID">
