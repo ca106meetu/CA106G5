@@ -94,7 +94,8 @@
 	<tr>
 		<td>會員名稱:</td>
 		<td>
-			${memVO.mem_name}
+			<span class="input-group-text" id="inputGroup-sizing-sm">【${memVO.mem_name}】</span>
+			<input type='hidden' name='mem_ID' value='${memVO.mem_ID}'>
 <!-- 			<div class="input-group"> -->
 <!-- 			  <select class="custom-select" name='mem_ID' id="inputGroupSelect04" aria-label="Example select with button addon"> -->
 <%-- 			    <c:forEach var='memVO' items='${memSvc.all}'> --%>

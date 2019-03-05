@@ -63,7 +63,7 @@
 
     <title>Hello, world!</title> 
   </head>
-  <body>
+  <body onload="connect();">
     <jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
     
 	
@@ -116,9 +116,55 @@
 </div>
 <div id='menu'>
 <a class="btn btn-primary" href="cart.jsp" role="button">查看購物車</a>
-<button type='button' class='btn btn-primary' id='me' onclick="connect();">連線</button>
 </div>	
 
+
+<div class="modal" tabindex="-1" role="dialog" id='myModal'>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h5 class="modal-title text-center">成功加入購物車</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+      	<img  width='200px' height='200px' src='images/check2.gif'>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">繼續選購</button>
+        <button type="button" class="btn btn-primary">查看購物車</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal" tabindex="-1" role="dialog" id='myModal2'>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+      
+      <div class='row'>
+      	<div class='col-6'><img  width='200px' height='200px' src='images/excited.gif'></div>
+      	<div class='col-6'>        
+      		<h3>新商品上市囉!!</h3>
+      		<hr>
+      		<h2 id='info1' style="color:red;"></h2>
+      		<h4 id='info2' style="color:blue;"></h4>
+        </div>
+      </div>
+      <div class='row'>
+      	<div class='col-3'></div>
+        <div class='col-6'>
+	        <button type="button" class="btn btn-primary">前往搶購</button>
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">繼續選購</button></div>
+        <div class='col-3'></div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
 
     <jsp:include page="/Templates/bootstrap4/frontFooter.jsp" />
     
@@ -132,7 +178,9 @@
 				 data: {"prod_ID":$(this).next().attr('value'), "action":"add", "quantity":$(this).parent().prev().val()},
 				 dataType: "json",
 				 success: function(){
-					 alert("555");
+					 
+					 $('#myModal').modal('show');
+// 					 alert("555");
 					},
 			     
 	             error: function(){alert("AJAX-grade發生錯誤囉!")}
@@ -166,17 +214,19 @@
 		webSocket = new WebSocket(endPointURL);
 		
 		webSocket.onopen = function(event) {
-			updateStatus("WebSocket 成功連線");
 		};
 
 		webSocket.onmessage = function(event) {
 	        var jsonObj = JSON.parse(event.data);
-	        var message = jsonObj.prodName + jsonObj.message + "\r\n";
-	        alert(message);
+	        var message1 = jsonObj.prodName
+	        var message2 = jsonObj.message
+	        $('#info1').text(message1);
+	        $('#info2').text(message2);
+	        $('#myModal2').modal('show');
+// 	        alert(message);
 		};
 
 		webSocket.onclose = function(event) {
-			updateStatus("WebSocket 已離線");
 		};
 	}	
     
