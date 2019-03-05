@@ -36,7 +36,7 @@ public class EmpAuthServlet extends HttpServlet {
 			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				String str1 = req.getParameter("emp_ID");
-//				String str2 = req.getParameter("auth_ID");
+				String str2[] = req.getParameterValues("auth_ID");
 				if (str1 == null || (str1.trim()).length() == 0) {
 					errorMsgs.add("請輸入員工ID");
 				}
@@ -58,12 +58,13 @@ public class EmpAuthServlet extends HttpServlet {
 					errorMsgs.add("員工ID格式不正確");
 				}
 				
-//				String auth_ID = null;
-//				try {
-//					auth_ID = new String(str2);
-//				} catch (Exception e) {
-//					errorMsgs.add("權限ID格式不正確");
-//				}
+				String auth_ID[] = null;
+				System.out.println(str2);
+				try {
+					auth_ID = str2;
+				} catch (Exception e) {
+					errorMsgs.add("權限ID格式不正確");
+				}
 				
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
@@ -212,7 +213,7 @@ public class EmpAuthServlet extends HttpServlet {
 		}
 		
 		
-		if ("update".equals(action)) { // 來自update_empAuth_input.jsp的請求
+		if ("update".equals(action)) { // 來自update_empAuth_input.jsp的請求 //????
 			
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -222,19 +223,16 @@ public class EmpAuthServlet extends HttpServlet {
 //			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				String emp_ID = new String(req.getParameter("emp_ID").trim());
-				String auth_ID = new String(req.getParameter("auth_ID").trim());
+				String auth_ID[] = req.getParameterValues("auth_ID");
 				
-				Integer gift_quantity = null;
-				try {
-					gift_quantity = new Integer(req.getParameter("gift_quantity").trim());
-				} catch (NumberFormatException e) {
-					gift_quantity = 0;
-					errorMsgs.add("權限數量請填數字.");
+				List<EmpAuthVO> listEmpAuthVO = new LinkedList<EmpAuthVO>();
+				for(Integer i = 0; i < auth_ID.length; i++) {
+					EmpAuthVO empAuthVO = new EmpAuthVO();
+					empAuthVO.setEmp_ID(emp_ID);
+					empAuthVO.setAuth_ID(auth_ID[i]);
+					listEmpAuthVO.add(empAuthVO);
 				}
-								
-		        EmpAuthVO empAuthVO = new EmpAuthVO();
-				empAuthVO.setEmp_ID(emp_ID);
-				empAuthVO.setAuth_ID(auth_ID);
+				
 				
 				System.out.println("檢查點 1");
 
@@ -242,7 +240,7 @@ public class EmpAuthServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					System.out.println("檢查點 2");
 
-					req.setAttribute("empAuthVO", empAuthVO); // 含有輸入格式錯誤的empAuthVO物件,也存入req
+					req.setAttribute("listEmpAuthVO", listEmpAuthVO); // 含有輸入格式錯誤的empAuthVO物件,也存入req
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/back-end/empAuth/update_empAuth_input.jsp");
 					failureView.forward(req, res);
@@ -251,11 +249,11 @@ public class EmpAuthServlet extends HttpServlet {
 				
 				/***************************2.開始修改資料*****************************************/
 				EmpAuthService empAuthSvc = new EmpAuthService();
-				empAuthVO = empAuthSvc.updateEmpAuth(emp_ID, auth_ID);
+				listEmpAuthVO = empAuthSvc.updateAllAuth(emp_ID, listEmpAuthVO);
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("empAuthVO", empAuthVO); // 資料庫update成功後,正確的的empAuthVO物件,存入req
-				String url = "/back-end/empAuth/listOneEmpAuth.jsp";
+				req.setAttribute("list", listEmpAuthVO); // 資料庫update成功後,正確的的empAuthVO物件,存入req
+				String url = "/back-end/empAuth/listSomeEmpAuth.jsp";
 				System.out.println("檢查點 3");
 
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmpAuth.jsp

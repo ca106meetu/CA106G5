@@ -12,7 +12,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import com.meetU.giftbox.model.GiftboxVO;
 
 public class EmpAuthDAO implements EmpAuthDAO_interface {
 	private static DataSource ds = null;
@@ -34,8 +33,14 @@ public class EmpAuthDAO implements EmpAuthDAO_interface {
 		"SELECT * FROM EMP_AUTH where EMP_ID = ? AND AUTH_ID = ?";
 	private static final String DELETE = 
 		"DELETE FROM EMP_AUTH where EMP_ID = ? AND AUTH_ID = ?";
-	private static final String UPDATE = 
-		"UPDATE EMP_AUTH set AUTH_ID=? where EMP_ID=? AND AUTH_ID = ?";//??
+	private static final String DELETE_AUTHS = 
+		"DELETE FROM EMP_AUTH where EMP_ID = ?";
+	private static final String UPDATE_STEP1 = 
+		"SELECT * FROM EMP_AUTH where EMP_ID = ?";
+	private static final String UPDATE_STEP2 = 
+		"DELETE FROM EMP_AUTH where EMP_ID = ?";
+	private static final String UPDATE_STEP3 = 
+		"INSERT INTO EMP_AUTH (EMP_ID, AUTH_ID) VALUES (?, ?)";//??
 	@Override
 	public void insert(EmpAuthVO empAuthVO) {
 		Connection con = null;
@@ -73,22 +78,50 @@ public class EmpAuthDAO implements EmpAuthDAO_interface {
 			}
 		}
 	}
+	
 	@Override
-	public void update(EmpAuthVO empAuthVO) {
+	public void update(EmpAuthVO empAuthVO_old, EmpAuthVO empAuthVO_new) {
+		List<EmpAuthVO> list = new ArrayList<EmpAuthVO>();
+		EmpAuthVO empAuthVOtemp = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 
 		try {
 
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(UPDATE);
-
-			pstmt.setString(1, empAuthVO.getAuth_ID());
-			pstmt.setString(2, empAuthVO.getEmp_ID());
-			pstmt.setString(3, empAuthVO.getAuth_ID());
-
+			pstmt = con.prepareStatement(UPDATE_STEP1);
+			pstmt.setString(1, empAuthVO_old.getEmp_ID());
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				empAuthVOtemp = new EmpAuthVO();
+				empAuthVOtemp.setEmp_ID(rs.getString("emp_ID"));
+				empAuthVOtemp.setAuth_ID(rs.getString("auth_ID"));
+				list.add(empAuthVOtemp);
+			}
+			
+			for(EmpAuthVO empAuthVO_each : list) {
+				if(empAuthVO_each.getAuth_ID().equals(empAuthVO_old.getAuth_ID())) {
+					empAuthVO_each.setAuth_ID(empAuthVO_new.getAuth_ID());
+				}
+			}
+			
+			pstmt = null;
+			pstmt = con.prepareStatement(UPDATE_STEP2);
+			pstmt.setString(1, empAuthVO_old.getEmp_ID());
 			pstmt.executeUpdate();
-
+			
+			
+			for(EmpAuthVO empAuthVO_each : list) {
+				pstmt = null;
+				pstmt = con.prepareStatement(UPDATE_STEP3);
+				pstmt.setString(1, empAuthVO_each.getEmp_ID());
+				pstmt.setString(2, empAuthVO_each.getAuth_ID());
+				
+				pstmt.executeUpdate();
+			}
+			
 			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -149,7 +182,41 @@ public class EmpAuthDAO implements EmpAuthDAO_interface {
 		}
 		
 	}
-	
+	@Override
+	public void deleteAuths(String emp_ID) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(DELETE_AUTHS);
+
+			pstmt.setString(1, emp_ID);
+			
+			pstmt.executeUpdate();
+
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
 	@Override
 	public List<EmpAuthVO> findByPartOfOnePrimaryKey(String emp_ID) {
 		List<EmpAuthVO> list = new ArrayList<>();
@@ -315,6 +382,51 @@ public class EmpAuthDAO implements EmpAuthDAO_interface {
 			}
 		}
 		return list;
+	}
+	@Override
+	public List<EmpAuthVO> insertAuths(List<EmpAuthVO> listEmpAuthVO) {
+		List<EmpAuthVO> listEmpAuthVO_new = new ArrayList<>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+
+			con = ds.getConnection();
+						
+			
+			for(EmpAuthVO empAuthVO_each : listEmpAuthVO) {
+				pstmt = null;
+				pstmt = con.prepareStatement(INSERT_STMT);
+				pstmt.setString(1, empAuthVO_each.getEmp_ID());
+				pstmt.setString(2, empAuthVO_each.getAuth_ID());
+				
+				pstmt.executeUpdate();
+			}
+			listEmpAuthVO_new.addAll(listEmpAuthVO);
+			
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			return listEmpAuthVO_new;
+		}
+		
 	}
 		
 }

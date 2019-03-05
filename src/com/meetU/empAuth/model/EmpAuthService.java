@@ -28,6 +28,14 @@ public class EmpAuthService {
 		
 		return empAuthVO;		
 	}
+	public List<EmpAuthVO> updateAllAuth(String emp_ID, List<EmpAuthVO> listEmpAuthVO){
+		if((!listEmpAuthVO.isEmpty())&&(!emp_ID.trim().isEmpty())) {
+			dao.deleteAuths(emp_ID);
+			return dao.insertAuths(listEmpAuthVO);
+		}else {
+			return null;
+		}
+	}
 	public void deleteEmpAuth(String emp_ID, String auth_ID) {
 		dao.delete(emp_ID, auth_ID);
 	}
