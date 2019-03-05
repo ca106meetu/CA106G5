@@ -116,6 +116,7 @@
 </div>
 <div id='menu'>
 <a class="btn btn-primary" href="cart.jsp" role="button">查看購物車</a>
+<button type='button' class='btn btn-primary' id='me' onclick="connect();">連線</button>
 </div>	
 
 
@@ -148,4 +149,38 @@
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/popper.min.js"></script>
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/js/bootstrap.min.js"></script>
   </body>
+  
+  
+  <script>
+    
+    var MyPoint = "/MyEchoServer/loren/205";
+    var host = window.location.host;
+    var path = window.location.pathname;
+    var webCtx = path.substring(0, path.indexOf('/', 1));
+    var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+    
+	var webSocket;
+	
+	function connect() {
+		// 建立 websocket 物件
+		webSocket = new WebSocket(endPointURL);
+		
+		webSocket.onopen = function(event) {
+			updateStatus("WebSocket 成功連線");
+		};
+
+		webSocket.onmessage = function(event) {
+	        var jsonObj = JSON.parse(event.data);
+	        var message = jsonObj.prodName + jsonObj.message + "\r\n";
+	        alert(message);
+		};
+
+		webSocket.onclose = function(event) {
+			updateStatus("WebSocket 已離線");
+		};
+	}	
+    
+</script>
+  
+  
 </html>

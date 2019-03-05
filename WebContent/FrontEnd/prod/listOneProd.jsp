@@ -44,7 +44,7 @@
     <h4>此頁暫練習採用 Script 的寫法取值:</h4>
 <table id="table-1">
 	<tr><td>
-		 <h3>員工資料 - ListOneProd.jsp</h3>
+		 <h3>商品資料 - ListOneProd.jsp</h3>
 		 <h4><a href="selectPage.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
 	</td></tr>
 </table>
@@ -60,6 +60,8 @@
 		<th>促銷狀態</th>
 		<th>上架狀態</th>
 		<th>商品資訊</th>
+		<th>推播</th>
+		
 	</tr>
 	<tr>
 		<td>${prodVO.prod_ID}</td>
@@ -71,6 +73,7 @@
 		<td>${pt[prodVO.prod_promt_status]}</td>
 		<td>${pt[prodVO.prod_status]}</td>
 		<td>${prodVO.prod_info}</td>
+		<td><button type='button' class='btn btn-primary' id='me' onclick="connect();">推播</button></td>
 	</tr>
 </table>
     
@@ -86,4 +89,53 @@
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/popper.min.js"></script>
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/js/bootstrap.min.js"></script>
   </body>
+  
+  
+  
+  
+  <script>
+    
+    var MyPoint = "/MyEchoServer/loren/205";
+    var host = window.location.host;
+    var path = window.location.pathname;
+    var webCtx = path.substring(0, path.indexOf('/', 1));
+    var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+    
+	var webSocket;
+	
+	function connect() {
+		// 建立 websocket 物件
+		webSocket = new WebSocket(endPointURL);
+		
+		webSocket.onopen = function(event) {
+			var prod_name = '${prodVO.prod_name}';
+			var jsonObj = {"prodName" : prod_name , "message" : "上架囉~~快去搶購!"};
+	        webSocket.send(JSON.stringify(jsonObj));
+		};
+		
+		webSocket.onmessage = function(event) {
+		};
+		
+		webSocket.onclose = function(event) {
+			updateStatus("WebSocket 已離線");
+		};
+		
+	
+	}	
+	
+	
+    
+</script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </html>
