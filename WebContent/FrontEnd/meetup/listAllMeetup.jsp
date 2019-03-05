@@ -92,13 +92,13 @@
 			<td><img class='pic' src='/CA106G52/ShowPic?MEETUP_ID=${meetupVO.meetup_ID}'></td>
 			<td>${meetupVO.meetup_info}</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/meetup/meetup.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">
 			     <input type="hidden" name="meetup_ID"  value="${meetupVO.meetup_ID}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/meetup/meetup.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="刪除">
 			     <input type="hidden" name="meetup_ID"  value="${meetupVO.meetup_ID}">
 			     <input type="hidden" name="action" value="delete"></FORM>
@@ -109,6 +109,5 @@
 <%@ include file="page2.file" %>
 
 <%--呼叫VO的public getter/setter方法 不過省略get/set寫法 --%>
-
 </body>
 </html>
