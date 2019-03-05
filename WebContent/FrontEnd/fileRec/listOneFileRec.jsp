@@ -13,7 +13,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>直播主影片-listOneFileRec.jsp</title>
+<title>直播主影片(後端)-listOneFileRec.jsp</title>
 
 
 
@@ -47,11 +47,11 @@ td {
 }
 </style>
 </head>
-<body bgcolor='gray'>
+<body bgcolor='green'>
 	<table id='table-1'>
 		<tr>
 			<td>
-				<h3>直播主影片-listOneFileRec.jsp</h3>
+				<h3>直播主影片(後端)-listOneFileRec.jsp</h3>
 				<h4>
 					<a href='<%=request.getContextPath()%>/FrontEnd/live/listAllLive.jsp'>
 					<img src="<%=request.getContextPath()%>/FrontEnd/live/images/back1.gif" width="100" height="32">回上頁
@@ -82,7 +82,7 @@ td {
 			    <td>${memSvc.getOneMem(fileRecVO.host_ID).mem_name}</td>
 				<td>${fileRecVO.file_name}</td>
 				<td>${fileRecVO.live_des}</td>
-				<td><iframe src="${fileRecVO.file_cont}" allowfullscreen></iframe></td>
+				<td><iframe height="100%" src="${fileRecVO.file_cont}" allowfullscreen></iframe></td>
 				<td><fmt:formatDate value="${fileRecVO.file_date}" pattern="yyyy-MM-dd HH:mm" /></td>
 				<td>${fileRecVO.file_pop}</td>
 				
