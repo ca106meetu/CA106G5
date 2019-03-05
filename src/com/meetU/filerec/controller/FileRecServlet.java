@@ -32,50 +32,6 @@ public class FileRecServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 
-//      條件查詢後端
-		if ("go_to_fileRec_back".equals(action)) { // 來自select_page.jsp的請求
-
-			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs);
-
-			try {
-				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-				String host_ID = req.getParameter("host_ID");
-				
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/live/listAllLive.jsp");
-					failureView.forward(req, res);
-					return;// 程式中斷
-				}
-				/*************************** 2.開始查詢資料 *****************************************/
-//				FileRecService fileRecSvc = new FileRecService();
-//				List<FileRecVO> list = fileRecSvc.getOneFileRec(host_ID);
-//				if (list == null) {
-//					errorMsgs.add("查無資料");
-//				}
-//				// Send the use back to the form, if there were errors
-//				if (!errorMsgs.isEmpty()) {
-//					RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/live/listAllLive.jsp");
-//					failureView.forward(req, res);
-//					return;// 程式中斷
-//				}
-
-				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-				req.setAttribute("host_ID",host_ID); // 資料庫取出的empVO物件,存入req
-				String url = "/FrontEnd/fileRec/listOneFileRec.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
-				successView.forward(req, res);
-
-				/*************************** 其他可能的錯誤處理 *************************************/
-			} catch (Exception e) {
-				errorMsgs.add("無法取得資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/live/listAllLive.jsp");
-				failureView.forward(req, res);
-			}
-		}
-		
 //      條件查詢前端
 		if ("go_to_fileRec_front".equals(action)) { // 來自select_page.jsp的請求
 
@@ -88,29 +44,18 @@ public class FileRecServlet extends HttpServlet {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 				String host_ID = req.getParameter("host_ID");
 				LiveService lSvc = new LiveService();
-				LiveVO liveVO  = lSvc.getOneLive(host_ID);
-				liveVO.setLive_acc(liveVO.getLive_acc()+1);
-				lSvc.updateLive(host_ID, liveVO.getLive_name(), liveVO.getLive_acc(), liveVO.getLive_pic(), liveVO.getLive_date(),liveVO.getLive_status());
+				LiveVO liveVO = lSvc.getOneLive(host_ID);
+				liveVO.setLive_acc(liveVO.getLive_acc() + 1);
+				lSvc.updateLive(host_ID, liveVO.getLive_name(), liveVO.getLive_acc(), liveVO.getLive_pic(),
+						liveVO.getLive_date(), liveVO.getLive_status());
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/live/liveHome.jsp");
 					failureView.forward(req, res);
 					return;// 程式中斷
 				}
-				/*************************** 2.開始查詢資料 *****************************************/
-//				FileRecService fileRecSvc = new FileRecService();
-//				List<FileRecVO> list = fileRecSvc.getOneFileRec(host_ID);
-//				if (list == null) {
-//					errorMsgs.add("查無資料");
-//				}
-//				// Send the use back to the form, if there were errors
-//				if (!errorMsgs.isEmpty()) {
-//					RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/live/listAllLive.jsp");
-//					failureView.forward(req, res);
-//					return;// 程式中斷
-//				}
 
-				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-				req.setAttribute("host_ID",host_ID); // 資料庫取出的empVO物件,存入req
+				/*************************** 2.查詢完成,準備轉交(Send the Success view) *************/
+				req.setAttribute("host_ID", host_ID); // 資料庫取出的empVO物件,存入req
 				String url = "/FrontEnd/live/liveHome2.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 				successView.forward(req, res);
