@@ -8,7 +8,7 @@
 
     <!-- Bootstrap CSS -->
 
-    <title>Hello, world!</title> 
+    <title>meetU</title> 
   </head>
   <body>
     <!-- Footer -->
@@ -23,8 +23,7 @@
         <!-- Grid column -->
         <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
           <h6 class="text-uppercase mb-4 font-weight-bold">Company name</h6>
-          <p>Here you can use rows and columns here to organize your footer content. Lorem ipsum dolor sit amet, consectetur
-            adipisicing elit.</p>
+          <p>資策會-CA106G5-MEETU</p>
         </div>
         <!-- Grid column -->
 
@@ -74,13 +73,13 @@
         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
           <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
           <p>
-            <i class="fas fa-home mr-3"></i> New York, NY 10012, US</p>
+            <i class="fas fa-home mr-3"></i> 台灣中壢中央大學</p>
           <p>
-            <i class="fas fa-envelope mr-3"></i> info@gmail.com</p>
+            <i class="fas fa-envelope mr-3"></i> meetU@gmail.com</p>
           <p>
-            <i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
+            <i class="fas fa-phone mr-3"></i> 0966 181 888</p>
           <p>
-            <i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
+            <i class="fas fa-print mr-3"></i> JAVA CA106 第五組</p>
         </div>
         <!-- Grid column -->
 
@@ -96,9 +95,9 @@
         <div class="col-md-7 col-lg-8">
 
           <!--Copyright-->
-          <p class="text-center text-md-left">© 2018 Copyright:
+          <p class="text-center text-md-left">© 2019 Copyright
             <a href="https://mdbootstrap.com/education/bootstrap/">
-              <strong> MDBootstrap.com</strong>
+              <strong> meetU.com</strong>
             </a>
           </p>
 
