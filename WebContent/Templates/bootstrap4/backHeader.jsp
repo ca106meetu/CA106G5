@@ -32,7 +32,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" id="AUTH00010" href="http//www.google.com">帳號管理</a>
           
-        </div>
+        </div> 
       </li>
 
       <li class="nav-item dropdown">
@@ -120,5 +120,5 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  </body>
+  </body> 
 </html>
