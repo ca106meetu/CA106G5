@@ -118,7 +118,7 @@
 	</li>
 </ul>
 
-	<h3>商品管理</h3>
+	<h3>新增商品</h3>
 	
 	<ul>
 	<li><a href='addProd.jsp'>Add</a> a new Prod.</li>
@@ -126,12 +126,7 @@
 	</div>
 </div>
 </div>
- <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="<%=request.getContextPath()%>/bootstrap4/jquery-3.3.1.slim.min.js"></script>
-    <script src="<%=request.getContextPath()%>/bootstrap4/popper.min.js"></script>
-    <script src="<%=request.getContextPath()%>/bootstrap4/js/bootstrap.min.js"></script>
-</body>
+ 
     
     
     

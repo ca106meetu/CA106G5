@@ -103,7 +103,7 @@
         </button>
       </div>
       <div class="modal-body">
-       <formMETHOD="post" ACTION="registerLogin.do">
+       <form METHOD="post" ACTION="registerLogin.do">
   	      <div class="form-group">
    		     <label for="exampleInputACC">會員帳號</label>
    		     <input type="email" class="form-control" id="exampleInputACC" aria-describedby="ACCHelp" placeholder="輸入您的帳號">
