@@ -3,6 +3,8 @@ package com.meetU.filerec.model;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.servlet.annotation.MultipartConfig;
+
 import com.meetU.live.model.LiveVO;
 
 public class FileRecService {

@@ -5,7 +5,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
-	String host_ID = (String) request.getAttribute("host_ID");
+	String host_ID = request.getParameter("host_ID");
 	FileRecService fileRecSvc = new FileRecService();
 	List<FileRecVO> list = fileRecSvc.getOneFileRec(host_ID);
 	pageContext.setAttribute("list", list);
@@ -13,7 +13,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>直播主影片-listOneFileRec.jsp</title>
+<title>直播主影片(後端)-listOneFileRec.jsp</title>
 
 
 
@@ -47,14 +47,17 @@ td {
 }
 </style>
 </head>
-<body bgcolor='gray'>
+<body bgcolor='green'>
 	<table id='table-1'>
 		<tr>
 			<td>
-				<h3>直播主影片-listOneFileRec.jsp</h3>
+				<h3>直播主影片(後端)-listOneFileRec.jsp</h3>
 				<h4>
-					<a href='<%=request.getContextPath()%>/FrontEnd/live/listAllLive.jsp'>
-					<img src="<%=request.getContextPath()%>/FrontEnd/live/images/back1.gif" width="100" height="32">回上頁
+					<a
+						href='<%=request.getContextPath()%>/FrontEnd/live/listAllLive.jsp'>
+						<img
+						src="<%=request.getContextPath()%>/FrontEnd/live/images/back1.gif"
+						width="100" height="32">回上頁
 					</a>
 				</h4>
 			</td>
@@ -73,19 +76,22 @@ td {
 			<th>刪除</th>
 		</tr>
 		<%@ include file="page1.file"%>
-		
-        <jsp:useBean id="memSvc" scope="page" class="com.meetU.mem.model.MemService" />
-        
+
+		<jsp:useBean id="memSvc" scope="page"
+			class="com.meetU.mem.model.MemService" />
+
 		<c:forEach var="fileRecVO" items="${list}" begin="<%=pageIndex%>"
 			end="<%=pageIndex+rowsPerPage-1%>">
 			<tr>
-			    <td>${memSvc.getOneMem(fileRecVO.host_ID).mem_name}</td>
+				<td>${memSvc.getOneMem(fileRecVO.host_ID).mem_name}</td>
 				<td>${fileRecVO.file_name}</td>
 				<td>${fileRecVO.live_des}</td>
-				<td><iframe src="${fileRecVO.file_cont}" allowfullscreen></iframe></td>
-				<td><fmt:formatDate value="${fileRecVO.file_date}" pattern="yyyy-MM-dd HH:mm" /></td>
+				<td><iframe height="100%" src="${fileRecVO.file_cont}"
+						allowfullscreen></iframe></td>
+				<td><fmt:formatDate value="${fileRecVO.file_date}"
+						pattern="yyyy-MM-dd HH:mm" /></td>
 				<td>${fileRecVO.file_pop}</td>
-				
+
 				<td>
 					<form method='post' action='' style="margin-bottom: 0px;">
 						<input type='submit' value='修改'> <input type='hidden'

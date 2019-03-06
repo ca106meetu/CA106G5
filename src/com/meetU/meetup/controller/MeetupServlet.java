@@ -47,7 +47,7 @@ public class MeetupServlet extends HttpServlet {
 				
 				if(!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/meetup/select_page.jsp");
+							.getRequestDispatcher("/FrontEnd/meetup/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -59,19 +59,19 @@ public class MeetupServlet extends HttpServlet {
 				}
 				if(!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/meetup/select_page.jsp");
+							.getRequestDispatcher("/FrontEnd/meetup/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
 				/*=================3.查詢完成,準備轉交(Send the Success view)=================*/
 				req.setAttribute("meetupVO", meetupVO); // 資料庫取出的empVO物件,存入req
-				String url = "/meetup/listOneMeetup.jsp";
+				String url = "/FrontEnd/meetup/listOneMeetup.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 				successView.forward(req, res);
 				
 			}catch(Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/meetup/select_page.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/meetup/select_page.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -92,14 +92,14 @@ public class MeetupServlet extends HttpServlet {
 				}
 				/*=================3.查詢完成,準備轉交(Send the Success view)=================*/
 				req.setAttribute("meetupVO", meetupVO); // 資料庫取出的empVO物件,存入req
-				String url = "/meetup/update_meetup_input.jsp";
+				String url = "/FrontEnd/meetup/update_meetup_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 				successView.forward(req, res);
 				
 			}catch(Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/meetup/listAllMeetup.jsp");
+						.getRequestDispatcher("/FrontEnd/meetup/listAllMeetup.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -166,9 +166,6 @@ public class MeetupServlet extends HttpServlet {
 //				}else {
 //					prod_pic = new ProductService().getOneProd(prod_ID).getProd_pic();
 //				}
-				
-				
-				
 				req.setAttribute("encodeText", encodeText);
 							
 				Integer meetup_status;
@@ -196,7 +193,7 @@ public class MeetupServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("meetupVO", meetupVO); // 含有輸入格式錯誤的empVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/meetup/update_meetup_input.jsp");
+							.getRequestDispatcher("/FrontEnd/meetup/update_meetup_input.jsp");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
@@ -205,14 +202,14 @@ public class MeetupServlet extends HttpServlet {
 				meetupVO = meetupSvc.updateMeetup(meetup_ID, meetup_name, meetup_date, meetup_loc, meetup_status, meetup_pic, meetup_info);
 				/*=================3.修改完成,準備轉交(Send the Success view)----------*/
 				req.setAttribute("meetupVO", meetupVO); // 資料庫update成功後,正確的的empVO物件,存入req
-				String url = "/meetup/listOneMeetup.jsp";
+				String url = "/FrontEnd/meetup/listOneMeetup.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
 				
 			}catch (Exception e) {
 				errorMsgs.add("修改資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/meetup/update_meetup_input.jsp");
+						.getRequestDispatcher("/FrontEnd/meetup/update_meetup_input.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -299,7 +296,7 @@ public class MeetupServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("meetupVO", meetupVO); // 含有輸入格式錯誤的empVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/meetup/addMeetup.jsp");
+							.getRequestDispatcher("/FrontEnd/meetup/addMeetup.jsp");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
@@ -307,14 +304,14 @@ public class MeetupServlet extends HttpServlet {
 				MeetupService meetupSvc = new MeetupService();
 				meetupVO = meetupSvc.addMeetup(meetup_name, mem_ID, meetup_date, meetup_loc, meetup_status, meetup_pic, meetup_info);
 				/*=================3.新增完成,準備轉交(Send the Success view)-----------*/
-				String url = "/meetup/listAllMeetup.jsp";
+				String url = "/FrontEnd/meetup/listAllMeetup.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
 				
 			}catch (Exception e) {
 				errorMsgs.add("新增資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/meetup/addMeetup.jsp");
+						.getRequestDispatcher("/FrontEnd/meetup/addMeetup.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -332,7 +329,7 @@ public class MeetupServlet extends HttpServlet {
 				meetupSvc.deleteMeetup(meetup_ID);
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-				String url = "/meetup/listAllMeetup.jsp";
+				String url = "/FrontEnd/meetup/listAllMeetup.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 				
@@ -340,7 +337,7 @@ public class MeetupServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("刪除資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/meetup/listAllMeetup.jsp");
+						.getRequestDispatcher("/FrontEnd/meetup/listAllMeetup.jsp");
 				failureView.forward(req, res);
 			}
 		}	

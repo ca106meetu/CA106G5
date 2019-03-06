@@ -48,7 +48,7 @@ td {
 }
 </style>
 </head>
-<body bgcolor='gray'>
+<body bgcolor='green'>
 	<table id='table-1'>
 		<tr>
 			<td>
@@ -85,19 +85,21 @@ td {
 				<td>${liveVO.live_acc}</td>
 				<td><c:if test="${liveVO.live_pic != null}">
 						<img class='pic'
-							src='/SmokeChen/ShowPic?HOST_ID=${liveVO.host_ID}'>
+							src='/CA106G5/ShowPic?HOST_ID=${liveVO.host_ID}'>
 					</c:if></td>
 
 
 				<td><fmt:formatDate value="${liveVO.live_date}"
 						pattern="yyyy-MM-dd HH:mm" /></td>
 				<td>${liveVO.live_status}</td>
-				
+
 				<td>
-					<form method='post' action='<%=request.getContextPath()%>/FrontEnd/fileRec/fileRec.do' style="margin-bottom: 0px;">
-					 <input type='submit' value='進入直播主房間'>
-					 <input type='hidden'name='host_ID' value='${liveVO.host_ID}'> 
-					 <input	type='hidden' name='action' value='go_to_fileRec'>
+					<form method='post'
+						action='<%=request.getContextPath()%>/FrontEnd/fileRec/listOneFileRec.jsp'
+						style="margin-bottom: 0px;">
+						<input type='submit' value='進入直播主房間'> <input type='hidden'
+							name='host_ID' value='${liveVO.host_ID}'> <input
+							type='hidden' name='action' value='go_to_fileRec_back'>
 					</form>
 				</td>
 

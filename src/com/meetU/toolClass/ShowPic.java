@@ -1,4 +1,5 @@
 package com.meetU.toolClass;
+
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -26,7 +27,7 @@ public class ShowPic extends HttpServlet {
 	public static final String sql_prod = "SELECT PROD_PIC FROM PRODUCT WHERE PROD_ID = '";
 	public static final String sql_live = "SELECT LIVE_PIC FROM LIVE WHERE HOST_ID = '";
 	public static final String sql_meetup = "SELECT MEETUP_PIC FROM MEETUP WHERE MEETUP_ID = '";
-	
+
 	private static DataSource ds = null;
 	static {
 		try {
@@ -36,19 +37,21 @@ public class ShowPic extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ShowPic() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public ShowPic() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		
+
 		Connection con = null;
 		Integer eqPos = req.getQueryString().indexOf("=");
 		String column = req.getQueryString().substring(0, eqPos);
@@ -58,81 +61,77 @@ public class ShowPic extends HttpServlet {
 		Statement stmt = null;
 		ResultSet rs = null;
 		BufferedInputStream in = null;
-		String col_pic= null;
-		
-		
+		String col_pic = null;
+
 		if ("PROD_ID".equals(column)) {
-			sql = sql_prod+ req.getParameter(column)+"'";
+			sql = sql_prod + req.getParameter(column) + "'";
 			col_pic = "PROD_PIC";
-		}else if ("HOST_ID".equals(column)) {
-			sql = sql_live+ req.getParameter(column)+"'";
+		} else if ("HOST_ID".equals(column)) {
+			sql = sql_live + req.getParameter(column) + "'";
 			col_pic = "LIVE_PIC";
-			System.out.println(req.getParameter(column));
-		}else if("MEETUP_ID".equals(column)) {
-			sql = sql_meetup+ req.getParameter(column)+"'";
+		} else if ("MEETUP_ID".equals(column)) {
+			sql = sql_meetup + req.getParameter(column) + "'";
 			col_pic = "MEETUP_PIC";
 		}
-		
-		
-		
-		
-		
-			try {
-				con = ds.getConnection();
-				stmt = con.createStatement();
-				rs = stmt.executeQuery(sql);
-	
-				if (rs.next()) {
-					in = new BufferedInputStream(rs.getBinaryStream(col_pic));
-					byte[] buf = new byte[4 * 1024]; // 4K buffer
-					int len;
-					while ((len = in.read(buf)) != -1) {
-						out.write(buf, 0, len);
-					}
-				} else {
-					res.sendError(HttpServletResponse.SC_NOT_FOUND);
+
+		try {
+			con = ds.getConnection();
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(sql);
+
+			if (rs.next()) {
+				in = new BufferedInputStream(rs.getBinaryStream(col_pic));
+				byte[] buf = new byte[4 * 1024]; // 4K buffer
+				int len;
+				while ((len = in.read(buf)) != -1) {
+					out.write(buf, 0, len);
 				}
-			} catch (Exception e) {
-				System.out.println(e);
-			} finally {
-				if(out != null) {
-					out.close();
-				}
-				if(in != null) 
-					in.close();
-				if(rs != null) {
-					try {
-						rs.close();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				if(stmt != null) {
-					try {
-						stmt.close();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				
-				if (con != null) {
-					try {
-						con.close();
-					} catch (Exception e) {
-						e.printStackTrace(System.err);
-					}
-				}
-				
+			} else {
+				res.sendError(HttpServletResponse.SC_NOT_FOUND);
 			}
-		
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			if (out != null) {
+				out.close();
+			}
+			if (in != null)
+				in.close();
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+		}
+
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
