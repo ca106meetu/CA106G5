@@ -70,10 +70,14 @@
 		<td>${pt[prodVO.prod_type]}</td>
 		<td>${prodVO.prod_stock}</td>
 		<td><img class='pic' src='/CA106G5/ShowPic?PROD_ID=${prodVO.prod_ID}'></td>
-		<td>${pt[prodVO.prod_promt_status]}</td>
-		<td>${pt[prodVO.prod_status]}</td>
+		<td>${pps[prodVO.prod_promt_status]}</td>
+		<td>${ps[prodVO.prod_status]}</td>
 		<td>${prodVO.prod_info}</td>
-		<td><button type='button' class='btn btn-primary' id='me' onclick="connect();">推播</button></td>
+		<td>
+			<button type='button' class='btn btn-primary' id='me' onclick="connect();">推播</button>
+			<input type='file'  onchange='getBase64(this);'>
+			<img id='img1' src="">
+		</td>
 	</tr>
 </table>
     
@@ -94,6 +98,22 @@
   
   
   <script>
+  
+  
+  	function getBase64(imgDOM){
+  		var file = imgDOM.files[0];
+  		var reader = new FileReader();
+  		
+  		reader.onload = (function(event){
+  			$('#img1').attr('src', event.target.result);
+  		})
+  		
+  		reader.readAsDataURL(file);
+  	}
+  
+  
+  
+  
     
     var MyPoint = "/MyEchoServer/loren/205";
     var host = window.location.host;
@@ -108,8 +128,9 @@
 		webSocket = new WebSocket(endPointURL);
 		
 		webSocket.onopen = function(event) {
+			
 			var prod_name = '${prodVO.prod_name}';
-			var jsonObj = {"prodName" : prod_name , "message" : "上架囉~~快去搶購!"};
+			var jsonObj = {"prodName" : prod_name , "message" : "上架囉~~快去搶購!", "img1" : $('#img1').attr('src')};
 	        webSocket.send(JSON.stringify(jsonObj));
 		};
 		
