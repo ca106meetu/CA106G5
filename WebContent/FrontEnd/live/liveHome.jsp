@@ -50,6 +50,7 @@ th, td {
 	height: 40px;
 	float: right;
 }
+
 </style>
 <!-- Required meta tags -->
 <meta charset="utf-8">
@@ -65,8 +66,8 @@ th, td {
 <body>
 	<jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
 
-
-
+  <div class="jumbotron" style="margin-bottom: 0rem";>
+  
 	<div class='container'>
 
 		<%
@@ -99,8 +100,10 @@ th, td {
 					<form method='post'
 						action='<%=request.getContextPath()%>/FrontEnd/fileRec/fileRec.do'
 						style="margin-bottom: 0px;">
-						<input type='submit' value='進入直播主房間'> <input type='hidden'
-							name='host_ID' value='<%=liveVO.getHost_ID()%>'> <input
+						<input type='submit' value='進入直播主房間'> 
+						<input type='hidden'
+							name='host_ID' value='<%=liveVO.getHost_ID()%>'> 
+						<input
 							type='hidden' name='action' value='go_to_fileRec_front'>
 					</form>
 				</div>
@@ -124,7 +127,7 @@ th, td {
 		%>
 	</div>
 
-
+</div>
 
 	<jsp:include page="/Templates/bootstrap4/frontFooter.jsp" />
 

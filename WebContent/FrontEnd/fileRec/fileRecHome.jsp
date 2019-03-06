@@ -83,10 +83,10 @@ td {
 			<td>
 				<h3>直播主影片(前端)-fileRecHome.jsp</h3>
 				<h4>
-					<a href='<%=request.getContextPath()%>/FrontEnd/live/liveHome.jsp'>
+					<a href='<%=request.getContextPath()%>/FrontEnd/live/liveHome2.jsp?host_ID=<%=host_ID%>'>
 						<img
 						src="<%=request.getContextPath()%>/FrontEnd/live/images/back1.gif"
-						width="100" height="32">回上頁
+						width="100" height="32">
 					</a>
 				</h4>
 			</td>
