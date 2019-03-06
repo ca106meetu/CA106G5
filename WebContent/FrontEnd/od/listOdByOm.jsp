@@ -51,7 +51,7 @@
     <title>Hello, world!</title> 
   </head>
   <body>
-    <jsp:include page="/Templates/bootstrap4/backHeader.jsp" />
+    <jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
     
     
  <table id = 'table-1'>
@@ -104,7 +104,7 @@
     
     
     
-    <jsp:include page="/Templates/bootstrap4/backFooter.jsp" />
+    <jsp:include page="/Templates/bootstrap4/frontFooter.jsp" />
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

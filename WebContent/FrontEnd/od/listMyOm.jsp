@@ -1,3 +1,4 @@
+<%@page import="com.meetU.mem.model.MemVO"%>
 <%@page import="com.meetU.orderMaster.model.OrderMasterVO"%>
 <%@page import="com.meetU.orderMaster.model.OrderMasterService"%>
 <%@page import="java.util.List"%>
@@ -6,8 +7,8 @@
 
 <%
 	OrderMasterService omSvc = new OrderMasterService();
-	String mem_ID = request.getParameter("mem_ID");
-	List<OrderMasterVO> list = omSvc.getOmByMem(mem_ID);
+	MemVO memVO = (MemVO) session.getAttribute("memVO");
+	List<OrderMasterVO> list = omSvc.getOmByMem(memVO.getMem_ID());
 	pageContext.setAttribute("list", list);
 
 %>

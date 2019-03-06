@@ -9,10 +9,12 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
   <context-param>
     <param-name>org.apache.tomcat.websocket.textBufferSize</param-name>
     <param-value>307200</param-value>
   </context-param>
+  
   <listener>
     <listener-class>com.meetU.toolClass.InitializeStatus</listener-class>
   </listener>
@@ -188,6 +190,7 @@
     <filter-name>frontLoginFilter</filter-name>
     <url-pattern>/protected/select_page2_protected.jsp</url-pattern>
     <url-pattern>/FrontEnd/cart/checkOut.jsp</url-pattern>
+    <url-pattern>/FrontEnd/od/listMyOm.jsp</url-pattern>
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>INCLUDE</dispatcher>
