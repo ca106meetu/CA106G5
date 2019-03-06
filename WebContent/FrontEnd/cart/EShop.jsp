@@ -146,7 +146,7 @@
       <div class="modal-body text-center">
       
       <div class='row'>
-      	<div class='col-6'><img  width='200px' height='200px' src='images/excited.gif'></div>
+      	<div class='col-6'><img  id='img1' width='200px' height='200px' src='images/excited.gif'></div>
       	<div class='col-6'>        
       		<h3>新商品上市囉!!</h3>
       		<hr>
@@ -220,6 +220,8 @@
 	        var jsonObj = JSON.parse(event.data);
 	        var message1 = jsonObj.prodName
 	        var message2 = jsonObj.message
+	        var img1 = jsonObj.img1
+	        $('#img1').attr('src', img1);
 	        $('#info1').text(message1);
 	        $('#info2').text(message2);
 	        $('#myModal2').modal('show');
