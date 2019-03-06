@@ -47,7 +47,6 @@ public class ShoppingServlet extends HttpServlet {
 		
 		//新增
 		String action = req.getParameter("action");
-		System.out.println(action);
 		if("add".equals(action)) {
 			System.out.println(req.getParameter("prod_ID"));
 			ProductVO prodVO = prodSvc.getOneProd(req.getParameter("prod_ID"));

@@ -40,9 +40,9 @@
           商城管理
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">商品上架/下架</a>
+          <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/prod/selectPage.jsp">商品管理</a>
           <a class="dropdown-item" href="#">限時活動管理</a>
-          <a class="dropdown-item" href="#">訂單管理</a>
+          <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/om/selectPageOm.jsp">訂單管理</a>
           <a class="dropdown-item" href="#">點數管理</a>
           <a class="dropdown-item" href="#">退貨管理</a>
         </div>

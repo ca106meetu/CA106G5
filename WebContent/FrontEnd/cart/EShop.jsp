@@ -133,7 +133,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">繼續選購</button>
-        <button type="button" class="btn btn-primary">查看購物車</button>
+        <a class="btn btn-primary" href="cart.jsp" role="button">查看購物車</a>
       </div>
     </div>
   </div>
@@ -221,6 +221,7 @@
 	        var message1 = jsonObj.prodName
 	        var message2 = jsonObj.message
 	        var img1 = jsonObj.img1
+	        if(img1 != null && img1 != '')
 	        $('#img1').attr('src', img1);
 	        $('#info1').text(message1);
 	        $('#info2').text(message2);

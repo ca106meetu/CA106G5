@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
-	List<ProductVO> butList = (Vector<ProductVO>) session.getAttribute("shoppingCart");
+	List<ProductVO> buyList = (Vector<ProductVO>) session.getAttribute("shoppingCart");
 	
 %>
 <!doctype html>
@@ -28,16 +28,19 @@
   </head>
   <body>
     <jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
+    <hr>
     
     
     
     <div class="container">
       
+      <%if(buyList != null && !buyList.isEmpty()){ %>
       <div class="row bg-info">
       	<div class="col-5"></div>
       	<div class="col-2"><h2 class="text-dark">購物車內容</h2></div>
       	<div class="col-5"></div>
       </div>
+      
       <br>
       <br>
       <div class="row">
@@ -80,7 +83,42 @@
         <div class="col-1"></div>
       </div>
 
+    
+     <%}else {%>
+    	<div class='row justify-content-center'>
+    	<div class='col-3'></div>
+    	<div class='col-6' ><h2 style="text-align:center;">購物車是空的</h2></div>
+    	<div class='col-3'></div>
+    	
+    	
+    	</div>
+    	<div class='row justify-content-center'>
+    	<div class='col-3'></div>
+    	<div class='col-6'><img src='images/out.jpg'></div>
+    	<div class='col-3'></div> 
+
+    	</div>    
+    	<hr> 
+    	<div class='row justify-content-center'>
+    	<div class='col-5'></div>
+    	<div class='col-2'><a class="btn btn-primary" href="<%=request.getContextPath()%>/FrontEnd/cart/EShop.jsp" role="button">前往購物</a></div>
+    	<div class='col-5'></div>
+
+    	</div>
+    	</div>
+    
+    	
+    
+    
+    
+    <%}%>
+    
+    
+    
+    
+    
     </div>
+   
     
     
     

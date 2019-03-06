@@ -52,7 +52,6 @@
  <table id = 'table-1'>
 	<tr><td>
 		<h3>所有訂單資料-listOmByMem.jsp</h3>
-		<h4><a href='selectPageOm.jsp'><img src="images/back1.gif" width="100" height="32">回首頁</a></h4>
 	
 	
 	</td>
