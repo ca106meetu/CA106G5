@@ -7,9 +7,10 @@
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
-	MeetupService meetupSvc = new MeetupService();
-	String meetup_ID = request.getParameter("meetup_ID");
-	MeetupVO meetupVO = meetupSvc.getOneMeetup(meetup_ID);
+// 	MeetupService meetupSvc = new MeetupService();
+// 	String meetup_ID = request.getParameter("meetup_ID");
+	MeetupVO meetupVO = (MeetupVO)session.getAttribute("meetupVO");
+	String meetup_ID = meetupVO.getMeetup_ID();
 	pageContext.setAttribute("meetup_ID", meetup_ID);
 	out.print(meetup_ID);
 %>
@@ -88,17 +89,19 @@
           	
           	<FORM METHOD="POST" ACTION="<%=request.getContextPath()%>/FrontEnd/meetupMem/meetupMem.do" >
           		<input type="hidden" name="meetup_ID" value="${meetupVO.meetup_ID}">
-				<input type="hidden" name="mem_ID"	value="M000005">
+				<input type="hidden" name="mem_ID"	value="${memVO.mem_ID}">
           		<input type="hidden" name="action" value="insert">
 				<button type="submit" class="btn btn-light">報名</button>
 			</FORM>
 		
 <jsp:useBean id="mLikeSvc" scope="page" class="com.meetU.meetup_like.model.MeetupLikeService"/>		
-			<input type='image' src=" ${mLikeSvc.getOneMeetupLike(meetup_ID, 'M000005')!= null?'img/heart_red.png':'img/heart_white.png'}" 
-				   class='heart' title="${mLikeSvc.getOneMeetupLike(meetup_ID, 'M000005') != null ? '取消收藏' : '加入收藏' }" 
-				   alt="${mLikeSvc.getOneMeetupLike(meetup_ID, 'M000005') != null ? 'favorite' : 'unfavorite' }" >
+			
+			
+			<input type='image' src=" ${mLikeSvc.getOneMeetupLike(meetup_ID, memVO.mem_ID)!= null?'img/heart_red.png':'img/heart_white.png'}" 
+				   class='heart' title="${mLikeSvc.getOneMeetupLike(meetup_ID, memVO.mem_ID) != null ? '取消收藏' : '加入收藏' }" 
+				   alt="${mLikeSvc.getOneMeetupLike(meetup_ID, memVO.mem_ID) != null ? 'favorite' : 'unfavorite' }" >
 			<input type="hidden" name="meetup_ID" value="${meetupVO.meetup_ID}">
-			<input type="hidden" name="mem_ID"	value="M000005">
+			<input type="hidden" name="mem_ID"	value="${memVO.mem_ID}">
 			
           	<button type="submit" class="btn btn-light" onclick="report()"> 檢舉</button>
           	
@@ -114,7 +117,7 @@
 					<input type="hidden" name="rep_status" value="1">
 					<input type="hidden" name="action" value="insert">
 					<input type="hidden" name="meetup_ID" value="${meetupVO.meetup_ID}">
-					<input type="hidden" name="mem_ID"	value="M000005">
+					<input type="hidden" name="mem_ID"	value="${memVO.mem_ID}">
 					<br><input type="reset" value="取消">
 					<input type="submit" value="送出檢舉">
 				</FORM>
