@@ -182,10 +182,12 @@ public class ShoppingServlet extends HttpServlet {
 						return;
 					}
 					
+					
 					//**********************************
 					OrderDetailService odSvc = new OrderDetailService();
 					odSvc.insertOmOd(mem_ID, price, order_date, tip, out_add, recipient, phone, out_date, out_status, order_status, buyList);
 					req.setAttribute("lastPage", true);
+					
 					//**********************************
 					String url = "/FrontEnd/cart/success.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url);

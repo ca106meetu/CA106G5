@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 public class PointRecVO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String rec_ID;
 	private String mem_ID;
 	private Double amount;
