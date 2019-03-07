@@ -17,7 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
-
+	<script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
     <title>Meetup HomePage</title>    
     <style>
     .pic{
@@ -66,7 +66,7 @@
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do">
 						<input type=hidden name=meetup_ID value="${meetupVO.meetup_ID}">
 						<input type=hidden name=action value="getOne_For_Display">
-						<input class='pic' type='image' src='/CA106G52/ShowPic?MEETUP_ID=${meetupVO.meetup_ID}' alt='submit'>					
+						<input class='pic' type='image' src='/CA106G5/ShowPic?MEETUP_ID=${meetupVO.meetup_ID}' alt='submit'>					
 					</FORM>
 				</div>
 				<div>
@@ -101,42 +101,13 @@
 
 
 
-$(function(){
-	
-	$('.heart').click(function(){
-		$('.heart').style("display", "none")
-		$('.heart2').style("display", "")
-		})
 
-	$('.heart2').click(function(){
-		$('this').style("display", "none")
-		$('this').next().style("display", "")
-		})
-})
-
-
-
-function init(){
-	var heart = document.getElementsByClassName("heart");
-	
-	for(var i = 0; i<heart.length; i++){
-		
-		heart[i].onclick=function(e){
-				
-				e.target.;
-				
-			}		
-		}
-	}
-}
-window.onload=init;
 </script>
 
     <jsp:include page="/Templates/bootstrap4/frontFooter.jsp" />
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/popper.min.js"></script>
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/js/bootstrap.min.js"></script>
     </body>

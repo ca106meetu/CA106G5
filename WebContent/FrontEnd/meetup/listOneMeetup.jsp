@@ -10,7 +10,12 @@
 	MeetupService meetupSvc = new MeetupService();
 	String meetup_ID = request.getParameter("meetup_ID");
 	MeetupVO meetupVO = meetupSvc.getOneMeetup(meetup_ID);
+	pageContext.setAttribute("meetup_ID", meetup_ID);
+	out.print(meetup_ID);
 %>
+
+
+
 
 <html>
 <head>
@@ -69,7 +74,7 @@
       <div class="row">
        <div class="col">
           <div class="headIntro introPic">
-          	<img class='pic' src='/CA106G52/ShowPic?MEETUP_ID=${meetupVO.meetup_ID}'>
+          	<img class='pic' src='/CA106G5/ShowPic?MEETUP_ID=${meetupVO.meetup_ID}'>
           </div>
         </div> 
         
@@ -89,9 +94,9 @@
 			</FORM>
 		
 <jsp:useBean id="mLikeSvc" scope="page" class="com.meetU.meetup_like.model.MeetupLikeService"/>		
-			<input type='image' src=" ${mLikeSvc.getOneMeetupLike(meetup_ID, mem_ID)!= null?'img/heart_red.png':'img/heart_white.png'}" 
-				   class='heart' title="${mLikeSvc.getOneMeetupLike(meetup_ID, mem_ID) != null ? '取消收藏' : '加入收藏' }" 
-				   alt="${mLikeSvc.getOneMeetupLike(meetup_ID, mem_ID) != null ? 'favorite' : 'unfavorite' }" >
+			<input type='image' src=" ${mLikeSvc.getOneMeetupLike(meetup_ID, 'M000005')!= null?'img/heart_red.png':'img/heart_white.png'}" 
+				   class='heart' title="${mLikeSvc.getOneMeetupLike(meetup_ID, 'M000005') != null ? '取消收藏' : '加入收藏' }" 
+				   alt="${mLikeSvc.getOneMeetupLike(meetup_ID, 'M000005') != null ? 'favorite' : 'unfavorite' }" >
 			<input type="hidden" name="meetup_ID" value="${meetupVO.meetup_ID}">
 			<input type="hidden" name="mem_ID"	value="M000005">
 			

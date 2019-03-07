@@ -155,7 +155,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>MeetupRepServlet</servlet-name>
-    <url-pattern>/meetupRep/meetupRep.do</url-pattern>
+    <url-pattern>/FrontEnd/meetupRep/meetupRep.do</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>FileRecServlet</servlet-name>
