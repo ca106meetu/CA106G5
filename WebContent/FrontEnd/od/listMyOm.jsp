@@ -10,7 +10,6 @@
 	MemVO memVO = (MemVO) session.getAttribute("memVO");
 	List<OrderMasterVO> list = omSvc.getOmByMem(memVO.getMem_ID());
 	pageContext.setAttribute("list", list);
-
 %>
 
 <!doctype html>

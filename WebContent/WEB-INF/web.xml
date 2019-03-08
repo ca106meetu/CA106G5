@@ -139,7 +139,7 @@
   </servlet> 
   <servlet-mapping>
     <servlet-name>MeetupMemServlet</servlet-name>
-    <url-pattern>/meetupMem/meetupMem.do</url-pattern>
+    <url-pattern>/FrontEnd/meetupMem/meetupMem.do</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>MeetupLikeServlet</servlet-name>
@@ -173,6 +173,7 @@
   </filter>
   <filter-mapping>
     <filter-name>backLoginFilter</filter-name>
+    <url-pattern>/back-end/*</url-pattern>
     <url-pattern>/protected/select_page2_protected.jsp</url-pattern>
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>FORWARD</dispatcher>
@@ -191,6 +192,7 @@
     <url-pattern>/protected/select_page2_protected.jsp</url-pattern>
     <url-pattern>/FrontEnd/cart/checkOut.jsp</url-pattern>
     <url-pattern>/FrontEnd/od/listMyOm.jsp</url-pattern>
+    <url-pattern>/FrontEnd/meetup/listOneMeetup.jsp</url-pattern>
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>INCLUDE</dispatcher>

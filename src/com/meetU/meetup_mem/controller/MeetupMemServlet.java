@@ -149,14 +149,14 @@ public class MeetupMemServlet extends HttpServlet {
 			try {
 				/*=================1.接收請求參數，輸入格式的錯誤處理------------------*/
 				String meetup_ID = req.getParameter("meetup_ID");
-				if(meetup_ID == null || (meetup_ID.trim()).length()==0) {
-					errorMsgs.add("請輸入聯誼編號");
-				}
+//				if(meetup_ID == null || (meetup_ID.trim()).length()==0) {
+//					errorMsgs.add("請輸入聯誼編號");
+//				}
 			
 				String mem_ID = req.getParameter("mem_ID");
-				if(mem_ID == null || (mem_ID.trim()).length()==0) {
-					errorMsgs.add("請輸入成員編號");
-				}
+//				if(mem_ID == null || (mem_ID.trim()).length()==0) {
+//					errorMsgs.add("請輸入成員編號");
+//				}
 				MeetupMemVO meetupMemVO = new MeetupMemVO();
 				meetupMemVO.setMeetup_ID(meetup_ID);
 				meetupMemVO.setMem_ID(mem_ID);
@@ -172,7 +172,7 @@ public class MeetupMemServlet extends HttpServlet {
 				MeetupMemService meetupMemSvc = new MeetupMemService();
 				meetupMemVO = meetupMemSvc.addMeetupMem(meetup_ID, mem_ID);
 				/*=================3.新增完成,準備轉交(Send the Success view)-----------*/
-				String url = "/FrontEnd/meetupMem/select_page_mem.jsp";
+				String url = "/FrontEnd/meetupMem/addMeetupMem.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 			}catch (Exception e) {

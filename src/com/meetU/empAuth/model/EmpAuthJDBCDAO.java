@@ -325,6 +325,67 @@ public class EmpAuthJDBCDAO implements EmpAuthDAO_interface{
 		}
 		return list;
 	}
+	
+	@Override
+	public List<String> findByPartOfOnePrimaryKey2(String emp_ID) {
+		List<String> list = new ArrayList<>();
+		String auth_ID = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_PART_OF_ONE_STMT);
+			
+			pstmt.setString(1, emp_ID);
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				// empAuthVO 也稱為 Domain objects
+				auth_ID = rs.getString("auth_ID");
+				
+				list.add(auth_ID);
+			}
+			
+			// Handle any driver errors
+		}  catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+		} 
+		catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
 	@Override
 	public List<EmpAuthVO> getAll() {
 		List<EmpAuthVO> list = new ArrayList<>();

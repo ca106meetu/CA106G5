@@ -27,7 +27,7 @@ public class BackLoginFilter implements Filter  {
 		Object emp_ID = session.getAttribute("emp_ID");
 		if (emp_ID == null) {
 			session.setAttribute("location", req.getRequestURI());
-			res.sendRedirect(req.getContextPath() + "/backLogin.html");
+			res.sendRedirect(req.getContextPath() + "/backIndex.jsp");
 			return;
 		} else {
 			chain.doFilter(request, response);

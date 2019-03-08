@@ -7,6 +7,11 @@
   		width:200px;
   		height:200px;
   	}
+  	
+  	*{
+  		font-family:微軟正黑體;
+  	
+  	}
   </style>
     <!-- Required meta tags -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -18,6 +23,7 @@
     
 <nav class="navbar navbar-expand-lg navbar-light bg-information">
   <a class="navbar-brand" href="#"><img class='meetULogo' alt="" src="<%=request.getContextPath()%>/Templates/meetULogoback.png"></a>
+  
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -27,9 +33,11 @@
       <li class="nav-item active">
         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
       </li>
+      
       <li class="nav-item">
         <a class="nav-link" href="#">Link</a>
       </li>
+      
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           購物商城
@@ -40,6 +48,20 @@
           <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/od/listMyOm.jsp">我的訂單</a>
         </div>
       </li>
+      
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          聯誼活動
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/meetup/meetupHomePg.jsp">瀏覽聯誼</a>
+          <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/meetup/runMeetup.jsp">主持聯誼</a>
+          <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/meetup/AllMyMeetup.jsp">我已參加</a>
+          <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/meetup/AllMyLikeMeetup.jsp">我的收藏</a>
+          <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/meetup/MyMeetupRep.jsp">我的檢舉</a>
+        </div>
+      </li>
+      
       <li class="nav-item">
         <a class="nav-link disabled" href="#">Disabled</a>
       </li>
