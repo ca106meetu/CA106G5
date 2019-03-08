@@ -92,7 +92,7 @@ public class PointRecDAO implements PointRecDAO_interface {
 		}
 	}
 
-	public void insert(PointRecVO prVO, EmpVO empVO) {
+	public void insert(PointRecVO prVO, EmpVO empVO) { 
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
