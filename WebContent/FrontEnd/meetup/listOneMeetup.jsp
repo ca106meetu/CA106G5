@@ -1,14 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.meetU.meetup.model.*"%>
-<%@ page import="java.util.* , com.meetU.meetup_report.*" %>
-<%@ page import="com.meetU.meetup_mem.model.*"%>
+<%@ page import="com.meetU.meetup.model.*, com.meetU.meetup_like.model.*"%>
+<%@ page import="java.util.* " %>
+<%@ page import="com.meetU.meetup_mem.model.*, com.meetU.meetup_report.*" %>
+<%@page import="com.meetU.mem.model.*"%>
 
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
-// 	MeetupService meetupSvc = new MeetupService();
-// 	String meetup_ID = request.getParameter("meetup_ID");
+	MemVO memVO = (MemVO) session.getAttribute("memVO");
 	MeetupVO meetupVO = (MeetupVO)session.getAttribute("meetupVO");
 	String meetup_ID = meetupVO.getMeetup_ID();
 	pageContext.setAttribute("meetup_ID", meetup_ID);

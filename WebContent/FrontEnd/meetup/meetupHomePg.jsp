@@ -79,14 +79,14 @@
 						<input type='image' src="<%=request.getContextPath()%>/FrontEnd/meetup/img/heart_white.png" class='heart' title='加入收藏' alt="unfavorite" >
 						<input type="hidden" name="action"	value="insert">
 						<input type="hidden" name="meetup_ID"	value="${meetupVO.meetup_ID}">
-						<input type="hidden" name="mem_ID"	value="M000006">
+						<input type="hidden" name="mem_ID"	value="">
 					</FORM>
 					
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/FrontEnd/meetupLike/meetupLike.do">
 						<input type='image' src="<%=request.getContextPath()%>/FrontEnd/meetup/img/heart_red.png" class='heart2' title='取消收藏' alt="favorite" style="display:none;">
 						<input type="hidden" name="action"	value="delete">
 						<input type="hidden" name="meetup_ID"	value="${meetupVO.meetup_ID}">
-						<input type="hidden" name="mem_ID"	value="M000006">
+						<input type="hidden" name="mem_ID"	value="">
 					</FORM>
 				</div>
 			</div>

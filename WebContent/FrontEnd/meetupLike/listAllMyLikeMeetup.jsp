@@ -8,8 +8,8 @@
 <meta charset="UTF-8">
 <%
 	MeetupLikeService meetupLikeSvc = new MeetupLikeService();
-	String mem_ID = request.getParameter("mem_ID");
-	List<MeetupLikeVO> list = meetupLikeSvc.getAll(mem_ID);
+	//String mem_ID = request.getParameter("mem_ID");
+	List<MeetupLikeVO> list = meetupLikeSvc.getAll("M000001");
 	pageContext.setAttribute("list", list);
 %>
 

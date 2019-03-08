@@ -139,7 +139,7 @@
   </servlet> 
   <servlet-mapping>
     <servlet-name>MeetupMemServlet</servlet-name>
-    <url-pattern>/meetupMem/meetupMem.do</url-pattern>
+    <url-pattern>/FrontEnd/meetupMem/meetupMem.do</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>MeetupLikeServlet</servlet-name>

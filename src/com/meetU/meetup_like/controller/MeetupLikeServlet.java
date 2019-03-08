@@ -82,8 +82,7 @@ public class MeetupLikeServlet extends HttpServlet {
 				/*=================1.接收請求參數，輸入格式的錯誤處理------------------*/		
 				String meetup_ID = req.getParameter("meetup_ID");
 				String mem_ID = req.getParameter("mem_ID");
-			System.out.println(meetup_ID);				
-			System.out.println(mem_ID);				
+			
 				MeetupLikeVO meetupLikeVO = new MeetupLikeVO();
 				meetupLikeVO.setMeetup_ID(meetup_ID);
 				meetupLikeVO.setMem_ID(mem_ID);
