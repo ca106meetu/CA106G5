@@ -15,6 +15,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.meetU.emp.model.EmpVO;
 import com.meetU.product.model.ProductJDBCDAO;
 
 
@@ -59,6 +60,45 @@ public class PointRecDAO implements PointRecDAO_interface {
 		
 		try {
 	
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(INSERT_STMT);
+			
+			pstmt.setString(1, prVO.getMem_ID());
+			pstmt.setDouble(2, prVO.getAmount());
+			pstmt.setTimestamp(3, prVO.getRec_date());
+			
+			pstmt.executeUpdate();
+			
+			
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+
+	public void insert(PointRecVO prVO, EmpVO empVO) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 			

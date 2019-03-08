@@ -64,7 +64,7 @@
 	<tr>
 		<td>商品名稱:</td>
 		<td><input type="TEXT" name='prod_name' size="45" 
-			 value='<%= (prodVO==null)? "廖大叔" : prodVO.getProd_name()%>'/></td>
+			 value='<%= (prodVO==null)? "Captain Marvel" : prodVO.getProd_name()%>'/></td>
 	</tr>
 	<tr>
 		<td>商品價格:</td>

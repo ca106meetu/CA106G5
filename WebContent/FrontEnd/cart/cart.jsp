@@ -44,7 +44,6 @@
       <br>
       <br>
       <div class="row">
-      	<div class="col-1"><input type='checkbox'></div>
         <div class="col-5">商品</div>
         <div class="col-3">單價</div>
         <div class="col-1">數量</div>
@@ -55,7 +54,6 @@
       
       <c:forEach var="prodVO" items= "${shoppingCart}">
       <div class="row">
-      	<div class="col-1"><input type='checkbox'></div>
         <div class="col-1"><img class='pic' src='/CA106G5/ShowPic?PROD_ID=${prodVO.prod_ID}'></div>
         <div class="col-2">${prodVO.prod_name}</div>
         <div class="col-2"></div>

@@ -84,17 +84,6 @@
       <small class="text-muted" >價錢: <%=prodVO.getProd_price()%> 元</small>
      
      
-<!-- 	  <form method='post' action="ShoppingServlet"> -->
-<%-- 	  	<input type='hidden' name='prod_ID' value=<%=prodVO.getProd_ID()%>> --%>
-<!-- 	  	<div class="input-group mb-3"> -->
-<!-- 	  		<input class="form-control" type="number" min="1" max="5" value="1" id="example-number-input" name='quantity'> -->
-<!-- 	  	<div class="input-group-append"> -->
-<!-- 	    	<input class='shopping-cart  cart' type='image' src='images/shopping-cart.png' alt='submit'> -->
-<!-- 	  	</div> -->
-<!-- 		</div> -->
-	  	
-<!-- 	  	<input type='hidden' name='action' value='add'> -->
-<!-- 	  </form>      -->
 	  	<div class="input-group mb-3">
 	  		<input class="form-control" type="number" min="1" max="5" value="1" id="example-number-input" name='quantity'>
 		  	
