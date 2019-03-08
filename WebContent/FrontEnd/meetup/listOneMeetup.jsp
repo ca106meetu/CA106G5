@@ -12,7 +12,7 @@
 	MeetupVO meetupVO = (MeetupVO)session.getAttribute("meetupVO");
 	String meetup_ID = meetupVO.getMeetup_ID();
 	pageContext.setAttribute("meetup_ID", meetup_ID);
-	out.print(meetup_ID);
+	out.print(memVO.getMem_ID());
 %>
 
 <html>
@@ -53,6 +53,8 @@
       *{
       	font-family:微軟正黑體;
       }
+      
+      
 </style>
 
 </head>
@@ -84,12 +86,13 @@
           		<li><%=meetupVO.getMeetup_loc()%></li>
           	</ul>
           	
-          	<FORM METHOD="POST" ACTION="<%=request.getContextPath()%>/FrontEnd/meetupMem/meetupMem.do" >
+          	<p id="success" >您已順利報名</p>   
+          	
+          	<%-- <FORM METHOD="POST" ACTION="<%=request.getContextPath()%>/FrontEnd/meetupMem/meetupMem.do" > --%>   
+          		<input type="button" class="btn btn-warning" id="btn_join" value="報名" onclick="join()" >
           		<input type="hidden" name="meetup_ID" value="${meetupVO.meetup_ID}">
-				<input type="hidden" name="mem_ID"	value="${memVO.mem_ID}">
-          		<input type="hidden" name="action" value="insert">
-				<button type="submit" class="btn btn-light">報名</button>
-			</FORM>
+				<input type="hidden" name="mem_ID"	value="${memVO.mem_ID}">     
+			<%--</FORM>--%>
 		
 <jsp:useBean id="mLikeSvc" scope="page" class="com.meetU.meetup_like.model.MeetupLikeService"/>		
 			
@@ -100,7 +103,7 @@
 			<input type="hidden" name="meetup_ID" value="${meetupVO.meetup_ID}">
 			<input type="hidden" name="mem_ID"	value="${memVO.mem_ID}">
 			
-          	<button type="submit" class="btn btn-light" onclick="report()"> 檢舉</button>
+          	<button type="submit" class="btn btn-light" onclick="report()" id="rep"> 檢舉</button>
           	
           </div>
         </div>	
@@ -129,8 +132,28 @@
 function report(){
 	$("#rep").show();
 }
+
+function join(){
+	
+	
+	$.ajax({
+		 type: "POST",
+		 url: "<%=request.getContextPath()%>/FrontEnd/meetupMem/meetupMem.do",
+		 data: {"meetup_ID":$(this).next().attr('value'), 
+			 	"action":"insert", 
+			 	"mem_ID":$(this).next().next().attr('value')},
+		 dataType: "json",
+		 success: function(){
+			 alert("成功報名");
+			 $("#btn_join").hide();
+			 $("#success").show();
+			},
+        error: function(){alert("AJAX-grade發生錯誤囉!")}
+        });	
+}
 		
 $(document).ready(function(){
+	$("#success").hide();
 	$(".heart").click(function(){
 		 
 		 if($(this).attr("alt") == "unfavorite"){
@@ -179,7 +202,6 @@ $(document).ready(function(){
 		 }
 	 });
 })
-
 </script>
 
     <jsp:include page="/Templates/bootstrap4/frontFooter.jsp" />

@@ -1,6 +1,7 @@
 package com.meetU.meetup_mem.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.*;
 
 import javax.servlet.RequestDispatcher;
@@ -197,6 +198,9 @@ public class MeetupMemServlet extends HttpServlet {
 				meetupMemSvc.deleteMeetupMem(meetup_ID, mem_ID);
 	
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
+				PrintWriter out = res.getWriter();
+				out.println("{}");
+				out.close();
 				String url = "/meetupMem/select_page_mem.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);

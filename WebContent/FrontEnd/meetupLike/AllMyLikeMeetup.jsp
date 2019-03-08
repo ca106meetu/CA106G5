@@ -10,7 +10,8 @@
 	List<MeetupLikeVO> list = meetupLikeSvc.getAll(memVO.getMem_ID());
 	pageContext.setAttribute("list", list);
 	
-	MeetupService meetupSvc = new MeetupService(); 
+	MeetupService meetupSvc = new MeetupService();
+	pageContext.setAttribute("meetupSvc", meetupSvc);
 %>
 <!DOCTYPE html>
 <html>
@@ -103,53 +104,7 @@
 
 <script>
 $(document).ready(function(){
-	$(".heart").click(function(){
-		 
-		 if($(this).attr("alt") == "unfavorite"){
-			 				 
-			 $.ajax({
-				 type: "POST",
-				 url: "<%=request.getContextPath()%>/FrontEnd/meetupLike/meetupLike.do",
-				 data: {"meetup_ID":$(this).next().attr('value'), 
-					 	"action":"insert", 
-					 	"mem_ID":$(this).next().next().attr('value')},
-				 dataType: "json",
-				 success: function(){
-					 
-					 $(".heart").attr({"src":"img/heart_red.png",
-						 "title": "取消收藏",
-						 "alt": "favorite"
-						});
-					
-					 alert("成功加入收藏");
-					},
-					
-	             error: function(){alert("AJAX-grade發生錯誤囉!")}
-		         });
-			 
-			 
-		 }else if($(this).attr("alt") == "favorite"){
-			 
-			 $.ajax({
-				 type: "POST",
-				 url: "<%=request.getContextPath()%>/FrontEnd/meetupLike/meetupLike.do",
-				 data: {"meetup_ID":$(this).next().attr('value'), 
-					 	"action":"delete", 
-					 	"mem_ID":$(this).next().next().attr('value')},
-				 dataType: "json",
-				 success: function(){
-					 
-					 $(".heart").attr({"src":"img/heart_white.png",
-						 "title": "加入收藏",
-			 			 "alt": "unfavorite"
-						});	
-					 
-					 alert("成功取消收藏");
-					},
-	             error: function(){alert("AJAX-grade發生錯誤囉!")}
-		         });				
-		 }
-	 });
+	
 })
 
 </script>
