@@ -17,23 +17,6 @@ public class EmpServlet extends HttpServlet {
 			throws ServletException, IOException {
 		doPost(req, res);
 		
-//		req.setCharacterEncoding("UTF-8");
-//		res.setContentType("image/jpeg");
-//		ServletOutputStream out = res.getOutputStream();
-//		
-//		try {
-//			String emp_ID = req.getParameter("emp_ID").trim();
-//			EmpService empSvc = new EmpService();
-//			EmpVO empVO = empSvc.getOneEmp(emp_ID);
-//			byte[] pic = empVO.getEmp_pic();
-//			out.write(pic);
-//		}catch(Exception e) {
-//			InputStream in = getServletContext().getResourceAsStream("/");
-//			byte[] buf = new byte[in.available()];
-//			in.read(buf);
-//			out.write(buf);
-//			in.close();
-//		}
 		
 	}
 

@@ -11,10 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.meetU.empAuth.model.*;
+import com.meetU.emp.model.*;
 
-
-
-@WebServlet("/EmpAuthServlet")
 public class EmpAuthServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -180,6 +178,43 @@ public class EmpAuthServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		if ("getAuths_For_Update".equals(action)) { // 來自listAllEmp.jsp的請求
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+//			try {
+				/***************************1.接收請求參數****************************************/
+				String emp_ID = new String(req.getParameter("emp_ID"));
+				System.out.println(emp_ID);
+				//String auth_ID[] = new String(req.getParameter("auth_ID"));
+				
+				/***************************2.開始查詢資料****************************************/
+				EmpAuthService empAuthSvc = new EmpAuthService();
+				List<EmpAuthVO> listEmpAuthVO = empAuthSvc.getPartOfOneEmpAuth(emp_ID);
+				List<String> listAuth_ID = empAuthSvc.getPartOfOneEmpAuth2(emp_ID);
+				
+				EmpService empSvc = new EmpService();
+				EmpVO empVO = empSvc.getOneEmp(emp_ID);
+								
+				/***************************3.查詢完成,準備轉交(Send the Success view)************/
+				req.getSession().setAttribute("empVO", empVO);
+				req.getSession().setAttribute("listEmpAuthVO", listEmpAuthVO);         // 資料庫取出的empAuthVO物件,存入req //???
+				req.getSession().setAttribute("listAuth_ID", listAuth_ID);         // 資料庫取出的empAuthVO物件,存入req //???
+				String url = "/back-end/empAuth/update_empAuth_input.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_empAuth_input.jsp
+				successView.forward(req, res);
+
+				/***************************其他可能的錯誤處理**********************************/
+//			} catch (Exception e) {
+//				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/back-end/empAuth/listAllEmpAuth.jsp");
+//				failureView.forward(req, res);
+//			}
+		}
 		
 		if ("getOne_For_Update".equals(action)) { // 來自listAllEmpAuth.jsp的請求
 
@@ -213,14 +248,14 @@ public class EmpAuthServlet extends HttpServlet {
 		}
 		
 		
-		if ("update".equals(action)) { // 來自update_empAuth_input.jsp的請求 //????
+		if ("update".equals(action)) { // 來自update_empAuth_input.jsp的請求 //?
 			
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 		
-//			try {
+			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				String emp_ID = new String(req.getParameter("emp_ID").trim());
 				String auth_ID[] = req.getParameterValues("auth_ID");
@@ -240,19 +275,26 @@ public class EmpAuthServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					System.out.println("檢查點 2");
 
-					req.setAttribute("listEmpAuthVO", listEmpAuthVO); // 含有輸入格式錯誤的empAuthVO物件,也存入req
+					req.setAttribute("list", listEmpAuthVO); // 含有輸入格式錯誤的empAuthVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/empAuth/update_empAuth_input.jsp");
+							.getRequestDispatcher("/back-end/emp/listAllEmp.jsp");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
 				
 				/***************************2.開始修改資料*****************************************/
+				
 				EmpAuthService empAuthSvc = new EmpAuthService();
 				listEmpAuthVO = empAuthSvc.updateAllAuth(emp_ID, listEmpAuthVO);
 				
+				EmpAuthService empAuthSvc2 = new EmpAuthService();//???
+				List<EmpAuthVO> list  = empAuthSvc2.getPartOfOneEmpAuth(emp_ID);
+				
+				if (list.isEmpty() == true) {
+					errorMsgs.add("查無資料");
+				}
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("list", listEmpAuthVO); // 資料庫update成功後,正確的的empAuthVO物件,存入req
+				req.getSession().setAttribute("list", list); // 資料庫update成功後,正確的的empAuthVO物件,存入req
 				String url = "/back-end/empAuth/listSomeEmpAuth.jsp";
 				System.out.println("檢查點 3");
 
@@ -260,14 +302,14 @@ public class EmpAuthServlet extends HttpServlet {
 				successView.forward(req, res);
 
 				/***************************其他可能的錯誤處理*************************************/
-//			} catch (Exception e) {
-//				System.out.println("檢查點 4");
-//
-//				errorMsgs.add("修改資料失敗:"+e.getMessage());
-//				RequestDispatcher failureView = req
-//						.getRequestDispatcher("/back-end/empAuth/update_empAuth_input.jsp");
-//				failureView.forward(req, res);
-//			}
+			} catch (Exception e) {
+				System.out.println("檢查點 4");
+
+				errorMsgs.add("修改資料失敗:"+e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/back-end/empAuth/update_empAuth_input.jsp");
+				failureView.forward(req, res);
+			}
 		}
 		
 		

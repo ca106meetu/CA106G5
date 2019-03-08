@@ -43,6 +43,9 @@ public class EmpAuthService {
 	public List<EmpAuthVO> getPartOfOneEmpAuth(String emp_ID) {
 		return dao.findByPartOfOnePrimaryKey(emp_ID);
 	}
+	public List<String> getPartOfOneEmpAuth2(String emp_ID) {
+		return dao.findByPartOfOnePrimaryKey2(emp_ID);
+	}
 	
 	public EmpAuthVO getOneEmpAuth(String emp_ID, String auth_ID) {
 		return dao.findByPrimaryKey(emp_ID, auth_ID);
