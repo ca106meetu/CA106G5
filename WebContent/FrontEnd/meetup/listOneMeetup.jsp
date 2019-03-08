@@ -15,9 +15,6 @@
 	out.print(meetup_ID);
 %>
 
-
-
-
 <html>
 <head>
  <!-- Required meta tags -->
