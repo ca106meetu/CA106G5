@@ -13,6 +13,9 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.meetU.mem.model.MemDAO;
+import com.meetU.mem.model.MemService;
+import com.meetU.mem.model.MemVO;
 import com.meetU.orderDetail.model.OrderDetailVO;
 import com.meetU.orderMaster.model.OrderMasterDAO;
 import com.meetU.orderMaster.model.OrderMasterVO;
@@ -282,11 +285,18 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		OrderMasterDAO ordDAO = new OrderMasterDAO();
+		MemDAO memDAO = new MemDAO(); 
 		try {
 			
 			
 			con = ds.getConnection();
 			con.setAutoCommit(false);
+			
+			MemVO memVO = memDAO.findByPrimaryKey(omVO.getMem_ID());
+			memVO.setMem_get_point(memVO.getMem_get_point()- omVO.getPrice().intValue());
+			
+			
+			memDAO.update(memVO, con);
 			String key = ordDAO.insert(con, omVO);
 			
 			
@@ -300,6 +310,7 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 			pstmt.executeUpdate();
 			pstmt.clearParameters();
 			}
+			
 			
 			
 			con.commit();

@@ -10,17 +10,31 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import com.meetU.product.model.ProductJDBCDAO;
 
 
 
-public class PointRecJDBCDAO implements PointRecDAO_interface {
+public class PointRecDAO implements PointRecDAO_interface {
+	
+	
+	
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/CA106G5DB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "CA106G5";
-	String passwd = "123456";
-
+	private static final String GET_PR_BY_MEM= 
+		"SELECT * FROM POINT_REC where MEM_ID = ?";
 	private static final String INSERT_STMT = 
 		"INSERT INTO POINT_REC (REC_ID, MEM_ID, AMOUNT, REC_DATE) VALUES ('PR'||LPAD(to_char(point_rec_seq.NEXTVAL), 6, '0'), ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
@@ -32,7 +46,7 @@ public class PointRecJDBCDAO implements PointRecDAO_interface {
 	private static final String UPDATE = 
 		"UPDATE POINT_REC set MEM_ID = ?, AMOUNT = ?, REC_DATE = ? WHERE  REC_ID = ? ";
 
-	public PointRecJDBCDAO() {
+	public PointRecDAO() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -44,8 +58,8 @@ public class PointRecJDBCDAO implements PointRecDAO_interface {
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+	
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
 			pstmt.setString(1, prVO.getMem_ID());
@@ -55,9 +69,6 @@ public class PointRecJDBCDAO implements PointRecDAO_interface {
 			pstmt.executeUpdate();
 			
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -87,8 +98,8 @@ public class PointRecJDBCDAO implements PointRecDAO_interface {
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+	
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 			
 			pstmt.setString(1, prVO.getMem_ID());
@@ -99,9 +110,6 @@ public class PointRecJDBCDAO implements PointRecDAO_interface {
 			pstmt.executeUpdate();
 			
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -132,17 +140,14 @@ public class PointRecJDBCDAO implements PointRecDAO_interface {
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+	
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 			pstmt.setString(1, rec_ID);
 			
 			pstmt.executeUpdate();
 			
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -173,8 +178,8 @@ public class PointRecJDBCDAO implements PointRecDAO_interface {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+	
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 			pstmt.setString(1, rec_ID);
 			rs = pstmt.executeQuery();
@@ -189,9 +194,6 @@ public class PointRecJDBCDAO implements PointRecDAO_interface {
 			}
 			
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -232,8 +234,8 @@ public class PointRecJDBCDAO implements PointRecDAO_interface {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+	
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 			
@@ -248,9 +250,6 @@ public class PointRecJDBCDAO implements PointRecDAO_interface {
 			}
 			
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -283,56 +282,65 @@ public class PointRecJDBCDAO implements PointRecDAO_interface {
 	}
 
 
-	public static void main(String[] args) {
-		PointRecJDBCDAO dao = new PointRecJDBCDAO();
-		// 新增
-		Date today = new Date();
-//		PointRecVO prVO1 = new PointRecVO();
-//		prVO1.setMem_ID("M000005");
-//		prVO1.setAmount(new Double(555));
-//		prVO1.setRec_date(new Timestamp(today.getTime()));
-//
-//		dao.insert(prVO1);
-		
-		//修改
-//		PointRecVO prVO2 = new PointRecVO();
-//		prVO2.setRec_ID("PR000002");
-//		prVO2.setMem_ID("M000002");
-//		prVO2.setAmount(new Double(999.11));
-//		prVO2.setRec_date(new Timestamp(today.getTime()));
-//		dao.update(prVO2);
-//		
-//		//刪除
-//		dao.delete("P000006");
-//		
-		//查詢1
-		PointRecVO prVO3 = dao.findByPrimaryKey("PR000003");
-		
-		System.out.println(prVO3.getRec_ID() + ",");
-		System.out.println(prVO3.getMem_ID() + ",");
-		System.out.println(prVO3.getAmount() + ",");
-		System.out.println(prVO3.getRec_date() + ",");
-		
-		System.out.println("----------------------------");
-		//查詢全
-		List<PointRecVO> list = dao.getAll();
-//		
-		for(PointRecVO prVO4 : list) {
-		System.out.println(prVO4.getRec_ID() + ",");
-		System.out.println(prVO4.getMem_ID() + ",");
-		System.out.println(prVO4.getAmount() + ",");
-		System.out.println(prVO4.getRec_date() + ",");
-		
-		System.out.println("----------------------------");
-		}
-
-	}
-
-
 	@Override
 	public List<PointRecVO> getPrByMem(String mem_ID) {
-		// TODO Auto-generated method stub
-		return null;
+		List<PointRecVO> list = new ArrayList<>();
+		PointRecVO prVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = ds.getConnection();
+			
+			pstmt = con.prepareStatement(GET_PR_BY_MEM);
+			pstmt.setString(1, mem_ID);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				prVO = new PointRecVO();
+				prVO.setRec_ID(rs.getString("REC_ID"));
+				prVO.setMem_ID(rs.getString("MEM_ID"));
+				prVO.setAmount(rs.getDouble("AMOUNT"));
+				prVO.setRec_date(rs.getTimestamp("REC_DATE"));
+				
+				list.add(prVO);
+			}
+			
+			
+		
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
 	}
+	
+
+
+
 
 }

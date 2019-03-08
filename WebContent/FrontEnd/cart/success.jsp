@@ -32,13 +32,19 @@
     	</div>
     	
     	<div class='row'>
+    		<div class='col-4'><img src='images/allforu.JPG'></div>
     		<div class='col-4'></div>
-    		<div class='col-4 justify-center'><a href='EShop.jsp'>繼續購物</a></div>
+    		<div class='col-4'></div>
+    	</div>
+    	
+    	<div class='row'>
+    		<div class='col-4'></div>
+    		<div class='col-4 justify-center'><a href='EShop.jsp' class="btn btn-primary">繼續購物</a></div>
     		<div class='col-4'></div>
     	
     	</div>
     </div>
-    
+     
     
     
     

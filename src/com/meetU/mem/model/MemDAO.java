@@ -153,6 +153,56 @@ public class MemDAO implements MemDAO_interface {
 
 		
 	}
+	
+	public void update(MemVO memVO, Connection con) {
+			PreparedStatement pstmt = null;
+		
+		try {
+
+			pstmt = con.prepareStatement(UPDATE);
+			
+			pstmt.setString(1, memVO.getMem_pw());
+			pstmt.setString(2, memVO.getMem_name());
+			pstmt.setString(3, memVO.getMem_acc());
+			pstmt.setString(4, memVO.getMem_nickname());
+			pstmt.setDate(5, memVO.getMem_bday());
+			pstmt.setString(6, memVO.getMem_email());
+			pstmt.setString(7, memVO.getMem_pho());
+			pstmt.setString(8, memVO.getMem_gend());
+			pstmt.setBytes(9, memVO.getMem_pic());
+			pstmt.setString(10, memVO.getMem_intro());
+			
+			pstmt.setInt(11, memVO.getMem_code());
+			pstmt.setInt(12, memVO.getMem_state());
+			pstmt.setDate(13, memVO.getMem_date());
+			pstmt.setTimestamp(14, memVO.getMem_sign_day());
+			pstmt.setInt(15, memVO.getMem_login_state());
+			pstmt.setString(16, memVO.getMem_address());
+			pstmt.setTimestamp(17, memVO.getLast_pair());
+			pstmt.setString(18, memVO.getMem_hobby());
+			pstmt.setBytes(19, memVO.getMem_QRCODE());
+			pstmt.setInt(20, memVO.getMem_get_point());
+			pstmt.setString(21, memVO.getMem_ID());
+			
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+
+		
+	}
 
 	@Override
 	public void delete(String mem_ID) {

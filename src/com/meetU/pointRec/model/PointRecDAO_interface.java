@@ -9,6 +9,7 @@ public interface PointRecDAO_interface {
     public void delete(String rec_ID);
     public PointRecVO findByPrimaryKey(String rec_ID);
     public List<PointRecVO> getAll();
+    public List<PointRecVO> getPrByMem(String mem_ID);
   //萬用複合查詢(傳入參數型態Map)(回傳 List)
 //  public List<EmpVO> getAll(Map<String, String[]> map); 
 
