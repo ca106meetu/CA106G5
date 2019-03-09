@@ -147,17 +147,12 @@ public class MeetupMemServlet extends HttpServlet {
 		if("insert".equals(action)) { //報名參加meetup
 			List<String> errorMsgs = new LinkedList<String> ();
 			req.setAttribute("errorMsgs", errorMsgs);
+
 			try {
 				/*=================1.接收請求參數，輸入格式的錯誤處理------------------*/
 				String meetup_ID = req.getParameter("meetup_ID");
-//				if(meetup_ID == null || (meetup_ID.trim()).length()==0) {
-//					errorMsgs.add("請輸入聯誼編號");
-//				}
-			
 				String mem_ID = req.getParameter("mem_ID");
-//				if(mem_ID == null || (mem_ID.trim()).length()==0) {
-//					errorMsgs.add("請輸入成員編號");
-//				}
+System.out.println("2");
 				MeetupMemVO meetupMemVO = new MeetupMemVO();
 				meetupMemVO.setMeetup_ID(meetup_ID);
 				meetupMemVO.setMem_ID(mem_ID);
@@ -176,6 +171,7 @@ public class MeetupMemServlet extends HttpServlet {
 				String url = "/FrontEnd/meetupMem/addMeetupMem.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
+System.out.println("1");
 			}catch (Exception e) {
 				errorMsgs.add("新增資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req

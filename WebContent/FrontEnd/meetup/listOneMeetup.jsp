@@ -29,7 +29,7 @@
 <style>
 	 FORM{
 	 	float:left;
-	 	margin:0px;
+	 	margin:10px;
 	 	dispay:inline; 
 	 }
 	 img{
@@ -86,14 +86,14 @@
           		<li><%=meetupVO.getMeetup_loc()%></li>
           	</ul>
           	
-          	<p id="success" >您已順利報名</p>   
           	
-          	<%-- <FORM METHOD="POST" ACTION="<%=request.getContextPath()%>/FrontEnd/meetupMem/meetupMem.do" > --%>   
-          		<input type="button" class="btn btn-warning" id="btn_join" value="報名" onclick="join()" >
+          	<div class="join">
+          	<%-- 您已順利報名<FORM METHOD="POST" ACTION="<%=request.getContextPath()%>/FrontEnd/meetupMem/meetupMem.do" > --%>   
+          		<input type="button" class="btn btn-warning" id="btnJoin" value="報名"  >
           		<input type="hidden" name="meetup_ID" value="${meetupVO.meetup_ID}">
 				<input type="hidden" name="mem_ID"	value="${memVO.mem_ID}">     
 			<%--</FORM>--%>
-		
+			</div>
 <jsp:useBean id="mLikeSvc" scope="page" class="com.meetU.meetup_like.model.MeetupLikeService"/>		
 			
 			
@@ -103,7 +103,7 @@
 			<input type="hidden" name="meetup_ID" value="${meetupVO.meetup_ID}">
 			<input type="hidden" name="mem_ID"	value="${memVO.mem_ID}">
 			
-          	<button type="submit" class="btn btn-light" onclick="report()" id="rep"> 檢舉</button>
+          	<button type="submit" class="btn btn-light" onclick="report()" id="btnRep"> 檢舉</button>
           	
           </div>
         </div>	
@@ -133,27 +133,10 @@ function report(){
 	$("#rep").show();
 }
 
-function join(){
-	
-	
-	$.ajax({
-		 type: "POST",
-		 url: "<%=request.getContextPath()%>/FrontEnd/meetupMem/meetupMem.do",
-		 data: {"meetup_ID":$(this).next().attr('value'), 
-			 	"action":"insert", 
-			 	"mem_ID":$(this).next().next().attr('value')},
-		 dataType: "json",
-		 success: function(){
-			 alert("成功報名");
-			 $("#btn_join").hide();
-			 $("#success").show();
-			},
-        error: function(){alert("AJAX-grade發生錯誤囉!")}
-        });	
-}
+
 		
 $(document).ready(function(){
-	$("#success").hide();
+	
 	$(".heart").click(function(){
 		 
 		 if($(this).attr("alt") == "unfavorite"){
@@ -201,6 +184,22 @@ $(document).ready(function(){
 		         });				
 		 }
 	 });
+	
+	$("#btnJoin").click(function(){
+		$.ajax({
+			 type: "POST",
+			 url: "<%=request.getContextPath()%>/FrontEnd/meetupMem/meetupMem.do",
+			 data: {"meetup_ID":$(this).next().attr('value'), 
+				 	"action":"insert", 
+				 	"mem_ID":$(this).next().next().attr('value')},
+			 dataType: "json",
+			 success: function(){
+				 alert("成功報名");
+				 $("#btnJoin").hide();
+				},
+	         error: function(){alert("AJAX-grade發生錯誤囉!")}
+	    });	
+	});
 })
 </script>
 
