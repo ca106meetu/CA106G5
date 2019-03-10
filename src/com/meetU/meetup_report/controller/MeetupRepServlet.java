@@ -1,6 +1,7 @@
 package com.meetU.meetup_report.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.*;
 
 import javax.servlet.RequestDispatcher;
@@ -143,13 +144,13 @@ public class MeetupRepServlet extends HttpServlet {
 			}
 		}
 		
-		//URL未完成; //要以什麼方式呈現檢舉他人?
+		
 		if("insert".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
-			try {
-				/*=================1.接收請求參數，輸入格式的錯誤處理------------------*/
+//			try {
+//				/*=================1.接收請求參數，輸入格式的錯誤處理------------------*/
 				String meetup_ID = req.getParameter("meetup_ID");
 				String mem_ID = req.getParameter("mem_ID");
 				String rep_content = req.getParameter("rep_content");
@@ -163,13 +164,13 @@ public class MeetupRepServlet extends HttpServlet {
 					rep_status=0;
 					errorMsgs.add("請輸入狀態碼");
 				}
-				
+
 				MeetupRepVO meetupRepVO = new MeetupRepVO();
 				meetupRepVO.setMeetup_ID(meetup_ID);
 				meetupRepVO.setMem_ID(mem_ID);
 				meetupRepVO.setRep_content(rep_content);
 				meetupRepVO.setRep_status(rep_status);
-		
+	
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("meetupRepVO", meetupRepVO); // 含有輸入格式錯誤的empVO物件,也存入req
 					RequestDispatcher failureView = req
@@ -181,15 +182,18 @@ public class MeetupRepServlet extends HttpServlet {
 				MeetupRepService meetupRepSvc = new MeetupRepService();
 				meetupRepVO = meetupRepSvc.addMeetupRep(meetup_ID, mem_ID, rep_content, rep_status);
 				/*=================3.新增完成,準備轉交(Send the Success view)-----------*/
-				String url = "/FrontEnd/meetup/MeetupHomePg.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);	
-				successView.forward(req, res);
-			}catch(Exception e) {
-				errorMsgs.add("新增資料失敗:"+e.getMessage());
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/FrontEnd/meetup/listAllMeetup.jsp");
-				failureView.forward(req, res);	
-			}
+				PrintWriter out = res.getWriter();
+				out.print("{}");
+				out.close();
+//				String url = "/FrontEnd/meetup/meetupHomePg.jsp";
+//				RequestDispatcher successView = req.getRequestDispatcher(url);	
+//				successView.forward(req, res);	
+//			}catch(Exception e) {
+//				errorMsgs.add("新增資料失敗:"+e.getMessage());
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/FrontEnd/meetup/listAllMeetup.jsp");
+//				failureView.forward(req, res);	
+//			}
 		}
 				
 		//這個指令應該是刪除MEETUP or 隱形MEETUP
