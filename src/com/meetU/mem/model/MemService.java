@@ -88,6 +88,13 @@ public class MemService {
 		return dao.findByACC(mem_acc, mem_pw);
 	}
 	
+	public MemVO getOneMemByACC(String mem_acc) {
+		return dao.findByMEM_ACC(mem_acc);
+	}
+	public MemVO getOneMemByEMAIL(String mem_email) {
+		return dao.findByMEM_EMAIL(mem_email);
+	}
+	
 	public List<MemVO> getAll() {
 		return dao.getAll();
 	}

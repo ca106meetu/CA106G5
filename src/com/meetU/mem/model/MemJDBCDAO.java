@@ -21,6 +21,10 @@ public class MemJDBCDAO implements MemDAO_interface{
 		"SELECT * FROM MEM where MEM_ID = ?";
 	private static final String GET_ONE_ACC = 
 		"SELECT * FROM MEM where MEM_ACC=? AND MEM_PW=?";
+	private static final String GET_ONE_MEM_BY_ACC =
+		"SELECT * FROM MEM where MEM_ACC=? ";
+	private static final String GET_ONE_MEM_BY_EMAIL =
+		"SELECT * FROM MEM where MEM_EMAIL=? ";	
 	private static final String DELETE = 
 		"DELETE FROM MEM where MEM_ID = ?";
 	private static final String UPDATE = 
@@ -197,6 +201,152 @@ public class MemJDBCDAO implements MemDAO_interface{
 			pstmt = con.prepareStatement(GET_ONE_ACC);
 			pstmt.setString(1, mem_acc);
 			pstmt.setString(2, mem_pw);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				memVO = new MemVO();
+				memVO.setMem_ID(rs.getString("mem_ID"));
+				memVO.setMem_pw(rs.getString("mem_pw"));
+				memVO.setMem_name(rs.getString("mem_name"));
+				memVO.setMem_acc(rs.getString("mem_acc"));
+				memVO.setMem_nickname(rs.getString("mem_nickname"));
+				memVO.setMem_bday(rs.getDate("mem_bday"));
+				memVO.setMem_email(rs.getString("mem_email"));
+				memVO.setMem_pho(rs.getString("mem_pho"));
+				memVO.setMem_gend(rs.getString("mem_gend"));
+				memVO.setMem_pic(rs.getBytes("mem_pic"));
+				memVO.setMem_intro(rs.getString("mem_intro"));
+				memVO.setMem_code(rs.getInt("mem_code"));
+				memVO.setMem_state(rs.getInt("mem_state"));
+				memVO.setMem_date(rs.getDate("mem_date"));
+				memVO.setMem_sign_day(rs.getTimestamp("mem_sign_day"));
+				memVO.setMem_login_state(rs.getInt("mem_login_state"));
+				memVO.setMem_address(rs.getString("mem_address"));
+				memVO.setLast_pair(rs.getTimestamp("last_pair"));
+				memVO.setMem_hobby(rs.getString("mem_hobby"));
+				memVO.setMem_QRCODE(rs.getBytes("mem_QRCODE"));
+				memVO.setMem_get_point(rs.getInt("mem_get_point"));
+			}
+			
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return memVO;
+	}
+	@Override
+	public MemVO  findByMEM_ACC(String mem_acc) {
+		MemVO memVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ONE_MEM_BY_ACC);
+			pstmt.setString(1, mem_acc);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				memVO = new MemVO();
+				memVO.setMem_ID(rs.getString("mem_ID"));
+				memVO.setMem_pw(rs.getString("mem_pw"));
+				memVO.setMem_name(rs.getString("mem_name"));
+				memVO.setMem_acc(rs.getString("mem_acc"));
+				memVO.setMem_nickname(rs.getString("mem_nickname"));
+				memVO.setMem_bday(rs.getDate("mem_bday"));
+				memVO.setMem_email(rs.getString("mem_email"));
+				memVO.setMem_pho(rs.getString("mem_pho"));
+				memVO.setMem_gend(rs.getString("mem_gend"));
+				memVO.setMem_pic(rs.getBytes("mem_pic"));
+				memVO.setMem_intro(rs.getString("mem_intro"));
+				memVO.setMem_code(rs.getInt("mem_code"));
+				memVO.setMem_state(rs.getInt("mem_state"));
+				memVO.setMem_date(rs.getDate("mem_date"));
+				memVO.setMem_sign_day(rs.getTimestamp("mem_sign_day"));
+				memVO.setMem_login_state(rs.getInt("mem_login_state"));
+				memVO.setMem_address(rs.getString("mem_address"));
+				memVO.setLast_pair(rs.getTimestamp("last_pair"));
+				memVO.setMem_hobby(rs.getString("mem_hobby"));
+				memVO.setMem_QRCODE(rs.getBytes("mem_QRCODE"));
+				memVO.setMem_get_point(rs.getInt("mem_get_point"));
+			}
+			
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return memVO;
+	}
+	@Override
+	public MemVO  findByMEM_EMAIL(String mem_email) {
+		MemVO memVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ONE_MEM_BY_EMAIL);
+			pstmt.setString(1, mem_email);
+			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
