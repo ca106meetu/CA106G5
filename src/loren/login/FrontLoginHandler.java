@@ -36,26 +36,18 @@ public class FrontLoginHandler extends HttpServlet {
 		String mem_pw = req.getParameter("mem_pw");
 		
 		HttpSession session = req.getSession();
+		System.out.println(mem_acc+mem_pw);
 			// 【檢查該帳號 , 密碼是否有效】
 			if (!allowUser(mem_acc, mem_pw, session)) {          //【帳號 , 密碼無效時】
-				out.println("<HTML><HEAD><TITLE>Access Denied</TITLE></HEAD>");
-				out.println("<BODY>你的帳號 , 密碼無效!<BR>");
-				out.println("請按此重新登入 <A HREF="+req.getContextPath()+"/frontLogin.html>重新登入</A>");
-				out.println("</BODY></HTML>");
-				//res.sendRedirect(req.getRequestURI());
 			}else {                                       //【帳號 , 密碼有效時, 才做以下工作】
 				session.setAttribute("mem_acc", mem_acc);   //*工作1: 才在session內做已經登入過的標識
 				
 				try {                                                        
-					String location = (String) session.getAttribute("location");
-					if (location != null) {
-						session.removeAttribute("location");   //*工作2: 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)
-						res.sendRedirect(location);            
-						return;
-					}
+	
+					out.print("{}");
+					out.close();
 				}catch (Exception ignored) { }
 				
-				res.sendRedirect(req.getContextPath()+"/frontLogin_success.jsp");  //*工作3: (-->如無來源網頁:則重導至login_success.jsp)
 			}
 		}
 

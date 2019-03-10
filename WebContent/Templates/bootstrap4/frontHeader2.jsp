@@ -90,22 +90,22 @@
         </button>
       </div>
       <div class="modal-body">
-       <form METHOD="post" ACTION="<%=request.getContextPath()%>/lorenTest" >
+<%--        <form METHOD="post" ACTION="<%=request.getContextPath()%>/lorenTest" > --%>
   	      <div class="form-group">
    		     <label for="exampleInputACC">帳號</label>
-   		     <input type="text" name='mem_acc' class="form-control" id="exampleInputACC" aria-describedby="ACCHelp" placeholder="輸入您的帳號">
+   		     <input type="text" name='mem_acc' class="form-control mem_acc" id="exampleInputACC" aria-describedby="ACCHelp" placeholder="輸入您的帳號">
    		     <!-- <small id="ACCHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
  		  </div>
 	     <div class="form-group">
 	         <label for="exampleInputPassword1">密碼</label>
-	         <input type="password" name='mem_pw' class="form-control" id="exampleInputPassword1" placeholder="輸入您的密碼">
+	         <input type="password" name='mem_pw' class="form-control mem_pw" id="exampleInputPassword1" placeholder="輸入您的密碼">
 	     </div>
 	     <!-- <div class="form-check">
 	         <input type="checkbox" class="form-check-input" id="exampleCheck1">
 	         <label class="form-check-label" for="exampleCheck1">Check me out</label>
 	     </div> -->
-	   <button type="submit" class="btn btn-success">登入</button>
-	 </form>
+	   <button type="button" class="btn btn-success login">登入</button>
+<!-- 	 </form> -->
       </div>
       <div class="modal-footer">
        <!--  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -162,6 +162,27 @@
     
     
     <script>
+    
+    
+    
+    
+	    $(document).ready(function(){
+			 $('.login').click(function(){
+				 $.ajax({
+					 type: "POST",
+					 url: "<%=request.getContextPath()%>/lorenTest",
+					 data: {"mem_acc":$(".mem_acc").val(), "mem_pw":$(".mem_pw").val()},
+					 dataType: "json",
+					 success: function(){
+						 
+						 $('#login').modal('hide');
+						alert("登入成功");
+					 },
+				     
+		             error: function(){alert("帳號密碼錯誤")}
+		         });
+		 });
+	   })
     	
     
     	function allowUser(){
