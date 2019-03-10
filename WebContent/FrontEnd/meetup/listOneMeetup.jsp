@@ -37,6 +37,7 @@
 	  .headIntro{
         height: 400px;
         margin-bottom: 20px;
+        background-color:black;
       }
       
       #rep{
@@ -120,7 +121,7 @@
       		<div id="rep">
 				<%-- 檢舉內容 --%>
 					<textarea rows="5" cols="100%" name="rep_content" placeholder="請輸入檢舉原因" id="repText"></textarea>		
-					<br><br><input type="reset" class="btn btn-info btn-sm" value="取消">
+					<br><input type="reset" class="btn btn-info btn-sm" value="取消">
 					<input type="submit" class="btn btn-info btn-sm" value="送出檢舉" id="btnRepSubmit">
 					<input type="hidden" name="meetup_ID" value="${meetupVO.meetup_ID}">
 					<input type="hidden" name="mem_ID"	value="${memVO.mem_ID}">
