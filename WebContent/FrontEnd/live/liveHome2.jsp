@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="java.util.*"%>
 <%@page import="com.meetU.filerec.model.*"%>
+<%@page import="com.meetU.live_like.model.*"%>
 <%@page import="com.meetU.mem.model.*"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
@@ -18,6 +19,7 @@
    
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
+    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
 
     <title>直播影片間</title>  
     
@@ -30,23 +32,32 @@
     #live_like {
 	position: fixed;
 	right: 0;
-	top: 10%;
+	top: 20%;
+	width: 8em;
+	margin-top: -2.5em;
+}
+
+ #live_like2 {
+	position: fixed;
+	right: 0;
+	top: 25%;
 	width: 8em;
 	margin-top: -2.5em;
 }
  #fileRec {
 	position: fixed;
 	right: 0;
-	top: 15%;
+	top: 30%;
 	width: 8em;
 	margin-top: -2.5em;
 }
 #live_rep {
 	position: fixed;
 	right: 0;
-	top: 20%;
+	top: 35%;
 	width: 8em;
 	margin-top: -2.5em;
+	
 }
 
 .button {
@@ -140,30 +151,62 @@ html,body {
             <input id="message"  class="text-field" type="text" placeholder="訊息" onkeydown="if (event.keyCode == 13) sendMessage();"/>
             <input type="submit" id="sendMessage" class="button" value="送出" onclick="sendMessage();"/>
 	        </div>
-  				
-  				</div>
-
-	   
+  			</div>
 			</div>
 			</div>
 			</div>
 			
 	
-	
-	<div id='live_like'>
-		<a class="btn btn-primary" href="" role="button">收藏直播主</a>
-	</div>
-	<div id='fileRec'>
+	<jsp:useBean id="live_likeSvc" scope="page" class="com.meetU.live_like.model.Live_likeService"/>	
 		
+	<div id='live_like'>
+		<input class="${live_likeSvc.getOneLive_like2('M000005',param.host_ID ) != null ? 'btn btn-danger ' : 'btn btn-primary ' } live_like"  type="submit" value="${live_likeSvc.getOneLive_like2('M000005',param.host_ID ) != null ? '退訂直播主' : '收藏直播主' }">
+		<input type="hidden" name="host_ID" value="${param.host_ID}">
+		<input type="hidden" name="mem_ID"	value="M000005">
+	</div>
+	
+	<div id='live_like2'>
+		<form action="<%=request.getContextPath()%>/FrontEnd/live_like/live_like.do" method='post'>
+			<input class="btn btn-primary "  type="submit" value="看我的收藏">
+		    <input type="hidden" name="mem_ID"	value="M000005">
+		    <input type='hidden' name='action' value='getOne_For_Display'>
+		</form>
+	</div>
+	
+	<div id='fileRec'>
 		<form action="<%=request.getContextPath()%>/FrontEnd/fileRec/fileRecHome.jsp" method='post'>
 			<input type='hidden' name='host_ID' value='<%=host_ID%>'>
 			<input type='submit' class="btn btn-primary" value='看其他影片'>
 		</form>
+	</div>
+	
+	
+	   <!-- Button trigger modal -->
+	   <div id='live_rep'>
+<input  type="submit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" value="檢舉直播主"></div>
 
-	</div>
-	<div id='live_rep'>
-		<a class="btn btn-primary" href="" role="button">檢舉直播主</a>
-	</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 	
     
     
@@ -171,14 +214,65 @@ html,body {
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/popper.min.js"></script>
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/js/bootstrap.min.js"></script>
   </body>
   
  <script>
-    
-    var MyPoint = "/live_chatHome/<%=host_ID%>/205";
+ 
+ 
+ 
+ $(document).ready(function(){
+		$(".live_like").click(function(){
+			 
+			 if($(this).val() == "收藏直播主"){
+				 				 
+				 $.ajax({
+					 type: "POST",
+					 url: "<%=request.getContextPath()%>/FrontEnd/live_like/live_like.do",
+					 data: {"host_ID":$(this).next().attr('value'), 
+						 	"action":"insert", 
+						 	"mem_ID":$(this).next().next().attr('value')},
+					 dataType: "json",
+					 success: function(){
+						 
+						 $(".live_like").val("退訂直播主");
+						 $(".live_like").attr("class","btn btn-danger live_like");
+						
+						
+						 alert("成功加入收藏");
+						},
+						
+		             error: function(){alert("愛你唷,不過錯了")}
+			         });
+				 
+				 
+			 }else if($(this).val() == "退訂直播主"){
+				 
+				 $.ajax({
+					 type: "POST",
+					 url: "<%=request.getContextPath()%>/FrontEnd/live_like/live_like.do",
+					 data: {"host_ID":$(this).next().attr('value'), 
+						 	"action":"delete", 
+						 	"mem_ID":$(this).next().next().attr('value')},
+							 dataType: "json",
+					 success: function(){
+						 
+						 $(".live_like").val("收藏直播主");
+						 $(".live_like").attr("class","btn btn-primary live_like");
+													
+						 alert("成功取消收藏");
+						},
+		             error: function(){alert("愛你唷,不過錯了2")}
+			         });				
+			 }
+		 });
+	})
+ 
+ 
+
+    //以下聊天室
+    var MyPoint = "/live_chatHome/<%=host_ID%>";
     var host = window.location.host;
     var path = window.location.pathname;
     var webCtx = path.substring(0, path.indexOf('/', 1));
@@ -249,6 +343,9 @@ html,body {
 	function updateStatus(newStatus) {
 		statusOutput.innerHTML = newStatus;
 	}
+	//以上聊天室
+	
+	
     
 </script> 
   
