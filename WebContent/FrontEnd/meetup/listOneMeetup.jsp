@@ -13,11 +13,12 @@
 	String meetup_ID = meetupVO.getMeetup_ID();
 	pageContext.setAttribute("meetup_ID", meetup_ID);
 	out.print(memVO.getMem_ID());
+	out.print(meetupVO.getMeetup_ID());
 %>
 
 <html>
 <head>
- <!-- Required meta tags -->
+<!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Bootstrap CSS -->
@@ -27,23 +28,16 @@
 <title>顯示聯誼詳情</title>
 
 <style>
-	 FORM{
-	 	float:left;
-	 	margin:10px;
-	 	dispay:inline; 
-	 }
+	 
 	 img{
 	 	width:300px;
 	 	height:auto;
 	 }
 	 
-	 .headIntro{
+	  .headIntro{
         height: 400px;
         margin-bottom: 20px;
-      }
-      
-      .introPic{
-      	
+        background-color:black;
       }
       
       #rep{
@@ -54,20 +48,21 @@
       	font-family:微軟正黑體;
       }
       
+      .heart{
+   		margin: 16px 16px 0px 16px;
+   	  }
+   	  #btnRep{
+   		margin-bottom:6px;
+   	  }
+   
+      .HeartnRep{
+   	  	margin-top:5px;
+      }
       
 </style>
 
 </head>
 <body>
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
-
 <jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
 	
 	<div class="container">
@@ -86,54 +81,62 @@
           		<li><%=meetupVO.getMeetup_loc()%></li>
           	</ul>
           	
-          	
-          	<div class="join">
-          	<%-- 您已順利報名<FORM METHOD="POST" ACTION="<%=request.getContextPath()%>/FrontEnd/meetupMem/meetupMem.do" > --%>   
-          		<input type="button" class="btn btn-warning" id="btnJoin" value="報名"  >
-          		<input type="hidden" name="meetup_ID" value="${meetupVO.meetup_ID}">
-				<input type="hidden" name="mem_ID"	value="${memVO.mem_ID}">     
-			<%--</FORM>--%>
-			</div>
-<jsp:useBean id="mLikeSvc" scope="page" class="com.meetU.meetup_like.model.MeetupLikeService"/>		
+<jsp:useBean id="memSvc" scope="page" class="com.meetU.meetup_mem.model.MeetupMemService"/>
+          <div class="join"> 
+          	<input type="button" class="${memSvc.getOneMeetupMem(meetupVO.meetup_ID, memVO.mem_ID)!=null?'btn btn-warning disabled': 'btn btn-warning btnJoin'}" 
+          		id="btnJoin" value="${memSvc.getOneMeetupMem(meetupVO.meetup_ID, memVO.mem_ID)!=null?'已報名':'報名'}"  >
+          	<input type="hidden" name="meetup_ID" value="${meetupVO.meetup_ID}">
+			<input type="hidden" name="mem_ID"	value="${memVO.mem_ID}">     
+		  </div>
 			
-			
+<jsp:useBean id="mLikeSvc" scope="page" class="com.meetU.meetup_like.model.MeetupLikeService"/>					
+		  <div class="HeartnRep"> 
 			<input type='image' src=" ${mLikeSvc.getOneMeetupLike(meetup_ID, memVO.mem_ID)!= null?'img/heart_red.png':'img/heart_white.png'}" 
-				   class='heart' title="${mLikeSvc.getOneMeetupLike(meetup_ID, memVO.mem_ID) != null ? '取消收藏' : '加入收藏' }" 
-				   alt="${mLikeSvc.getOneMeetupLike(meetup_ID, memVO.mem_ID) != null ? 'favorite' : 'unfavorite' }" >
+			   class='heart' title="${mLikeSvc.getOneMeetupLike(meetup_ID, memVO.mem_ID) != null ? '取消收藏' : '加入收藏' }" 
+			   alt="${mLikeSvc.getOneMeetupLike(meetup_ID, memVO.mem_ID) != null ? 'favorite' : 'unfavorite' }" >
 			<input type="hidden" name="meetup_ID" value="${meetupVO.meetup_ID}">
 			<input type="hidden" name="mem_ID"	value="${memVO.mem_ID}">
 			
-          	<button type="submit" class="btn btn-light" onclick="report()" id="btnRep"> 檢舉</button>
-          	
-          </div>
-        </div>	
-      </div><!-- 來自ROW-->
+       		<button type="submit" class="btn btn-info btn-sm" onclick="report()" id="btnRep"> 
+       			<span class="glyphicon glyphicon-alert">檢舉</span>
+       		</button>
+		  </div>		
+        </div>
+       </div>
+      </div><!-- 來自ROW-->	
+     
+      <div class="item"><!-- 假文假圖-->	
+			<img src="https://api.fnkr.net/testimg/650x800/00CED1/FFF/?text=img+placeholder">
+			<h3>title</h3>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem, cupiditate.</p>
+	  </div>
+      <div class="item"><!-- 假文假圖-->	
+			<img src="https://api.fnkr.net/testimg/650x800/00CED1/FFF/?text=img+placeholder">
+			<h3>title</h3>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem, cupiditate.</p>
+	  </div>
       
       <div class="row">
       	<div class="col">
       		<div id="rep">
-				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/FrontEnd/meetupRep/meetupRep.do">
-					<textarea rows="5" cols="80%" name="rep_content" placeholder="請輸入檢舉原因"></textarea>
-					<input type="hidden" name="rep_status" value="1">
-					<input type="hidden" name="action" value="insert">
+				<%-- 檢舉內容 --%>
+					<textarea rows="5" cols="100%" name="rep_content" placeholder="請輸入檢舉原因" id="repText"></textarea>		
+					<br><input type="reset" class="btn btn-info btn-sm" value="取消">
+					<input type="submit" class="btn btn-info btn-sm" value="送出檢舉" id="btnRepSubmit">
 					<input type="hidden" name="meetup_ID" value="${meetupVO.meetup_ID}">
 					<input type="hidden" name="mem_ID"	value="${memVO.mem_ID}">
-					<br><input type="reset" value="取消">
-					<input type="submit" value="送出檢舉">
-				</FORM>
-				
+					<input type="hidden" name="rep_status" value="1">
 			</div>
       	</div>
       </div>
-      
-    </div><!-- 來自CONTAINER--> 
+     </div><!-- 來自CONTAINER-->   
+   
 <script>
 
 function report(){
 	$("#rep").show();
+	$("#repText").focus();
 }
-
-
 		
 $(document).ready(function(){
 	
@@ -185,7 +188,7 @@ $(document).ready(function(){
 		 }
 	 });
 	
-	$("#btnJoin").click(function(){
+	$(".btnJoin").click(function(){
 		$.ajax({
 			 type: "POST",
 			 url: "<%=request.getContextPath()%>/FrontEnd/meetupMem/meetupMem.do",
@@ -195,11 +198,31 @@ $(document).ready(function(){
 			 dataType: "json",
 			 success: function(){
 				 alert("成功報名");
-				 $("#btnJoin").hide();
+				 $(".btnJoin").val("已報名")
+				 $(".btnJoin").addClass("disabled");
 				},
 	         error: function(){alert("AJAX-grade發生錯誤囉!")}
 	    });	
 	});
+	
+	
+	$("#btnRepSubmit").click(function(){
+		$.ajax({
+			 type: "POST",
+			 url: "<%=request.getContextPath()%>/FrontEnd/meetupRep/meetupRep.do",
+			 data: {"meetup_ID":$(this).next().attr('value'), 
+				 	"mem_ID":$(this).next().next().attr('value'),
+				 	"action":"insert", 
+				 	"rep_content":$("#repText").val(),
+				 	"rep_status":$(this).next().next().next().attr('value')},
+			 dataType: "json",
+			 success: function(){
+				 alert("謝謝您的回饋，管理員會盡快處理");
+				},
+	         error: function(){alert("AJAX-grade發生錯誤囉!")}
+	    });	
+	});
+		
 })
 </script>
 

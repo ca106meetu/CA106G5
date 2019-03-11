@@ -148,36 +148,37 @@ public class MeetupMemServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String> ();
 			req.setAttribute("errorMsgs", errorMsgs);
 
-			try {
-				/*=================1.接收請求參數，輸入格式的錯誤處理------------------*/
+//			try {
+//				/*=================1.接收請求參數，輸入格式的錯誤處理------------------*/
 				String meetup_ID = req.getParameter("meetup_ID");
 				String mem_ID = req.getParameter("mem_ID");
-System.out.println("2");
 				MeetupMemVO meetupMemVO = new MeetupMemVO();
 				meetupMemVO.setMeetup_ID(meetup_ID);
 				meetupMemVO.setMem_ID(mem_ID);
 				
-				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("meetupMemVO", meetupMemVO); // 含有輸入格式錯誤的empVO物件,也存入req
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/FrontEnd/meetupMem/addMeetupMem.jsp");
-					failureView.forward(req, res);
-					return; //程式中斷
-				}
+//				if (!errorMsgs.isEmpty()) {
+//					req.setAttribute("meetupMemVO", meetupMemVO); // 含有輸入格式錯誤的empVO物件,也存入req
+//					RequestDispatcher failureView = req
+//							.getRequestDispatcher("/FrontEnd/meetupMem/addMeetupMem.jsp");
+//					failureView.forward(req, res);
+//					return; //程式中斷
+//				}
 				/*=================2.開始新增資料-----------------*/
 				MeetupMemService meetupMemSvc = new MeetupMemService();
 				meetupMemVO = meetupMemSvc.addMeetupMem(meetup_ID, mem_ID);
+				PrintWriter out = res.getWriter();
+				out.print("{}");
+				out.close();
 				/*=================3.新增完成,準備轉交(Send the Success view)-----------*/
-				String url = "/FrontEnd/meetupMem/addMeetupMem.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);
-				successView.forward(req, res);
-System.out.println("1");
-			}catch (Exception e) {
-				errorMsgs.add("新增資料失敗:"+e.getMessage());
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/FrontEnd/meetupMem/addMeetupMem.jsp");
-				failureView.forward(req, res);
-			}
+//				String url = "/FrontEnd/meetupMem/addMeetupMem.jsp";
+//				RequestDispatcher successView = req.getRequestDispatcher(url);
+//				successView.forward(req, res);
+//			}catch (Exception e) {
+//				errorMsgs.add("新增資料失敗:"+e.getMessage());
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/FrontEnd/meetupMem/addMeetupMem.jsp");
+//				failureView.forward(req, res);
+//			}
 		}
 		
 		if ("delete".equals(action)) { // 來自listAllMyMeetup.jsp，退出該聯誼
