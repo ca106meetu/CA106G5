@@ -26,6 +26,7 @@ public class Live_likeDAO implements Live_likeDAO_interface {
 	private static final String INSERT_STMT = "INSERT INTO LIVE_LIKE  (MEM_ID, HOST_ID) VALUES (?,?)";
 	private static final String DELETE = "DELETE FROM LIVE_LIKE where MEM_ID = ? and HOST_ID= ? ";
 	private static final String GET_ONE_STMT = "SELECT * FROM LIVE_LIKE where MEM_ID = ?";
+	private static final String GET_ONE_STMT2 = "SELECT * FROM LIVE_LIKE where MEM_ID = ? and HOST_ID= ?";
 	private static final String GET_ALL_STMT = "SELECT * FROM LIVE_LIKE";
 
 	public Live_likeDAO() {
@@ -155,6 +156,63 @@ public class Live_likeDAO implements Live_likeDAO_interface {
 		}
 		return list;
 	}
+	
+	@Override
+	public Live_likeVO findByPrimaryKey(String mem_ID,String host_ID) {
+		
+		Live_likeVO live_likeVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ONE_STMT2);
+
+			pstmt.setString(1, mem_ID);
+			pstmt.setString(2, host_ID);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				live_likeVO = new Live_likeVO();
+
+				live_likeVO.setMem_ID(rs.getString("MEM_ID"));
+				live_likeVO.setHost_ID(rs.getString("HOST_ID"));
+
+			
+
+			}
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return live_likeVO;
+	}
+	
 
 	@Override
 	public List<Live_likeVO> getALL() {
