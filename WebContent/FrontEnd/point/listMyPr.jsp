@@ -31,7 +31,7 @@
   }
   th, td {
     padding: 2px;
-    text-align: center;
+    text-align: center; 
   }
 	
 </style>
