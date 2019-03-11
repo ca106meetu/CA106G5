@@ -37,7 +37,7 @@
 	  .headIntro{
         height: 400px;
         margin-bottom: 20px;
-        background-color:black;
+        
       }
       
       #rep{
