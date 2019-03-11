@@ -35,14 +35,7 @@
     <url-pattern>/back-end/om/om.do</url-pattern>
   </servlet-mapping>
   
-  <servlet>
-    <servlet-name>LiveServlet</servlet-name>
-    <servlet-class>com.meetU.live.controller.LiveServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>LiveServlet</servlet-name>
-    <url-pattern>/FrontEnd/live/live.do</url-pattern>
-  </servlet-mapping>
+  
   <servlet>
     <servlet-name>PostServlet</servlet-name>
     <servlet-class>com.meetU.post.controller.PostServlet</servlet-class>
@@ -51,6 +44,35 @@
     <servlet-name>PostServlet</servlet-name>
     <url-pattern>/FrontEnd/post/post.do</url-pattern>
   </servlet-mapping>
+  <!-- 以下陳彥彰註冊 -->
+  <servlet>
+    <servlet-name>LiveServlet</servlet-name>
+    <servlet-class>com.meetU.live.controller.LiveServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LiveServlet</servlet-name>
+    <url-pattern>/FrontEnd/live/live.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>FileRecServlet</servlet-name>
+    <servlet-class>com.meetU.filerec.controller.FileRecServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FileRecServlet</servlet-name>
+    <url-pattern>/FrontEnd/fileRec/fileRec.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>Live_likeServlet</servlet-name>
+    <servlet-class>com.meetU.live_like.controller.Live_likeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Live_likeServlet</servlet-name>
+    <url-pattern>/FrontEnd/live_like/live_like.do</url-pattern>
+  </servlet-mapping>
+  <!-- 以上陳彥彰註冊 -->
+  
   
   <!-- 權限controller -->
   <servlet>
@@ -157,14 +179,7 @@
     <servlet-name>MeetupRepServlet</servlet-name>
     <url-pattern>/FrontEnd/meetupRep/meetupRep.do</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <servlet-name>FileRecServlet</servlet-name>
-    <servlet-class>com.meetU.filerec.controller.FileRecServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>FileRecServlet</servlet-name>
-    <url-pattern>/FrontEnd/fileRec/fileRec.do</url-pattern>
-  </servlet-mapping>
+  
   
 <!-- 後端登入濾器 -->
 <filter>
