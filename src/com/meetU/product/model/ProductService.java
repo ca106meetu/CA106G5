@@ -62,6 +62,10 @@ public class ProductService {
 		return dao.getAll();
 	}
 	
+	public List<ProductVO> getSome(){
+		return dao.getSome();
+	}
+	
 	
 	
 	

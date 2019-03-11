@@ -16,6 +16,8 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import com.meetU.emp.model.EmpVO;
+import com.meetU.mem.model.MemDAO;
+import com.meetU.mem.model.MemVO;
 import com.meetU.product.model.ProductJDBCDAO;
 
 
@@ -57,10 +59,17 @@ public class PointRecDAO implements PointRecDAO_interface {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		
+		MemDAO memDAO = new MemDAO();
 		try {
 	
 			con = ds.getConnection();
+			con.setAutoCommit(false);
+			
+			MemVO memVO = memDAO.findByPrimaryKey(prVO.getMem_ID());
+			memVO.setMem_get_point(memVO.getMem_get_point()+prVO.getAmount().intValue());
+			
+			memDAO.update(memVO, con);
+			
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
 			pstmt.setString(1, prVO.getMem_ID());
@@ -69,8 +78,17 @@ public class PointRecDAO implements PointRecDAO_interface {
 			
 			pstmt.executeUpdate();
 			
+			con.commit();
+			con.setAutoCommit(true);
+			
 			
 		} catch (SQLException se) {
+			try {
+				con.rollback();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
 		} finally {
@@ -92,44 +110,7 @@ public class PointRecDAO implements PointRecDAO_interface {
 		}
 	}
 
-	public void insert(PointRecVO prVO, EmpVO empVO) { 
-		
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		
-		try {
-			
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(INSERT_STMT);
-			
-			pstmt.setString(1, prVO.getMem_ID());
-			pstmt.setDouble(2, prVO.getAmount());
-			pstmt.setTimestamp(3, prVO.getRec_date());
-			
-			pstmt.executeUpdate();
-			
-			
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace(System.err);
-				}
-			}
-			
-			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-	}
+	
 
 
 	@Override

@@ -19,11 +19,13 @@ public class ProductDAO implements ProductDAO_interface{
 			e.printStackTrace();
 		}
 	}
-
+	
 	private static final String INSERT_STMT = 
 		"INSERT INTO PRODUCT (PROD_ID, PROD_NAME, PROD_PRICE, PROD_TYPE, PROD_STOCK, PROD_PIC, PROD_PROMT_STATUS, PROD_STATUS, PROD_INFO) VALUES ('P'||LPAD(to_char(product_seq.NEXTVAL), 6, '0'), ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
 		"SELECT * FROM PRODUCT";
+	private static final String GET_SOME_STMT = 
+			"SELECT * FROM PRODUCT WHERE PROD_STATUS = 0";
 	private static final String GET_ONE_STMT = 
 		"SELECT * FROM PRODUCT where PROD_ID = ?";
 	private static final String DELETE = 
@@ -225,6 +227,64 @@ public class ProductDAO implements ProductDAO_interface{
 			
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				prodVO = new ProductVO();
+				prodVO.setProd_ID(rs.getString("PROD_ID"));
+				prodVO.setProd_name(rs.getString("PROD_NAME"));
+				prodVO.setProd_price(rs.getDouble("PROD_PRICE"));
+				prodVO.setProd_type(rs.getInt("PROD_TYPE"));
+				prodVO.setProd_stock(rs.getInt("PROD_STOCK"));
+				prodVO.setProd_pic(rs.getBytes("PROD_PIC"));
+				prodVO.setProd_promt_status(rs.getInt("PROD_PROMT_STATUS"));
+				prodVO.setProd_status(rs.getInt("PROD_STATUS"));
+				prodVO.setProd_info(rs.getString("PROD_INFO"));
+				list.add(prodVO);
+			}
+			
+			
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	public List<ProductVO> getSome() {
+		List<ProductVO> list = new ArrayList<>();
+		ProductVO prodVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_SOME_STMT);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {

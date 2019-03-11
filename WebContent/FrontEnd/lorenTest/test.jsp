@@ -33,7 +33,7 @@
 					 return;
 				 }else{
 					 alert('good');
-				 }
+				 } 
 // 				 $.ajax({
 // 					 type: "POST",
 // 					 url: "ShoppingServlet",

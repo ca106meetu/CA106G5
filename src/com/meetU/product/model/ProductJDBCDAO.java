@@ -363,4 +363,10 @@ public class ProductJDBCDAO implements ProductDAO_interface{
 
 	}
 
+	@Override
+	public List<ProductVO> getSome() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

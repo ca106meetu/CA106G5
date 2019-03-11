@@ -14,11 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.meetU.emp.model.EmpVO;
+import com.meetU.mem.model.MemVO;
 import com.meetU.pointRec.model.PointRecDAO;
 import com.meetU.pointRec.model.PointRecVO;
 import com.meetU.pointRec.model.PrService;
 
-@WebServlet("/FrontEnd/point/Pr.do")
+@WebServlet("/FrontEnd/point/pr.do")
 public class PrServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -39,31 +40,44 @@ public class PrServlet extends HttpServlet {
 			
 			
 						
-			if("0".equals(req.getParameter("amount"))) {
-				errorMsgs.add("請選取欲儲值金額");
-				RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/point/storePoint.jsp");
+			try {
+				if("0".equals(req.getParameter("amount"))) {
+					errorMsgs.add("請選取欲儲值金額");
+					RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/point/storePoint.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+				
+				
+				
+				
+				MemVO empVO = (MemVO) req.getSession().getAttribute("memVO");
+				
+				Date now = new Date();
+				String mem_ID = empVO.getMem_ID();
+				Timestamp rec_date = new Timestamp(now.getTime());
+				PointRecVO prVO = new PointRecVO();
+				Double amount = Double.valueOf(req.getParameter("amount")); 
+				
+				prVO.setAmount(amount);
+				prVO.setMem_ID(mem_ID);
+				prVO.setRec_date(rec_date);
+				
+				
+				PointRecDAO dao = new PointRecDAO();
+				dao.insert(prVO);
+				
+				String url = "/FrontEnd/point/listMyPr.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+			} catch (Exception e) {
+				errorMsgs.add("無法取得資料" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/FrontEnd/point/storePoint.jsp");
 				failureView.forward(req, res);
-				return;
 			}
 			
 			
-			
-			
-			EmpVO empVO = (EmpVO) req.getSession().getAttribute("empVO");
-			
-			Date now = new Date();
-			String mem_ID = empVO.getEmp_ID();
-			Timestamp rec_date = new Timestamp(now.getTime());
-			PointRecVO prVO = new PointRecVO();
-			Double amount = Double.valueOf(req.getParameter("amount")); 
-			
-			prVO.setAmount(amount);
-			prVO.setMem_ID(empVO.getEmp_ID());
-			prVO.setRec_date(rec_date);
-			
-			
-			PointRecDAO dao = new PointRecDAO();
-//			dao.
 			
 			
 			
