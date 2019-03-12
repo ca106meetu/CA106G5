@@ -24,7 +24,10 @@ public class FrontLoginHandler extends HttpServlet {
 	      return false;
 	    }
 	  }
-	  
+//	  public void doGet(HttpServletRequest req, HttpServletResponse res)
+//				throws ServletException, IOException {
+//			doPost(req, res);
+//	  }
 	  public void doPost(HttpServletRequest req, HttpServletResponse res)
            throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
@@ -36,12 +39,33 @@ public class FrontLoginHandler extends HttpServlet {
 		String mem_pw = req.getParameter("mem_pw");
 		
 		HttpSession session = req.getSession();
+		String backPage = (String) session.getAttribute("location");
 			// 【檢查該帳號 , 密碼是否有效】
 			if (!allowUser(mem_acc, mem_pw, session)) {          //【帳號 , 密碼無效時】
-				out.println("<HTML><HEAD><TITLE>Access Denied</TITLE></HEAD>");
-				out.println("<BODY>你的帳號 , 密碼無效!<BR>");
-				out.println("請按此重新登入 <A HREF="+req.getContextPath()+"/frontLogin.html>重新登入</A>");
-				out.println("</BODY></HTML>");
+//				out.println("<HTML><HEAD><TITLE>Access Denied</TITLE></HEAD>");
+//				out.println("<BODY>你的帳號 , 密碼無效!<BR>");
+//				out.println("請按此重新登入 <A HREF="+req.getContextPath()+"/frontLogin.html>重新登入</A>");
+//				out.println("</BODY></HTML>");
+				/*=====================================*/
+				String location = (String) session.getAttribute("location");
+				System.out.println(location);
+				if (location != null) {
+					//session.removeAttribute("location");
+					out.println("<!doctype html><html lang='zh-TW'><head><meta charset='utf-8'>");
+					out.println("<meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>");
+					out.println("<script src='Templates/bootstrap4/js/jquery-3.2.1.min.js'></script>");
+					out.println("<script src='Templates/bootstrap4/js/sweetalert2.all.js'></script>");
+					out.println("<link rel='stylesheet' type='text/css' href='Templates/bootstrap4/css/sweetalert2.css'>");
+				
+					out.println("<TITLE>登入失敗</TITLE></head><body><script type='text/javascript'>");
+					out.println("$(function(){swal('你的帳號,密碼無效!','請您重新輸入帳號密碼','error').then(function (result) {");
+					out.println("window.location.href='"+location+"';});});");
+					out.println("</script></body></HTML>");
+				   //*工作2: 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)
+					session.removeAttribute("location");            
+					return;
+				}
+				//req.getRequestDispatcher(backPage).forward(req, res);
 				//res.sendRedirect(req.getRequestURI());
 			}else {                                       //【帳號 , 密碼有效時, 才做以下工作】
 				session.setAttribute("mem_acc", mem_acc);   //*工作1: 才在session內做已經登入過的標識
@@ -55,7 +79,8 @@ public class FrontLoginHandler extends HttpServlet {
 					}
 				}catch (Exception ignored) { }
 				
-				res.sendRedirect(req.getContextPath()+"/frontLogin_success.jsp");  //*工作3: (-->如無來源網頁:則重導至login_success.jsp)
+				
+				//res.sendRedirect(req.getContextPath()+"/frontLogin_success.jsp");  //*工作3: (-->如無來源網頁:則重導至login_success.jsp)
 			}
 		}
 

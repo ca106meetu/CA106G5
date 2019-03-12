@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import org.json.JSONObject;
+
 import com.meetU.mem.model.*;
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
@@ -29,6 +31,16 @@ public class MemServlet extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
+		if ("ask_By_ACC".equals(action)) {
+			res.setContentType("text/plain; charset=UTF-8"); 
+			String mem_acc = req.getParameter("mem_acc");
+			/***************************2.開始查詢資料*****************************************/
+			MemService memSvc = new MemService();
+			
+			JSONObject obj = new JSONObject();
+			//if(memVO.)
+			
+		}
 		if ("getOne_For_Display".equals(action)) { // 來自addMem.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
