@@ -50,6 +50,44 @@ th, td {
 	height: 40px;
 	float: right;
 }
+#live_like {
+	position: fixed;
+	right: 0;
+	top: 20%;
+	width: 8em;
+	margin-top: -2.5em;
+	font: 15px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft JhengHei;   
+}
+#gointo{
+    border: none;
+    padding: 5px 5px;
+    border-radius: 5px;
+    width: 300px;
+    background: orange;
+    box-shadow: inset 0 0 10px #000000;
+    font: 15px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft JhengHei; 
+    font-weight: bold;
+	
+}
+#gointo:hover{
+    border: none;
+    padding: 5px 5px;
+    border-radius: 5px;
+    width: 300px;
+    background: red;
+    box-shadow: inset 0 0 10px #000000;
+    font: 15px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft JhengHei; 
+    font-weight: bold;
+	
+}
+.btn-primary {
+    color: #fff;
+    background-color:#0078ae;
+    border-color:#0078ae;
+} 
+small{
+font: 100px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft JhengHei; 
+}
 
 </style>
 <!-- Required meta tags -->
@@ -65,6 +103,20 @@ th, td {
 </head>
 <body>
 	<jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
+	
+	
+	
+	<div id='live_like'>
+		<form action="<%=request.getContextPath()%>/FrontEnd/live_like/live_like.do" method='post'>
+			<input class="btn btn-primary "  type="submit" value="看我的收藏">
+		    <input type="hidden" name="mem_ID"	value="M000005">
+		    <input type='hidden' name='action' value='getOne_For_Display'>
+		</form>
+	</div>
+	
+	
+	
+	
 
   <div class="jumbotron" style="margin-bottom: 0rem";>
   
@@ -81,10 +133,11 @@ th, td {
 							LiveVO liveVO = list.get(3 * j + i);
 							pageContext.setAttribute("liveVO", liveVO);
 			%>
-
+					
 			<div class="card border-danger mb-3">
+			<c:if test="${liveVO.live_pic != null}">
 				<img src="/CA106G5/ShowPic?HOST_ID=<%=liveVO.getHost_ID()%>"
-					id='pic' class="card-img-top">
+					id='pic' class="card-img-top"></c:if>
 				<div class="card-body ">
 					<h5 class="card-title"><%=liveVO.getLive_name()%></h5>
 					直播創立時間<br>
@@ -100,11 +153,9 @@ th, td {
 					<form method='post'
 						action='<%=request.getContextPath()%>/FrontEnd/fileRec/fileRec.do'
 						style="margin-bottom: 0px;">
-						<input type='submit' value='進入直播主房間'> 
-						<input type='hidden'
-							name='host_ID' value='<%=liveVO.getHost_ID()%>'> 
-						<input
-							type='hidden' name='action' value='go_to_fileRec_front'>
+						<input type='submit' value='進入直播主房間' id='gointo'> 
+						<input type='hidden' name='host_ID' value='<%=liveVO.getHost_ID()%>'> 
+						<input type='hidden' name='action' value='go_to_fileRec_front'>
 					</form>
 				</div>
 			</div>

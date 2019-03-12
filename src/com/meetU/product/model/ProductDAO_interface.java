@@ -10,6 +10,7 @@ public interface ProductDAO_interface {
     public void delete(String prod_ID);
     public ProductVO findByPrimaryKey(String prod_ID);
     public List<ProductVO> getAll();
+    public List<ProductVO> getSome();
   //萬用複合查詢(傳入參數型態Map)(回傳 List)
 //  public List<EmpVO> getAll(Map<String, String[]> map); 
 

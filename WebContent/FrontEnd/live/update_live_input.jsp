@@ -109,7 +109,9 @@ th, td {
 			<tr>
 				<td>直播間封面:</td>
 				<td><input type="file" name="live_pic" onchange='readURL(this)' /><br>
-					<img class='pic' src='data:img/png;base64,${encodeText}'></td>
+					<img class='pic' src="data:img/png;base64,${encodeText}"${(liveVO.live_pic==null)? 'style="display:none"' : ''}></td>
+					
+
 			</tr>
 			<tr>
 				<td>直播間狀態:</td>
@@ -118,15 +120,17 @@ th, td {
 					1:正常</td>
 			</tr>
 		</table>
-		<br> <input type="hidden" name="action" value="update"> <input
-			type="hidden" name="host_ID" value="<%=liveVO.getHost_ID()%>">
+		<br> <input type="hidden" name="action" value="update"> 
+		<input	type="hidden" name="host_ID" value="<%=liveVO.getHost_ID()%>">
+		<input type='hidden' name='whichPage' value='${param.whichPage}'>				
+        <input type='hidden' name='requestURL' value='<%=request.getServletPath()%>'>
 		<input type="submit" value="送出修改">
 	</FORM>
 	<script>
 		function readURL(input) {
 			var reader = new FileReader();
 			reader.onload = function(e) {
-				$(".pic").attr('src', e.target.result);
+				$(".pic").attr('src', e.target.result).css('display', '');
 
 			}
 			reader.readAsDataURL(input.files[0]);

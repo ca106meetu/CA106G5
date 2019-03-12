@@ -420,10 +420,10 @@ CREATE TABLE LIVE(
 
 INSERT INTO LIVE (HOST_ID, LIVE_NAME, LIVE_ACC, LIVE_PIC, LIVE_DATE, LIVE_STATUS) VALUES ('M000001','湯姆躺著賺',0,NULL,current_timestamp,0);
 INSERT INTO LIVE (HOST_ID, LIVE_NAME, LIVE_ACC, LIVE_PIC, LIVE_DATE, LIVE_STATUS) VALUES ('M000002','志明找春嬌',0,NULL,current_timestamp,0);
-INSERT INTO LIVE (HOST_ID, LIVE_NAME, LIVE_ACC, LIVE_PIC, LIVE_DATE, LIVE_STATUS) VALUES ('M000003','春嬌吃懶覺',0,NULL,current_timestamp,0);
-INSERT INTO LIVE (HOST_ID, LIVE_NAME, LIVE_ACC, LIVE_PIC, LIVE_DATE, LIVE_STATUS) VALUES ('M000004','安妮小奶子',0,NULL,current_timestamp,0);
-INSERT INTO LIVE (HOST_ID, LIVE_NAME, LIVE_ACC, LIVE_PIC, LIVE_DATE, LIVE_STATUS) VALUES ('M000005','茱蒂的蒂蒂',0,NULL,current_timestamp,0);
-INSERT INTO LIVE (HOST_ID, LIVE_NAME, LIVE_ACC, LIVE_PIC, LIVE_DATE, LIVE_STATUS) VALUES ('M000006','艾達愛打炮',0,NULL,current_timestamp,0);
+INSERT INTO LIVE (HOST_ID, LIVE_NAME, LIVE_ACC, LIVE_PIC, LIVE_DATE, LIVE_STATUS) VALUES ('M000003','春嬌想睡覺',0,NULL,current_timestamp,0);
+INSERT INTO LIVE (HOST_ID, LIVE_NAME, LIVE_ACC, LIVE_PIC, LIVE_DATE, LIVE_STATUS) VALUES ('M000004','安妮動起來',0,NULL,current_timestamp,0);
+INSERT INTO LIVE (HOST_ID, LIVE_NAME, LIVE_ACC, LIVE_PIC, LIVE_DATE, LIVE_STATUS) VALUES ('M000005','茱蒂大胃王',0,NULL,current_timestamp,0);
+INSERT INTO LIVE (HOST_ID, LIVE_NAME, LIVE_ACC, LIVE_PIC, LIVE_DATE, LIVE_STATUS) VALUES ('M000006','艾達愛網拍',0,NULL,current_timestamp,0);
 
 ----------------------------
 --  for Table FILEREC
@@ -445,14 +445,15 @@ CREATE SEQUENCE filer_seq
   NOMAXVALUE
   NOCYCLE
   NOCACHE;
-INSERT INTO FILEREC (FILE_ID, HOST_ID, FILE_NAME, LIVE_DES, FILE_CONT, FILE_DATE, FILE_POP) VALUES ('FM'||LPAD(to_char(filer_seq.NEXTVAL), 6, '0'),'M000001','湯姆初次開吃','開台首吃好緊張!!','https://www.youtube.com/embed/moyV8-g-SwM',current_timestamp,0);
-INSERT INTO FILEREC (FILE_ID, HOST_ID, FILE_NAME, LIVE_DES, FILE_CONT, FILE_DATE, FILE_POP) VALUES ('FM'||LPAD(to_char(filer_seq.NEXTVAL), 6, '0'),'M000001','湯姆的第二次','繼續開台','https://www.youtube.com/embed/moyV8-g-SwM',current_timestamp,0);
+INSERT INTO FILEREC (FILE_ID, HOST_ID, FILE_NAME, LIVE_DES, FILE_CONT, FILE_DATE, FILE_POP) VALUES ('FM'||LPAD(to_char(filer_seq.NEXTVAL), 6, '0'),'M000001','湯姆初次開台','開台首吃好緊張!!','https://www.youtube.com/embed/7L06_HW_HcA',current_timestamp,0);
+INSERT INTO FILEREC (FILE_ID, HOST_ID, FILE_NAME, LIVE_DES, FILE_CONT, FILE_DATE, FILE_POP) VALUES ('FM'||LPAD(to_char(filer_seq.NEXTVAL), 6, '0'),'M000001','湯姆的第二次','繼續開台','https://www.youtube.com/embed/UXHTGeGkZwU',current_timestamp,0);
 INSERT INTO FILEREC (FILE_ID, HOST_ID, FILE_NAME, LIVE_DES, FILE_CONT, FILE_DATE, FILE_POP) VALUES ('FM'||LPAD(to_char(filer_seq.NEXTVAL), 6, '0'),'M000001','湯姆的第三次','還是繼續開','https://www.youtube.com/embed/moyV8-g-SwM',current_timestamp,0);
-INSERT INTO FILEREC (FILE_ID, HOST_ID, FILE_NAME, LIVE_DES, FILE_CONT, FILE_DATE, FILE_POP) VALUES ('FM'||LPAD(to_char(filer_seq.NEXTVAL), 6, '0'),'M000002','志明新春直播','大家來幫我找春嬌','https://www.youtube.com/embed/moyV8-g-SwM',current_timestamp,0);
-INSERT INTO FILEREC (FILE_ID, HOST_ID, FILE_NAME, LIVE_DES, FILE_CONT, FILE_DATE, FILE_POP) VALUES ('FM'||LPAD(to_char(filer_seq.NEXTVAL), 6, '0'),'M000003','春嬌的第一次','今天來開箱!!','https://www.youtube.com/embed/moyV8-g-SwM',current_timestamp,0);
+INSERT INTO FILEREC (FILE_ID, HOST_ID, FILE_NAME, LIVE_DES, FILE_CONT, FILE_DATE, FILE_POP) VALUES ('FM'||LPAD(to_char(filer_seq.NEXTVAL), 6, '0'),'M000001','湯姆的第四次','就是要一直開','https://www.youtube.com/embed/Q0Nn4TUXH5Y',current_timestamp,0);
+INSERT INTO FILEREC (FILE_ID, HOST_ID, FILE_NAME, LIVE_DES, FILE_CONT, FILE_DATE, FILE_POP) VALUES ('FM'||LPAD(to_char(filer_seq.NEXTVAL), 6, '0'),'M000002','志明新春直播','大家來幫我找春嬌','https://www.youtube.com/embed/nVjVpX3gRWk',current_timestamp,0);
+INSERT INTO FILEREC (FILE_ID, HOST_ID, FILE_NAME, LIVE_DES, FILE_CONT, FILE_DATE, FILE_POP) VALUES ('FM'||LPAD(to_char(filer_seq.NEXTVAL), 6, '0'),'M000003','春嬌的第一次','今天來開箱!!','https://www.youtube.com/embed/zGrYK1VTIjs',current_timestamp,0);
 INSERT INTO FILEREC (FILE_ID, HOST_ID, FILE_NAME, LIVE_DES, FILE_CONT, FILE_DATE, FILE_POP) VALUES ('FM'||LPAD(to_char(filer_seq.NEXTVAL), 6, '0'),'M000004','安妮的小天地','我的影片裡有各種可愛的東西','https://www.youtube.com/embed/moyV8-g-SwM',current_timestamp,0);
-INSERT INTO FILEREC (FILE_ID, HOST_ID, FILE_NAME, LIVE_DES, FILE_CONT, FILE_DATE, FILE_POP) VALUES ('FM'||LPAD(to_char(filer_seq.NEXTVAL), 6, '0'),'M000005','茱蒂第一支影片','來看我翻看蒂蒂','https://www.youtube.com/embed/moyV8-g-SwM',current_timestamp,0);
-INSERT INTO FILEREC (FILE_ID, HOST_ID, FILE_NAME, LIVE_DES, FILE_CONT, FILE_DATE, FILE_POP) VALUES ('FM'||LPAD(to_char(filer_seq.NEXTVAL), 6, '0'),'M000006','艾達來聊聊','談談你想成為怎樣的炮王','https://www.youtube.com/embed/moyV8-g-SwM',current_timestamp,0);
+INSERT INTO FILEREC (FILE_ID, HOST_ID, FILE_NAME, LIVE_DES, FILE_CONT, FILE_DATE, FILE_POP) VALUES ('FM'||LPAD(to_char(filer_seq.NEXTVAL), 6, '0'),'M000005','茱蒂第一支影片','來看我一直吃東西','https://www.youtube.com/embed/moyV8-g-SwM',current_timestamp,0);
+INSERT INTO FILEREC (FILE_ID, HOST_ID, FILE_NAME, LIVE_DES, FILE_CONT, FILE_DATE, FILE_POP) VALUES ('FM'||LPAD(to_char(filer_seq.NEXTVAL), 6, '0'),'M000006','艾達來聊聊','怎麼買東西最划算','https://www.youtube.com/embed/moyV8-g-SwM',current_timestamp,0);
 
 ----------------------------
 --  for Table AD
@@ -460,7 +461,7 @@ INSERT INTO FILEREC (FILE_ID, HOST_ID, FILE_NAME, LIVE_DES, FILE_CONT, FILE_DATE
 CREATE TABLE AD(
    AD_ID VARCHAR2(200) NOT NULL,
    HOST_ID VARCHAR2(200) NOT NULL,
-   AD_NAME VARCHAR2(200 char) NOT NULL,   
+   AD_NAME VARCHAR2(200) NOT NULL,   
    AD_CONT BLOB,
    AD_COST NUMBER(10) NOT NULL,
    APPLY_STATUS NUMBER NOT NULL,
@@ -531,8 +532,9 @@ CREATE SEQUENCE live_rep_seq
   NOCYCLE
   NOCACHE;
 
-INSERT INTO LIVE_REP  (REP_ID, HOST_ID, MEM_ID, REP_CONT, REP_DATE, REP_STATUS, REP_ANS, REP_ANS_DATE) VALUES ('LR'||LPAD(to_char(live_rep_seq.NEXTVAL), 6, '0'),'M000005','M000006','直播主在吃雞雞',current_timestamp,1,'準備關閉它的直播',current_timestamp);
+INSERT INTO LIVE_REP  (REP_ID, HOST_ID, MEM_ID, REP_CONT, REP_DATE, REP_STATUS, REP_ANS, REP_ANS_DATE) VALUES ('LR'||LPAD(to_char(live_rep_seq.NEXTVAL), 6, '0'),'M000005','M000006','直播主在吃雞雞',current_timestamp,1,'準備	關閉它的直播',current_timestamp);
 INSERT INTO LIVE_REP  (REP_ID, HOST_ID, MEM_ID, REP_CONT, REP_DATE, REP_STATUS, REP_ANS, REP_ANS_DATE) VALUES ('LR'||LPAD(to_char(live_rep_seq.NEXTVAL), 6, '0'),'M000003','M000005','他比我還有人氣',current_timestamp,2,'未認可的檢舉',current_timestamp);
+INSERT INTO LIVE_REP  (REP_ID, HOST_ID, MEM_ID, REP_CONT, REP_DATE, REP_STATUS, REP_ANS, REP_ANS_DATE) VALUES ('LR'||LPAD(to_char(live_rep_seq.NEXTVAL), 6, '0'),'M000005','M000006','繼續檢舉',current_timestamp,2,'未認可的檢舉',current_timestamp);
 
 ----------------------------
 --  for Table LIVE_LIKE

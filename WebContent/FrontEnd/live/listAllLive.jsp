@@ -76,10 +76,15 @@ td {
 			<th>刪除</th>
 		</tr>
 		<%@ include file="page1.file"%>
+		<%
+		if(request.getAttribute("lastPage") != null &&(boolean)request.getAttribute("lastPage")){
+			pageIndex = pageIndexArray[pageNumber-1];
+		}
+	%>
 
 		<c:forEach var="liveVO" items="${list}" begin="<%=pageIndex%>"
 			end="<%=pageIndex+rowsPerPage-1%>">
-			<tr>
+			<tr  ${(liveVO.host_ID==param.host_ID) ? 'bgcolor=	#66FFFF':''}>
 				<td>${liveVO.host_ID}</td>
 				<td>${liveVO.live_name}</td>
 				<td>${liveVO.live_acc}</td>
@@ -97,17 +102,20 @@ td {
 					<form method='post'
 						action='<%=request.getContextPath()%>/FrontEnd/fileRec/listOneFileRec.jsp'
 						style="margin-bottom: 0px;">
-						<input type='submit' value='進入直播主房間'> <input type='hidden'
-							name='host_ID' value='${liveVO.host_ID}'> <input
-							type='hidden' name='action' value='go_to_fileRec_back'>
+						<input type='submit' value='進入直播主房間'> 
+						<input type='hidden' name='host_ID' value='${liveVO.host_ID}'>
+						<input type='hidden' name='action' value='go_to_fileRec_back'>
+							
 					</form>
 				</td>
 
 				<td>
 					<form method='post' action='live.do' style="margin-bottom: 0px;">
-						<input type='submit' value='修改'> <input type='hidden'
-							name='host_ID' value='${liveVO.host_ID}'> <input
-							type='hidden' name='action' value='getOne_For_Update'>
+						<input type='submit' value='修改'>
+						<input type='hidden' name='host_ID' value='${liveVO.host_ID}'>
+					    <input type='hidden' name='action' value='getOne_For_Update'>
+					    <input type='hidden' name='whichPage' value='${param.whichPage}'>				
+					    <input type='hidden' name='requestURL' value='<%=request.getServletPath()%>'>			
 					</form>
 				</td>
 				<td>

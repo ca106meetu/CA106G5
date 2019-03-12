@@ -28,22 +28,33 @@
 <style>
 .btn-primary {
     color: #fff;
-    background-color: 	#FFBB00;
-    border-color: 	#FFBB00;
-}
+    background-color:#0078ae;
+    border-color:#0078ae;
+} 
 #live_like {
 	position: fixed;
 	right: 0;
-	top: 50%;
+	top: 20%;
+	width: 8em;
+	margin-top: -2.5em;
+}
+#live_like2 {
+	position: fixed;
+	right: 0;
+	top: 25%;
 	width: 8em;
 	margin-top: -2.5em;
 }
 #live_rep {
 	position: fixed;
 	right: 0;
-	top: 57%;
+	top: 30%;
 	width: 8em;
 	margin-top: -2.5em;
+}
+html,body {	
+	font: 15px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft JhengHei;   
+	 
 }
 
 .pic {
@@ -100,7 +111,7 @@ td {
 			<th>影片描述</th>
 			<th>影片內容</th>
 			<th>影片上架時間</th>
-			<th>影片觀看人數</th>
+			
 
 		</tr>
 		<%@ include file="page1.file"%>
@@ -121,16 +132,28 @@ td {
 						allowfullscreen></iframe></td>
 				<td><fmt:formatDate value="${fileRecVO.file_date}"
 						pattern="yyyy-MM-dd HH:mm" /></td>
-				<td>${fileRecVO.file_pop}</td>
+				
 			</tr>
 
 		</c:forEach>
 	</table>
+	<jsp:useBean id="live_likeSvc" scope="page" class="com.meetU.live_like.model.Live_likeService"/>
 	<div id='live_like'>
-		<a class="btn btn-primary" href="" role="button">收藏直播主</a>
+		<input class="${live_likeSvc.getOneLive_like2('M000005',param.host_ID ) != null ? 'btn btn-danger ' : 'btn btn-primary ' } live_like"  type="submit" value="${live_likeSvc.getOneLive_like2('M000005',param.host_ID ) != null ? '退訂直播主' : '收藏直播主' }">
+		<input type="hidden" name="host_ID" value="${param.host_ID}">
+		<input type="hidden" name="mem_ID"	value="M000005">
 	</div>
+	
 	<div id='live_rep'>
 		<a class="btn btn-primary" href="" role="button">檢舉直播主</a>
+	</div>
+	
+	<div id='live_like2'>
+		<form action="<%=request.getContextPath()%>/FrontEnd/live_like/live_like.do" method='post'>
+			<input class="btn btn-primary "  type="submit" value="看我的收藏">
+		    <input type="hidden" name="mem_ID"	value="M000005">
+		    <input type='hidden' name='action' value='getOne_For_Display'>
+		</form>
 	</div>
 	
 	
@@ -147,5 +170,53 @@ td {
 	<script
 		src="<%=request.getContextPath()%>/Templates/bootstrap4/js/bootstrap.min.js"></script>
 </body>
+<script>
+$(document).ready(function(){
+	$(".live_like").click(function(){
+		 
+		 if($(this).val() == "收藏直播主"){
+			 				 
+			 $.ajax({
+				 type: "POST",
+				 url: "<%=request.getContextPath()%>/FrontEnd/live_like/live_like.do",
+				 data: {"host_ID":$(this).next().attr('value'), 
+					 	"action":"insert", 
+					 	"mem_ID":$(this).next().next().attr('value')},
+				 dataType: "json",
+				 success: function(){
+					 
+					 $(".live_like").val("退訂直播主");
+					 $(".live_like").attr("class","btn btn-danger live_like");
+					
+					
+					 alert("成功加入收藏");
+					},
+					
+	             error: function(){alert("愛你唷,不過錯了")}
+		         });
+			 
+			 
+		 }else if($(this).val() == "退訂直播主"){
+			 
+			 $.ajax({
+				 type: "POST",
+				 url: "<%=request.getContextPath()%>/FrontEnd/live_like/live_like.do",
+				 data: {"host_ID":$(this).next().attr('value'), 
+					 	"action":"delete", 
+					 	"mem_ID":$(this).next().next().attr('value')},
+						 dataType: "json",
+				 success: function(){
+					 
+					 $(".live_like").val("收藏直播主");
+					 $(".live_like").attr("class","btn btn-primary live_like");
+												
+					 alert("成功取消收藏");
+					},
+	             error: function(){alert("愛你唷,不過錯了2")}
+		         });				
+		 }
+	 });
+})
+</script>
 </html>
 

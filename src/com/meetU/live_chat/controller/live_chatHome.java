@@ -16,7 +16,7 @@ import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
-@ServerEndpoint("/live_chatHome/{myName}/{myRoom}")
+@ServerEndpoint("/live_chatHome/{myName}")
 public class live_chatHome {
 
 	
@@ -24,18 +24,18 @@ private static final Set<Session> allSessions = Collections.synchronizedSet(new 
 private static final Map<Session, String> map = Collections.synchronizedMap(new HashMap<>());
 	
 	@OnOpen
-	public void onOpen(@PathParam("myName") String myName, @PathParam("myRoom") int myRoom, Session userSession) throws IOException {
+	public void onOpen(@PathParam("myName") String myName, Session userSession) throws IOException {
 		allSessions.add(userSession);
 		map.put(userSession, myName);
 		System.out.println(userSession.getId() + ": 已連線");
 		System.out.println(myName + ": 已連線");
-		System.out.println(myRoom + ": 房號");
+		
 //		userSession.getBasicRemote().sendText("WebSocket 連線成功");
 	}
 
 	
 	@OnMessage
-	public void onMessage(@PathParam("myName") String myName, @PathParam("myRoom") int myRoom, Session userSession, String message) {
+	public void onMessage(@PathParam("myName") String myName, Session userSession, String message) {
 		for (Session session : allSessions) {
 			if (session.isOpen() && map.get(session).equals(myName))
 				session.getAsyncRemote().sendText(message);

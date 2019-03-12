@@ -23,6 +23,7 @@ public class Live_likeJDBCDAO implements Live_likeDAO_interface {
 	private static final String INSERT_STMT = "INSERT INTO LIVE_LIKE  (MEM_ID, HOST_ID) VALUES (?,?)";
 	private static final String DELETE = "DELETE FROM LIVE_LIKE where MEM_ID = ? and HOST_ID= ? ";
 	private static final String GET_ONE_STMT = "SELECT * FROM LIVE_LIKE where MEM_ID = ?";
+	private static final String GET_ONE_STMT2 = "SELECT * FROM LIVE_LIKE where MEM_ID = ? and HOST_ID= ?";
 	private static final String GET_ALL_STMT = "SELECT * FROM LIVE_LIKE";
 
 	public Live_likeJDBCDAO() {
@@ -159,6 +160,68 @@ public class Live_likeJDBCDAO implements Live_likeDAO_interface {
 		}
 		return list;
 	}
+	
+	@Override
+	public Live_likeVO findByPrimaryKey(String mem_ID,String host_ID) {
+		
+		Live_likeVO live_likeVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			try {
+				Class.forName(driver);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ONE_STMT2);
+
+			pstmt.setString(1, mem_ID);
+			pstmt.setString(2, host_ID);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				live_likeVO = new Live_likeVO();
+
+				live_likeVO.setMem_ID(rs.getString("MEM_ID"));
+				live_likeVO.setHost_ID(rs.getString("HOST_ID"));
+
+			
+
+			}
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return live_likeVO;
+	}
 
 	@Override
 	public List<Live_likeVO> getALL() {
@@ -215,37 +278,52 @@ public class Live_likeJDBCDAO implements Live_likeDAO_interface {
 	public static void main(String[] args) throws IOException {
 		Live_likeJDBCDAO dao = new Live_likeJDBCDAO();
 
-//				新增
-		Live_likeVO live_likeVO1 = new Live_likeVO();
-		live_likeVO1.setMem_ID("M000002");
-		live_likeVO1.setHost_ID("M000005");
-		dao.insert(live_likeVO1);
+////				新增
+//		Live_likeVO live_likeVO1 = new Live_likeVO();
+//		live_likeVO1.setMem_ID("M000002");
+//		live_likeVO1.setHost_ID("M000004");
+//		dao.insert(live_likeVO1);
+//
+//		System.out.println("成功新增");
 
-		System.out.println("成功新增");
+////				刪除
+//		Live_likeVO live_likeVO3 = new Live_likeVO();
+//		live_likeVO3.setMem_ID("M000002");
+//		live_likeVO3.setHost_ID("M000005");
+//		dao.delete(live_likeVO3);
+//
+//		System.out.println("刪除成功");
+//
+////				條件查詢
+//		List<Live_likeVO> list = dao.findByPrimaryKey("M000002");
+//		for (Live_likeVO live_likeVO4 : list) {
+//			System.out.print(live_likeVO4.getMem_ID() + ", ");
+//			System.out.println(live_likeVO4.getHost_ID() + " ");
+//			System.out.println("----------------------------");
+//		}
+		
+//		條件查詢2
+Live_likeVO live_likeVO5 = dao.findByPrimaryKey("M000002","M000005");
 
-//				刪除
-		Live_likeVO live_likeVO3 = new Live_likeVO();
-		live_likeVO3.setMem_ID("M000002");
-		live_likeVO3.setHost_ID("M000005");
-		dao.delete(live_likeVO3);
+	System.out.print(live_likeVO5.getMem_ID() + ", ");
+	System.out.println(live_likeVO5.getHost_ID() + " ");
+	System.out.println("----------------------------");
 
-		System.out.println("刪除成功");
-
-//				條件查詢
-		List<Live_likeVO> list = dao.findByPrimaryKey("M000001");
-		for (Live_likeVO live_likeVO4 : list) {
-			System.out.print(live_likeVO4.getMem_ID() + ", ");
-			System.out.println(live_likeVO4.getHost_ID() + " ");
-			System.out.println("----------------------------");
-		}
-
-//				查詢全部	
-		List<Live_likeVO> list2 = dao.getALL();
-		for (Live_likeVO live_likeVO5 : list2) {
-			System.out.print(live_likeVO5.getMem_ID() + ", ");
-			System.out.println(live_likeVO5.getHost_ID() + " ");
-			System.out.println("----------------------------");
-		}
+		
+		
+		
+		
+		
+		
+		
+//
+////				查詢全部	
+//		List<Live_likeVO> list2 = dao.getALL();
+//		for (Live_likeVO live_likeVO5 : list2) {
+//			System.out.print(live_likeVO5.getMem_ID() + ", ");
+//			System.out.println(live_likeVO5.getHost_ID() + " ");
+//			System.out.println("----------------------------");
+//		}
 	}
 
 }

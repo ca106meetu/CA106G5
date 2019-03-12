@@ -35,6 +35,11 @@ public class Live_likeService {
 		List<Live_likeVO> list = dao.findByPrimaryKey(mem_ID);
 		return list;
 	}
+//	條件查詢2	
+	public Live_likeVO getOneLive_like2(String mem_ID,String host_ID) {
+		Live_likeVO live_likeVO = dao.findByPrimaryKey(mem_ID,host_ID);
+		return live_likeVO;
+	}
 
 //	查詢全部
 	public List<Live_likeVO> getAll() {

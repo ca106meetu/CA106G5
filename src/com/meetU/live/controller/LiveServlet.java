@@ -1,5 +1,6 @@
 package com.meetU.live.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
@@ -18,6 +19,8 @@ import javax.servlet.http.Part;
 
 import com.meetU.live.model.LiveService;
 import com.meetU.live.model.LiveVO;
+
+
 
 @MultipartConfig
 public class LiveServlet extends HttpServlet {
@@ -97,11 +100,12 @@ public class LiveServlet extends HttpServlet {
 				String host_ID = new String(req.getParameter("host_ID"));
 
 				/*************************** 2.開始查詢資料 ****************************************/
+
 				LiveService liveSvc = new LiveService();
 				LiveVO liveVO = liveSvc.getOneLive(host_ID);
+				Base64.Encoder encoder = Base64.getEncoder();
 
 				if (liveVO.getLive_pic() != null) {
-					Base64.Encoder encoder = Base64.getEncoder();
 					String encodeText = encoder.encodeToString(liveVO.getLive_pic());
 					req.setAttribute("encodeText", encodeText);
 				}
@@ -134,6 +138,8 @@ public class LiveServlet extends HttpServlet {
 
 				String live_name = req.getParameter("live_name").trim();
 				if (live_name == null || live_name.trim().length() == 0) {
+					LiveService liveSvc =new LiveService();
+					live_name =liveSvc.getOneLive(host_ID).getLive_name();
 					errorMsgs.add("直播間名稱請勿空白");
 				}
 
@@ -141,21 +147,23 @@ public class LiveServlet extends HttpServlet {
 				try {
 					live_acc = new Integer(req.getParameter("live_acc").trim());
 				} catch (NumberFormatException e) {
-					live_acc = 0;
+					LiveService liveSvc =new LiveService();
+					live_acc =liveSvc.getOneLive(host_ID).getLive_acc();
 					errorMsgs.add("累積瀏覽人數請填數字.");
 				}
 
 				InputStream in = null;
 				byte[] live_pic = null;
-				try {
-					Part part = req.getPart("live_pic");
+				Part part = req.getPart("live_pic");
+				if(getFileNameFromPart(part) != null) {
 					in = part.getInputStream();
 					live_pic = new byte[in.available()];
 					in.read(live_pic);
-				} catch (Exception e) {
-					errorMsgs.add("尚無圖片: " + e.getMessage());
+					in.close();
+				}else {
+					live_pic = new LiveService().getOneLive(host_ID).getLive_pic();
 				}
-				in.close();
+				
 
 				Timestamp live_date = new LiveService().getOneLive(host_ID).getLive_date();
 
@@ -163,15 +171,14 @@ public class LiveServlet extends HttpServlet {
 
 				try {
 					live_status = new Integer(req.getParameter("live_status").trim());
-					String live_statusa = live_status.toString();
-					String regreg = "[^0-1]";
-					if (live_statusa.matches(regreg)) {
-//					if (!live_status.equals(new Integer(0))&&!live_status.equals(new Integer(1)))
-						errorMsgs.add("直播間狀態請填0:關閉或1:正常");
+					String live_status1 = live_status.toString();
+					
+					if (live_status1 == null || live_status1.trim().length() == 0) {
+						live_status =1;	
+						errorMsgs.add("直播狀態請勿空白");
 					}
 				} catch (Exception e) {
-					e.printStackTrace();
-//					errorMsgs.add("直播間狀態請填0:關閉或1:正常");
+					errorMsgs.add("直播間狀態請填0:關閉或1:正常");
 				}
 
 				LiveVO liveVO = new LiveVO();
@@ -199,7 +206,7 @@ public class LiveServlet extends HttpServlet {
 
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("liveVO", liveVO); // 資料庫update成功後,正確的的empVO物件,存入req
-				String url = "/FrontEnd/live/listOneLive.jsp";
+				String url = "/FrontEnd/live/listAllLive.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
 
@@ -210,6 +217,7 @@ public class LiveServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
 
 //       新增
 		if ("insert".equals(action)) { // 來自addEmp.jsp的請求
@@ -316,6 +324,17 @@ public class LiveServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+	}
+	
+	public String getFileNameFromPart(Part part) {
+		String header = part.getHeader("content-disposition");
+//		System.out.println("header=" + header); // 測試用
+		String filename = new File(header.substring(header.lastIndexOf("=") + 2, header.length() - 1)).getName();
+//		System.out.println("filename=" + filename); // 測試用
+		if (filename.length() == 0) {
+			return null;
+		}
+		return filename;
 	}
 
 }

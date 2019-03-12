@@ -11,6 +11,8 @@ public interface Live_likeDAO_interface {
 	public void delete(Live_likeVO live_likeVO);
 
 	public List<Live_likeVO> findByPrimaryKey(String mem_ID);
+	
+	public Live_likeVO findByPrimaryKey(String mem_ID,String host_ID);
 
 	public List<Live_likeVO> getALL();
 

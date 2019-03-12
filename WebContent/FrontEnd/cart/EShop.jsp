@@ -7,8 +7,9 @@
 
 <%
 	ProductService prodSvc = new ProductService(); 
-	List<ProductVO> list = prodSvc.getAll();
+	List<ProductVO> list = prodSvc.getSome();
 	pageContext.setAttribute("list", list);
+	List<String> ps = (List<String>)application.getAttribute("ps");
 
 %>
 
@@ -73,7 +74,9 @@
 <div class="card-deck">
 <%for(int i =0; i<=2; i++){
 	if(3*j+i <= list.size()-1){
-	ProductVO prodVO = list.get(3*j+i);%>	
+		
+	ProductVO prodVO = list.get(3*j+i);
+	%>	
   <div class="card border-danger mb-3">
     <img src="/CA106G5/ShowPic?PROD_ID=<%=prodVO.getProd_ID()%>" id='pic' class="card-img-top">
     <div class="card-body ">

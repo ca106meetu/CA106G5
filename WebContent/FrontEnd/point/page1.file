@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%  int rowsPerPage = 3;  //每頁的筆數    
+<%  int rowsPerPage = 2;  //每頁的筆數    
     int rowNumber=0;      //總筆數
     int pageNumber=0;     //總頁數      
     int whichPage=1;      //第幾頁
@@ -8,7 +8,7 @@
 %>
 
 <%  
-
+	
     rowNumber=list.size();
     if (rowNumber%rowsPerPage !=0)
          pageNumber=rowNumber/rowsPerPage + 1;
@@ -31,7 +31,7 @@
               pageIndex=pageIndexArray[pageNumber-1];
          }
     } 
-     if(request.getAttribute("lastPage") != null && (boolean)request.getAttribute("lastPage")){
+    if(request.getAttribute("lastPage") != null && (boolean)request.getAttribute("lastPage")){
 			whichPage=pageNumber;
 			pageIndex = pageIndexArray[pageNumber-1];
 		}
