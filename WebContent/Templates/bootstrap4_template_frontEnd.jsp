@@ -9,11 +9,12 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
+    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
 
     <title>Hello, world!</title>  
   </head>
   <body>
-    <jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
+    <jsp:include page="/Templates/bootstrap4/frontHeader2.jsp" />
     
     
     
@@ -26,8 +27,7 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
-    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/popper.min.js"></script>
+    < <script src="<%=request.getContextPath()%>/Templates/bootstrap4/popper.min.js"></script>
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/js/bootstrap.min.js"></script>
   </body>
 </html>

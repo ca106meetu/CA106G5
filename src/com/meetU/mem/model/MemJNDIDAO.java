@@ -277,11 +277,13 @@ public class MemJNDIDAO implements MemDAO_interface{
 		return memVO;
 	}
 	@Override
-	public MemVO findByMEM_ACC(String mem_acc) {
+	public boolean findByMEM_ACC(String mem_acc) {
 		MemVO memVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		String tempMem_acc = null;
+		boolean mem_accFlag = false;
 
 		try {
 
@@ -294,28 +296,10 @@ public class MemJNDIDAO implements MemDAO_interface{
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				memVO = new MemVO();
-				memVO.setMem_ID(rs.getString("mem_ID"));
-				memVO.setMem_pw(rs.getString("mem_pw"));
-				memVO.setMem_name(rs.getString("mem_name"));
-				memVO.setMem_acc(rs.getString("mem_acc"));
-				memVO.setMem_nickname(rs.getString("mem_nickname"));
-				memVO.setMem_bday(rs.getDate("mem_bday"));
-				memVO.setMem_email(rs.getString("mem_email"));
-				memVO.setMem_pho(rs.getString("mem_pho"));
-				memVO.setMem_gend(rs.getString("mem_gend"));
-				memVO.setMem_pic(rs.getBytes("mem_pic"));
-				memVO.setMem_intro(rs.getString("mem_intro"));
-				memVO.setMem_code(rs.getInt("mem_code"));
-				memVO.setMem_state(rs.getInt("mem_state"));
-				memVO.setMem_date(rs.getDate("mem_date"));
-				memVO.setMem_sign_day(rs.getTimestamp("mem_sign_day"));
-				memVO.setMem_login_state(rs.getInt("mem_login_state"));
-				memVO.setMem_address(rs.getString("mem_address"));
-				memVO.setLast_pair(rs.getTimestamp("last_pair"));
-				memVO.setMem_hobby(rs.getString("mem_hobby"));
-				memVO.setMem_QRCODE(rs.getBytes("mem_QRCODE"));
-				memVO.setMem_get_point(rs.getInt("mem_get_point"));
+				tempMem_acc = rs.getString("mem_acc");
+				if(tempMem_acc.equals(mem_acc)) {
+					mem_accFlag = true;
+				}
 			}
 
 			// Handle any driver errors
@@ -346,14 +330,16 @@ public class MemJNDIDAO implements MemDAO_interface{
 				}
 			}
 		}
-		return memVO;
+		return mem_accFlag;
 	}
 	@Override
-	public MemVO findByMEM_EMAIL(String mem_email) {
+	public boolean findByMEM_EMAIL(String mem_email) {
 		MemVO memVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		String tempMem_email = null;
+		boolean mem_emailFlag = false;
 
 		try {
 
@@ -366,28 +352,10 @@ public class MemJNDIDAO implements MemDAO_interface{
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				memVO = new MemVO();
-				memVO.setMem_ID(rs.getString("mem_ID"));
-				memVO.setMem_pw(rs.getString("mem_pw"));
-				memVO.setMem_name(rs.getString("mem_name"));
-				memVO.setMem_acc(rs.getString("mem_acc"));
-				memVO.setMem_nickname(rs.getString("mem_nickname"));
-				memVO.setMem_bday(rs.getDate("mem_bday"));
-				memVO.setMem_email(rs.getString("mem_email"));
-				memVO.setMem_pho(rs.getString("mem_pho"));
-				memVO.setMem_gend(rs.getString("mem_gend"));
-				memVO.setMem_pic(rs.getBytes("mem_pic"));
-				memVO.setMem_intro(rs.getString("mem_intro"));
-				memVO.setMem_code(rs.getInt("mem_code"));
-				memVO.setMem_state(rs.getInt("mem_state"));
-				memVO.setMem_date(rs.getDate("mem_date"));
-				memVO.setMem_sign_day(rs.getTimestamp("mem_sign_day"));
-				memVO.setMem_login_state(rs.getInt("mem_login_state"));
-				memVO.setMem_address(rs.getString("mem_address"));
-				memVO.setLast_pair(rs.getTimestamp("last_pair"));
-				memVO.setMem_hobby(rs.getString("mem_hobby"));
-				memVO.setMem_QRCODE(rs.getBytes("mem_QRCODE"));
-				memVO.setMem_get_point(rs.getInt("mem_get_point"));
+				tempMem_email = rs.getString("mem_email");
+				if(tempMem_email.equals(mem_email)) {
+					mem_emailFlag = true;
+				}
 			}
 
 			// Handle any driver errors
@@ -418,7 +386,7 @@ public class MemJNDIDAO implements MemDAO_interface{
 				}
 			}
 		}
-		return memVO;
+		return mem_emailFlag;
 	}
 	
 	@Override
