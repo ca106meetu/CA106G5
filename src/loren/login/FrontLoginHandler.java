@@ -51,8 +51,8 @@ public class FrontLoginHandler extends HttpServlet {
 		boolean mem_emailChick = mEmailSvc.getOneMemByEMAIL(register_text_mem_email);
 		
 		if ("front_logout".equals(action)) {
-			session.invalidate();
-			res.sendRedirect(req.getContextPath()+"/front-end/lorenTest/test.jsp");
+			session.removeAttribute("memVO");
+			res.sendRedirect(req.getContextPath()+"/FrontEnd/lorenTest/test.jsp");
 		}
 		if("askEmail".equals(action)) {
 			if(mem_emailChick) {
@@ -90,12 +90,21 @@ public class FrontLoginHandler extends HttpServlet {
 			}
 		}
 		if("register".equals(action)) {
-			
+			String register_mem_acc = req.getParameter("register_text_mem_acc");
+			String register_mem_pw = req.getParameter("register_text_mem_pw");
+			String register_mem_email = req.getParameter("register_text_mem_email");
+			String register_mem_addr = req.getParameter("register_text_mem_addr");
+			System.out.println(register_mem_acc);
+			System.out.println(register_mem_pw);
+			System.out.println(register_mem_email);
+			System.out.println(register_mem_addr);
 		}
 		
-		System.out.println(mem_acc+mem_pw);
+		//System.out.println(mem_acc+mem_pw);
 			// 【檢查該帳號 , 密碼是否有效】
 			if (!allowUser(mem_acc, mem_pw, session)) {          //【帳號 , 密碼無效時】
+				out.print("{}");
+				out.close();
 			
 				
 			}else {                                       //【帳號 , 密碼有效時, 才做以下工作】
