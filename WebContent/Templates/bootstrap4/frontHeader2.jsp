@@ -13,7 +13,7 @@
   	*{
   		font-family:微軟正黑體;
   	
-  	}
+  	} 
   </style>
     <!-- Required meta tags -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
