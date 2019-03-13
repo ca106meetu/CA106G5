@@ -106,7 +106,7 @@
 	        <a class="btn btn-primary" href="cart.jsp" role="button">查看購物車</a>
 	      </div>
 	    </div>
-	  </div>
+	  </div> 
 	</div>
     
     
