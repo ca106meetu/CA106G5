@@ -233,7 +233,7 @@ font: 100px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft Jh
   
   <script>
     
-    var MyPoint2 = "/MyEchoServer/smoke/205";
+    var MyPoint2 = "/MyEchoServerlive/smoke/205";
     var host2 = window.location.host;
     var path2 = window.location.pathname;
     

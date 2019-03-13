@@ -366,7 +366,7 @@ html,body {
 	//以上聊天室
 	
    //以下推播
-    var MyPoint2 = "/MyEchoServer/smoke/205";
+    var MyPoint2 = "/MyEchoServerlive/smoke/205";
     var host2 = window.location.host;
     var path2 = window.location.pathname;
     
