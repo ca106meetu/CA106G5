@@ -18,9 +18,9 @@
     
     
     
-<!--     <button type="button" class="btn btn-outline-success test" > -->
-<!-- 		  test -->
-<!-- 		</button> -->
+    <button type="button" class="btn btn-outline-success test" >
+		  test
+		</button> 
     
 	
 	<script>
@@ -28,8 +28,6 @@
 	  $(document).ready(function(){
 			 $('.test').click(function(){
 				 if(!allowUser()){ 
-					 <%session.setAttribute("location", request.getRequestURI());%>
-					 $('#login').modal('show');
 					 return;
 				 }else{
 					window.location.href=('http://www.ncu.edu.tw');

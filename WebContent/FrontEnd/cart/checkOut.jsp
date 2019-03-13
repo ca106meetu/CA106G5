@@ -157,7 +157,7 @@
 			<input type='hidden' name='action' value='insert'>
 			<input type='hidden' name='out_status' value='0'>
 			<input type='hidden' name='order_status' value='0'>
-			<button type='submit' class="btn btn-outline-success">確認付款</button>
+			<button type='submit' class="btn btn-outline-success"  >確認付款</button>
 			</form>
       
       

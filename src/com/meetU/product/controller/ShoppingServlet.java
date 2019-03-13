@@ -125,6 +125,7 @@ public class ShoppingServlet extends HttpServlet {
 				buyList.clear();
 			}else {
 				buyList = new Vector<ProductVO>();
+				session.setAttribute("shoppingCart", buyList);
 			}
 				ProductVO prodVO = prodSvc.getOneProd(req.getParameter("prod_ID"));
 				prodVO.setQuantity(Integer.valueOf(req.getParameter("quantity")));
