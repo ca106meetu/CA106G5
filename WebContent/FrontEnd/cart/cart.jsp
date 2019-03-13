@@ -61,7 +61,7 @@
         <div class="col-1">${prodVO.quantity}</div>
         <div class="col-1">${prodVO.prod_price*prodVO.quantity}</div>
         <div class="col-1">
-        		<form method='post' action='ShoppingServlet' style="margin-bottom: 0px;">
+        		<form method='post' action='ShoppingServlet' style="margin-bottom: 0px;" onsubmit="return allowUser();">
 					<input type='submit' value='刪除'>
 					<input type='hidden' name='prod_ID' value='${prodVO.prod_ID}'>
 					<input type='hidden' name='action' value='del'>				
