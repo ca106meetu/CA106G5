@@ -11,7 +11,7 @@
 	ProductVO prodVO = prodSvc.getOneProd(prod_ID);
 	pageContext.setAttribute("prodVO", prodVO);
 
-%>
+%> 
 <!doctype html>
 <html lang="en">
   <head>
