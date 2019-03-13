@@ -44,6 +44,7 @@ public class FrontLoginHandler extends HttpServlet {
 		String action = req.getParameter("action");
 		String register_text_mem_acc = req.getParameter("register_text_mem_acc");
 		String register_text_mem_email = req.getParameter("register_text_mem_email");
+		String register_text_mem_pw = req.getParameter("register_text_mem_pw");
 		JSONObject obj = new JSONObject();
 		MemService mAccSvc = new MemService();
 		boolean mem_accChick = mAccSvc.getOneMemByACC(register_text_mem_acc);
@@ -55,6 +56,7 @@ public class FrontLoginHandler extends HttpServlet {
 			res.sendRedirect(req.getContextPath()+"/FrontEnd/lorenTest/test.jsp");
 		}
 		if("askEmail".equals(action)) {
+			String register_text_mem_email_RegExp = "^[\\.a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$";
 			if(mem_emailChick) {
 				JSONObject obj3 = new JSONObject();
 				obj3.accumulate("register_text_mem_email_answer", "此信箱已有人使用");
@@ -62,9 +64,26 @@ public class FrontLoginHandler extends HttpServlet {
 				out.flush();
 				out.close();
 				return;
+			}else if(register_text_mem_email.trim() == null || register_text_mem_email.trim().length() == 0){
+				JSONObject obj3 = new JSONObject();
+				obj3.accumulate("register_text_mem_email_answer", "電子信箱: 請勿空白");
+				obj3.accumulate("register_text_mem_email_flag", false);
+				out.print(obj3.toString());
+				out.flush();
+				out.close();
+				return;
+			}else if(!register_text_mem_email.trim().matches(register_text_mem_email_RegExp)){
+				JSONObject obj3 = new JSONObject();
+				obj3.accumulate("register_text_mem_email_answer", "請輸入有效的電子郵件");
+				obj3.accumulate("register_text_mem_email_flag", false);
+				out.print(obj3.toString());
+				out.flush();
+				out.close();
+				return;
 			}else {
 				JSONObject obj3 = new JSONObject();
 				obj3.accumulate("register_text_mem_email_answer", "此信箱可以使用");
+				obj3.accumulate("register_text_mem_email_flag", true);
 				out.print(obj3.toString());
 				out.flush();
 				out.close();
@@ -73,9 +92,27 @@ public class FrontLoginHandler extends HttpServlet {
 		}
 				
 		if("askACC".equals(action)) {
+			String register_text_mem_acc_RegExp = "^[(a-zA-Z0-9_)]{4,30}$";
 			if(mem_accChick) {
 				JSONObject obj2 = new JSONObject();
 				obj2.accumulate("register_text_mem_acc_answer", "此帳號有人使用");
+				obj2.accumulate("register_text_mem_acc_flag", false);
+				out.print(obj2.toString());
+				out.flush();
+				out.close();
+				return;
+			}else if(register_text_mem_acc.trim() == null || register_text_mem_acc.trim().length() == 0){
+				JSONObject obj2 = new JSONObject();
+				obj2.accumulate("register_text_mem_acc_answer", "會員帳號: 請勿空白");
+				obj2.accumulate("register_text_mem_acc_flag", false);
+				out.print(obj2.toString());
+				out.flush();
+				out.close();
+				return;
+			}else if(!register_text_mem_acc.trim().matches(register_text_mem_acc_RegExp)){
+				JSONObject obj2 = new JSONObject();
+				obj2.accumulate("register_text_mem_acc_answer", "會員帳號: 只能是英文字母、數字和_ , 且長度必需在4到30之間");
+				obj2.accumulate("register_text_mem_acc_flag", false);
 				out.print(obj2.toString());
 				out.flush();
 				out.close();
@@ -83,12 +120,43 @@ public class FrontLoginHandler extends HttpServlet {
 			}else {
 				JSONObject obj2 = new JSONObject();
 				obj2.accumulate("register_text_mem_acc_answer", "此帳號可以使用");
+				obj2.accumulate("register_text_mem_acc_flag", true);
 				out.print(obj2.toString());
 				out.flush();
 				out.close();
 				return;
 			}
 		}
+		
+		if("askPw".equals(action)) {
+			String register_text_mem_pw_RegExp = "^[(a-zA-Z0-9_)]{4,30}$";
+			if(register_text_mem_pw.trim() == null ||register_text_mem_pw.trim().length() == 0) {
+				JSONObject obj4 = new JSONObject();
+				obj4.accumulate("register_text_mem_pw_answer", "會員密碼: 請勿空白");
+				obj4.accumulate("register_text_mem_pw_flag", false);
+				out.print(obj4.toString());
+				out.flush();
+				out.close();
+				return;
+			}else if(!register_text_mem_pw.trim().matches(register_text_mem_pw_RegExp)){
+				JSONObject obj4 = new JSONObject();
+				obj4.accumulate("register_text_mem_pw_answer", "會員密碼: 只能是英文字母、數字和_,且長度必需在4到30之間");
+				obj4.accumulate("register_text_mem_pw_flag", false);
+				out.print(obj4.toString());
+				out.flush();
+				out.close();
+				return;
+			}else {
+				JSONObject obj4 = new JSONObject();
+				obj4.accumulate("register_text_mem_pw_answer", "此密碼可以使用");
+				obj4.accumulate("register_text_mem_pw_flag", true);
+				out.print(obj4.toString());
+				out.flush();
+				out.close();
+				return;
+			}
+		}
+		
 		if("register".equals(action)) {
 			String register_mem_acc = req.getParameter("register_text_mem_acc");
 			String register_mem_pw = req.getParameter("register_text_mem_pw");

@@ -155,7 +155,7 @@
 	     </div>
 	    
 	     <input type="hidden" name="action" value="register">
-	   <button type="submit" class="btn btn-success">註冊</button>
+	   <button type="submit" class="btn btn-success" id="btnRegister" disabled>註冊</button>
 	 </form>
 	 </div>
       <div class="modal-footer">
@@ -171,9 +171,13 @@
 
     //*==============================================================*/
     var timer;
+    var register_text_mem_acc_flag_G = false;
+    var register_text_mem_pw_flag_G = false;
+    var register_text_mem_email_flag_G = false;
+    
 	$(function(){
-
-			$('.login').click(function(){
+		
+	    	$('.login').click(function(){
 				 $.ajax({
 					 type: "POST",
 					 url: "<%=request.getContextPath()%>/lorenTest",
@@ -193,62 +197,63 @@
 														
 						}else{
 							swal('你的帳號,密碼無效!','請您重新輸入帳號密碼','error');
-							
+
 						}
 					 },
 		             error: function(){
-		            	 
-		            	 
+		             
 		             }
 		         });
 			});
 			
-			var register_text_mem_acc_flag = new Boolean(false);
-			var register_text_mem_acc_RegExp = new RegExp("^(?=.*[\Sa-zA-Z0-9]{4,})")
+			
 			$('#register_text_mem_acc').on('keyup', function(){
-				if( $('#register_text_mem_pw').val().trim().length < 3){
-					$('#register_text_mem_acc_answer').text('至少輸入3位英文或數字及欄位不可為空...');
-					register_text_mem_acc_flag = false;
+				if( $('#register_text_mem_acc').val().trim().length == 0){
+					$('#register_text_mem_acc_answer').text('會員帳號: 請勿空白.');
+					//register_text_mem_acc_flag = false;
 				}else{
 					$('#register_text_mem_acc_answer').text('');
-					register_text_mem_acc_flag = true;
+					var register_text_mem_acc = $(this).val();
 				}
 				var register_text_mem_acc = $(this).val();
-// 				
-					_debounce(function(){ 
-						return getRegister_text_mem_acc(register_text_mem_acc); 
+ 				
+					_debounce(function(){
+						
+						return getRegister_text_mem_acc(register_text_mem_acc, register_text_mem_acc_flag_G); 
 					}, 500);
+					
 
 			});
+		
 			
-			
-			var register_text_mem_pw_flag = new Boolean(false);
 			$('#register_text_mem_pw').on('keyup', function(){
-				if($('#register_text_mem_pw').val().length < 5){
-					$('#register_text_mem_pw_answer').text('至少輸入4位英文或數字...');
-					register_text_mem_pw_flag = false;
+				if($('#register_text_mem_pw').val().trim().length == 0){
+					$('#register_text_mem_pw_answer').text('會員密碼: 請勿空白');
+
 				}else{
 					$('#register_text_mem_pw_answer').text('');
-					register_text_mem_pw_flag = true;
+					
 				}
 				var register_text_mem_pw = $(this).val();
-				_debounce(function(){ 
-					//return getRegister_text_mem_pw(register_text_mem_pw); 
+				_debounce(function(){
+					
+					return getRegister_text_mem_pw(register_text_mem_pw, register_text_mem_pw_flag_G); 
 				}, 500);
 			});
 			
-			var register_text_mem_email_flag = new Boolean(false);
+			
 			$('#register_text_mem_email').on('keyup', function(){
-				if($('#register_text_mem_email').val().length < 5 ){
-					$('#register_text_mem_email_answer').text('請輸入有效的電子信箱');
-					register_text_mem_email_flag = false;
+				if($('#register_text_mem_email').val().trim().length == 0 ){
+					$('#register_text_mem_email_answer').text('會員電子信箱: 請勿空白');
+					
 				}else{
 					$('#register_text_mem_email_answer').text('');
-					register_text_mem_email_flag = true;
+					
 				}
 				var register_text_mem_email = $(this).val();
 				_debounce(function(){ 
-					return getRegister_text_mem_email(register_text_mem_email); 
+					
+					return getRegister_text_mem_email(register_text_mem_email, register_text_mem_email_flag_G); 
 				}, 500);
 			});
 			datas.map(function(data){
@@ -257,17 +262,21 @@
 			 
 		});
 	
-	function getRegister_text_mem_email(register_text_mem_email){
-		$('#register_text_mem_email_answer').text('資料驗證中');
+	function getRegister_text_mem_pw(register_text_mem_pw,register_text_mem_pw_flag){
+		$('#register_text_mem_pw_answer').text('資料驗證中');
 		$.ajax({
 			url:'<%=request.getContextPath()%>/lorenTest',
 			type:"POST",
-			data:{ action:'askEmail',
-				register_text_mem_email: $('#register_text_mem_email').val() },
+			data:{ action:'askPw',
+				register_text_mem_pw: $('#register_text_mem_pw').val().trim(),
+				register_text_mem_pw_flag: register_text_mem_pw_flag },
 			dataType: 'json',
 			success: function(data){
-				//alert(data.register_text_mem_email_answer);
-				$('#register_text_mem_email_answer').text(data.register_text_mem_email_answer);
+				//alert(data.register_text_mem_pw_flag);
+				register_text_mem_pw_flag_G = data.register_text_mem_pw_flag;
+				$('#register_text_mem_pw_answer').text(data.register_text_mem_pw_answer);
+				checkRegisterBtn();
+// 				console.log(register_text_mem_pw_flag_G);
 			},
 			error: function(){
 	           	 
@@ -275,25 +284,58 @@
 		});
 	}
 	
-	function getRegister_text_mem_acc(register_text_mem_acc){
+	function getRegister_text_mem_email(register_text_mem_email, register_text_mem_email_flag){
+		$('#register_text_mem_email_answer').text('資料驗證中');
+		$.ajax({
+			url:'<%=request.getContextPath()%>/lorenTest',
+			type:"POST",
+			data:{ action:'askEmail',
+				register_text_mem_email: $('#register_text_mem_email').val().trim(),
+				register_text_mem_email_flag: register_text_mem_email_flag },
+			dataType: 'json',
+			success: function(data){
+				//alert(register_text_mem_email_flag_G);
+				$('#register_text_mem_email_answer').text(data.register_text_mem_email_answer);
+				register_text_mem_email_flag_G = data.register_text_mem_email_flag;
+				checkRegisterBtn();
+				//alert(register_text_mem_email_flag_G);
+			},
+			error: function(){
+	           	 
+            }
+		});
+	}
+	
+	
+	function getRegister_text_mem_acc(register_text_mem_acc, register_text_mem_acc_flag){
 		$('#register_text_mem_acc_answer').text('資料驗證中');
 		$.ajax({
 			url:'<%=request.getContextPath()%>/lorenTest',
 			type:"POST",
 			data:{ action:'askACC',
-				   register_text_mem_acc: $('#register_text_mem_acc').val() },
+				   register_text_mem_acc: $('#register_text_mem_acc').val().trim(),
+				   register_text_mem_acc_flag: register_text_mem_acc_flag},
 			dataType: 'json',
 			success: function(data){
 // 				console.log(res.register_text_mem_acc_answer);
 				//alert(data.register_text_mem_acc_answer);
 				$('#register_text_mem_acc_answer').text(data.register_text_mem_acc_answer);
+				register_text_mem_acc_flag_G = data.register_text_mem_acc_flag;
+				//alert(register_text_mem_acc_flag_G);
+				checkRegisterBtn();
+				//alert(register_text_mem_acc_flag);
 			},
 			error: function(){
-           	 
+				alert(2);
             }
 		});
 	}
-	
+	function checkRegisterBtn(){
+		if(register_text_mem_acc_flag_G && register_text_mem_pw_flag_G && register_text_mem_email_flag_G){
+			alert(666);
+			$('#btnRegister').attr('disabled',false);
+		}
+	}
 		
 	
 	function _debounce(callback, time){
