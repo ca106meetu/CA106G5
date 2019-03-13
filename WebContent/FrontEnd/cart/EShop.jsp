@@ -78,7 +78,7 @@
 	ProductVO prodVO = list.get(3*j+i);
 	%>	
   <div class="card border-danger mb-3">
-    <img src="/CA106G5/ShowPic?PROD_ID=<%=prodVO.getProd_ID()%>" id='pic' class="card-img-top">
+  	<a href='<%=request.getContextPath()%>/FrontEnd/cart/prodDetail.jsp?prod_ID=<%=prodVO.getProd_ID()%>'><img src="/CA106G5/ShowPic?PROD_ID=<%=prodVO.getProd_ID()%>" id='pic' class="card-img-top"></a>
     <div class="card-body ">
       <h5 class="card-title"><%=prodVO.getProd_name()%></h5>
       <p class="card-text text-warning"><%=prodVO.getProd_info()%></p>

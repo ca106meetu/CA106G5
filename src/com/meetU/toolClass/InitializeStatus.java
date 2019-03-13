@@ -1,5 +1,6 @@
 package com.meetU.toolClass;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -13,6 +14,9 @@ public class InitializeStatus implements ServletContextListener{
 	private List<String> ps;
 	private List<String> outs;
 	private List<String> ords;
+	private String[] arrayCity = {"台北市", "基隆市", "新北市", "連江縣", "宜蘭縣", "釣魚台", "新竹市", "新竹縣", "桃園市", "苗栗縣", "台中市", 
+	           	"彰化縣", "南投縣", "嘉義市", "嘉義縣", "雲林縣", "台南市", "高雄市", "南海島", "澎湖縣", "金門縣", "屏東縣", "台東縣", "花蓮縣"};
+	private List<String> listCity = Arrays.asList(arrayCity);
 
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
@@ -52,6 +56,8 @@ public class InitializeStatus implements ServletContextListener{
 		context.setAttribute("pps", pps);
 		context.setAttribute("outs", outs);
 		context.setAttribute("ords", ords);
+		
+		context.setAttribute("listCity", listCity);
 		System.out.println("阿彌陀佛阿門阿拉~BUG不要來");
 	}
 	

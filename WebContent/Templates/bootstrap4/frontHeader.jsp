@@ -55,7 +55,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/meetup/meetupHomePg.jsp">瀏覽聯誼</a>
-          <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/meetup/runMeetup.jsp">主持聯誼</a>
+          <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/meetup/addMeetup.jsp">主持聯誼</a>
           <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/meetup/AllMyMeetup.jsp">我已參加</a>
           <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/meetupLike/AllMyLikeMeetup.jsp">我的收藏</a>
           <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/meetup/MyMeetupRep.jsp">我的檢舉</a>

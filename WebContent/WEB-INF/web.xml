@@ -9,12 +9,10 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  
   <context-param>
     <param-name>org.apache.tomcat.websocket.textBufferSize</param-name>
     <param-value>307200</param-value>
   </context-param>
-  
   <listener>
     <listener-class>com.meetU.toolClass.InitializeStatus</listener-class>
   </listener>
@@ -34,8 +32,6 @@
     <servlet-name>omServlet</servlet-name>
     <url-pattern>/back-end/om/om.do</url-pattern>
   </servlet-mapping>
-  
-  
   <servlet>
     <servlet-name>PostServlet</servlet-name>
     <servlet-class>com.meetU.post.controller.PostServlet</servlet-class>
@@ -44,7 +40,6 @@
     <servlet-name>PostServlet</servlet-name>
     <url-pattern>/FrontEnd/post/post.do</url-pattern>
   </servlet-mapping>
-  <!-- 以下陳彥彰註冊 -->
   <servlet>
     <servlet-name>LiveServlet</servlet-name>
     <servlet-class>com.meetU.live.controller.LiveServlet</servlet-class>
@@ -53,7 +48,6 @@
     <servlet-name>LiveServlet</servlet-name>
     <url-pattern>/FrontEnd/live/live.do</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>FileRecServlet</servlet-name>
     <servlet-class>com.meetU.filerec.controller.FileRecServlet</servlet-class>
@@ -62,7 +56,6 @@
     <servlet-name>FileRecServlet</servlet-name>
     <url-pattern>/FrontEnd/fileRec/fileRec.do</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>Live_likeServlet</servlet-name>
     <servlet-class>com.meetU.live_like.controller.Live_likeServlet</servlet-class>
@@ -71,10 +64,6 @@
     <servlet-name>Live_likeServlet</servlet-name>
     <url-pattern>/FrontEnd/live_like/live_like.do</url-pattern>
   </servlet-mapping>
-  <!-- 以上陳彥彰註冊 -->
-  
-  
-  <!-- 權限controller -->
   <servlet>
     <servlet-name>AuthServlet</servlet-name>
     <servlet-class>com.meetU.auth.controller.AuthServlet</servlet-class>
@@ -83,7 +72,6 @@
     <servlet-name>AuthServlet</servlet-name>
     <url-pattern>/back-end/auth/auth.do</url-pattern>
   </servlet-mapping>
-  <!-- 員工controller -->
   <servlet>
     <servlet-name>EmpServlet</servlet-name>
     <servlet-class>com.meetU.emp.controller.EmpServlet</servlet-class>
@@ -92,7 +80,6 @@
     <servlet-name>EmpServlet</servlet-name>
     <url-pattern>/back-end/emp/emp.do</url-pattern>
   </servlet-mapping>
-  <!-- 送禮紀錄controller -->
   <servlet>
     <servlet-name>GiftServlet</servlet-name>
     <servlet-class>com.meetU.gift.controller.GiftServlet</servlet-class>
@@ -102,7 +89,6 @@
     <url-pattern>/back-end/gift/gift.do</url-pattern>
   </servlet-mapping>
   <servlet>
-  <!-- 禮物盒controller -->
     <servlet-name>GiftboxServlet</servlet-name>
     <servlet-class>com.meetU.giftbox.controller.GiftboxServlet</servlet-class>
   </servlet>
@@ -110,7 +96,6 @@
     <servlet-name>GiftboxServlet</servlet-name>
     <url-pattern>/back-end/giftbox/giftbox.do</url-pattern>
   </servlet-mapping>
-  <!-- 通知controller -->
   <servlet>
     <servlet-name>InformServlet</servlet-name>
     <servlet-class>com.meetU.inform.controller.InformServlet</servlet-class>
@@ -119,7 +104,6 @@
     <servlet-name>InformServlet</servlet-name>
     <url-pattern>/back-end/inform/inform.do</url-pattern>
   </servlet-mapping>
-  <!-- 會員controller -->
   <servlet>
     <servlet-name>MemServlet</servlet-name>
     <servlet-class>com.meetU.mem.controller.MemServlet</servlet-class>
@@ -128,7 +112,6 @@
     <servlet-name>MemServlet</servlet-name>
     <url-pattern>/back-end/mem/mem.do</url-pattern>
   </servlet-mapping>
-  <!-- 好友controller -->
   <servlet>
     <servlet-name>FriendServlet</servlet-name>
     <servlet-class>com.meetU.friend.controller.FriendServlet</servlet-class>
@@ -137,7 +120,6 @@
     <servlet-name>FriendServlet</servlet-name>
     <url-pattern>/back-end/friend/friend.do</url-pattern>
   </servlet-mapping>
-  <!-- 員工權限controller -->
   <servlet>
     <servlet-name>EmpAuthServlet</servlet-name>
     <servlet-class>com.meetU.empAuth.controller.EmpAuthServlet</servlet-class>
@@ -146,8 +128,7 @@
     <servlet-name>EmpAuthServlet</servlet-name>
     <url-pattern>/back-end/empAuth/empAuth.do</url-pattern>
   </servlet-mapping>
-  <!-- 聯誼 -->
-   <servlet>
+  <servlet>
     <servlet-name>MeetupServlet</servlet-name>
     <servlet-class>com.meetU.meetup.controller.MeetupServlet</servlet-class>
   </servlet>
@@ -158,7 +139,7 @@
   <servlet>
     <servlet-name>MeetupMemServlet</servlet-name>
     <servlet-class>com.meetU.meetup_mem.controller.MeetupMemServlet</servlet-class>
-  </servlet> 
+  </servlet>
   <servlet-mapping>
     <servlet-name>MeetupMemServlet</servlet-name>
     <url-pattern>/FrontEnd/meetupMem/meetupMem.do</url-pattern>
@@ -180,9 +161,8 @@
     <url-pattern>/FrontEnd/meetupRep/meetupRep.do</url-pattern>
   </servlet-mapping>
   
-  
-<!-- 後端登入濾器 -->
-<filter>
+    
+  <filter>
     <filter-name>backLoginFilter</filter-name>
     <filter-class>com.meetU.backFilters.BackLoginFilter</filter-class>
   </filter>
@@ -196,9 +176,7 @@
     <dispatcher>ERROR</dispatcher>
     <dispatcher>ASYNC</dispatcher>
   </filter-mapping>
-
-<!-- 前端登入濾器 -->
-<filter>
+  <filter>
     <filter-name>frontLoginFilter</filter-name>
     <filter-class>com.meetU.frontFilters.FrontLoginFilter</filter-class>
   </filter>
@@ -214,5 +192,4 @@
     <dispatcher>ERROR</dispatcher>
     <dispatcher>ASYNC</dispatcher>
   </filter-mapping>
-  
 </web-app>
