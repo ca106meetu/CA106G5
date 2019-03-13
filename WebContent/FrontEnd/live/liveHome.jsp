@@ -233,11 +233,11 @@ font: 100px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft Jh
   
   <script>
     
-    var MyPoint2 = "/MyEchoServerlive/smoke/205";
+    var MyPoint2 = "<%=request.getContextPath()%>/MyEchoServerlive/smoke/205";
     var host2 = window.location.host;
     var path2 = window.location.pathname;
     
-    var endPointURL2 = "ws://" + window.location.host + "/SmokeChen" + MyPoint2;
+    var endPointURL2 = "ws://" + window.location.host + MyPoint2;
     var webSocket2;
 	
 	function connect2() {
@@ -274,7 +274,7 @@ font: 100px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft Jh
 			 $('#login').modal('show');
 			 return;
 		 }else{
-			window.location.href=('http://www.ncu.edu.tw');
+			
 		 } 
  });
     

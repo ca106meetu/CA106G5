@@ -288,11 +288,11 @@ html,body {
  
 
     //以下聊天室
-    var MyPoint = "/live_chatHome/<%=host_ID%>";
+    var MyPoint = "<%=request.getContextPath()%>/live_chatHome/<%=host_ID%>";
     var host = window.location.host;
     var path = window.location.pathname;
     var webCtx = path.substring(0, path.indexOf('/', 1));
-    var endPointURL = "ws://" + window.location.host + "/SmokeChen" + MyPoint;
+    var endPointURL = "ws://" + window.location.host + MyPoint;
     
 	var statusOutput = document.getElementById("statusOutput");
 	var webSocket;
@@ -366,11 +366,11 @@ html,body {
 	//以上聊天室
 	
    //以下推播
-    var MyPoint2 = "/MyEchoServerlive/smoke/205";
+    var MyPoint2 = "<%=request.getContextPath()%>/MyEchoServerlive/smoke/205";
     var host2 = window.location.host;
     var path2 = window.location.pathname;
     
-    var endPointURL2 = "ws://" + window.location.host + "/SmokeChen" + MyPoint2;
+    var endPointURL2 = "ws://" + window.location.host + MyPoint2;
 	var webSocket2;
 	
 	function connect2() {
