@@ -1,8 +1,14 @@
 package com.meetU.frontLogin;
 
 import java.io.*;
+import java.util.LinkedList;
+import java.util.List;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
+
+import org.json.JSONObject;
+
 import javax.servlet.annotation.WebServlet;
 
 import com.meetU.mem.model.*;
@@ -18,16 +24,12 @@ public class FrontLoginHandler extends HttpServlet {
 		MemVO memVO = memSvc.getOneMem(mem_acc, mem_pw);
 	    if (memVO != null) {
 	    	session.setAttribute("memVO", memVO);
-	    	
 	    	return true;
 	    }else {
 	      return false;
 	    }
 	  }
-//	  public void doGet(HttpServletRequest req, HttpServletResponse res)
-//				throws ServletException, IOException {
-//			doPost(req, res);
-//	  }
+	  
 	  public void doPost(HttpServletRequest req, HttpServletResponse res)
            throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
@@ -39,48 +41,154 @@ public class FrontLoginHandler extends HttpServlet {
 		String mem_pw = req.getParameter("mem_pw");
 		
 		HttpSession session = req.getSession();
-		String backPage = (String) session.getAttribute("location");
+		String action = req.getParameter("action");
+		String register_text_mem_acc = req.getParameter("register_text_mem_acc");
+		String register_text_mem_email = req.getParameter("register_text_mem_email");
+		String register_text_mem_pw = req.getParameter("register_text_mem_pw");
+		JSONObject obj = new JSONObject();
+		MemService mAccSvc = new MemService();
+		boolean mem_accChick = mAccSvc.getOneMemByACC(register_text_mem_acc);
+		MemService mEmailSvc = new MemService();
+		boolean mem_emailChick = mEmailSvc.getOneMemByEMAIL(register_text_mem_email);
+		
+		if ("front_logout".equals(action)) {
+			session.removeAttribute("memVO");
+			session.removeAttribute("mem_acc");
+			res.sendRedirect(req.getContextPath()+"/FrontEnd/lorenTest/test.jsp");
+		}
+		if("askEmail".equals(action)) {
+			String register_text_mem_email_RegExp = "^[\\.a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$";
+			if(mem_emailChick) {
+				JSONObject obj3 = new JSONObject();
+				obj3.accumulate("register_text_mem_email_answer", "此信箱已有人使用");
+				out.print(obj3.toString());
+				out.flush();
+				out.close();
+				return;
+			}else if(register_text_mem_email.trim() == null || register_text_mem_email.trim().length() == 0){
+				JSONObject obj3 = new JSONObject();
+				obj3.accumulate("register_text_mem_email_answer", "電子信箱: 請勿空白");
+				obj3.accumulate("register_text_mem_email_flag", false);
+				out.print(obj3.toString());
+				out.flush();
+				out.close();
+				return;
+			}else if(!register_text_mem_email.trim().matches(register_text_mem_email_RegExp)){
+				JSONObject obj3 = new JSONObject();
+				obj3.accumulate("register_text_mem_email_answer", "請輸入有效的電子郵件");
+				obj3.accumulate("register_text_mem_email_flag", false);
+				out.print(obj3.toString());
+				out.flush();
+				out.close();
+				return;
+			}else {
+				JSONObject obj3 = new JSONObject();
+				obj3.accumulate("register_text_mem_email_answer", "此信箱可以使用");
+				obj3.accumulate("register_text_mem_email_flag", true);
+				out.print(obj3.toString());
+				out.flush();
+				out.close();
+				return;
+			}
+		}
+				
+		if("askACC".equals(action)) {
+			String register_text_mem_acc_RegExp = "^[(a-zA-Z0-9_)]{4,30}$";
+			if(mem_accChick) {
+				JSONObject obj2 = new JSONObject();
+				obj2.accumulate("register_text_mem_acc_answer", "此帳號有人使用");
+				obj2.accumulate("register_text_mem_acc_flag", false);
+				out.print(obj2.toString());
+				out.flush();
+				out.close();
+				return;
+			}else if(register_text_mem_acc.trim() == null || register_text_mem_acc.trim().length() == 0){
+				JSONObject obj2 = new JSONObject();
+				obj2.accumulate("register_text_mem_acc_answer", "會員帳號: 請勿空白");
+				obj2.accumulate("register_text_mem_acc_flag", false);
+				out.print(obj2.toString());
+				out.flush();
+				out.close();
+				return;
+			}else if(!register_text_mem_acc.trim().matches(register_text_mem_acc_RegExp)){
+				JSONObject obj2 = new JSONObject();
+				obj2.accumulate("register_text_mem_acc_answer", "會員帳號: 只能是英文字母、數字和_ , 且長度必需在4到30之間");
+				obj2.accumulate("register_text_mem_acc_flag", false);
+				out.print(obj2.toString());
+				out.flush();
+				out.close();
+				return;
+			}else {
+				JSONObject obj2 = new JSONObject();
+				obj2.accumulate("register_text_mem_acc_answer", "此帳號可以使用");
+				obj2.accumulate("register_text_mem_acc_flag", true);
+				out.print(obj2.toString());
+				out.flush();
+				out.close();
+				return;
+			}
+		}
+		
+		if("askPw".equals(action)) {
+			String register_text_mem_pw_RegExp = "^[(a-zA-Z0-9_)]{4,30}$";
+			if(register_text_mem_pw.trim() == null ||register_text_mem_pw.trim().length() == 0) {
+				JSONObject obj4 = new JSONObject();
+				obj4.accumulate("register_text_mem_pw_answer", "會員密碼: 請勿空白");
+				obj4.accumulate("register_text_mem_pw_flag", false);
+				out.print(obj4.toString());
+				out.flush();
+				out.close();
+				return;
+			}else if(!register_text_mem_pw.trim().matches(register_text_mem_pw_RegExp)){
+				JSONObject obj4 = new JSONObject();
+				obj4.accumulate("register_text_mem_pw_answer", "會員密碼: 只能是英文字母、數字和_,且長度必需在4到30之間");
+				obj4.accumulate("register_text_mem_pw_flag", false);
+				out.print(obj4.toString());
+				out.flush();
+				out.close();
+				return;
+			}else {
+				JSONObject obj4 = new JSONObject();
+				obj4.accumulate("register_text_mem_pw_answer", "此密碼可以使用");
+				obj4.accumulate("register_text_mem_pw_flag", true);
+				out.print(obj4.toString());
+				out.flush();
+				out.close();
+				return;
+			}
+		}
+		
+		if("register".equals(action)) {
+			String register_mem_acc = req.getParameter("register_text_mem_acc");
+			String register_mem_pw = req.getParameter("register_text_mem_pw");
+			String register_mem_email = req.getParameter("register_text_mem_email");
+			String register_mem_addr = req.getParameter("register_text_mem_addr");
+			System.out.println(register_mem_acc);
+			System.out.println(register_mem_pw);
+			System.out.println(register_mem_email);
+			System.out.println(register_mem_addr);
+		}
+		
+		
 			// 【檢查該帳號 , 密碼是否有效】
 			if (!allowUser(mem_acc, mem_pw, session)) {          //【帳號 , 密碼無效時】
-//				out.println("<HTML><HEAD><TITLE>Access Denied</TITLE></HEAD>");
-//				out.println("<BODY>你的帳號 , 密碼無效!<BR>");
-//				out.println("請按此重新登入 <A HREF="+req.getContextPath()+"/frontLogin.html>重新登入</A>");
-//				out.println("</BODY></HTML>");
-				/*=====================================*/
-				String location = (String) session.getAttribute("location");
-				System.out.println(location);
-				if (location != null) {
-					//session.removeAttribute("location");
-					out.println("<!doctype html><html lang='zh-TW'><head><meta charset='utf-8'>");
-					out.println("<meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>");
-					out.println("<script src='Templates/bootstrap4/js/jquery-3.2.1.min.js'></script>");
-					out.println("<script src='Templates/bootstrap4/js/sweetalert2.all.js'></script>");
-					out.println("<link rel='stylesheet' type='text/css' href='Templates/bootstrap4/css/sweetalert2.css'>");
+				out.print("{}");
+				out.close();
+			
 				
-					out.println("<TITLE>登入失敗</TITLE></head><body><script type='text/javascript'>");
-					out.println("$(function(){swal('你的帳號,密碼無效!','請您重新輸入帳號密碼','error').then(function (result) {");
-					out.println("window.location.href='"+location+"';});});");
-					out.println("</script></body></HTML>");
-				   //*工作2: 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)
-					session.removeAttribute("location");            
-					return;
-				}
-				//req.getRequestDispatcher(backPage).forward(req, res);
-				//res.sendRedirect(req.getRequestURI());
 			}else {                                       //【帳號 , 密碼有效時, 才做以下工作】
 				session.setAttribute("mem_acc", mem_acc);   //*工作1: 才在session內做已經登入過的標識
 				
 				try {                                                        
-					String location = (String) session.getAttribute("location");
-					if (location != null) {
-						session.removeAttribute("location");   //*工作2: 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)
-						res.sendRedirect(location);            
-						return;
-					}
-				}catch (Exception ignored) { }
+					JSONObject obj1 = new JSONObject();
+					obj1.accumulate("access", "true");
+					out.print(obj1.toString());
+					out.flush();
+					out.close();
+				}catch (Exception ignored) { 
+					
+				}
 				
-				
-				//res.sendRedirect(req.getContextPath()+"/frontLogin_success.jsp");  //*工作3: (-->如無來源網頁:則重導至login_success.jsp)
 			}
 		}
 

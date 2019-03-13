@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.*"%>
 <!doctype html>
 <html lang="en">
   <head>
@@ -30,9 +31,9 @@
           會員管理
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" id="AUTH00010" href="http//www.google.com">帳號管理</a>
+          <a class="dropdown-item" id="AUTH00010" href="<%=request.getContextPath()%>/back-end/mem/select_page.jsp">帳號管理</a>
           
-        </div> 
+        </div>
       </li>
 
       <li class="nav-item dropdown">
@@ -71,20 +72,14 @@
        員工管理
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" id="AUTH00090" href="#">員工權限管理</a>
-          <a class="dropdown-item" id="AUTH00100" href="#">員工資料管理</a>
+          <a class="dropdown-item" id="AUTH00090" href="<%=request.getContextPath()%>/back-end/emp/select_page.jsp">員工資料管理</a>
         </div>   
       </li>
     </ul>
-    
-    <form class="form-inline my-2 my-lg-0">
-<!--     	<button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#login"> -->
-<!-- 		  	登入 -->
-<!-- 		</button> -->
-<%-- 	  <jsp:include page="/backLogin.jsp" /> --%>
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/BackLoginHandler" >
+    	<input type="hidden" name="action" value="back_logout">
+    	<button id="loginOut" type="submit" class="btn btn-outline-success btn-lg">登出</button>
+    </FORM>
   </div>
 </nav>
   
@@ -96,26 +91,40 @@
     var AUTH00040 = document.getElementById("AUTH00040");
     var AUTH00050 = document.getElementById("AUTH00050");
     var AUTH00060 = document.getElementById("AUTH00060");
-    var AUTH00070 = document.getElementById("AUTH00070");
+    var AUTH00070 = document.getElementById("AUTH00070"); 
     var AUTH00080 = document.getElementById("AUTH00080");
     var AUTH00090 = document.getElementById("AUTH00090");
-    var AUTH00100 = document.getElementById("AUTH00100");
+    
+    var loginOut = document.getElementById("loginOut");
+    
     AUTHS.push(AUTH00010,AUTH00020,AUTH00030,AUTH00040,AUTH00050,
-    		   AUTH00060,AUTH00070,AUTH00080,AUTH00090,AUTH00100);
+    		   AUTH00060,AUTH00070,AUTH00080,AUTH00090);
     
     var len = AUTHS.length;
     for(var i = 0; i < len; i++){
+    	AUTHS[i].style.display="none";
     	AUTHS[i].classList.add("disabled");
-    	//AUTHS[i].removeAttribute("href");
     }
-    //alert(len);
     
-    //AUTH00010.classList.add("disabled");
-    //AUTH00020.classList.remove("disabled");
+    loginOut.style.display = "none";
     
-    </script>
-
     
+    
+<% 
+	List<String> auth_IDs = (List<String>)session.getAttribute("auth_IDs");
+	if(auth_IDs != null){
+%>
+		loginOut.style.display = "inline";	
+<%
+		for(String auth: auth_IDs){
+ %> 
+ 		<%=auth%>.style.display="inline";
+ 		<%=auth%>.classList.remove("disabled"); 
+ <% 
+ 		}
+ 	}
+ %> 
+ </script>
     
 
     <!-- Optional JavaScript -->
