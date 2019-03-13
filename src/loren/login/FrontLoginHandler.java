@@ -53,6 +53,7 @@ public class FrontLoginHandler extends HttpServlet {
 		
 		if ("front_logout".equals(action)) {
 			session.removeAttribute("memVO");
+			session.removeAttribute("mem_acc");
 			res.sendRedirect(req.getContextPath()+"/FrontEnd/lorenTest/test.jsp");
 		}
 		if("askEmail".equals(action)) {

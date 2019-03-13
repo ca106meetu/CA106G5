@@ -19,6 +19,13 @@
   	.pic{
   		width:100%;
   	}
+  	 #menu {
+	  position: fixed;
+	  right: 0;
+	  top: 50%;
+	  width: 8em;
+	  margin-top: -2.5em;
+	}
   
   </style>
     <!-- Required meta tags -->
@@ -36,6 +43,7 @@
     
     
 <div class="container">
+            	<form method='post' action='ShoppingServlet' onsubmit='return allowUser();'>
       <div class="row">
         <div class="col-5"><img class='pic' src='/CA106G5/ShowPic?PROD_ID=${prodVO.prod_ID}'></div>
         <div class="col-7">
@@ -64,12 +72,21 @@
             	<button type="button" class="btn btn-outline-danger cart"> 加 入 購 物 車 </button>
             	<input type='hidden' name='prod_ID' value='${prodVO.prod_ID}'>
             </div>
-            <div class="col-3"><button type="button" class="btn btn-danger"> 直 接 購 買 </button></div>
+            
+            <div class="col-3">
+            		<input type='hidden' name='prod_ID' value='${prodVO.prod_ID}'>
+            		<input type='hidden' name='action' value='DcheckOut'>
+            		<button type="submit" class="btn btn-danger dCheckOut"> 直 接 購 買 </button>
+            </div>
          	<div class="col-6"></div>
           </div>
         </div>
       </div>
+            	</form>
 </div>
+<div id='menu'>
+<a class="btn btn-primary" href="cart.jsp" role="button">查看購物車</a>
+</div>	
     
     
     <div class="modal" tabindex="-1" role="dialog" id='myModal'>
@@ -119,6 +136,17 @@
 			     
 	             error: function(){alert("AJAX-grade發生錯誤囉!")}
 	         });
+	 });
+		 
+		 
+		 $('.dCheckOut').click(function(){
+			 if(!allowUser()){ 
+				 <%session.setAttribute("location", request.getRequestURI());%>
+				 $('#login').modal('show');
+				 return;
+			 }else{
+				window.location.href=('http://www.ncu.edu.tw');
+			 } 
 	 });
     })
     

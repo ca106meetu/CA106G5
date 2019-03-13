@@ -346,6 +346,15 @@
 		}, time);
 	}
 	
+	
+	function allowUser(){
+		var mem_acc = "${sessionScope.mem_acc}";
+		if( mem_acc.length != 0)
+			return true;
+		else
+			return false;
+	}
+	
 	/*==================================================*/
 	var datas = [
     {title:'基隆市',value:'基隆市'},

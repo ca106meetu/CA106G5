@@ -120,6 +120,34 @@ public class ShoppingServlet extends HttpServlet {
 
 			}
 		
+		if ("DcheckOut".equals(action)) {
+			if(buyList != null) {
+				buyList.clear();
+			}else {
+				buyList = new Vector<ProductVO>();
+			}
+				ProductVO prodVO = prodSvc.getOneProd(req.getParameter("prod_ID"));
+				prodVO.setQuantity(Integer.valueOf(req.getParameter("quantity")));
+				buyList.add(prodVO);
+				
+			
+				double total = 0;
+				for (int i = 0; i < buyList.size(); i++) {
+					prodVO = buyList.get(i);
+					Double price = prodVO.getProd_price();
+					Integer quantity = prodVO.getQuantity();
+					total += (price * quantity);
+				}
+				
+				String amount = String.valueOf(total);
+				req.getSession().setAttribute("amount", amount);
+				String url = "/FrontEnd/cart/checkOut.jsp";
+				RequestDispatcher rd = req.getRequestDispatcher(url);
+				rd.forward(req, res);
+			
+			
+		}
+		
 		if("insert".equals(action)) {
 			
 			List<String> errorMsgs = new LinkedList<>();
