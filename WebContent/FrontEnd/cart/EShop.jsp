@@ -193,7 +193,7 @@
   
   <script>
     
-    var MyPoint = "/MyEchoServer/loren/205";
+    var MyPoint = "/prodPush/loren/205";
     var host = window.location.host;
     var path = window.location.pathname;
     var webCtx = path.substring(0, path.indexOf('/', 1));

@@ -23,6 +23,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
+    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
 
     <title>Hello, world!</title> 
   </head>
@@ -61,7 +62,7 @@
         <div class="col-1">${prodVO.quantity}</div>
         <div class="col-1">${prodVO.prod_price*prodVO.quantity}</div>
         <div class="col-1">
-        		<form method='post' action='ShoppingServlet' style="margin-bottom: 0px;" onsubmit="return allowUser();">
+        		<form method='post' action='ShoppingServlet' style="margin-bottom: 0px;" >
 					<input type='submit' value='刪除'>
 					<input type='hidden' name='prod_ID' value='${prodVO.prod_ID}'>
 					<input type='hidden' name='action' value='del'>				
@@ -73,9 +74,9 @@
       <div class='row'>
       	<div class="col-8"></div>
         <div class="col-3">
-        	<form method='post' action='ShoppingServlet'>
+        	<form method='post' action='ShoppingServlet' onsubmit='return allowUser();'>
         		<input type='hidden' name='action' value='checkOut'>
-        		<button type="submit" class="btn btn-warning">前往結帳</button>
+        		<button type="submit" class="btn btn-warning checkOut">前往結帳</button>
         	</form>
         </div>
         <div class="col-1"></div>
@@ -118,14 +119,28 @@
     </div>
    
     
+    <script>
     
+    
+	 $('.checkOut').click(function(){
+			 if(!allowUser()){ 
+				 <%session.setAttribute("location", request.getRequestURI());%>
+				 $('#login').modal('show');
+				 return;
+			 }else{
+				window.location.href=('http://www.ncu.edu.tw');
+			 } 
+	});
+    
+    
+    
+    </script>
     
     
     <jsp:include page="/Templates/bootstrap4/frontFooter.jsp" />
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/popper.min.js"></script>
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/js/bootstrap.min.js"></script>
   </body>
