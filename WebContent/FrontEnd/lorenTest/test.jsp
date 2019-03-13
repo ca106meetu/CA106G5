@@ -14,13 +14,13 @@
     <title>Hello, world!</title>  
   </head>
   <body>
-    <jsp:include page="/Templates/bootstrap4/frontHeader2.jsp" />
+    <jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
     
     
     
-    <button type="button" class="btn btn-outline-success test" >
-		  test
-		</button>
+<!--     <button type="button" class="btn btn-outline-success test" > -->
+<!-- 		  test -->
+<!-- 		</button> -->
     
 	
 	<script>
