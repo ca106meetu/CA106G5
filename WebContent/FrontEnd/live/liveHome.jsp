@@ -1,3 +1,4 @@
+<%@page import="com.meetU.mem.model.MemVO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.*"%>
 <%@page import="com.meetU.live.model.*"%>
@@ -12,6 +13,7 @@
 	LiveService liveSvc = new LiveService();
 	List<LiveVO> list = liveSvc.getAll();
 	pageContext.setAttribute("list", list);
+	MemVO memVO = (MemVO)session.getAttribute("memVO");
 %>
 
 <!doctype html>
@@ -55,6 +57,7 @@ th, td {
 	right: 0;
 	top: 20%;
 	width: 8em;
+	z-index:999;
 	margin-top: -2.5em;
 	font: 15px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft JhengHei;   
 }
@@ -62,7 +65,7 @@ th, td {
     border: none;
     padding: 5px 5px;
     border-radius: 5px;
-    width: 300px;
+    width: auto;
     background: orange;
     box-shadow: inset 0 0 10px #000000;
     font: 15px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft JhengHei; 
@@ -73,7 +76,7 @@ th, td {
     border: none;
     padding: 5px 5px;
     border-radius: 5px;
-    width: 300px;
+    width: auto;
     background: red;
     box-shadow: inset 0 0 10px #000000;
     font: 15px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft JhengHei; 
@@ -98,18 +101,20 @@ font: 100px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft Jh
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
+<script
+		src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
 
 <title>直播間列表</title>
 </head>
-<body>
+<body onload="connect2();">
 	<jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
 	
 	
 	
 	<div id='live_like'>
-		<form action="<%=request.getContextPath()%>/FrontEnd/live_like/live_like.do" method='post'>
-			<input class="btn btn-primary "  type="submit" value="看我的收藏">
-		    <input type="hidden" name="mem_ID"	value="M000005">
+		<form action="<%=request.getContextPath()%>/FrontEnd/live_like/live_like.do" method='post' onsubmit='return allowUser();'>
+			<input class="btn btn-primary liveCheckOut"  type="submit" value="看我的收藏" >
+		    <input type="hidden" name="mem_ID"	value="${memVO.mem_ID}">
 		    <input type='hidden' name='action' value='getOne_For_Display'>
 		</form>
 	</div>
@@ -177,7 +182,41 @@ font: 100px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft Jh
 			;
 		%>
 	</div>
+</div>
 
+
+<!-- 推播跳出 -->
+<div class="modal" tabindex="-1" role="dialog" id='myModal2'>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+      
+      <div class='row'>
+      	<div class='col-6'><img  id='img1' width='200px' height='200px' src='images/excited.gif'></div>
+      	<div class='col-6'>        
+      		<h3>開台囉!!!</h3>
+      		<hr>
+      		<h2 id='info1' style="color:red;"></h2>
+      		<h2 id='info2' style="color:red;"></h2>
+      		<h4 id='info3' style="color:blue;"></h4>
+        </div>
+      </div>
+      <div class='row'>
+      	<div class='col-3'></div>
+        <div class='col-6'>
+        
+        
+        
+        
+        
+           
+			<a class="btn btn-primary gotoLive" href="" role="button">進入直播主房間</a>	
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button></div>
+        <div class='col-3'></div>
+      </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 	<jsp:include page="/Templates/bootstrap4/frontFooter.jsp" />
@@ -185,11 +224,59 @@ font: 100px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft Jh
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script
-		src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
-	<script
 		src="<%=request.getContextPath()%>/Templates/bootstrap4/popper.min.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/Templates/bootstrap4/js/bootstrap.min.js"></script>
 	
 </body>
+ 
+  
+  <script>
+    
+    var MyPoint2 = "/MyEchoServer/smoke/205";
+    var host2 = window.location.host;
+    var path2 = window.location.pathname;
+    
+    var endPointURL2 = "ws://" + window.location.host + "/SmokeChen" + MyPoint2;
+    var webSocket2;
+	
+	function connect2() {
+		// 建立 websocket 物件
+		webSocket2 = new WebSocket(endPointURL2);
+		
+		webSocket2.onopen = function(event) {
+		};
+
+		webSocket2.onmessage = function(event) {
+	        var jsonObj2 = JSON.parse(event.data);
+	        var message1 = "會員編號"+jsonObj2.host_ID
+	        var message2 = jsonObj2.host_name
+	        var message3 = jsonObj2.message
+	        var message4 = "data:img/png;base64,"+jsonObj2.encodeText
+	   
+	        $('.gotoLive').attr('href',"<%=request.getContextPath()%>/FrontEnd/live/liveHome2.jsp?host_ID=" + jsonObj2.host_ID);
+	        $('#info1').text(message1);
+	        $('#info2').text(message2);
+	        $('#info3').text(message3);
+	        $('#img1').attr('src', message4);
+	        $('#myModal2').modal('show');
+	        
+// 	        alert(message);
+		};
+
+		webSocket2.onclose = function(event) {
+		};
+	}
+	
+	 $('.liveCheckOut').click(function(){
+		 if(!allowUser()){ 
+			 <%session.setAttribute("location", request.getRequestURI());%>
+			 $('#login').modal('show');
+			 return;
+		 }else{
+			window.location.href=('http://www.ncu.edu.tw');
+		 } 
+ });
+    
+</script>
 </html>

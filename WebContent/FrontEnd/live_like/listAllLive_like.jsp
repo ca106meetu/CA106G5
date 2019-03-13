@@ -1,3 +1,4 @@
+<%@page import="com.meetU.mem.model.MemVO"%>
 <%@page import="java.util.*"%>
 <%@page import="com.meetU.live_like.model.*"%>
 <%@page language="java" contentType="text/html; charset=UTF-8"
@@ -10,6 +11,7 @@
 	Live_likeService live_likeSvc =new Live_likeService();
 	List<Live_likeVO> list = live_likeSvc.getOneLive_like(mem_ID);
 	pageContext.setAttribute("list", list);
+	MemVO memVO = (MemVO)session.getAttribute("memVO");
 %>
 <!doctype html>
 <html>
@@ -24,7 +26,7 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
 
-<title>收藏直播間-listAllLive.jsp</title>
+<title>收藏直播間-listAllLive_like.jsp</title>
 <style>
 .btn-primary {
     color: #fff;
@@ -81,7 +83,7 @@ td {
 	<table id='table-1'>
 		<tr>
 			<td>
-				<h3>收藏直播間-listAllLive.jsp</h3>
+				<h3>收藏直播間-listAllLive_like.jsp</h3>
 				<h4>
 					<a href='<%=request.getContextPath()%>/FrontEnd/live/liveHome.jsp'>
 						<img
@@ -126,7 +128,7 @@ td {
 		<td>
 						<form action="<%=request.getContextPath()%>/FrontEnd/live_like/live_like.do" method='post'>
 						<input class="btn btn-danger "  type="submit" value="取消收藏">
-		    			<input type="hidden" name="mem_ID"	value="M000005">
+		    			<input type="hidden" name="mem_ID"	value="${memVO.mem_ID}">
 		    			<input type="hidden" name="host_ID"	value="${live_likeVO.host_ID}">
 		    			<input type='hidden' name='action' value='delete2'>
 						</form>

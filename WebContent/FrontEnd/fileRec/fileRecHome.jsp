@@ -1,3 +1,4 @@
+<%@page import="com.meetU.mem.model.MemVO"%>
 <%@page import="java.util.*"%>
 <%@page import="com.meetU.filerec.model.*"%>
 <%@page language="java" contentType="text/html; charset=UTF-8"
@@ -10,6 +11,7 @@
 	FileRecService fileRecSvc = new FileRecService();
 	List<FileRecVO> list = fileRecSvc.getOneFileRec(host_ID);
 	pageContext.setAttribute("list", list);
+	MemVO memVO = (MemVO)session.getAttribute("memVO");
 %>
 <!doctype html>
 <html>
@@ -87,7 +89,10 @@ td {
 </style>
 </head>
 <body>
+<script
+		src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
 	<jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
+	
 
 	<table id='table-1'>
 		<tr>
@@ -139,9 +144,9 @@ td {
 	</table>
 	<jsp:useBean id="live_likeSvc" scope="page" class="com.meetU.live_like.model.Live_likeService"/>
 	<div id='live_like'>
-		<input class="${live_likeSvc.getOneLive_like2('M000005',param.host_ID ) != null ? 'btn btn-danger ' : 'btn btn-primary ' } live_like"  type="submit" value="${live_likeSvc.getOneLive_like2('M000005',param.host_ID ) != null ? '退訂直播主' : '收藏直播主' }">
+		<input class="${live_likeSvc.getOneLive_like2(memVO.mem_ID,param.host_ID ) != null ? 'btn btn-danger ' : 'btn btn-primary ' } live_like"  type="submit" value="${live_likeSvc.getOneLive_like2(memVO.mem_ID,param.host_ID ) != null ? '退訂直播主' : '收藏直播主' }">
 		<input type="hidden" name="host_ID" value="${param.host_ID}">
-		<input type="hidden" name="mem_ID"	value="M000005">
+		<input type="hidden" name="mem_ID"	value="${memVO.mem_ID}">
 	</div>
 	
 	<div id='live_rep'>
@@ -149,9 +154,9 @@ td {
 	</div>
 	
 	<div id='live_like2'>
-		<form action="<%=request.getContextPath()%>/FrontEnd/live_like/live_like.do" method='post'>
-			<input class="btn btn-primary "  type="submit" value="看我的收藏">
-		    <input type="hidden" name="mem_ID"	value="M000005">
+		<form action="<%=request.getContextPath()%>/FrontEnd/live_like/live_like.do" method='post' onsubmit='return allowUser();'>
+			<input class="btn btn-primary  live3CheckOut"  type="submit" value="看我的收藏" >
+		    <input type="hidden" name="mem_ID"	value="${memVO.mem_ID}">
 		    <input type='hidden' name='action' value='getOne_For_Display'>
 		</form>
 	</div>
@@ -163,60 +168,121 @@ td {
 
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script
-		src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
+	
 	<script
 		src="<%=request.getContextPath()%>/Templates/bootstrap4/popper.min.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/Templates/bootstrap4/js/bootstrap.min.js"></script>
 </body>
 <script>
-$(document).ready(function(){
-	$(".live_like").click(function(){
+// $(document).ready(function(){
+// 	$(".live_like").click(function(){
 		 
-		 if($(this).val() == "收藏直播主"){
+// 		 if($(this).val() == "收藏直播主"){
 			 				 
-			 $.ajax({
-				 type: "POST",
-				 url: "<%=request.getContextPath()%>/FrontEnd/live_like/live_like.do",
-				 data: {"host_ID":$(this).next().attr('value'), 
-					 	"action":"insert", 
-					 	"mem_ID":$(this).next().next().attr('value')},
-				 dataType: "json",
-				 success: function(){
+// 			 $.ajax({
+// 				 type: "POST",
+<%-- 				 url: "<%=request.getContextPath()%>/FrontEnd/live_like/live_like.do", --%>
+// 				 data: {"host_ID":$(this).next().attr('value'), 
+// 					 	"action":"insert", 
+// 					 	"mem_ID":$(this).next().next().attr('value')},
+// 				 dataType: "json",
+// 				 success: function(){
 					 
-					 $(".live_like").val("退訂直播主");
-					 $(".live_like").attr("class","btn btn-danger live_like");
+// 					 $(".live_like").val("退訂直播主");
+// 					 $(".live_like").attr("class","btn btn-danger live_like");
 					
 					
-					 alert("成功加入收藏");
-					},
+// 					 alert("成功加入收藏");
+// 					},
 					
-	             error: function(){alert("愛你唷,不過錯了")}
-		         });
+// 	             error: function(){alert("愛你唷,不過錯了")}
+// 		         });
 			 
 			 
-		 }else if($(this).val() == "退訂直播主"){
+// 		 }else if($(this).val() == "退訂直播主"){
 			 
-			 $.ajax({
-				 type: "POST",
-				 url: "<%=request.getContextPath()%>/FrontEnd/live_like/live_like.do",
-				 data: {"host_ID":$(this).next().attr('value'), 
-					 	"action":"delete", 
-					 	"mem_ID":$(this).next().next().attr('value')},
-						 dataType: "json",
-				 success: function(){
+// 			 $.ajax({
+// 				 type: "POST",
+<%-- 				 url: "<%=request.getContextPath()%>/FrontEnd/live_like/live_like.do", --%>
+// 				 data: {"host_ID":$(this).next().attr('value'), 
+// 					 	"action":"delete", 
+// 					 	"mem_ID":$(this).next().next().attr('value')},
+// 						 dataType: "json",
+// 				 success: function(){
 					 
-					 $(".live_like").val("收藏直播主");
-					 $(".live_like").attr("class","btn btn-primary live_like");
+// 					 $(".live_like").val("收藏直播主");
+// 					 $(".live_like").attr("class","btn btn-primary live_like");
 												
-					 alert("成功取消收藏");
-					},
-	             error: function(){alert("愛你唷,不過錯了2")}
-		         });				
-		 }
-	 });
-})
+// 					 alert("成功取消收藏");
+// 					},
+// 	             error: function(){alert("愛你唷,不過錯了2")}
+// 		         });				
+// 		 }
+// 	 });
+// })
+
+//以下登入
+$('.live_like').click(function(){
+		 if(!allowUser()){ 
+			 <%session.setAttribute("location", request.getRequestURI());%>
+			 $('#login').modal('show');
+			 return;
+		 }else{
+			 if($(this).val() == "收藏直播主"){
+ 				 
+				 $.ajax({
+					 type: "POST",
+					 url: "<%=request.getContextPath()%>/FrontEnd/live_like/live_like.do",
+					 data: {"host_ID":$(this).next().attr('value'), 
+						 	"action":"insert", 
+						 	"mem_ID":$(this).next().next().attr('value')},
+					 dataType: "json",
+					 success: function(){
+						 
+						 $(".live_like").val("退訂直播主");
+						 $(".live_like").attr("class","btn btn-danger live_like");
+						
+						
+						 alert("成功加入收藏");
+						},
+						
+		             error: function(){alert("愛你唷,不過錯了")}
+			         });
+				 
+				 
+			 }else if($(this).val() == "退訂直播主"){
+				 
+				 $.ajax({
+					 type: "POST",
+					 url: "<%=request.getContextPath()%>/FrontEnd/live_like/live_like.do",
+					 data: {"host_ID":$(this).next().attr('value'), 
+						 	"action":"delete", 
+						 	"mem_ID":$(this).next().next().attr('value')},
+							 dataType: "json",
+					 success: function(){
+						 
+						 $(".live_like").val("收藏直播主");
+						 $(".live_like").attr("class","btn btn-primary live_like");
+													
+						 alert("成功取消收藏");
+						},
+		             error: function(){alert("愛你唷,不過錯了2")}
+			         });				
+			 }
+			
+		 } 
+});
+
+$('.live3CheckOut').click(function(){
+	 if(!allowUser()){ 
+		 <%session.setAttribute("location", request.getRequestURI());%>
+		 $('#login').modal('show');
+		 return;
+	 }else{
+		
+	 } 
+});
 </script>
 </html>
 
