@@ -67,6 +67,8 @@ DROP SEQUENCE stick_seq;
 DROP SEQUENCE topic_seq;
 DROP SEQUENCE pair_quest_seq;
 
+ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD';
+
 --------------------------------------------------------
 --  for Table MEMBER
 --------------------------------------------------------
