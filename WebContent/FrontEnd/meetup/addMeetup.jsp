@@ -7,57 +7,27 @@
 
 <html>
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>資料新增 - addMeetup.jsp</title>
+<title>新增聯誼</title>
 
 <style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
+  #map {
+        height: 400px;
+        width: 100%;
+       }
+   
 </style>
-
-<style>
-  img{
-  	width : 150px;
-  	height: auto;
-  }	
-  table {
-	width: 450px;
-	background-color: white;
-	margin-top: 1px;
-	margin-bottom: 1px;
-  }
-  table, th, td {
-    border: 0px solid #CCCCFF;
-  }
-  th, td {
-    padding: 1px;
-  }
-</style>
+<!-- Required meta tags -->
+<meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
+ 
+	<script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
 
 </head>
-<body bgcolor='white'>
-<table id="table-1">
-	<tr><td>
-		 <h3>資料新增 - addMeetup.jsp</h3></td><td>
-		 <h4><a href="select_page.jsp">回首頁</a></h4>
-	</td></tr>
-</table>
-
-<h3>資料新增:</h3>
-
-<%-- 錯誤表列 --%>
+<!--<body onload='initMap();'>-->
+<body>
+<jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
 	<ul>
@@ -67,7 +37,10 @@
 	</ul>
 </c:if>
 
-
+<div class="container">
+	<div class="row">
+    	<div class="col">
+			
 <FORM METHOD="POST" ACTION="meetup.do" name="form1" enctype='multipart/form-data'>
 <table>
 	<tr>
@@ -84,7 +57,31 @@
 	</tr>	
 	<tr>
 		<th>聯誼地址</th>
-		<td><input type="text" name="meetup_loc" size="45" value="<%=(meetupVO==null)? "台北信義區":meetupVO.getMeetup_loc()%>"/></td>
+		<td>
+			<select id="twCityName">
+			  <option >--請選擇縣市--</option>
+			  <c:forEach var="city" items="${listCity}">
+			  	<option value="${city}"> ${city}</option>
+			  </c:forEach>
+	  		</select>
+	  
+	  		<select id="CityAreaName" >
+			  <option >--請選擇區域--</option>
+	  		</select>
+			    
+      		<select id="AreaRoadName" >
+			  <option >--請選擇路名--</option>
+	  		</select>	    
+	  
+		  	<input type="text" placeholder="請輸入門牌號碼" id="num">
+		  	<input type="button" value="確認" id="btnLoc">	
+		</td>
+	</tr>
+	<tr>
+		<th></th>
+		<td>
+			<input id="addressTotal" name="meetup_loc" type="text" size="50" value="<%=(meetupVO==null)?"資策會":meetupVO.getMeetup_loc()%>">
+		</td>
 	</tr>
 	<tr>
 		<th>聯誼封面照</th>
@@ -101,13 +98,15 @@
 		<td><input type="text" name="meetup_info" size="45" value="<%=(meetupVO==null)?"來嘛~":meetupVO.getMeetup_info()%>"/></td>			
 	</tr>
 </table>
-<br>
 <input type="hidden" name="action" value="insert">
 <button type="submit" >送出新增</button>
 </FORM>
-
+    <div id="map"></div>
+</div>
+</div>
+</div>
 <script>
-
+<!-- 圖片上傳 -->
 $('#imgUpload').change(function(){
     //當檔案改變後，做一些事 
    readURL(this);   // this代表<input id="imgUpload">
@@ -120,8 +119,104 @@ function readURL(input){
 }
 </script>
 
+<script>
+<!-- Location Dropdown Menu -->
+$(document).ready(function(){
+	
+	$("#twCityName").change(function(){
+		$.ajax({
+			 type: "POST",
+			 url: "<%=request.getContextPath()%>/twAddress",
+			 data: {"action":"twCityName",
+				 	"twCityName":$('#twCityName option:selected').val()},
+			 dataType: "json",
+			 success: function(result){
+				 $("#CityAreaName").empty();
+				
+				 $("#CityAreaName").append("<option >--請選擇區域--</option>")
+				 for(var i=0; i<result.length; i++){
+				 	$("#CityAreaName").append('<option value="'+result[i]+'">'+result[i]+'</option>');
+				 }
+			 },
+	         error: function(){
+	        	 alert("AJAX-grade發生錯誤囉!")
+	        	 }
+	    });
+	});
+	
+	$("#CityAreaName").change(function(){
+		$.ajax({
+			 type: "POST",
+			 url: "<%=request.getContextPath()%>/twAddress",
+			 data: {"action":"CityAreaName",
+				 	"twCityName":$('#twCityName option:selected').val(),
+				 	"CityAreaName":$('#CityAreaName option:selected').val()},
+			 dataType: "json",
+			 success: function(result){
+				 $("#AreaRoadName").empty();
+				 $("#AreaRoadName").append("<option >--請選擇區域--</option>")
+				 for(var i=0; i<result.length; i++){
+				 	$("#AreaRoadName").append('<option value="'+result[i]+'">'+result[i]+'</option>');
+				 }
+			 },
+	         error: function(){
+	        	 alert("AJAX-grade發生錯誤囉!")
+	        	 }
+	    });
+	});
+	
+	$("#btnLoc").click(function(){
+		
+		var twCityName = ($('#twCityName').get(0).selectedIndex)>0? $('#twCityName option:selected').val() :'';
+		
+		var CityAreaName = ($('#CityAreaName').get(0).selectedIndex)>0? $('#CityAreaName option:selected').val() :'';
+		
+		var AreaRoadName = ($('#AreaRoadName').get(0).selectedIndex)>0? $('#AreaRoadName option:selected').val() :'' ;
+		
+		var num = $('#num').val().trim().length != 0 ? $('#num').val()+"號" :'' ; 
 
-</body>
+		var locTotal = twCityName+CityAreaName+AreaRoadName+num;
+		$("#addressTotal").attr("value",locTotal);
+	})
+})
+</script>
+
+<script>
+<%-- GoogleMap 
+      var geocoder= new google.maps.Geocoder();
+
+      function initMap() {
+        var uluru = {lat: 24.9678606, lng: 121.1917912};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 15,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+      }
+
+      function codeAddress() {
+        var address = document.getElementById("addressTotal").value;
+        geocoder.geocode( { 'address': address}, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            var map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 15,
+              center: results[0].geometry.location
+            });
+                var marker = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location
+            });
+
+          } else {
+            alert("失敗, 原因: " + status);
+          }
+        });
+      }
+      --%>
+</script>
 
 <!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
 <% 
@@ -136,8 +231,8 @@ function readURL(input){
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 <script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
 <script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
-<style>
 
+<style>
   .xdsoft_datetimepicker .xdsoft_datepicker {
            width:  300px;   /* width:  300px; */
   }
@@ -159,55 +254,13 @@ function readURL(input){
            minDate:               '-1970-01-01', // 去除今日(不含)之前
            //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
         });
-
-        // ----------------------------------------------------------以下用來排定無法選擇的日期-----------------------------------------------------------
-
-        //      1.以下為某一天之前的日期無法選擇
-        //      var somedate1 = new Date('2017-06-15');
-        //      $('#f_date1').datetimepicker({
-        //          beforeShowDay: function(date) {
-        //        	  if (  date.getYear() <  somedate1.getYear() || 
-        //		           (date.getYear() == somedate1.getYear() && date.getMonth() <  somedate1.getMonth()) || 
-        //		           (date.getYear() == somedate1.getYear() && date.getMonth() == somedate1.getMonth() && date.getDate() < somedate1.getDate())
-        //              ) {
-        //                   return [false, ""]
-        //              }
-        //              return [true, ""];
-        //      }});
-
-        
-        //      2.以下為某一天之後的日期無法選擇
-        //      var somedate2 = new Date('2017-06-15');
-        //      $('#f_date1').datetimepicker({
-        //          beforeShowDay: function(date) {
-        //        	  if (  date.getYear() >  somedate2.getYear() || 
-        //		           (date.getYear() == somedate2.getYear() && date.getMonth() >  somedate2.getMonth()) || 
-        //		           (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
-        //              ) {
-        //                   return [false, ""]
-        //              }
-        //              return [true, ""];
-        //      }});
-
-
-        //      3.以下為兩個日期之外的日期無法選擇 (也可按需要換成其他日期)
-        //      var somedate1 = new Date('2017-06-15');
-        //      var somedate2 = new Date('2017-06-25');
-        //      $('#f_date1').datetimepicker({
-        //          beforeShowDay: function(date) {
-        //        	  if (  date.getYear() <  somedate1.getYear() || 
-        //		           (date.getYear() == somedate1.getYear() && date.getMonth() <  somedate1.getMonth()) || 
-        //		           (date.getYear() == somedate1.getYear() && date.getMonth() == somedate1.getMonth() && date.getDate() < somedate1.getDate())
-        //		             ||
-        //		            date.getYear() >  somedate2.getYear() || 
-        //		           (date.getYear() == somedate2.getYear() && date.getMonth() >  somedate2.getMonth()) || 
-        //		           (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
-        //              ) {
-        //                   return [false, ""]
-        //              }
-        //              return [true, ""];
-        //      }});
-        
 </script>
+
+<jsp:include page="/Templates/bootstrap4/frontFooter.jsp" />
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/popper.min.js"></script>
+    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/js/bootstrap.min.js"></script>
+</body>
 </html>
 
