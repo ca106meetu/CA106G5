@@ -27,6 +27,7 @@ public class ShowPic extends HttpServlet {
 	public static final String sql_prod = "SELECT PROD_PIC FROM PRODUCT WHERE PROD_ID = '";
 	public static final String sql_live = "SELECT LIVE_PIC FROM LIVE WHERE HOST_ID = '";
 	public static final String sql_meetup = "SELECT MEETUP_PIC FROM MEETUP WHERE MEETUP_ID = '";
+	public static final String sql_stick = "SELECT STICKER FROM STICK WHERE STICK_ID = '";
 
 	private static DataSource ds = null;
 	static {
@@ -72,6 +73,9 @@ public class ShowPic extends HttpServlet {
 		} else if ("MEETUP_ID".equals(column)) {
 			sql = sql_meetup + req.getParameter(column) + "'";
 			col_pic = "MEETUP_PIC";
+		} else if ("STICK_ID".equals(column)) {
+			sql = sql_stick + req.getParameter(column) + "'";
+			col_pic = "STICKER";
 		}
 
 		try {

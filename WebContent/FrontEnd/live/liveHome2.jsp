@@ -29,6 +29,18 @@
     <title>直播影片間</title>  
     
  <style>  
+ 
+/*  ----------------------------松松加----------------------- */
+ .docker{
+ 	width:100%;
+ 	margin:0;
+ 	padding:0;
+ }
+ 
+ .sticker{
+ 	width:100%;
+ }
+/*  ----------------------------------------------------- */
  .btn-primary {
     color: #fff;
     background-color:#0078ae;
@@ -154,23 +166,40 @@ html,body {
 				</div>
 				</div>
 				
-				<div class="col-4">	
+<div class="col-4">	
 				
+<!-- ------------------------------------------松松改--------------------------------------				 -->
 				
-				 <div class="jumbotron" style="margin-bottom: 0rem";>
+<jsp:useBean id="sSvc" scope="page" class="com.meetU.stick.model.StickService"/>
+				 <div class="jumbotron" style="margin-bottom: 0rem;">
   				<h1 class="display-3"> 聊天室</h1>
   				<hr class="my-4">
   				 <h3 id="statusOutput" class="statusOutput"></h3>
-        <textarea id="messagesArea" class="panel message-area" readonly ></textarea>
+        <div id="messagesArea" class="panel message-area"  ></div>
         <div class="panel input-area">
-            <div id="userName" class="text-field" style='display:none'>${memVO.mem_name}</div><br><br>
+            <div class='container-fluid'>
+            <div id='userName' style='display:none;'>${memVO.mem_name}</div>
+            <div id="userNa" class="row" >
+            
+            	<c:forEach var="sVO" items="${sSvc.all}" begin="0" end="${sSvc.all.size()}">
+            		<div class='col-1 docker'>
+            			<img class='sticker' src='/CA106G5/ShowPic?STICK_ID=${sVO.stick_ID}' onclick='sendStick("${sVO.stick_ID}");'>
+            		</div>
+				</c:forEach>
+			
+            </div>
+            </div>
+            <br><br>
+            
             <input id="message"  class="text-field" type="text" placeholder="訊息" onkeydown="if (event.keyCode == 13) sendMessage();"/>
             <input type="submit" id="sendMessage" class="button" value="送出" onclick="sendMessage();"/>
 	        </div>
   			</div>
+
+<!-- --------------------------------------------------------------------------------------- -->
+</div>
 			</div>
-			</div>
-			</div>
+</div> 
 			
 	
 	<jsp:useBean id="live_likeSvc" scope="page" class="com.meetU.live_like.model.Live_likeService"/>	
@@ -316,8 +345,16 @@ html,body {
 		webSocket.onmessage = function(event) {
 			var messagesArea = document.getElementById("messagesArea");
 	        var jsonObj = JSON.parse(event.data);
-	        var message = jsonObj.userName + ": " + jsonObj.message + "\r\n";
-	        messagesArea.value = messagesArea.value + message;
+	        
+	        if("stick" == jsonObj.action){
+				var message = jsonObj.userName + ": " +
+						"<img style='width:30px;' src='data:img/png;base64,"+ jsonObj.stick + "'><br>";       
+	        	
+	        }else{
+		        var message = jsonObj.userName + ": " + jsonObj.message + "<br>";
+	        }
+	        messagesArea.innerHTML = messagesArea.innerHTML + message;
+	        
 	        messagesArea.scrollTop = messagesArea.scrollHeight;
 		};
 
@@ -328,8 +365,19 @@ html,body {
 	
 	
 	var inputUserName = document.getElementById("userName");
-
-	
+// --------------------------------松松加---------------------------------------
+	function sendStick(stick_ID){
+		var userName = inputUserName.innerText.trim();
+		if(allowUser()){
+		var jsonObj = {"action" : "stick", "stick_ID" : stick_ID,"userName" : userName};
+		webSocket.send(JSON.stringify(jsonObj));
+		} else{
+			$('#login').modal('show');
+			 return;
+		}
+		
+	}
+// 	------------------------------------------------------------------------
 	function sendMessage() {
 	    var userName = inputUserName.innerText.trim();
 	    if (userName === ""){
@@ -344,7 +392,7 @@ html,body {
 	        alert ("訊息請勿空白!");
 	        inputMessage.focus();	
 	    }else{
-	        var jsonObj = {"userName" : userName, "message" : message};
+	        var jsonObj = {"userName" : userName, "message" : message, "action":"text"};
 	        webSocket.send(JSON.stringify(jsonObj));
 	        inputMessage.value = "";
 	        inputMessage.focus();
