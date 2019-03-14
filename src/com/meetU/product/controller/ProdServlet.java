@@ -369,6 +369,7 @@ public class ProdServlet extends HttpServlet {
 						in.read(prod_pic);
 						in.close();
 					}else {
+						
 						prod_pic = new ProductService().getOneProd(prod_ID).getProd_pic();
 					}
 					
@@ -382,10 +383,11 @@ public class ProdServlet extends HttpServlet {
 					prodVO.setProd_type(prod_type);
 					prodVO.setProd_info(prod_info);
 					prodVO.setProd_status(prod_status);
-					
-					Base64.Encoder encoder = Base64.getEncoder();
-					String encodeText = encoder.encodeToString(prod_pic);
-					req.setAttribute("encodeText", encodeText);
+					if(prod_pic != null) {
+						Base64.Encoder encoder = Base64.getEncoder();
+						String encodeText = encoder.encodeToString(prod_pic);
+						req.setAttribute("encodeText", encodeText);
+					}
 					
 					if(!errorMsgs.isEmpty()) {
 						req.setAttribute("prodVO", prodVO);

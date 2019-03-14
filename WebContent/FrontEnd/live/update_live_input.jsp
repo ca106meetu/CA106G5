@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 
 <%
-	LiveVO liveVO = (LiveVO) request.getAttribute("liveVO");
+	LiveVO liveVO = (LiveVO) request.getAttribute("liveVO"); 
 %>
 <html>
 <head>
