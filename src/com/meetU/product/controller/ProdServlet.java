@@ -383,6 +383,7 @@ public class ProdServlet extends HttpServlet {
 					prodVO.setProd_type(prod_type);
 					prodVO.setProd_info(prod_info);
 					prodVO.setProd_status(prod_status);
+					
 					if(prod_pic != null) {
 						Base64.Encoder encoder = Base64.getEncoder();
 						String encodeText = encoder.encodeToString(prod_pic);
