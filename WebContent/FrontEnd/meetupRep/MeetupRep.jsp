@@ -7,8 +7,7 @@
 <% 
 	MeetupRepService meetupRepSvc = new MeetupRepService();
 	List<MeetupRepVO> list = meetupRepSvc.getAll();
-	pageContext.setAttribute("list", list);
-	
+	pageContext.setAttribute("list", list);	
 %>
 
 <!DOCTYPE html>
@@ -21,6 +20,11 @@
 <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
+<!-- for modal dialog -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
 
 <title>Meetup Report</title>
 <style>
@@ -42,18 +46,33 @@
 	    padding: 15px;
 	    text-align: center;
 	    border:1px solid black;
-	  }
+	}
 
+	.redBall{
+		width:20px;
+		height:20px;
+		border-radius:50%;
+		background-color:red;
+	}
+	
+	.greenBall{
+		width:20px;
+		height:20px;
+		border-radius:50%;
+		background-color:green;
+	}
+	
 </style>
-
 </head>
 
 <body>
 <jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
 <div class="container">
 	<div class="row">
-    	
+
 <jsp:useBean id="meetupSvc" scope="page" class="com.meetU.meetup.model.MeetupService"/>
+
+<%@ include file="page1.file"%>  
 			<table class="table1">
 				<tr>
 					<th>檢舉狀態</th>
@@ -63,53 +82,59 @@
 					<th>檢舉時間</th>
 					<th>檢舉內容</th>		
 				</tr>
-<%@ include file="page1.file"%>
-<c:forEach var="meetupRepVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+
+<c:forEach var="meetupRepVO" items="${list}" varStatus="varstatus" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 				<tr>
-					<td>${meetupRepVO.rep_status}</td>
+					<td><div id="statusBall" Class="${meetupRepVO.rep_status ==0?'redBall':'greenBall' }"></div></td>
 					<td>${meetupRepVO.meetup_rep_ID}</td>
-					<td>${meetupSvc.getOneMeetup(meetupRepVO.meetup_ID).meetup_name}</td>
+					<td><A href="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do?meetup_ID=${meetupRepVO.meetup_ID}&action=getOne_For_Display">
+					${meetupSvc.getOneMeetup(meetupRepVO.meetup_ID).meetup_name}</a></td>
 					<td>${meetupRepVO.mem_ID}</td>
 					<td>${meetupRepVO.rep_date}</td>
 					<td>
 						<FORM METHOD="POST" ACTION="<%=request.getContextPath()%>/FrontEnd/meetupRep/meetupRep.do" >	
 							<input type="hidden" name="meetup_rep_ID" value="${meetupRepVO.meetup_rep_ID}">
-							<input type="hidden" name="action" value="getOne_For_Display">
-							<input type="button" class="btn btn-info" value="查看檢舉原因">	
+							<input type="hidden" name="action" value="getOne_For_Update">
+							<input type="submit" class="btn btn-info btnShowReason" data-toggle="modal" data-target="#basicModal" value="查看/回覆檢舉原因">	
 						</FORM>
 					</td>	
 				</tr>
 </c:forEach>
 </table>
 <%@ include file="page2.file" %>
-		
-<div class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-    
-      <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
+
+	</div>
+</div>
+
+<c:if test="${openModal!=null}">		
+<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+				
+			<div class="modal-header">
+               <h3 class="modal-title" id="myModalLabel">聯誼名稱 : ${meetupSvc.getOneMeetup(meetupRepVO.meetup_ID).meetup_name}</h3>
+               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+			
+	  <div class="modal-body">
 <!-- =========================================以下為原listOneEmp.jsp的內容========================================== -->
                <jsp:include page="updateRepContentAns.jsp" />
 <!-- =========================================以上為原listOneEmp.jsp的內容========================================== -->
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" name="">完成處理</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">稍後處理</button>
       </div>
     </div>
   </div>
 </div>
+		<script>
+    		 $("#basicModal").modal({show: true});
+        </script>
+ </c:if>
 		
 		
-		
-	</div>
-</div>
+
 
     <jsp:include page="/Templates/bootstrap4/frontFooter.jsp" />
     <!-- Optional JavaScript -->

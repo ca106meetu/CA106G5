@@ -18,6 +18,7 @@
 <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
 	<script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
+		
     <title>Meetup HomePage</title>    
     <style>
     .pic{

@@ -171,7 +171,7 @@ $(document).ready(function(){
 				 type: "POST",
 				 url: "<%=request.getContextPath()%>/FrontEnd/meetupLike/meetupLike.do",
 				 data: {"meetup_ID":$(this).next().attr('value'), 
-					 	"action":"delete", 
+					 	"action":"deleteAjax", 
 					 	"mem_ID":$(this).next().next().attr('value')},
 				 dataType: "json",
 				 success: function(){

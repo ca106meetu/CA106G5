@@ -112,6 +112,7 @@ public class MeetupLikeServlet extends HttpServlet {
 //				failureView.forward(req, res);
 //			}
 		}
+		
 		if ("delete".equals(action)) { // 來自listAllEmp.jsp
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -126,6 +127,7 @@ public class MeetupLikeServlet extends HttpServlet {
 				meetupLikeSvc.deleteMeetupLike(meetup_ID, mem_ID);
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
+				
 				String url = "/FrontEnd/meetupLike/AllMyLikeMeetup.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
@@ -140,7 +142,36 @@ public class MeetupLikeServlet extends HttpServlet {
 		}	
 		
 		
+		if ("deleteAjax".equals(action)) { // 來自listAllEmp.jsp
+
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+	
+//			try {
+				/***************************1.接收請求參數***************************************/
+				String meetup_ID = req.getParameter("meetup_ID");
+				String mem_ID = req.getParameter("mem_ID").trim();
+				/***************************2.開始刪除資料***************************************/
+				MeetupLikeService meetupLikeSvc = new MeetupLikeService();
+				meetupLikeSvc.deleteMeetupLike(meetup_ID, mem_ID);
+				
+				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
+				PrintWriter out = res.getWriter();
+				out.println("{}");
+				out.close();
+//				String url = "/FrontEnd/meetupLike/AllMyLikeMeetup.jsp";
+//				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+//				successView.forward(req, res);
+				
+				/***************************其他可能的錯誤處理**********************************/
+//			} catch (Exception e) {
+//				errorMsgs.add("刪除資料失敗:"+e.getMessage());
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/FrontEnd/meetupLike/listAllMyMeetupLike.jsp");
+//				failureView.forward(req, res);
+			}
+			
 		
-	}
+		}
 		
 }

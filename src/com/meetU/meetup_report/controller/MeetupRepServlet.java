@@ -35,7 +35,7 @@ public class MeetupRepServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 			try {
 				/*=================1.接收請求參數 - 輸入格式的錯誤處理=================*/
-				System.out.println("2");
+System.out.println("2");
 				String meetup_rep_ID = req.getParameter("meetup_rep_ID");
 				if(meetup_rep_ID == null || (meetup_rep_ID.trim()).length()==0) {
 					errorMsgs.add("請輸入聯誼編號");
@@ -74,15 +74,23 @@ public class MeetupRepServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 			try {
 				/*=================1.接收請求參數=================*/
-				String meetup_ID = req.getParameter("meetup_ID");
+				String meetup_rep_ID = req.getParameter("meetup_rep_ID");
 				/*=================2.開始查詢資料=================*/
 				MeetupRepService meetupRepSvc = new MeetupRepService();
-				MeetupRepVO meetupRepVO = meetupRepSvc.getOneMeetupRep(meetup_ID);
+				MeetupRepVO meetupRepVO = meetupRepSvc.getOneMeetupRep(meetup_rep_ID);
 				/*=================3.查詢完成,準備轉交(Send the Success view)=================*/
 				req.setAttribute("meetupRepVO", meetupRepVO);
-//				String url = "/meetupRep/repContent.jsp";
-//				RequestDispatcher successView =req.getRequestDispatcher(url);
-//				successView.forward(req,res);
+				
+				//Bootstrap_modal
+				boolean openModal=true;
+				req.setAttribute("openModal",openModal );
+				
+				String url = "/FrontEnd/meetupRep/MeetupRep.jsp";
+//				String url = "/FrontEnd/meetupRep/listAllEmp_06_EL_Test_Bootstrap_modal.jsp";
+//				String url = "/FrontEnd/meetupRep/updateRepContentAns.jsp";
+				RequestDispatcher successView =req.getRequestDispatcher(url);
+				successView.forward(req,res);
+				return;
 				
 			}catch(Exception e) {
 				errorMsgs.add("無法取得檢舉內容:" + e.getMessage());

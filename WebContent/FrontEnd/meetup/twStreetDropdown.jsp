@@ -18,7 +18,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
- 
+ <script src="http://maps.google.com/maps/api/js?key=AIzaSyBbAAPKAKdERmjzz1pWIZVULGozcKOY6Y8&sensor=false"></script>
 	<script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
 
 </head>
