@@ -20,7 +20,7 @@ import javax.websocket.OnClose;
 import javax.websocket.CloseReason;
 
 @ServerEndpoint("/MyEchoServerlive/{myName}/{myRoom}")
-public class MyEchoServer {
+public class MyEchoServerlive {
 	
 private static final Set<Session> allSessions = Collections.synchronizedSet(new HashSet<Session>());
 	
