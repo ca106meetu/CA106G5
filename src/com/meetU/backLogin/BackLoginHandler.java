@@ -46,6 +46,9 @@ public class BackLoginHandler extends HttpServlet{
 		String action = req.getParameter("action");
 		
 		if ("back_logout".equals(action)) {
+			session.removeAttribute("emp_ID");
+			session.removeAttribute("emp_pw");
+			session.removeAttribute("empVO");
 			session.invalidate();
 			res.sendRedirect(req.getContextPath()+"/backIndex.jsp"); 
 		}
@@ -64,8 +67,8 @@ public class BackLoginHandler extends HttpServlet{
 				out.println("<link rel='stylesheet' type='text/css' href='Templates/bootstrap4/css/sweetalert2.css'>");
 				
 				out.println("<TITLE>登入失敗</TITLE></head><body><script type='text/javascript'>");
-				out.println("$(function(){swal('你的帳號,密碼無效!','請您重新輸入帳號密碼','error').then(function (result) {");
-				out.println("window.location.href='"+req.getContextPath()+"/backIndex.jsp';});});");
+				out.println("$(function(){swal({title: '你的帳號,密碼無效!',text: '請您重新輸入帳號密碼',type:'error'})");
+				out.println(".then(function(){location.href = 'backIndex.jsp'});});");
 				out.println("</script></body></HTML>");
 				
 				//res.sendRedirect(req.getRequestURI());
@@ -84,7 +87,7 @@ public class BackLoginHandler extends HttpServlet{
 					}
 				}catch (Exception ignored) { }
 				
-				res.sendRedirect(req.getContextPath()+"/backLogin_success.jsp");  //*工作3: (-->如無來源網頁:則重導至login_success.jsp)
+				res.sendRedirect(req.getContextPath()+"/backLogin_success.jsp");  /*工作3: (->如無來源網頁:則重導至backLogin_success.jsp)*/
 			}
 		}
 
