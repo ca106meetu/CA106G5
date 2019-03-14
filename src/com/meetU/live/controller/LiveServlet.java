@@ -188,10 +188,10 @@ public class LiveServlet extends HttpServlet {
 				liveVO.setLive_pic(live_pic);
 				liveVO.setLive_date(live_date);
 				liveVO.setLive_status(live_status);
-
+if(live_pic != null) {
 				Base64.Encoder encoder = Base64.getEncoder();
 				String encodeText = encoder.encodeToString(live_pic);
-				req.setAttribute("encodeText", encodeText);
+				req.setAttribute("encodeText", encodeText);}
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {

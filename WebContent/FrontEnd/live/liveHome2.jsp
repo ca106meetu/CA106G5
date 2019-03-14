@@ -35,6 +35,7 @@
  	width:100%;
  	margin:0;
  	padding:0;
+ 	color: white;
  }
  
  .sticker{
@@ -115,6 +116,7 @@ html,body {
 }
 
 .panel {
+    	background-color: white;
     border: 2px solid #0078ae;
     border-radius: 5px;
     width:100%;
@@ -154,7 +156,7 @@ html,body {
 			<div class="row">
 				<div class="col-8">
 				
-				<div class="jumbotron" style="margin-bottom: 0rem";>
+				<div class="jumbotron" style="margin-bottom: 0rem">
                 <h1 class="display-3"><%= host_name%>的直播間
  <button style="${(memVO.mem_ID eq host_ID) ? '': 'display:none' }"  class='btn btn-success' onclick='connect2();'>直播推播</button>
                		<a href='<%=request.getContextPath()%>/FrontEnd/live/liveHome.jsp'>
@@ -171,7 +173,7 @@ html,body {
 <!-- ------------------------------------------松松改--------------------------------------				 -->
 				
 <jsp:useBean id="sSvc" scope="page" class="com.meetU.stick.model.StickService"/>
-				 <div class="jumbotron" style="margin-bottom: 0rem;">
+				 <div class="jumbotron" style="margin-bottom: 0rem">
   				<h1 class="display-3"> 聊天室</h1>
   				<hr class="my-4">
   				 <h3 id="statusOutput" class="statusOutput"></h3>
@@ -188,8 +190,8 @@ html,body {
 				</c:forEach>
 			
             </div>
-            </div>
-            <br><br>
+            </div>	
+            
             
             <input id="message"  class="text-field" type="text" placeholder="訊息" onkeydown="if (event.keyCode == 13) sendMessage();"/>
             <input type="submit" id="sendMessage" class="button" value="送出" onclick="sendMessage();"/>
@@ -512,6 +514,4 @@ html,body {
 	
     
 </script> 
-  
-  
 </html>
