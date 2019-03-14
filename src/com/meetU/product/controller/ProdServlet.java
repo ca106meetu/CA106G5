@@ -380,7 +380,7 @@ public class ProdServlet extends HttpServlet {
 					prodVO.setProd_stock(prod_stock);
 					prodVO.setProd_promt_status(prod_promt_status);
 					prodVO.setProd_pic(prod_pic);
-					prodVO.setProd_type(prod_type);
+					prodVO.setProd_type(prod_type); 
 					prodVO.setProd_info(prod_info);
 					prodVO.setProd_status(prod_status);
 					
