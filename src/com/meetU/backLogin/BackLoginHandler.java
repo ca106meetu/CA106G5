@@ -46,9 +46,9 @@ public class BackLoginHandler extends HttpServlet{
 		String action = req.getParameter("action");
 		
 		if ("back_logout".equals(action)) {
-			session.removeAttribute("emp_ID");
-			session.removeAttribute("emp_pw");
-			session.removeAttribute("empVO");
+			//session.removeAttribute("emp_ID");
+			//session.removeAttribute("emp_pw");
+			//session.removeAttribute("empVO");
 			session.invalidate();
 			res.sendRedirect(req.getContextPath()+"/backIndex.jsp"); 
 		}
@@ -60,18 +60,21 @@ public class BackLoginHandler extends HttpServlet{
 //				out.println("</BODY></HTML>");
 				/*=======================*/
 				
-				out.println("<!doctype html><html lang='zh-TW'><head><meta charset='utf-8'>");
-				out.println("<meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>");
-				out.println("<script src='Templates/bootstrap4/js/jquery-3.2.1.min.js'></script>");
-				out.println("<script src='Templates/bootstrap4/js/sweetalert2.all.js'></script>");
-				out.println("<link rel='stylesheet' type='text/css' href='Templates/bootstrap4/css/sweetalert2.css'>");
+//				out.println("<!doctype html><html lang='zh-TW'><head><meta charset='utf-8'>");
+//				out.println("<meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>");
+//				out.println("<script src='Templates/bootstrap4/js/jquery-3.2.1.min.js'></script>");
+//				out.println("<script src='Templates/bootstrap4/js/sweetalert2.all.js'></script>");
+//				out.println("<link rel='stylesheet' type='text/css' href='Templates/bootstrap4/css/sweetalert2.css'>");
+//				
+//				out.println("<TITLE>登入失敗</TITLE></head><body><script type='text/javascript'>");
+//				out.println("$(function(){swal({title: '你的帳號,密碼無效!',text: '請您重新輸入帳號密碼',type:'error'})");
+//				out.println(".then(function(result){window.location.href = 'backIndex.jsp'});});");
+//				out.println("</script></body></HTML>");
+				/*===================================*/
 				
-				out.println("<TITLE>登入失敗</TITLE></head><body><script type='text/javascript'>");
-				out.println("$(function(){swal({title: '你的帳號,密碼無效!',text: '請您重新輸入帳號密碼',type:'error'})");
-				out.println(".then(function(){location.href = 'backIndex.jsp'});});");
-				out.println("</script></body></HTML>");
-				
+				res.sendRedirect(req.getContextPath()+"/backLoginFail.html");
 				//res.sendRedirect(req.getRequestURI());
+				
 			}else {                                       //【帳號 , 密碼有效時, 才做以下工作】
 				session.setAttribute("emp_ID", emp_ID);   //*工作1: 才在session內做已經登入過的標識
 				EmpAuthService empAuthSvc = new EmpAuthService();
