@@ -18,7 +18,7 @@ public class MeetupJDBCDAO implements MeetupDAO_interface{
 	private static final String INSERT_STMT = 
 			"INSERT INTO MEETUP (meetup_ID, meetup_name, mem_ID, meetup_date, meetup_loc, meetup_status, meetup_info)"
 			+ "VALUES ('MP'||LPAD(to_char(meetup_seq.NEXTVAL), 6, '0'), ?,?,?,?,?,?)";
-	
+	private static final String GET_HOST_ALL_STMT = "SELECT * FROM MEETUP where mem_ID=?";
 	private static final String GET_ALL_STMT = "SELECT * FROM MEETUP";
 	private static final String GET_ONE_STMT = "SELECT * FROM MEETUP where meetup_ID=?";
 	private static final String DELETE = "DELETE FROM MEETUP WHERE MEETUP_ID=?";
@@ -252,6 +252,69 @@ public class MeetupJDBCDAO implements MeetupDAO_interface{
 		}return list;
 	}
 	
+	@Override
+	public List<MeetupVO> getHostAll(String mem_ID) {
+	
+		List<MeetupVO> list = new ArrayList<MeetupVO>();
+		MeetupVO meetupVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_HOST_ALL_STMT);
+			pstmt.setString(1, mem_ID);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				meetupVO = new MeetupVO();
+				meetupVO.setMeetup_ID(rs.getString("meetup_ID"));
+				meetupVO.setMeetup_name(rs.getString("meetup_name"));
+				meetupVO.setMem_ID(rs.getString("mem_ID"));
+				meetupVO.setMeetup_date(rs.getDate("meetup_date"));
+				meetupVO.setMeetup_loc(rs.getString("meetup_loc"));
+				meetupVO.setMeetup_status(rs.getInt("meetup_status"));
+//				meetupVO.setMeetup_pic(rs.getBytes("meetup_pic"));
+				meetupVO.setMeetup_info(rs.getString("meetup_info"));
+				list.add(meetupVO);
+			}
+		}catch(ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}return list;
+	}
+	
+	
+	
 	public static void main(String[] args) {
 		MeetupJDBCDAO dao = new MeetupJDBCDAO();
 
@@ -306,5 +369,21 @@ public class MeetupJDBCDAO implements MeetupDAO_interface{
 //			System.out.println(mtupVO.getMeetup_info());
 //			System.out.println("----------------");
 //		}
+		
+		//查詢
+		List<MeetupVO> list = dao.getHostAll("M000001");
+		for(MeetupVO mtupVO : list) {
+			System.out.println(mtupVO.getMeetup_ID());
+			System.out.println(mtupVO.getMeetup_name());
+			System.out.println(mtupVO.getMem_ID());
+			System.out.println(mtupVO.getMeetup_date());
+			System.out.println(mtupVO.getMeetup_loc());
+			System.out.println(mtupVO.getMeetup_status());
+//			System.out.println(mtupVO.getMeetup_pic());
+			System.out.println(mtupVO.getMeetup_info());
+			System.out.println("----------------");
+		}
+		
 	}
+
 }

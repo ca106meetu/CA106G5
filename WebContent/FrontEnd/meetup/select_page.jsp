@@ -87,8 +87,21 @@
 		</FORM>
 	</li>
 </ul>
-<h3>員工管理</h3>
-
+<jsp:useBean id="memSvc" scope="page" class="com.meetU.mem.model.MemService"/>
+<ul>
+	<li>
+		<FORM METHOD="POST" ACTION="listMeetupByHost.jsp">
+			<b>選擇主揪名稱</b>
+			<select size="1" name="mem_ID">
+				<c:forEach var="memVO" items="${memSvc.all}">
+					<option value="${memVO.mem_ID}">${memVO.mem_ID} - ${memVO.mem_name}
+				</c:forEach>
+			</select>
+			<input type="hidden" name="action" value="getAllByHost">
+			<input type="submit" value="查詢">
+		</FORM>
+	</li>
+</ul>
 <ul>
   <li><a href='addMeetup.jsp'>Add</a> a new Meetup.</li>
 </ul>

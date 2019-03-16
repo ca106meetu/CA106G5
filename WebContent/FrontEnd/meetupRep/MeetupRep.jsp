@@ -65,6 +65,12 @@
 		margin: 0px auto;
 	}
 	
+	#repAns{
+		width:70%;
+		height:auto;
+		margin:20px;
+	}
+	
 </style>
 </head>
 
@@ -122,16 +128,17 @@
 			
 	  <div class="modal-body">
 <!-- =========================================以下為原listOneEmp.jsp的內容========================================== -->
+
 <table>
 	<tr>
-		<th>聯誼名稱</th>
-		<th>聯誼封面照</th>
+		<%--<th>聯誼名稱</th>
+		<th>聯誼封面照</th>  --%>
 		<th>檢舉者</th>
 		<th>檢舉內容</th>
 	</tr>
 	<tr>
-		<td>${meetupSvc.getOneMeetup(meetupRepVO.meetup_ID).meetup_name}</td>
-		<td><img class='pic' src='/CA106G5/ShowPic?MEETUP_ID=${meetupRepVO.meetup_ID}'></td>
+		<%--<td>${meetupSvc.getOneMeetup(meetupRepVO.meetup_ID).meetup_name}</td>
+		<td><img class='pic' src='/CA106G5/ShowPic?MEETUP_ID=${meetupRepVO.meetup_ID}'></td> --%>
 		<td>${meetupRepVO.mem_ID}</td>
 		<td>${meetupRepVO.rep_content}</td>
 	</tr>
@@ -178,7 +185,7 @@ $(document).ready(function(){
 })
 
 $("#basicModal").on('hide', function () {
-		    window.location.reload();
+		    
 		});
 	
 

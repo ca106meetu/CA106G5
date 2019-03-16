@@ -1,9 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.meetU.meetup.model.*"%>
+<%@ page import="com.meetU.meetup.model.*, com.meetU.mem.model.*"%>
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 
 <% MeetupVO meetupVO = (MeetupVO) request.getAttribute("meetupVO");%>
+
+<% 	
+	MemVO memVO = (MemVO) session.getAttribute("memVO");
+	
+%>
 
 <html>
 <head>
@@ -45,11 +50,11 @@
 <table>
 	<tr>
 		<th>聯誼名稱</th>
-		<td><input type="text" name="meetup_name" size="45" value="<%=(meetupVO==null)? "地方媽媽需要愛":meetupVO.getMeetup_name()%>"/></td>
+		<td><input type="text" name="meetup_name" size="45" value="<%=(meetupVO==null)? "Lets meetup":meetupVO.getMeetup_name()%>"/></td>
 	</tr>	
 	<tr>
 		<th>主揪</th>
-		<td><input type="text" name="mem_ID" size="45" value="<%=(meetupVO==null)? "M000005":meetupVO.getMem_ID()%>"/></td>
+		<td><input type="hidden" name="mem_ID" size="45" value="<%=memVO.getMem_ID()%>"/> <%=memVO.getMem_name()%></td>
 	</tr>	
 	<tr>		
 		<th>聯誼日期</th>
@@ -86,18 +91,15 @@
 	<tr>
 		<th>聯誼封面照</th>
 		<td><input type="file" name="meetup_pic" size="45" id="imgUpload"/><br>
-			<input type='hidden' name='encodeText' value='${encodeText}'>
+			<input type='hidden' name='encodeText' value='${encodeText}'/>
 			<img class='pic' src='data:img/png;base64,${encodeText}' ${(meetupVO.meetup_pic == null) ? "style='display:none'" : ''}></td>
-	</tr>	
-	<tr>	
-		<th>聯誼狀態</th>
-		<td><input type="text" name="meetup_status" size="45" value="<%=(meetupVO==null)?"1":meetupVO.getMeetup_status()%>"/></td>
-	</tr>	 
+	</tr>		 
 	<tr>	
 		<th>聯誼資訊</th>
 		<td><input type="text" name="meetup_info" size="45" value="<%=(meetupVO==null)?"來嘛~":meetupVO.getMeetup_info()%>"/></td>			
 	</tr>
 </table>
+<input type="hidden" name="meetup_status" value="1">
 <input type="hidden" name="action" value="insert">
 <button type="submit" >送出新增</button>
 </FORM>

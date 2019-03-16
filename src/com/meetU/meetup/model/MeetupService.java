@@ -52,4 +52,8 @@ public class MeetupService {
 	public List<MeetupVO> getAll() {
 		return dao.getAll();
 	}
+	
+	public List<MeetupVO> getAllByHost(String mem_ID) {
+		return dao.getHostAll(mem_ID);
+	}
 }

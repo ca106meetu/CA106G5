@@ -2,6 +2,7 @@ package com.meetU.meetup.controller;
 
 import java.io.*;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.LinkedList;
 import java.util.List;
@@ -213,6 +214,7 @@ public class MeetupServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
 		if("insert".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -315,6 +317,7 @@ public class MeetupServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
 		if ("delete".equals(action)) { // 來自listAllEmp.jsp
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -341,6 +344,37 @@ public class MeetupServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}	
+		
+		if ("getAllByHost".equals(action)) { // 來自listAllEmp.jsp
+
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+	
+			try {
+				/***************************1.接收請求參數***************************************/
+				String mem_ID = req.getParameter("mem_ID");
+				
+				/***************************2.開始刪除資料***************************************/
+				MeetupService meetupSvc = new MeetupService();
+				List<MeetupVO> list = meetupSvc.getAllByHost(mem_ID);
+				
+				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
+				req.setAttribute("list", list);
+				String url = "/FrontEnd/meetup/listMeetupByHost.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+				successView.forward(req, res);
+				
+				/***************************其他可能的錯誤處理**********************************/
+			} catch (Exception e) {
+				errorMsgs.add("刪除資料失敗:"+e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/FrontEnd/meetup/listAllMeetup.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
+		
+		
 	}
 	
 	public String getFileNameFromPart(Part part) {
