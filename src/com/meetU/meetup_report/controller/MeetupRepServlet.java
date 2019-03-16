@@ -35,7 +35,6 @@ public class MeetupRepServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 			try {
 				/*=================1.接收請求參數 - 輸入格式的錯誤處理=================*/
-System.out.println("2");
 				String meetup_rep_ID = req.getParameter("meetup_rep_ID");
 				if(meetup_rep_ID == null || (meetup_rep_ID.trim()).length()==0) {
 					errorMsgs.add("請輸入聯誼編號");
@@ -80,11 +79,11 @@ System.out.println("2");
 				MeetupRepVO meetupRepVO = meetupRepSvc.getOneMeetupRep(meetup_rep_ID);
 				/*=================3.查詢完成,準備轉交(Send the Success view)=================*/
 				req.setAttribute("meetupRepVO", meetupRepVO);
-				
+
 				//Bootstrap_modal
 				boolean openModal=true;
 				req.setAttribute("openModal",openModal );
-				
+			
 				String url = "/FrontEnd/meetupRep/MeetupRep.jsp";
 //				String url = "/FrontEnd/meetupRep/listAllEmp_06_EL_Test_Bootstrap_modal.jsp";
 //				String url = "/FrontEnd/meetupRep/updateRepContentAns.jsp";
@@ -98,11 +97,11 @@ System.out.println("2");
 			}
 		
 		}
-		
+	
 		if("update".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			try {
+//			try {
 				/*=================1.接收請求參數，輸入格式的錯誤處理----------*/
 				String meetup_rep_ID = req.getParameter("meetup_rep_ID").trim();
 				String rep_ans = req.getParameter("rep_ans");
@@ -117,7 +116,7 @@ System.out.println("2");
 //					rep_ans_date = new java.sql.Timestamp(System.currentTimeMillis());
 //					errorMsgs.add("時間格式不對");
 //				}
-				
+			
 				Integer rep_status;
 				try {
 					rep_status = new Integer(req.getParameter("rep_status").trim());
@@ -141,15 +140,20 @@ System.out.println("2");
 				MeetupRepService meetupRepSvc = new MeetupRepService();
 				meetupRepVO = meetupRepSvc.updateMeetupRep(rep_status, rep_ans, meetup_rep_ID);
 				/*=================3.修改完成,準備轉交(Send the Success view)----------*/
-				req.setAttribute("meetupRepVO", meetupRepVO);
-				String url = "/FrontEnd/meetupRep/listAllRep.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
-				successView.forward(req, res);
-			}catch(Exception e) {
-				errorMsgs.add("回覆失敗:"+ e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/meetupRep/repContent.jsp");
-				failureView.forward(req, res);
-			}
+//				req.setAttribute("meetupRepVO", meetupRepVO);
+
+PrintWriter out = res.getWriter();
+out.print("{}");
+out.close();
+//				String url = "/FrontEnd/meetupRep/MeetupRep.jsp";
+//				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
+//				successView.forward(req, res);
+
+//			}catch(Exception e) {
+//				errorMsgs.add("回覆失敗:"+ e.getMessage());
+//				RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/meetupRep/repContent.jsp");
+//				failureView.forward(req, res);
+//			}
 		}
 		
 		

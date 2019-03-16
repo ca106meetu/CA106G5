@@ -48,18 +48,21 @@
 	    border:1px solid black;
 	}
 
+	
 	.redBall{
-		width:20px;
-		height:20px;
-		border-radius:50%;
 		background-color:red;
 	}
 	
 	.greenBall{
+		background-color:green;
+	}
+	
+	#statusBall{
 		width:20px;
 		height:20px;
 		border-radius:50%;
-		background-color:green;
+		opacity:0.8;
+		margin: 0px auto;
 	}
 	
 </style>
@@ -86,7 +89,7 @@
 <c:forEach var="meetupRepVO" items="${list}" varStatus="varstatus" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 				<tr>
 					<td><div id="statusBall" Class="${meetupRepVO.rep_status ==0?'redBall':'greenBall' }"></div></td>
-					<td>${meetupRepVO.meetup_rep_ID}</td>
+					<td id="meetupRepId">${meetupRepVO.meetup_rep_ID}</td>
 					<td><A href="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do?meetup_ID=${meetupRepVO.meetup_ID}&action=getOne_For_Display">
 					${meetupSvc.getOneMeetup(meetupRepVO.meetup_ID).meetup_name}</a></td>
 					<td>${meetupRepVO.mem_ID}</td>
@@ -95,8 +98,9 @@
 						<FORM METHOD="POST" ACTION="<%=request.getContextPath()%>/FrontEnd/meetupRep/meetupRep.do" >	
 							<input type="hidden" name="meetup_rep_ID" value="${meetupRepVO.meetup_rep_ID}">
 							<input type="hidden" name="action" value="getOne_For_Update">
-							<input type="submit" class="btn btn-info btnShowReason" data-toggle="modal" data-target="#basicModal" value="查看/回覆檢舉原因">	
+							<input type="submit" class="btn btn-info" data-toggle="modal" data-target="#basicModal" value="查看/回覆檢舉原因">	
 						</FORM>
+
 					</td>	
 				</tr>
 </c:forEach>
@@ -112,18 +116,35 @@
 		<div class="modal-content">
 				
 			<div class="modal-header">
-               <h3 class="modal-title" id="myModalLabel">聯誼名稱 : ${meetupSvc.getOneMeetup(meetupRepVO.meetup_ID).meetup_name}</h3>
+               <h3 class="modal-title" id="myModalLabel">聯誼名稱 : ${meetupRepVO.meetup_ID}-${meetupSvc.getOneMeetup(meetupRepVO.meetup_ID).meetup_name}</h3>
                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
 			
 	  <div class="modal-body">
 <!-- =========================================以下為原listOneEmp.jsp的內容========================================== -->
-               <jsp:include page="updateRepContentAns.jsp" />
+<table>
+	<tr>
+		<th>聯誼名稱</th>
+		<th>聯誼封面照</th>
+		<th>檢舉者</th>
+		<th>檢舉內容</th>
+	</tr>
+	<tr>
+		<td>${meetupSvc.getOneMeetup(meetupRepVO.meetup_ID).meetup_name}</td>
+		<td><img class='pic' src='/CA106G5/ShowPic?MEETUP_ID=${meetupRepVO.meetup_ID}'></td>
+		<td>${meetupRepVO.mem_ID}</td>
+		<td>${meetupRepVO.rep_content}</td>
+	</tr>
+</table>
+
+	<b>管理員針對檢舉回覆</b><br>
+	<input type="text" name="rep_ans" placeholder="針對檢舉回覆" id="repAns">
+	<input type="submit" class="btn btn-info" value="完成回覆" form="formModal" id="btnSaveAns">
+	<input type="hidden" name="meetup_rep_ID" value="${meetupRepVO.meetup_rep_ID}"/>
+	<input type="hidden" name="rep_status" value="1" id="rep_status">
+
 <!-- =========================================以上為原listOneEmp.jsp的內容========================================== -->
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" name="">完成處理</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">稍後處理</button>
+<input type="submit" class="btn btn-info" data-dismiss="modal" value="關閉視窗" id="btnCloseModal" >
       </div>
     </div>
   </div>
@@ -133,7 +154,35 @@
         </script>
  </c:if>
 		
+<script>
+
+$(document).ready(function(){
+	$("#btnSaveAns").click(function(){
+		$.ajax({
+			 type: "POST",
+			 url: "<%=request.getContextPath()%>/FrontEnd/meetupRep/meetupRep.do",
+			 data: {"meetup_rep_ID":$(this).next().attr('value'), 
+				 	"rep_status":$(this).next().next().attr('value'),
+				 	"action":"update", 
+				 	"rep_ans":$("#repAns").val()},
+			 dataType: "json",
+			 success: function(){
+				 window.location.reload();
+				 
+				},
+	         error: function(){alert("請回覆檢舉 或是 選擇離開視窗")}
+    	});	
+	
 		
+	});	
+})
+
+$("#basicModal").on('hide', function () {
+		    window.location.reload();
+		});
+	
+
+</script>		
 
 
     <jsp:include page="/Templates/bootstrap4/frontFooter.jsp" />

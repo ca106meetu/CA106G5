@@ -154,6 +154,7 @@ public class MeetupRepDAO implements MeetupRepDAO_interface{
 				meetupRepVO.setRep_status(rs.getInt("rep_status"));
 				meetupRepVO.setRep_ans(rs.getString("rep_ans"));
 				meetupRepVO.setRep_ans_date(rs.getTimestamp("rep_ans_date"));
+				meetupRepVO.setMeetup_rep_ID(meetup_rep_ID);
 			}
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "	+ se.getMessage());

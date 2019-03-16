@@ -63,18 +63,37 @@ th, td{
 		<td>${meetupRepVO.rep_content}</td>
 	</tr>
 </table>
+<%--<FORM METHOD="post" ACTION="meetupRep.do" id="formModal"> --%>
+	<b>管理員針對檢舉回覆</b><br>
+	<input type="text" name="rep_ans" placeholder="針對檢舉回覆" id="repAns">
+	<input type="submit" class="btn btn-info" value="完成回覆" form="formModal" id="btnSaveAns">
+	<input type="hidden" name="meetup_rep_ID" value="${meetupRepVO.meetup_rep_ID}"/>
+	<input type="hidden" name="rep_status" value="1">
+<%--	<input type="submit" class="btn btn-info" data-dismiss="modal" value="關閉視窗" id="btnCloseModal" >
+</FORM>  --%>
 	
-<FORM METHOD="post" ACTION="meetupRep.do" name="form1">
-  <fieldset>
-    <legend>管理員針對檢舉回覆</legend>
-   		<textarea name="rep_ans" rows="5" cols="100%" placeholder="針對檢舉回覆"></textarea>
-		<input type="hidden" name="rep_status" value="0">
-		<input type="hidden" name="meetup_rep_ID" value="${meetupRepVO.meetup_rep_ID}">
-		<input type="hidden" name="action" value="update">
-		<input type="submit" value="完成回覆">
-  </fieldset>
-</form>			
+<script>
 
+$(document).ready(function(){
+	$("#btnSaveAns").click(function(){
+		$.ajax({
+			 type: "POST",
+			 url: "<%=request.getContextPath()%>/FrontEnd/meetupRep/meetupRep.do",
+			 data: {"meetup_rep_ID":$(this).next().attr('value'), 
+				 	"rep_status":$(this).next().next().attr('value'),
+				 	"action":"update", 
+				 	"rep_ans":$("#repAns").val()},
+			 dataType: "json",
+			 success: function(){
+				 				 
+				},
+	         error: function(){alert("請回覆檢舉 或是 選擇離開視窗")}
+    	});	
+	});	
+})
+
+
+</script>
 
 </body>
 </html>
