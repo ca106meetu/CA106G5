@@ -31,6 +31,12 @@ public class MemJNDIDAO implements MemDAO_interface{
 		+               " MEM_INTRO, MEM_CODE, MEM_STATE, MEM_DATE, MEM_SIGN_DAY, MEM_LOGIN_STATE, MEM_ADDRESS, LAST_PAIR, MEM_HOBBY, MEM_QRCODE,MEM_GET_POINT)"
 		+        " VALUES ( 'M'||LPAD(to_char(mem_seq.NEXTVAL), 6, '0'), ?, ?, ?, ?, ?, ?, ?, ?, ?,"
 		+                 " ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String REG_INSERT_STMT = 
+			"INSERT INTO MEM (MEM_ID, MEM_PW, MEM_ACC, MEM_EMAIL, MEM_CODE,"
+			+               "  MEM_STATE, MEM_DATE, MEM_SIGN_DAY, MEM_LOGIN_STATE, MEM_ADDRESS, LAST_PAIR)"
+			+       " VALUES ( 'M'||LPAD(to_char(mem_seq.NEXTVAL), 6, '0'), ?, ?, ?, 1111, "
+			+                 " 1, SYSDATE, SYSTIMESTAMP, 1, ?, SYSTIMESTAMP)";
+	
 	private static final String GET_ALL_STMT = 
 		"SELECT * FROM MEM";
 	private static final String GET_ONE_STMT = 
@@ -80,6 +86,47 @@ public class MemJNDIDAO implements MemDAO_interface{
 			pstmt.setString(18, memVO.getMem_hobby());
 			pstmt.setBytes(19, memVO.getMem_QRCODE());
 			pstmt.setInt(20, memVO.getMem_get_point());
+			
+			pstmt.executeUpdate();
+
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
+	
+	@Override
+	public void regInsert(String mem_pw, String mem_acc, String mem_email, String mem_address) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(REG_INSERT_STMT);
+			
+			pstmt.setString(1, mem_pw);
+			pstmt.setString(2, mem_acc);
+			pstmt.setString(3, mem_email);
+			pstmt.setString(4, mem_address);
 			
 			pstmt.executeUpdate();
 

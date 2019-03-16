@@ -41,6 +41,21 @@ public class MemService {
 		
 		return memVO;
 	}
+	public MemVO regInsert(String mem_pw, String mem_acc, String mem_email, String mem_address) {
+		
+		MemVO memVO = new MemVO();
+		
+		memVO.setMem_pw(mem_pw);
+		memVO.setMem_acc(mem_acc);
+		memVO.setMem_email(mem_email);
+		memVO.setMem_address(mem_address);
+		
+		dao.regInsert(mem_pw, mem_acc, mem_email, mem_address);
+		
+		memVO = dao.findByACC(mem_acc, mem_pw);
+		
+		return memVO;
+	}
 	
 	public MemVO updateMem(String mem_pw, String mem_name, String mem_acc, String mem_nickname, java.sql.Date mem_bday,
 			String mem_email, String mem_pho, String mem_gend, byte[] mem_pic, String mem_intro,

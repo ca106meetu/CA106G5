@@ -189,12 +189,13 @@ public class MemServlet extends HttpServlet {
 				}
 				
 				String mem_email = req.getParameter("mem_email");//07
-				String mem_emailReg = "^[a-zA-Z0-9\\._-@]$";
+				//String mem_emailReg = "^[a-zA-Z0-9\\._-@]+$";
+				String mem_emailReg = "^[\\.a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$";
 				if (mem_email == null || mem_email.trim().length() == 0) {
 					errorMsgs.add("會員電子信箱: 請勿空白");
-				} //else if(!mem_email.trim().matches(mem_emailReg)) { //以下練習正則(規)表示式(regular-expression)
-				//	errorMsgs.add("會員電子信箱: 只能是英文字母、數字和_");
-	            //}
+				} else if(!mem_email.trim().matches(mem_emailReg)) { //以下練習正則(規)表示式(regular-expression)
+					errorMsgs.add("請輸入有效的電子郵件");
+	            }
 				
 				String mem_pho = req.getParameter("mem_pho");//08
 				String mem_phoReg = "^[(a-zA-Z0-9_)]$";

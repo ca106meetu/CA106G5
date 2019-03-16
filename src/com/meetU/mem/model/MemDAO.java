@@ -24,10 +24,10 @@ public class MemDAO implements MemDAO_interface {
 		+        " VALUES ( 'M'||LPAD(to_char(mem_seq.NEXTVAL), 6, '0'), ?, ?, ?, ?, ?, ?, ?, ?, ?,"
 		+                 " ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String REG_INSERT_STMT = 
-		"INSERT INTO MEM (MEM_ID, MEM_PW, MEM_ACC, MEM_EMAIL,"
-		+               "  MEM_STATE, MEM_DATE, MEM_SIGN_DAY, MEM_LOGIN_STATE, MEM_ADDRESS, LAST_PAIR)"
-		+       " VALUES ( 'M'||LPAD(to_char(mem_seq.NEXTVAL), 6, '0'), ?, ?, ?, "
-		+                 " 1, SYSDATE, SYSTIMESTAMP, 1, ?, SYSTIMESTAMP)";
+			"INSERT INTO MEM (MEM_ID, MEM_PW, MEM_ACC, MEM_EMAIL, MEM_CODE,"
+			+               "  MEM_STATE, MEM_DATE, MEM_SIGN_DAY, MEM_LOGIN_STATE, MEM_ADDRESS, LAST_PAIR)"
+			+       " VALUES ( 'M'||LPAD(to_char(mem_seq.NEXTVAL), 6, '0'), ?, ?, ?, 1111, "
+			+                 " 1, SYSDATE, SYSTIMESTAMP, 1, ?, SYSTIMESTAMP)";
 	private static final String GET_ALL_STMT = 
 		"SELECT * FROM MEM";
 	private static final String GET_ONE_STMT = 
@@ -103,7 +103,9 @@ public class MemDAO implements MemDAO_interface {
 		}
 	}
 	
-	public void regInsert(MemVO memVO) {
+	@Override
+	public void regInsert(String mem_pw, String mem_acc, String mem_email, String mem_address)
+	{
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -111,10 +113,10 @@ public class MemDAO implements MemDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(REG_INSERT_STMT);
 			
-			pstmt.setString(1, memVO.getMem_pw());
-			pstmt.setString(2, memVO.getMem_acc());
-			pstmt.setString(3, memVO.getMem_email());
-			pstmt.setString(4, memVO.getMem_address());
+			pstmt.setString(1, mem_pw);
+			pstmt.setString(2, mem_acc);
+			pstmt.setString(3, mem_email);
+			pstmt.setString(4, mem_address);
 		
 			pstmt.executeUpdate();
 						

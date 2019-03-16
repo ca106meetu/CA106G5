@@ -55,6 +55,7 @@ public class FrontLoginHandler extends HttpServlet {
 			session.removeAttribute("memVO");
 			session.removeAttribute("mem_acc");
 			res.sendRedirect(req.getContextPath()+"/FrontEnd/lorenTest/test.jsp");
+			return;
 		}
 		if("askEmail".equals(action)) {
 			String register_text_mem_email_RegExp = "^[\\.a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$";
@@ -167,12 +168,20 @@ public class FrontLoginHandler extends HttpServlet {
 			System.out.println(register_mem_pw);
 			System.out.println(register_mem_email);
 			System.out.println(register_mem_addr);
+			MemService mRegAccSvc = new MemService();
+			MemVO regMemVO = new MemVO();
+			regMemVO = mRegAccSvc.regInsert(register_mem_pw, register_mem_acc, register_mem_email, register_mem_addr);
+			session.setAttribute("regMemVO", regMemVO);
+			String url = "/FrontEnd/mem/update_mem_input.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_mem_input.jsp
+			successView.forward(req, res);
+			return;
 		}
 		
 		
 			// 【檢查該帳號 , 密碼是否有效】
 			if (!allowUser(mem_acc, mem_pw, session)) {          //【帳號 , 密碼無效時】
-				out.print("{}");
+				out.print("<!-- -->");
 				out.close();
 			
 				
