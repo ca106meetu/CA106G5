@@ -46,11 +46,14 @@ public class BackLoginHandler extends HttpServlet{
 		String action = req.getParameter("action");
 		
 		if ("back_logout".equals(action)) {
-			//session.removeAttribute("emp_ID");
-			//session.removeAttribute("emp_pw");
-			//session.removeAttribute("empVO");
-			session.invalidate();
-			res.sendRedirect(req.getContextPath()+"/backIndex.jsp"); 
+			session.removeAttribute("emp_ID");
+			session.removeAttribute("emp_pw");
+			session.removeAttribute("empVO");
+			session.removeAttribute("auth_IDs");
+			//session.invalidate();
+			res.sendRedirect(req.getContextPath()+"/backIndex.jsp");
+			return;
+			//res.sendRedirect("/backIndex.jsp"); 
 		}
 			// 【檢查該帳號 , 密碼是否有效】
 			if (!allowUser(emp_ID, emp_pw, session)) {          //【帳號 , 密碼無效時】
@@ -72,9 +75,9 @@ public class BackLoginHandler extends HttpServlet{
 //				out.println("</script></body></HTML>");
 				/*===================================*/
 				
-				res.sendRedirect(req.getContextPath()+"/backLoginFail.html");
+				res.sendRedirect(req.getContextPath()+"/backLoginFail.jsp");
+				return;
 				//res.sendRedirect(req.getRequestURI());
-				
 			}else {                                       //【帳號 , 密碼有效時, 才做以下工作】
 				session.setAttribute("emp_ID", emp_ID);   //*工作1: 才在session內做已經登入過的標識
 				EmpAuthService empAuthSvc = new EmpAuthService();
@@ -90,7 +93,8 @@ public class BackLoginHandler extends HttpServlet{
 					}
 				}catch (Exception ignored) { }
 				
-				res.sendRedirect(req.getContextPath()+"/backLogin_success.jsp");  /*工作3: (->如無來源網頁:則重導至backLogin_success.jsp)*/
+				res.sendRedirect(req.getContextPath()+"/backLogin_success.jsp");  //*工作3: (-->如無來源網頁:則重導至login_success.jsp)
+				return;
 			}
 		}
 
