@@ -102,11 +102,11 @@
 					<td>${meetupRepVO.rep_date}</td>
 					<td>
 						<FORM METHOD="POST" ACTION="<%=request.getContextPath()%>/FrontEnd/meetupRep/meetupRep.do" >	
+							<input type="submit" class="btn btn-info btnSaveAns" data-toggle="modal" data-target="#basicModal" value="查看/回覆檢舉原因">
 							<input type="hidden" name="meetup_rep_ID" value="${meetupRepVO.meetup_rep_ID}">
 							<input type="hidden" name="action" value="getOne_For_Update">
-							<input type="submit" class="btn btn-info" data-toggle="modal" data-target="#basicModal" value="查看/回覆檢舉原因">	
+								
 						</FORM>
-
 					</td>	
 				</tr>
 </c:forEach>
@@ -116,7 +116,9 @@
 	</div>
 </div>
 
-<c:if test="${openModal!=null}">		
+<c:if test="${openModal!=null}">	
+
+	
 <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
@@ -128,28 +130,7 @@
 			
 	  <div class="modal-body">
 <!-- =========================================以下為原listOneEmp.jsp的內容========================================== -->
-
-<table>
-	<tr>
-		<%--<th>聯誼名稱</th>
-		<th>聯誼封面照</th>  --%>
-		<th>檢舉者</th>
-		<th>檢舉內容</th>
-	</tr>
-	<tr>
-		<%--<td>${meetupSvc.getOneMeetup(meetupRepVO.meetup_ID).meetup_name}</td>
-		<td><img class='pic' src='/CA106G5/ShowPic?MEETUP_ID=${meetupRepVO.meetup_ID}'></td> --%>
-		<td>${meetupRepVO.mem_ID}</td>
-		<td>${meetupRepVO.rep_content}</td>
-	</tr>
-</table>
-
-	<b>管理員針對檢舉回覆</b><br>
-	<input type="text" name="rep_ans" placeholder="針對檢舉回覆" id="repAns">
-	<input type="submit" class="btn btn-info" value="完成回覆" form="formModal" id="btnSaveAns">
-	<input type="hidden" name="meetup_rep_ID" value="${meetupRepVO.meetup_rep_ID}"/>
-	<input type="hidden" name="rep_status" value="1" id="rep_status">
-
+ <jsp:include page="updateRepContentAns.jsp" />
 <!-- =========================================以上為原listOneEmp.jsp的內容========================================== -->
 <input type="submit" class="btn btn-info" data-dismiss="modal" value="關閉視窗" id="btnCloseModal" >
       </div>
@@ -157,14 +138,14 @@
   </div>
 </div>
 		<script>
-    		 $("#basicModal").modal({show: true});
+		$("#basicModal").modal({show: true});
         </script>
- </c:if>
+</c:if>
 		
 <script>
 
 $(document).ready(function(){
-	$("#btnSaveAns").click(function(){
+	$(".btnSaveAns").click(function(){
 		$.ajax({
 			 type: "POST",
 			 url: "<%=request.getContextPath()%>/FrontEnd/meetupRep/meetupRep.do",
@@ -183,11 +164,6 @@ $(document).ready(function(){
 		
 	});	
 })
-
-$("#basicModal").on('hide', function () {
-		    
-		});
-	
 
 </script>		
 

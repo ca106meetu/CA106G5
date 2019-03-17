@@ -10,4 +10,6 @@ public interface MeetupDAO_interface {
 	public MeetupVO findByPrimaryKey(String meetup_ID);
 	public List <MeetupVO> getAll();
 	public List <MeetupVO> getHostAll(String mem_ID);
+	public List<MeetupVO> getSearchName(String name);
+	public List<MeetupVO> getSearchLoc(String location);
 }

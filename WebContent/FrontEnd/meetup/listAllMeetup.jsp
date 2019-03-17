@@ -4,10 +4,13 @@
 <%@ page import="com.meetU.meetup.model.*"%>
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
-<% 
+<%-- 
 	MeetupService meetupSvc = new MeetupService();
 	List<MeetupVO> list = meetupSvc.getAll();
 	pageContext.setAttribute("list", list);
+	--%>	
+	<%
+	List<MeetupVO> list =(List) request.getAttribute("list");
 %>
 
 <html>

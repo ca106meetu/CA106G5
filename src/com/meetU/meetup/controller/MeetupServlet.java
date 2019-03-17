@@ -358,10 +358,10 @@ public class MeetupServlet extends HttpServlet {
 				MeetupService meetupSvc = new MeetupService();
 				List<MeetupVO> list = meetupSvc.getAllByHost(mem_ID);
 				
-				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
+				/***************************3.準備轉交(Send the Success view)***********/								
 				req.setAttribute("list", list);
 				String url = "/FrontEnd/meetup/listMeetupByHost.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+				RequestDispatcher successView = req.getRequestDispatcher(url); //成功後
 				successView.forward(req, res);
 				
 				/***************************其他可能的錯誤處理**********************************/
@@ -373,7 +373,43 @@ public class MeetupServlet extends HttpServlet {
 			}
 		}
 		
-		
+		if ("getSearch".equals(action)) { // 來自listAllEmp.jsp
+
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+	
+			try {
+				/***************************1.接收請求參數***************************************/
+				String searchInfo = req.getParameter("searchInfo");
+				String searchType = req.getParameter("searchType");
+				/***************************2.開始刪除資料***************************************/
+				MeetupService meetupSvc = new MeetupService();
+				List<MeetupVO> list;
+System.out.println("0");
+				
+				if("nam".equals(searchType)) {
+System.out.println("2");
+					list = meetupSvc.getSearchName(searchInfo);
+				}else if("loc".equals(searchType)) {
+					list = meetupSvc.getSearchLoc(searchInfo);
+				}else {
+					list = meetupSvc.getAll();
+				}
+				/***************************3.準備轉交(Send the Success view)***********/								
+				req.setAttribute("list", list);
+//				String url = "/FrontEnd/meetup/meetupHomePg.jsp";
+				String url = "/FrontEnd/meetup/listAllMeetup.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功後,轉交回送出刪除的來源網頁
+				successView.forward(req, res);
+System.out.println("1");
+				/***************************其他可能的錯誤處理**********************************/
+			} catch (Exception e) {
+				errorMsgs.add("刪除資料失敗:"+e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/FrontEnd/meetup/listAllMeetup.jsp");
+				failureView.forward(req, res);
+			}
+		}
 		
 	}
 	

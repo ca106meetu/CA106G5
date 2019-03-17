@@ -56,4 +56,12 @@ public class MeetupService {
 	public List<MeetupVO> getAllByHost(String mem_ID) {
 		return dao.getHostAll(mem_ID);
 	}
+	
+	public List<MeetupVO> getSearchName(String name) {
+		return dao.getSearchName(name);
+	}
+	
+	public List<MeetupVO> getSearchLoc(String location) {
+		return dao.getSearchLoc(location);
+	}
 }

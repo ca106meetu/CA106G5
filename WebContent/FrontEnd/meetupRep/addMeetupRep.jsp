@@ -27,7 +27,7 @@
 	<input type="text" name="mem_ID" value="M000006" /><br>
 	<b>檢舉原因</b><br>
 	<input type="text" name="rep_content" placeholder="請輸入檢舉原因" /><br>
-	<input type="hidden" name="rep_status" value="1">
+	<input type="hidden" name="rep_status" value="0">
 	<input type="hidden" name="action" value="insert">
 	<input type="submit" value="送出檢舉">
 </FORM> 

@@ -125,7 +125,7 @@
 					<input type="submit" class="btn btn-info btn-sm" value="送出檢舉" id="btnRepSubmit">
 					<input type="hidden" name="meetup_ID" value="${meetupVO.meetup_ID}">
 					<input type="hidden" name="mem_ID"	value="${memVO.mem_ID}">
-					<input type="hidden" name="rep_status" value="1">
+					<input type="hidden" name="rep_status" value="0">
 			</div>
       	</div>
       </div>

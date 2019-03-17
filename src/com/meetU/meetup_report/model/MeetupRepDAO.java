@@ -27,7 +27,7 @@ public class MeetupRepDAO implements MeetupRepDAO_interface{
 			"INSERT INTO MEETUP_REP (meetup_rep_ID, meetup_ID, mem_ID, rep_content, rep_date, rep_status)"
 			+ "VALUES ('MPREP'||LPAD(to_char(meetup_rep_seq.NEXTVAL), 6, '0'), ?,?,?,SYSTIMESTAMP,?)";
 	private static final String UPDATE =  "UPDATE MEETUP_REP SET rep_status=?, rep_ans=?, rep_ans_date=SYSTIMESTAMP WHERE meetup_rep_ID=?";
-	private static final String GET_ALL_STMT = "SELECT * FROM MEETUP_REP";	
+	private static final String GET_ALL_STMT = "SELECT * FROM MEETUP_REP order by rep_date desc";	
 	private static final String GET_ONE_STMT = "SELECT * FROM MEETUP_REP WHERE meetup_rep_ID =?";
 	private static final String DELETE = "DELETE FROM MEETUP_REP WHERE MEETUP_REP_ID=?";
 	

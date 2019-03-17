@@ -22,7 +22,7 @@ public class MeetupRepJDBCDAO implements MeetupRepDAO_interface{
 			"INSERT INTO MEETUP_REP (meetup_rep_ID, meetup_ID, mem_ID, Rep_content, rep_date, rep_status)"
 			+ "VALUES ('MPREP'||LPAD(to_char(meetup_rep_seq.NEXTVAL), 6, '0'), ?,?,?,SYSTIMESTAMP,?)";
 	private static final String UPDATE =  "UPDATE MEETUP_REP SET rep_status=?, rep_ans=?, rep_ans_date=SYSTIMESTAMP WHERE meetup_rep_ID=?";
-	private static final String GET_ALL_STMT = "SELECT * FROM MEETUP_REP";	
+	private static final String GET_ALL_STMT = "SELECT * FROM MEETUP_REP order by rep_date desc";	
 	private static final String GET_ONE_STMT = "SELECT * FROM MEETUP_REP WHERE meetup_rep_ID =?";
 	private static final String DELETE = "DELETE FROM MEETUP_REP WHERE MEETUP_REP_ID=?";
 		
@@ -252,12 +252,12 @@ public class MeetupRepJDBCDAO implements MeetupRepDAO_interface{
 //		meetupRepVO1.setMeetup_ID("MP000003");
 //		meetupRepVO1.setMem_ID("M000001");
 //		meetupRepVO1.setRep_content("lalalala");
-//		meetupRepVO1.setRep_status(1);
+//		meetupRepVO1.setRep_status(0);
 //		dao.insert(meetupRepVO1);
 		
 		//更新
 //		MeetupRepVO meetupRepVO2 = new MeetupRepVO();
-//		meetupRepVO2.setRep_status(5);
+//		meetupRepVO2.setRep_status(1);
 //		meetupRepVO2.setRep_ans("okokokok");
 //		meetupRepVO2.setMeetup_rep_ID("MPREP000005");
 //		dao.update(meetupRepVO2);
@@ -267,29 +267,29 @@ public class MeetupRepJDBCDAO implements MeetupRepDAO_interface{
 //		dao.invisible("MPREP000001");
 		
 		//查詢
-		MeetupRepVO meetupRepVO3 = dao.findByPrimaryKey("MPREP000015");
-		System.out.println(meetupRepVO3.getMeetup_rep_ID());
-		System.out.println(meetupRepVO3.getMeetup_ID());
-		System.out.println(meetupRepVO3.getMem_ID());
-		System.out.println(meetupRepVO3.getRep_content());
-		System.out.println(meetupRepVO3.getRep_date());
-		System.out.println(meetupRepVO3.getRep_status());
-		System.out.println(meetupRepVO3.getRep_ans());
-		System.out.println(meetupRepVO3.getRep_ans_date());
-		System.out.println("----------------");
+//		MeetupRepVO meetupRepVO3 = dao.findByPrimaryKey("MPREP000015");
+//		System.out.println(meetupRepVO3.getMeetup_rep_ID());
+//		System.out.println(meetupRepVO3.getMeetup_ID());
+//		System.out.println(meetupRepVO3.getMem_ID());
+//		System.out.println(meetupRepVO3.getRep_content());
+//		System.out.println(meetupRepVO3.getRep_date());
+//		System.out.println(meetupRepVO3.getRep_status());
+//		System.out.println(meetupRepVO3.getRep_ans());
+//		System.out.println(meetupRepVO3.getRep_ans_date());
+//		System.out.println("----------------");
 		
 		//查詢
-//		List<MeetupRepVO> list = dao.getAll();
-//		for(MeetupRepVO mtupVO : list) {
-//			System.out.println(mtupVO.getMeetup_rep_ID());
-//			System.out.println(mtupVO.getMeetup_ID());
-//			System.out.println(mtupVO.getMem_ID());
-//			System.out.println(mtupVO.getRep_content());
-//			System.out.println(mtupVO.getRep_date());
-//			System.out.println(mtupVO.getRep_status());
-//			System.out.println(mtupVO.getRep_ans());
-//			System.out.println(mtupVO.getRep_ans_date());
-//			System.out.println("----------------");	
-//		}
+		List<MeetupRepVO> list = dao.getAll();
+		for(MeetupRepVO mtupVO : list) {
+			System.out.println(mtupVO.getMeetup_rep_ID());
+			System.out.println(mtupVO.getMeetup_ID());
+			System.out.println(mtupVO.getMem_ID());
+			System.out.println(mtupVO.getRep_content());
+			System.out.println(mtupVO.getRep_date());
+			System.out.println(mtupVO.getRep_status());
+			System.out.println(mtupVO.getRep_ans());
+			System.out.println(mtupVO.getRep_ans_date());
+			System.out.println("----------------");	
+		}
 	}
 }
