@@ -125,6 +125,16 @@
     <url-pattern>/back-end/mem/mem.do</url-pattern>
   </servlet-mapping>
   
+  <!-- 會員前端修改資料 -->
+  <servlet>
+    <servlet-name>FrontMemServlet</servlet-name>
+    <servlet-class>com.meetU.mem.controller.FrontMemServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FrontMemServlet</servlet-name>
+    <url-pattern>/FrontEnd/mem/FrontMem.do</url-pattern>
+  </servlet-mapping>
+  
  <!-- 好友controller -->
   <servlet>
     <servlet-name>FriendServlet</servlet-name>
