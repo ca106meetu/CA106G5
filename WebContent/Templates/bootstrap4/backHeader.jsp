@@ -48,23 +48,14 @@
         </div>
       </li>
       
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          廣告管理
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" id="AUTH00050" href="#">審核廣告</a>
-          <a class="dropdown-item" id="AUTH00060" href="#">廣告排程</a>
-        </div>
-      </li>
-      
+         
      <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         檢舉管理
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" id="AUTH00070" href="#">直播檢舉管理</a>
-          <a class="dropdown-item" id="AUTH00080" href="#">聯誼檢舉管理</a>
+         
+          <a class="dropdown-item" id="AUTH00050" href="#">聯誼檢舉管理</a>
 
         </div>
              <li class="nav-item dropdown">
@@ -72,7 +63,7 @@
        員工管理
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" id="AUTH00090" href="<%=request.getContextPath()%>/back-end/emp/select_page.jsp">員工資料管理</a>
+          <a class="dropdown-item" id="AUTH00060" href="<%=request.getContextPath()%>/back-end/emp/select_page.jsp">員工資料管理</a>
         </div>   
       </li>
     </ul>
@@ -91,14 +82,12 @@
     var AUTH00040 = document.getElementById("AUTH00040");
     var AUTH00050 = document.getElementById("AUTH00050");
     var AUTH00060 = document.getElementById("AUTH00060");
-    var AUTH00070 = document.getElementById("AUTH00070"); 
-    var AUTH00080 = document.getElementById("AUTH00080");
-    var AUTH00090 = document.getElementById("AUTH00090");
+
     
     //var loginOut = document.getElementById('loginOut').style.display = 'none';
     
     AUTHS.push(AUTH00010,AUTH00020,AUTH00030,AUTH00040,AUTH00050,
-    		   AUTH00060,AUTH00070,AUTH00080,AUTH00090);
+    		   AUTH00060);
     
     var len = AUTHS.length;
     for(var i = 0; i < len; i++){
