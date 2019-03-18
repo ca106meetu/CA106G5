@@ -46,7 +46,7 @@ public class MemHobbyServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/memHobby/select_page.jsp");
+							.getRequestDispatcher("/FrontEnd/memHobby/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -69,7 +69,7 @@ public class MemHobbyServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/memHobby/select_page.jsp");
+							.getRequestDispatcher("/FrontEnd/memHobby/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -85,14 +85,14 @@ public class MemHobbyServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/memHobby/select_page.jsp");
+							.getRequestDispatcher("/FrontEnd/memHobby/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.getSession().setAttribute("list", list); // 資料庫取出的MemHobbyVO物件,存入req
-				String url = "/back-end/memHobby/listSomeMemHobby.jsp";
+				String url = "/FrontEnd/memHobby/listSomeMemHobby.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // ���\��� listOneMemHobby.jsp
 				successView.forward(req, res);
 
@@ -100,7 +100,7 @@ public class MemHobbyServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/memHobby/select_page.jsp");
+						.getRequestDispatcher("/FrontEnd/memHobby/select_page.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -123,7 +123,7 @@ public class MemHobbyServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/memHobby/select_page.jsp");
+							.getRequestDispatcher("/FrontEnd/memHobby/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -145,7 +145,7 @@ public class MemHobbyServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/memHobby/select_page.jsp");
+							.getRequestDispatcher("/FrontEnd/memHobby/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -161,14 +161,14 @@ public class MemHobbyServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/memHobby/select_page.jsp");
+							.getRequestDispatcher("/FrontEnd/memHobby/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("memHobbyVO", memHobbyVO); // 資料庫取出的memHobbyVO物件,存入req
-				String url = "/back-end/memHobby/listOneMemHobby.jsp";
+				String url = "/FrontEnd/memHobby/listOneMemHobby.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // ���\��� listOneMemHobby.jsp
 				successView.forward(req, res);
 
@@ -176,7 +176,7 @@ public class MemHobbyServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/memHobby/select_page.jsp");
+						.getRequestDispatcher("/FrontEnd/memHobby/select_page.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -205,7 +205,7 @@ public class MemHobbyServlet extends HttpServlet {
 				req.getSession().setAttribute("memVO", memVO);
 				req.getSession().setAttribute("listMemHobbyVO", listMemHobbyVO);         // 資料庫取出的MemHobbyVO物件,存入req //???
 				req.getSession().setAttribute("listHobby_ID", listHobby_ID);         // 資料庫取出的MemHobbyVO物件,存入req //???
-				String url = "/back-end/memHobby/update_memHobby_input.jsp";
+				String url = "/FrontEnd/memHobby/update_memHobby_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_memHobby_input.jsp
 				successView.forward(req, res);
 
@@ -213,7 +213,7 @@ public class MemHobbyServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/memHobby/listAllMemHobby.jsp");
+						.getRequestDispatcher("/FrontEnd/memHobby/listAllMemHobby.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -236,7 +236,7 @@ public class MemHobbyServlet extends HttpServlet {
 								
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("memHobbyVO", memHobbyVO);         // 資料庫取出的memHobbyVO物件,存入req
-				String url = "/back-end/memHobby/update_memHobby_input.jsp";
+				String url = "/FrontEnd/memHobby/update_memHobby_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_memHobby_input.jsp
 				successView.forward(req, res);
 
@@ -244,7 +244,7 @@ public class MemHobbyServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/memHobby/listAllMemHobby.jsp");
+						.getRequestDispatcher("/FrontEnd/memHobby/listAllMemHobby.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -279,7 +279,7 @@ public class MemHobbyServlet extends HttpServlet {
 
 					req.setAttribute("list", listMemHobbyVO); // 含有輸入格式錯誤的MemHobbyVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/mem/listAllMem.jsp");
+							.getRequestDispatcher("/FrontEnd/mem/listAllMem.jsp");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
@@ -297,7 +297,7 @@ public class MemHobbyServlet extends HttpServlet {
 				}
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.getSession().setAttribute("list", list); // 資料庫update成功後,正確的的MemHobbyVO物件,存入req
-				String url = "/back-end/memHobby/listSomeMemHobby.jsp";
+				String url = "/FrontEnd/memHobby/listSomeMemHobby.jsp";
 				System.out.println("檢查點 3");
 
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneMemHobby.jsp
@@ -309,7 +309,7 @@ public class MemHobbyServlet extends HttpServlet {
 
 				errorMsgs.add("修改資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/memHobby/update_memHobby_input.jsp");
+						.getRequestDispatcher("/FrontEnd/memHobby/update_memHobby_input.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -348,7 +348,7 @@ public class MemHobbyServlet extends HttpServlet {
 					System.out.println("檢查點 2");
 					req.setAttribute("memHobbyVO", memHobbyVO); // 含有輸入格式錯誤的memHobbyVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/memHobby/addMemHobby.jsp");
+							.getRequestDispatcher("/FrontEnd/memHobby/addMemHobby.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -360,7 +360,7 @@ public class MemHobbyServlet extends HttpServlet {
 				memHobbyVO = memHobbySvc.addMemHobby(mem_ID, hobby_ID);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/back-end/memHobby/listAllMemHobby.jsp";
+				String url = "/FrontEnd/memHobby/listAllMemHobby.jsp";
 				System.out.println("檢查點 3");
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllMemHobby.jsp
 				successView.forward(req, res);				
@@ -370,7 +370,7 @@ public class MemHobbyServlet extends HttpServlet {
 				errorMsgs.add(e.getMessage());
 				System.out.println("檢查點 4");
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/memHobby/addMemHobby.jsp");
+						.getRequestDispatcher("/FrontEnd/memHobby/addMemHobby.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -393,7 +393,7 @@ public class MemHobbyServlet extends HttpServlet {
 				memHobbySvc.deleteMemHobby(mem_ID, hobby_ID);
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-				String url = "/back-end/memHobby/listAllMemHobby.jsp";
+				String url = "/FrontEnd/memHobby/listAllMemHobby.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 				
@@ -401,7 +401,7 @@ public class MemHobbyServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("刪除資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/memHobby/listAllMemHobby.jsp");
+						.getRequestDispatcher("/FrontEnd/memHobby/listAllMemHobby.jsp");
 				failureView.forward(req, res);
 			}
 		}

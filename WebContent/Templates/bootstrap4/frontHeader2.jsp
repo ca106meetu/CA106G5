@@ -13,7 +13,7 @@
   	*{
   		font-family:微軟正黑體;
   	
-  	} 
+  	}
   </style>
     <!-- Required meta tags -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -312,7 +312,7 @@
 		$.ajax({
 			url:'<%=request.getContextPath()%>/lorenTest',
 			type:"POST",
-			data:{ action:'askACC',
+			data:{ action:'askACC', 
 				   register_text_mem_acc: $('#register_text_mem_acc').val().trim(),
 				   register_text_mem_acc_flag: register_text_mem_acc_flag},
 			dataType: 'json',
@@ -344,15 +344,6 @@
 		timer = setTimeout(function(){
 			callback();
 		}, time);
-	}
-	
-	
-	function allowUser(){
-		var mem_acc = "${sessionScope.mem_acc}";
-		if( mem_acc.length != 0)
-			return true;
-		else
-			return false;
 	}
 	
 	/*==================================================*/

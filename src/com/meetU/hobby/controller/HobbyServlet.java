@@ -39,7 +39,7 @@ public class HobbyServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/hobby/select_page.jsp");
+							.getRequestDispatcher("/FrontEnd/hobby/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -53,7 +53,7 @@ public class HobbyServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/hobby/select_page.jsp");
+							.getRequestDispatcher("/FrontEnd/hobby/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -67,14 +67,14 @@ public class HobbyServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/hobby/select_page.jsp");
+							.getRequestDispatcher("/FrontEnd/hobby/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("hobbyVO", hobbyVO); // 資料庫取出的hobbyVO物件,存入req
-				String url = "/back-end/hobby/listOneHobby.jsp";
+				String url = "/FrontEnd/hobby/listOneHobby.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // ���\��� listOneHobby.jsp
 				successView.forward(req, res);
 
@@ -82,7 +82,7 @@ public class HobbyServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/hobby/select_page.jsp");
+						.getRequestDispatcher("/FrontEnd/hobby/select_page.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -104,7 +104,7 @@ public class HobbyServlet extends HttpServlet {
 								
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("hobbyVO", hobbyVO);         // 資料庫取出的hobbyVO物件,存入req
-				String url = "/back-end/hobby/update_hobby_input.jsp";
+				String url = "/FrontEnd/hobby/update_hobby_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_hobby_input.jsp
 				successView.forward(req, res);
 
@@ -112,7 +112,7 @@ public class HobbyServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/hobby/listAllHobby.jsp");
+						.getRequestDispatcher("/FrontEnd/hobby/listAllHobby.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -150,7 +150,7 @@ public class HobbyServlet extends HttpServlet {
 
 					req.setAttribute("hobbyVO", hobbyVO); // 含有輸入格式錯誤的hobbyVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/hobby/update_hobby_input.jsp");
+							.getRequestDispatcher("/FrontEnd/hobby/update_hobby_input.jsp");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
@@ -161,7 +161,7 @@ public class HobbyServlet extends HttpServlet {
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("hobbyVO", hobbyVO); // 資料庫update成功後,正確的的hobbyVO物件,存入req
-				String url = "/back-end/hobby/listOneHobby.jsp";
+				String url = "/FrontEnd/hobby/listOneHobby.jsp";
 				System.out.println("檢查點 3");
 
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneHobby.jsp
@@ -173,7 +173,7 @@ public class HobbyServlet extends HttpServlet {
 
 				errorMsgs.add("修改資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/hobby/update_hobby_input.jsp");
+						.getRequestDispatcher("/FrontEnd/hobby/update_hobby_input.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -207,7 +207,7 @@ public class HobbyServlet extends HttpServlet {
 					System.out.println("檢查點 2");
 					req.setAttribute("hobbyVO", hobbyVO); // 含有輸入格式錯誤的hobbyVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/hobby/addHobby.jsp");
+							.getRequestDispatcher("/FrontEnd/hobby/addHobby.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -217,7 +217,7 @@ public class HobbyServlet extends HttpServlet {
 				hobbyVO = hobbySvc.addHobby(hobby_name);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/back-end/hobby/listAllHobby.jsp";
+				String url = "/FrontEnd/hobby/listAllHobby.jsp";
 				System.out.println("檢查點 3");
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllHobby.jsp
 				successView.forward(req, res);				
@@ -227,7 +227,7 @@ public class HobbyServlet extends HttpServlet {
 				errorMsgs.add(e.getMessage());
 				System.out.println("檢查點 4");
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/hobby/addHobby.jsp");
+						.getRequestDispatcher("/FrontEnd/hobby/addHobby.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -249,7 +249,7 @@ public class HobbyServlet extends HttpServlet {
 				hobbySvc.deletehobby(hobby_ID);
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-				String url = "/back-end/hobby/listAllHobby.jsp";
+				String url = "/FrontEnd/hobby/listAllHobby.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 				
@@ -257,7 +257,7 @@ public class HobbyServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("刪除資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/hobby/listAllHobby.jsp");
+						.getRequestDispatcher("/FrontEnd/hobby/listAllHobby.jsp");
 				failureView.forward(req, res);
 			}
 		}

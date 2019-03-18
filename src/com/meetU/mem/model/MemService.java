@@ -91,6 +91,11 @@ public class MemService {
 		
 		return memVO;
 	}
+	
+	public void updateMem(MemVO memvo) {
+		dao.update(memvo);
+	}
+	
 	public void deleteMem(String mem_ID) {
 		dao.delete(mem_ID);
 	}

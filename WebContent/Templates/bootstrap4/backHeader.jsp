@@ -78,7 +78,7 @@
     </ul>
     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/BackLoginHandler" >
     	<input type="hidden" name="action" value="back_logout">
-    	<button id="loginOut" type="submit" class="btn btn-outline-success btn-lg">登出</button>
+    	<button id="loginOut" type="submit" class="btn btn-outline-success btn-lg" ${empVO != null ? "style='display:inline'" : "style='display:none'"}>登出</button>
     </FORM>
   </div>
 </nav>
@@ -95,7 +95,7 @@
     var AUTH00080 = document.getElementById("AUTH00080");
     var AUTH00090 = document.getElementById("AUTH00090");
     
-    var loginOut = document.getElementById("loginOut");
+    //var loginOut = document.getElementById('loginOut').style.display = 'none';
     
     AUTHS.push(AUTH00010,AUTH00020,AUTH00030,AUTH00040,AUTH00050,
     		   AUTH00060,AUTH00070,AUTH00080,AUTH00090);
@@ -106,7 +106,7 @@
     	AUTHS[i].classList.add("disabled");
     }
     
-    loginOut.style.display = "none";
+    //loginOut.style.display = "none";
     
     
     
@@ -114,7 +114,7 @@
 	List<String> auth_IDs = (List<String>)session.getAttribute("auth_IDs");
 	if(auth_IDs != null){
 %>
-		loginOut.style.display = "inline";	
+		//loginOut.style.display = "inline";	
 <%
 		for(String auth: auth_IDs){
  %> 

@@ -44,7 +44,7 @@ public class FriendServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/friend/select_page.jsp");
+							.getRequestDispatcher("/FrontEnd/friend/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -66,7 +66,7 @@ public class FriendServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/friend/select_page.jsp");
+							.getRequestDispatcher("/FrontEnd/friend/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -82,14 +82,14 @@ public class FriendServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/friend/select_page.jsp");
+							.getRequestDispatcher("/FrontEnd/friend/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.getSession().setAttribute("list", list); // 資料庫取出的friendVO物件,存入req
-				String url = "/back-end/friend/listSomeFriend.jsp";
+				String url = "/FrontEnd/friend/listSomeFriend.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // ���\��� listOneFriend.jsp
 				successView.forward(req, res);
 
@@ -97,7 +97,7 @@ public class FriendServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/friend/select_page.jsp");
+						.getRequestDispatcher("/FrontEnd/friend/select_page.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -120,7 +120,7 @@ public class FriendServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/friend/select_page.jsp");
+							.getRequestDispatcher("/FrontEnd/friend/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -142,7 +142,7 @@ public class FriendServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/friend/select_page.jsp");
+							.getRequestDispatcher("/FrontEnd/friend/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -158,14 +158,14 @@ public class FriendServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/friend/select_page.jsp");
+							.getRequestDispatcher("/FrontEnd/friend/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("friendVO", friendVO); // 資料庫取出的friendVO物件,存入req
-				String url = "/back-end/friend/listOneFriend.jsp";
+				String url = "/FrontEnd/friend/listOneFriend.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // ���\��� listOneFriend.jsp
 				successView.forward(req, res);
 
@@ -173,7 +173,7 @@ public class FriendServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/friend/select_page.jsp");
+						.getRequestDispatcher("/FrontEnd/friend/select_page.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -196,7 +196,7 @@ public class FriendServlet extends HttpServlet {
 								
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("friendVO", friendVO);         // 資料庫取出的friendVO物件,存入req
-				String url = "/back-end/friend/update_friend_input.jsp";
+				String url = "/FrontEnd/friend/update_friend_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_friend_input.jsp
 				successView.forward(req, res);
 
@@ -204,7 +204,7 @@ public class FriendServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/friend/listAllFriend.jsp");
+						.getRequestDispatcher("/FrontEnd/friend/listAllFriend.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -250,7 +250,7 @@ public class FriendServlet extends HttpServlet {
 
 					req.setAttribute("friendVO", friendVO); // 含有輸入格式錯誤的friendVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/friend/update_friend_input.jsp");
+							.getRequestDispatcher("/FrontEnd/friend/update_friend_input.jsp");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
@@ -261,7 +261,7 @@ public class FriendServlet extends HttpServlet {
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("friendVO", friendVO); // 資料庫update成功後,正確的的friendVO物件,存入req
-				String url = "/back-end/friend/listOneFriend.jsp";
+				String url = "/FrontEnd/friend/listOneFriend.jsp";
 				System.out.println("檢查點 3");
 
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneFriend.jsp
@@ -273,7 +273,7 @@ public class FriendServlet extends HttpServlet {
 
 				errorMsgs.add("修改資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/friend/update_friend_input.jsp");
+						.getRequestDispatcher("/FrontEnd/friend/update_friend_input.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -331,7 +331,7 @@ public class FriendServlet extends HttpServlet {
 					System.out.println("檢查點 2");
 					req.setAttribute("friendVO", friendVO); // 含有輸入格式錯誤的friendVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/friend/addFriend.jsp");
+							.getRequestDispatcher("/FrontEnd/friend/addFriend.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -343,7 +343,7 @@ public class FriendServlet extends HttpServlet {
 				friendVO = friendSvc.addFriend(mem_ID, friend_mem_ID, relation_status, friend_intimate);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/back-end/friend/listAllFriend.jsp";
+				String url = "/FrontEnd/friend/listAllFriend.jsp";
 				System.out.println("檢查點 3");
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllFriend.jsp
 				successView.forward(req, res);				
@@ -353,7 +353,7 @@ public class FriendServlet extends HttpServlet {
 				errorMsgs.add(e.getMessage());
 				System.out.println("檢查點 4");
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/friend/addFriend.jsp");
+						.getRequestDispatcher("/FrontEnd/friend/addFriend.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -376,7 +376,7 @@ public class FriendServlet extends HttpServlet {
 				friendSvc.deleteFriend(mem_ID, friend_mem_ID);
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-				String url = "/back-end/friend/listAllFriend.jsp";
+				String url = "/FrontEnd/friend/listAllFriend.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 				
@@ -384,7 +384,7 @@ public class FriendServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("刪除資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/friend/listAllFriend.jsp");
+						.getRequestDispatcher("/FrontEnd/friend/listAllFriend.jsp");
 				failureView.forward(req, res);
 			}
 		}

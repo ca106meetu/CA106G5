@@ -19,7 +19,7 @@ public class MemJDBCDAO implements MemDAO_interface{
 			"INSERT INTO MEM (MEM_ID, MEM_PW, MEM_ACC, MEM_EMAIL, MEM_CODE,"
 			+               "  MEM_STATE, MEM_DATE, MEM_SIGN_DAY, MEM_LOGIN_STATE, MEM_ADDRESS, LAST_PAIR)"
 			+       " VALUES ( 'M'||LPAD(to_char(mem_seq.NEXTVAL), 6, '0'), ?, ?, ?, 1111, "
-			+                 " 1, SYSDATE, SYSTIMESTAMP, 1, ?, SYSTIMESTAMP)";
+			+                 " 0, SYSDATE, SYSTIMESTAMP, 1, ?, SYSTIMESTAMP)";
 	private static final String GET_ALL_STMT = 
 		"SELECT * FROM MEM";
 	private static final String GET_ONE_STMT = 
