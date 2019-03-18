@@ -3,30 +3,22 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.meetU.meetup.model.*, com.meetU.mem.model.*"%>
 <%@ page import="com.meetU.meetup_like.model.*"%>
-<% 
+<%-- 此頁練習採用 EL 的寫法取值 --%>
+
+<%-- 
 	MeetupService meetupSvc = new MeetupService();
 	List<MeetupVO> list = meetupSvc.getAll();
 	pageContext.setAttribute("list", list);
-%>
-
+	--%>	
 <%
-	MemVO memVO = (MemVO) session.getAttribute("memVO");
-	MeetupVO meetupVO = (MeetupVO)session.getAttribute("meetupVO");
+	List<MeetupVO> list =(List) request.getAttribute("list");
 %>
 
-<!doctype html>
 <html>
 <head>
-<!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
-	<script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
-		
-    <title>聯誼首頁</title>    
-    <style>
-    *{
+<title>聯誼搜尋結果</title>
+<style>
+	*{
     	font-family:微軟正黑體;	
     }
     
@@ -72,12 +64,30 @@
    	.searchDiv{
    		margin:50px;
    	}
-   
-</style> 
-    
+
+</style>
+
+<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
+	<script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
+		
 </head>
+
 <body>
- 
+
+<%-- 錯誤表列 --%>
+<c:if test="${not empty errorMsgs}">
+	<font style="color:red">請修正以下錯誤:</font>
+	<ul>
+		<c:forEach var="message" items="${errorMsgs}">
+			<li style="color:red">${message}</li>
+		</c:forEach>
+	</ul>
+</c:if>
+
 <jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
 
 <%@ include file="page1.file" %>
@@ -114,10 +124,9 @@
 
 <jsp:useBean id="mLikeSvc" scope="page" class="com.meetU.meetup_like.model.MeetupLikeService"/>					
 					
-				<input type='image' class='heart' id="${meetupVO.meetup_ID}" 
-						src=" ${mLikeSvc.getOneMeetupLike(meetupVO.meetup_ID, memVO.mem_ID)!= null?'img/heart_red.png':'img/heart_white.png'}" 
-		 				title="${mLikeSvc.getOneMeetupLike(meetupVO.meetup_ID, memVO.mem_ID) != null ? '取消收藏' : '加入收藏' }" 
-		   				alt="${mLikeSvc.getOneMeetupLike(meetupVO.meetup_ID, memVO.mem_ID) != null ? 'favorite' : 'unfavorite' }" >
+				<input type='image' src=" ${mLikeSvc.getOneMeetupLike(meetupVO.meetup_ID, memVO.mem_ID)!= null?'img/heart_red.png':'img/heart_white.png'}" 
+		 				class='heart' title="${mLikeSvc.getOneMeetupLike(meetupVO.meetup_ID, memVO.mem_ID) != null ? '取消收藏' : '加入收藏' }" 
+		   				alt="${mLikeSvc.getOneMeetupLike(meetupVO.meetup_ID, memVO.mem_ID) != null ? 'favorite' : 'unfavorite' }" id="${meetupVO.meetup_ID}">
 				<input type="hidden" name="meetup_ID" value="${meetupVO.meetup_ID}">
 				<input type="hidden" name="mem_ID"	value="${memVO.mem_ID}">
 					
@@ -133,13 +142,7 @@
 $(document).ready(function(){
 	
 	$(".heart").click(function(){
-
-		if(!allowUser()){ 
-			 <%session.setAttribute("location", request.getRequestURI());%>
-			 $('#login').modal('show');
-			 return;
-		}
-		
+		 
 		var element = $(this);
 		 
 		 if($(this).attr("alt") == "unfavorite"){

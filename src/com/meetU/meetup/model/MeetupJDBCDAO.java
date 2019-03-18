@@ -437,15 +437,15 @@ public class MeetupJDBCDAO implements MeetupDAO_interface{
 		MeetupJDBCDAO dao = new MeetupJDBCDAO();
 
 		//新增
-//		MeetupVO meetupVO1 = new MeetupVO();
-//		meetupVO1.setMeetup_name("love520");
-//		meetupVO1.setMem_ID("M000005");
-//		meetupVO1.setMeetup_date(java.sql.Date.valueOf("2019-04-01"));
-//		meetupVO1.setMeetup_loc("綠島");
-//		meetupVO1.setMeetup_status(0);
-////		meetupVO1.setMeetup_pic();
-//		meetupVO1.setMeetup_info("一起唱綠島小夜曲");
-//		dao.insert(meetupVO1);
+		MeetupVO meetupVO1 = new MeetupVO();
+		meetupVO1.setMeetup_name("love520");
+		meetupVO1.setMem_ID("M000005");
+		meetupVO1.setMeetup_date(java.sql.Date.valueOf("2019-04-01"));
+		meetupVO1.setMeetup_loc("綠島");
+		meetupVO1.setMeetup_status(0);
+//		meetupVO1.setMeetup_pic();
+		meetupVO1.setMeetup_info("一起唱綠島小夜曲");
+		dao.insert(meetupVO1);
 		
 		//update
 //		MeetupVO meetupVO2 = new MeetupVO();
@@ -517,18 +517,18 @@ public class MeetupJDBCDAO implements MeetupDAO_interface{
 //		}
 			
 			//查詢
-		List<MeetupVO> list = dao.getSearchName("媽媽");
-			for(MeetupVO mtupVO : list) {
-				System.out.println(mtupVO.getMeetup_ID());
-				System.out.println(mtupVO.getMeetup_name());
-				System.out.println(mtupVO.getMem_ID());
-				System.out.println(mtupVO.getMeetup_date());
-				System.out.println(mtupVO.getMeetup_loc());
-				System.out.println(mtupVO.getMeetup_status());
+//		List<MeetupVO> list = dao.getSearchName("媽媽");
+//			for(MeetupVO mtupVO : list) {
+//				System.out.println(mtupVO.getMeetup_ID());
+//				System.out.println(mtupVO.getMeetup_name());
+//				System.out.println(mtupVO.getMem_ID());
+//				System.out.println(mtupVO.getMeetup_date());
+//				System.out.println(mtupVO.getMeetup_loc());
+//				System.out.println(mtupVO.getMeetup_status());
 //				System.out.println(mtupVO.getMeetup_pic());
-				System.out.println(mtupVO.getMeetup_info());
-				System.out.println("----------------");
-			}	
+//				System.out.println(mtupVO.getMeetup_info());
+//				System.out.println("----------------");
+//			}	
 		
 	}
 

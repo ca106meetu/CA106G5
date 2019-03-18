@@ -1,7 +1,6 @@
 package com.meetU.meetup.model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -35,8 +34,10 @@ public class MeetupDAO implements MeetupDAO_interface{
 	
 	private static final String GET_LOCATION_STMT1 = "SELECT * FROM MEETUP where meetup_loc like '%";
 	private static final String GET_STMT2= "%' order by meetup_ID desc";
-	private static final String GET_NAME_STMT1 = "sELECT * FROM MEETUP where meetup_name like '%";
+	private static final String GET_NAME_STMT1 = "SELECT * FROM MEETUP where meetup_name like '%";
 
+	private static final String INSERT_FOUNDER_STMT = "INSERT INTO MEETUP_MEM (meetup_ID, mem_ID, mem_showup) VALUES (?,?,?)";
+	
 	@Override
 	public void insert(MeetupVO meetupVO) {
 		Connection con = null;
@@ -44,7 +45,11 @@ public class MeetupDAO implements MeetupDAO_interface{
 		
 		try {
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(INSERT_STMT);
+			con.setAutoCommit(false);
+			
+			//先新增社團
+			String cols[]= {"MEETUP_ID"};
+			pstmt = con.prepareStatement(INSERT_STMT, cols);
 			
 			pstmt.setString(1, meetupVO.getMeetup_name());
 			pstmt.setString(2, meetupVO.getMem_ID());
@@ -56,6 +61,28 @@ public class MeetupDAO implements MeetupDAO_interface{
 			
 			pstmt.executeUpdate();
 			
+			//攫取對應的自增主鍵值
+			String last_meetup_ID = null;
+			ResultSet rs = pstmt.getGeneratedKeys();
+			if(rs.next()) {
+				last_meetup_ID = rs.getString(1);
+				System.out.println("自增主鍵值="+last_meetup_ID+"(剛創建的聯誼編號)");
+			}else {
+				System.out.println("未取得自增主鍵值");
+			}
+			rs.close();
+			
+			//再同時新增創辦人為聯誼成員
+			pstmt = con.prepareStatement(INSERT_FOUNDER_STMT);
+			
+			pstmt.setString(1, last_meetup_ID);
+			pstmt.setString(2, meetupVO.getMem_ID());
+			pstmt.setInt(3, 1);
+			
+			pstmt.executeUpdate();
+			
+			con.commit();
+			con.setAutoCommit(true);
 		}catch(SQLException se) {
 			throw new RuntimeException("A database error occured."+ se.getMessage());
 		}finally {

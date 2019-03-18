@@ -1,13 +1,18 @@
 package com.meetU.meetup_mem.model;
 
-import java.sql.Date;
-
 public class MeetupMemVO implements java.io.Serializable{
 	private String meetup_ID;
 	private String mem_ID;
+	private Integer mem_showup;
 	private Integer meetup_rate;
 	private String meetup_comment;
-	
+
+	public Integer getMem_showup() {
+		return mem_showup;
+	}
+	public void setMem_showup(Integer mem_showup) {
+		this.mem_showup = mem_showup;
+	}
 	public String getMeetup_ID() {
 		return meetup_ID;
 	}

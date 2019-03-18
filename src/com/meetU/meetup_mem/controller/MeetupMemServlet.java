@@ -81,6 +81,7 @@ public class MeetupMemServlet extends HttpServlet {
 				/*=================1.接收請求參數=================*/
 				String meetup_ID = req.getParameter("meetup_ID");
 				String mem_ID = req.getParameter("mem_ID");
+							
 				/*=================2.開始查詢資料=================*/
 				MeetupMemService meetupMemSvc = new MeetupMemService();
 				MeetupMemVO meetupMemVO = meetupMemSvc.getOneMeetupMem(meetup_ID, mem_ID);
@@ -112,12 +113,22 @@ public class MeetupMemServlet extends HttpServlet {
 					meetup_rate = 0;
 					errorMsgs.add("請填數字");
 				}
+
+				Integer mem_showup;
+				try{
+					mem_showup = new Integer(req.getParameter("mem_show").trim());
+				} catch(NumberFormatException e) {
+					mem_showup = 0;
+					errorMsgs.add("請填數字");
+				}
+	
 				
 				String meetup_comment = req.getParameter("meetup_comment").trim();
 				
 				MeetupMemVO meetupMemVO = new MeetupMemVO();
 				meetupMemVO.setMeetup_ID(meetup_ID);
 				meetupMemVO.setMem_ID(mem_ID);
+				meetupMemVO.setMem_showup(mem_showup);
 				meetupMemVO.setMeetup_rate(meetup_rate);
 				meetupMemVO.setMeetup_comment(meetup_comment);
 				
@@ -130,7 +141,7 @@ public class MeetupMemServlet extends HttpServlet {
 				}
 				/*=================2.開始修改資料---------------*/
 				MeetupMemService meetupMemSvc = new MeetupMemService();
-				meetupMemVO = meetupMemSvc.updateMeetupMem(meetup_ID, mem_ID, meetup_rate, meetup_comment);
+				meetupMemVO = meetupMemSvc.updateMeetupMem(meetup_ID, mem_ID, meetup_rate, mem_showup, meetup_comment);
 				/*=================3.修改完成,準備轉交(Send the Success view)----------*/
 				req.setAttribute("meetupMemVO", meetupMemVO); // 資料庫update成功後,正確的的empVO物件,存入req
 				String url = "/meetupMem/select_page_mem.jsp";

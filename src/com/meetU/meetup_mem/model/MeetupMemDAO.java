@@ -22,13 +22,13 @@ public class MeetupMemDAO implements MeetupMemDAO_interface{
 			e.printStackTrace();
 		}
 	}
-	private static final String INSERT_STMT = "INSERT INTO MEETUP_MEM (meetup_ID, mem_ID) VALUES (?,?)";	
+	private static final String INSERT_STMT = "INSERT INTO MEETUP_MEM (meetup_ID, mem_ID, mem_showup) VALUES (?,?,?)";
 	private static final String GET_ALL_STMT = "SELECT * FROM MEETUP_MEM WHERE meetup_ID =?";
 	private static final String GET_ONE_STMT = "SELECT * FROM MEETUP_MEM WHERE meetup_ID =? AND MEM_ID=?";
 	private static final String GET_MYALL_STMT = "SELECT * FROM MEETUP_MEM WHERE MEM_ID =?";
 	private static final String DELETE = "DELETE FROM MEETUP_MEM WHERE meetup_ID =? and MEM_ID =?";
 	
-	private static final String UPDATE = "UPDATE MEETUP_MEM SET meetup_rate=?, meetup_comment=? WHERE meetup_ID =? and MEM_ID =?";
+	private static final String UPDATE = "UPDATE MEETUP_MEM SET meetup_rate=?, meetup_comment=?, mem_showup=? WHERE meetup_ID =? and MEM_ID =?";
 	
 
 	@Override
@@ -41,6 +41,7 @@ public class MeetupMemDAO implements MeetupMemDAO_interface{
 			
 			pstmt.setString(1, meetupMemVO.getMeetup_ID());
 			pstmt.setString(2, meetupMemVO.getMem_ID());
+			pstmt.setInt(3, 1);
 			
 			pstmt.executeUpdate();
 			
@@ -74,8 +75,9 @@ public class MeetupMemDAO implements MeetupMemDAO_interface{
 			
 			pstmt.setInt(1, meetupMemVO.getMeetup_rate());
 			pstmt.setString(2, meetupMemVO.getMeetup_comment());
-			pstmt.setString(3, meetupMemVO.getMeetup_ID());
-			pstmt.setString(4, meetupMemVO.getMem_ID());
+			pstmt.setInt(3, meetupMemVO.getMem_showup());
+			pstmt.setString(4, meetupMemVO.getMeetup_ID());
+			pstmt.setString(5, meetupMemVO.getMem_ID());
 			pstmt.executeUpdate();
 			
 		}catch(SQLException se) {
@@ -147,6 +149,7 @@ public class MeetupMemDAO implements MeetupMemDAO_interface{
 				meetupMemVO = new MeetupMemVO();
 				meetupMemVO.setMeetup_ID(rs.getString("meetup_ID"));
 				meetupMemVO.setMem_ID(rs.getString("mem_ID"));
+				meetupMemVO.setMem_showup(rs.getInt("mem_showup"));
 				meetupMemVO.setMeetup_rate(rs.getInt("meetup_rate"));
 				meetupMemVO.setMeetup_comment(rs.getString("meetup_comment"));
 			}
@@ -194,6 +197,7 @@ public class MeetupMemDAO implements MeetupMemDAO_interface{
 				meetupMemVO = new MeetupMemVO();
 				meetupMemVO.setMeetup_ID(rs.getString("meetup_ID"));
 				meetupMemVO.setMem_ID(rs.getString("mem_ID"));
+				meetupMemVO.setMem_showup(rs.getInt("mem_showup"));
 				meetupMemVO.setMeetup_rate(rs.getInt("meetup_rate"));
 				meetupMemVO.setMeetup_comment(rs.getString("meetup_comment"));
 				list.add(meetupMemVO);
@@ -242,6 +246,7 @@ public class MeetupMemDAO implements MeetupMemDAO_interface{
 				meetupMemVO = new MeetupMemVO();
 				meetupMemVO.setMeetup_ID(rs.getString("meetup_ID"));
 				meetupMemVO.setMem_ID(rs.getString("mem_ID"));
+				meetupMemVO.setMem_showup(rs.getInt("mem_showup"));
 				meetupMemVO.setMeetup_rate(rs.getInt("meetup_rate"));
 				meetupMemVO.setMeetup_comment(rs.getString("meetup_comment"));
 				list.add(meetupMemVO);

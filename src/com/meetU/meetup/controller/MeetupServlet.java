@@ -100,7 +100,7 @@ public class MeetupServlet extends HttpServlet {
 			}catch(Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/FrontEnd/meetup/listAllMeetup.jsp");
+						.getRequestDispatcher("/FrontEnd/meetup/meetupHomePg.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -306,7 +306,7 @@ public class MeetupServlet extends HttpServlet {
 				MeetupService meetupSvc = new MeetupService();
 				meetupVO = meetupSvc.addMeetup(meetup_name, mem_ID, meetup_date, meetup_loc, meetup_status, meetup_pic, meetup_info);
 				/*=================3.新增完成,準備轉交(Send the Success view)-----------*/
-				String url = "/FrontEnd/meetup/listAllMeetup.jsp";
+				String url = "/FrontEnd/meetup/meetupHomePg.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
 				
@@ -332,7 +332,7 @@ public class MeetupServlet extends HttpServlet {
 				meetupSvc.deleteMeetup(meetup_ID);
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-				String url = "/FrontEnd/meetup/listAllMeetup.jsp";
+				String url = "/FrontEnd/meetup/meetupHomePg.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 				
@@ -340,7 +340,7 @@ public class MeetupServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("刪除資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/FrontEnd/meetup/listAllMeetup.jsp");
+						.getRequestDispatcher("/FrontEnd/meetup/meetupHomePg.jsp");
 				failureView.forward(req, res);
 			}
 		}	
@@ -368,7 +368,7 @@ public class MeetupServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("刪除資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/FrontEnd/meetup/listAllMeetup.jsp");
+						.getRequestDispatcher("/FrontEnd/meetup/meetupHomePg.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -382,13 +382,11 @@ public class MeetupServlet extends HttpServlet {
 				/***************************1.接收請求參數***************************************/
 				String searchInfo = req.getParameter("searchInfo");
 				String searchType = req.getParameter("searchType");
-				/***************************2.開始刪除資料***************************************/
+				/***************************2.***************************************/
 				MeetupService meetupSvc = new MeetupService();
 				List<MeetupVO> list;
-System.out.println("0");
 				
 				if("nam".equals(searchType)) {
-System.out.println("2");
 					list = meetupSvc.getSearchName(searchInfo);
 				}else if("loc".equals(searchType)) {
 					list = meetupSvc.getSearchLoc(searchInfo);
@@ -396,17 +394,16 @@ System.out.println("2");
 					list = meetupSvc.getAll();
 				}
 				/***************************3.準備轉交(Send the Success view)***********/								
-				req.setAttribute("list", list);
-//				String url = "/FrontEnd/meetup/meetupHomePg.jsp";
-				String url = "/FrontEnd/meetup/listAllMeetup.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功後,轉交回送出刪除的來源網頁
+				req.setAttribute("list", list);				
+				String url = "/FrontEnd/meetup/searchMeetup.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功後,轉交網頁
 				successView.forward(req, res);
-System.out.println("1");
+
 				/***************************其他可能的錯誤處理**********************************/
 			} catch (Exception e) {
 				errorMsgs.add("刪除資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/FrontEnd/meetup/listAllMeetup.jsp");
+						.getRequestDispatcher("/FrontEnd/meetup/meetupHomePg.jsp");
 				failureView.forward(req, res);
 			}
 		}

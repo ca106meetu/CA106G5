@@ -99,7 +99,7 @@
 	  	<input type='hidden' name='action' value='add'>
     </div>
   </div>
- <%}else{%> 
+<%}else{%> 
   <div class="card">
   </div>
  <%}};%> 
