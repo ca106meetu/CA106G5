@@ -179,6 +179,13 @@
 						    "mem_pw":$(".mem_pw").val()},
 					 dataType: "json",
 					 success: function(data){
+						 
+// ------------------------------------------------------------------------loren0319
+						 if(data.mem_state == 0){
+							 window.location.href=("<%=request.getContextPath()%>/FrontEnd/mem/Email.jsp");
+							 return;
+						 }
+// ---------------------------------------------------------------------------
 						 if(data.access == 'true'){
 							$('#login').modal('hide');
 							swal({
@@ -195,6 +202,7 @@
 						}
 					 },
 		             error: function(){
+		            	 alert(5);
 		             
 		             }
 		         });
