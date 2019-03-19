@@ -44,7 +44,7 @@ public class FrontLoginHandler extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-	    		return false;
+	    		return false; 
 	    	}else{
 	    		session.setAttribute("memVO", memVO);
 	    		return true;
