@@ -36,15 +36,17 @@ public class FrontLoginHandler extends HttpServlet {
 	    if (memVO != null ) {
 	    	if( memVO.getMem_state() == 0) {
 	    		session.setAttribute("regMemVO", memVO);
-		    	String url = "/FrontEnd/mem/Email.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_mem_input.jsp
-				try {
-					successView.forward(req, res);
-				} catch (ServletException | IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-	    		return false; 
+//---------------------------------------------------------------loren0319	    		
+//		    	String url = "/FrontEnd/mem/Email.jsp";
+//				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_mem_input.jsp
+//				try {
+//					successView.forward(req, res);
+//				} catch (ServletException | IOException e) {
+//					 TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+	    		return true; 
+//------------------------------------------------------------------------------
 	    	}else{
 	    		session.setAttribute("memVO", memVO);
 	    		return true;
@@ -229,6 +231,7 @@ public class FrontLoginHandler extends HttpServlet {
 				try {                                                        
 					JSONObject obj0 = new JSONObject();
 					obj0.accumulate("access", "true");
+					
 					out.print(obj0.toString());
 					out.flush();
 					out.close();
@@ -253,7 +256,11 @@ public class FrontLoginHandler extends HttpServlet {
 				try {                                                        
 					JSONObject obj1 = new JSONObject();
 					obj1.accumulate("access", "true");
+//					----------------------------------------------------------------------loren0319
+					if(session.getAttribute("regMemVO") != null)
+						obj1.accumulate("mem_state", ((MemVO)session.getAttribute("regMemVO")).getMem_state());
 					out.print(obj1.toString());
+//					-----------------------------------------------------------------------
 					out.flush();
 					out.close();
 				}catch (Exception ignored) { 
