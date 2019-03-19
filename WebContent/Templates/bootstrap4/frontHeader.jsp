@@ -93,7 +93,7 @@
         </button>
        </div>
       <div class="modal-body">
-<%--        <form METHOD="post" ACTION="<%=request.getContextPath()%>/FrontLoginHandler" > --%>
+<%--       <form METHOD="post" ACTION="<%=request.getContextPath()%>/FrontLoginHandler" >  --%>
   	      <div class="form-group">
    		     <label for="login_text_mem_acc">帳號</label>
    		     <input type="text" name='mem_acc' class="form-control mem_acc" id="login_text_mem_acc" aria-describedby="ACCHelp" placeholder="輸入您的帳號">
@@ -104,9 +104,9 @@
 	         <input type="password" name='mem_pw' class="form-control mem_pw" id="login_text_mem_pw" placeholder="輸入您的密碼">
 	         <small id="login_text_mem_pw_answer" class="form-text text-muted">請輸入您的密碼</small>
 	     </div>
-	     
-	   <button type="button" class="btn btn-success login" >登入</button>
-<!-- 	 </form> -->
+<!-- 	     <input type="hidden" name="action" value="login"> -->
+	   <button type="submit" class="btn btn-success login" >登入</button>
+<!--  </form>  -->
       </div>
       <div class="modal-footer">
        <!--  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -199,7 +199,7 @@
 		             }
 		         });
 			});
-			
+	    	setTimeout(checkRegisterBtn, 500);
 			
 			$('#register_text_mem_acc').on('keyup', function(){
 				if( $('#register_text_mem_acc').val().trim().length == 0){
@@ -325,8 +325,9 @@
 	}
 	function checkRegisterBtn(){
 		if(register_text_mem_acc_flag_G && register_text_mem_pw_flag_G && register_text_mem_email_flag_G){
-			
 			$('#btnRegister').attr('disabled',false);
+		}else{
+			$('#btnRegister').attr('disabled',true);
 		}
 	}
 		

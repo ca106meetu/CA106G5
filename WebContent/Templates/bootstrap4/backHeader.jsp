@@ -12,7 +12,9 @@
     <!-- Required meta tags -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
-	<script src="Templates/sweetalert-master/sweetalert.min.js"></script>
+	<script src="<%=request.getContextPath()%>/Templates/bootstrap4/js/jquery-3.2.1.min.js"></script>
+    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/js/sweetalert2.all.js"></script>
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/sweetalert2.css">
   </head>
   <body>
     
@@ -41,9 +43,9 @@
           商城管理
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" id="AUTH00020" href="#">商品上架/下架</a>
-          <a class="dropdown-item" id="AUTH00030" href="#">訂單管理</a>
-          <a class="dropdown-item" id="AUTH00040" href="#">點數管理</a>
+          <a class="dropdown-item" id="AUTH00020" href="<%=request.getContextPath()%>/FrontEnd/prod/update_prod_input.jsp">商品上架/下架</a>
+          <a class="dropdown-item" id="AUTH00030" href="<%=request.getContextPath()%>/back-end/om/select_om_input.jsp">訂單管理</a>
+          
           
         </div>
       </li>
@@ -63,7 +65,7 @@
        員工管理
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" id="AUTH00060" href="<%=request.getContextPath()%>/back-end/emp/select_page.jsp">員工資料管理</a>
+          <a class="dropdown-item" id="AUTH00050" href="<%=request.getContextPath()%>/back-end/emp/select_page.jsp">員工資料管理</a>
         </div>   
       </li>
     </ul>
@@ -81,13 +83,12 @@
     var AUTH00030 = document.getElementById("AUTH00030");
     var AUTH00040 = document.getElementById("AUTH00040");
     var AUTH00050 = document.getElementById("AUTH00050");
-    var AUTH00060 = document.getElementById("AUTH00060");
+    
 
     
     //var loginOut = document.getElementById('loginOut').style.display = 'none';
     
-    AUTHS.push(AUTH00010,AUTH00020,AUTH00030,AUTH00040,AUTH00050,
-    		   AUTH00060);
+    AUTHS.push(AUTH00010,AUTH00020,AUTH00030,AUTH00040,AUTH00050);
     
     var len = AUTHS.length;
     for(var i = 0; i < len; i++){
