@@ -12,7 +12,7 @@
 %>
 <html>
 <head>
-<title>listAllMeetup.jsp</title>
+<title>listAllMeetupMem.jsp</title>
 <style>
 	img{
 		width:150;
@@ -55,7 +55,7 @@
 <h4>此頁練習採用 EL 的寫法取值:</h4>
 <table id="table-1">
 	<tr><td>
-		 <h3>所有員工資料 - listAllMeetup.jsp</h3>
+
 		 <h4><a href="select_page_mem.jsp">回首頁</a></h4>
 	</td></tr>
 </table>

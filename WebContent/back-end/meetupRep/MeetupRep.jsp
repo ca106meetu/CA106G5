@@ -101,7 +101,7 @@
 					<td>${meetupRepVO.mem_ID}</td>
 					<td>${meetupRepVO.rep_date}</td>
 					<td>
-						<FORM METHOD="POST" ACTION="<%=request.getContextPath()%>/FrontEnd/meetupRep/meetupRep.do" >	
+						<FORM METHOD="POST" ACTION="<%=request.getContextPath()%>/back-end/meetupRep/meetupRep.do" >	
 							<input type="submit" class="btn btn-info btnSaveAns" data-toggle="modal" data-target="#basicModal" value="查看/回覆檢舉原因">
 							<input type="hidden" name="meetup_rep_ID" value="${meetupRepVO.meetup_rep_ID}">
 							<input type="hidden" name="action" value="getOne_For_Update">
@@ -148,7 +148,7 @@ $(document).ready(function(){
 	$(".btnSaveAns").click(function(){
 		$.ajax({
 			 type: "POST",
-			 url: "<%=request.getContextPath()%>/FrontEnd/meetupRep/meetupRep.do",
+			 url: "<%=request.getContextPath()%>/back-end/meetupRep/meetupRep.do",
 			 data: {"meetup_rep_ID":$(this).next().attr('value'), 
 				 	"rep_status":$(this).next().next().attr('value'),
 				 	"action":"update", 

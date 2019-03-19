@@ -2,11 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.* , com.meetU.meetup_report.*, com.meetU.meetup.model.*" %>
 
-<%--
-MeetupService meetupSvc = new MeetupService();
-String meetup_ID = request.getParameter("meetup_ID");
-MeetupVO meetupVO = meetupSvc.getOneMeetup(meetup_ID);
---%>
 
 <!DOCTYPE html>
 <html>
@@ -78,7 +73,7 @@ $(document).ready(function(){
 	$("#btnSaveAns").click(function(){
 		$.ajax({
 			 type: "POST",
-			 url: "<%=request.getContextPath()%>/FrontEnd/meetupRep/meetupRep.do",
+			 url: "<%=request.getContextPath()%>/back-end/meetupRep/meetupRep.do",
 			 data: {"meetup_rep_ID":$(this).next().attr('value'), 
 				 	"rep_status":$(this).next().next().attr('value'),
 				 	"action":"update", 
