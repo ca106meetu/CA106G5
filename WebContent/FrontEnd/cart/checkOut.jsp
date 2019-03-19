@@ -157,7 +157,8 @@
 			<input type='hidden' name='action' value='insert'>
 			<input type='hidden' name='out_status' value='0'>
 			<input type='hidden' name='order_status' value='0'>
-			<button type='submit' class="btn btn-outline-success"  >確認付款</button>
+			<button type='submit' class="btn btn-outline-${(memVO.mem_get_point-amount) < 0 ? 'danger' : 'success'}" 
+					${(memVO.mem_get_point-amount) < 0 ? 'disabled="disabled"' : ''}>${(memVO.mem_get_point-amount) < 0 ? '餘額不足請儲值' : '確認付款'}</button>
 			</form>
       
       

@@ -39,7 +39,7 @@
     <title>Hello, world!</title>  
   </head>
   <body>
-    <jsp:include page="/Templates/bootstrap4/frontHeader2.jsp" />
+    <jsp:include page="/Templates/bootstrap4/frontHeader.jsp"/> 
     
     
 <div class="container">
