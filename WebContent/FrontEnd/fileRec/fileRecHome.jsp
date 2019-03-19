@@ -8,10 +8,14 @@
 
 <%
 	String host_ID =request.getParameter("host_ID");
+    pageContext.setAttribute("host_ID", host_ID);
+    
 	FileRecService fileRecSvc = new FileRecService();
 	List<FileRecVO> list = fileRecSvc.getOneFileRec(host_ID);
 	pageContext.setAttribute("list", list);
 	MemVO memVO = (MemVO)session.getAttribute("memVO");
+	
+	
 %>
 <!doctype html>
 <html>
@@ -47,13 +51,7 @@
 	width: 8em;
 	margin-top: -2.5em;
 }
-#live_rep {
-	position: fixed;
-	right: 0;
-	top: 30%;
-	width: 8em;
-	margin-top: -2.5em;
-}
+
 html,body {	
 	font: 15px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft JhengHei;   
 	 
@@ -86,6 +84,10 @@ td {
 	padding: 2px;
 	text-align: center;
 }
+
+.canclebutton {
+	display: none;
+}
 </style>
 </head>
 <body>
@@ -104,6 +106,16 @@ td {
 						src="<%=request.getContextPath()%>/FrontEnd/live/images/back1.gif"
 						width="100" height="32">
 					</a>
+<!-- TODO -->
+<button style="${(memVO.mem_ID eq host_ID) ? '': 'display:none' }"  class='btn btn-success' onclick='openbtn();'>編輯影片</button>
+<button style="${(memVO.mem_ID eq host_ID) ? '': 'display:none' }" type="submit" form="addfileRec" value="Submit" class='btn btn-info canclebutton' >新增影片</button>
+
+<form action="<%=request.getContextPath()%>/FrontEnd/fileRec/addfileRecHome.jsp" method='post' id="addfileRec">
+		    <input type="hidden" name="host_ID"	value="${host_ID}">
+		    <input type='hidden' name='action' value='insert'>
+</form>
+
+
 				</h4>
 			</td>
 		</tr>
@@ -116,6 +128,8 @@ td {
 			<th>影片描述</th>
 			<th>影片內容</th>
 			<th>影片上架時間</th>
+			<th class='canclebutton'>修改影片</th>
+			
 			
 
 		</tr>
@@ -138,6 +152,25 @@ td {
 				<td><fmt:formatDate value="${fileRecVO.file_date}"
 						pattern="yyyy-MM-dd HH:mm" /></td>
 				
+				<td class='canclebutton'>
+				
+				<button style="${(memVO.mem_ID eq host_ID) ? '': 'display:none' }" type="submit" form="${fileRecVO.file_ID}" value="Submit"  class='btn btn-warning canclebutton' >修改影片</button>
+				<form action="fileRec.do" method='post' id="${fileRecVO.file_ID}">
+					 <input type="hidden" name="file_ID"	value="${fileRecVO.file_ID}">
+		   			 <input type="hidden" name="host_ID"	value="${host_ID}">
+		  			 <input type='hidden' name='action' value='getOne_For_Update'>
+				</form>
+				
+				<button style="${(memVO.mem_ID eq host_ID) ? '': 'display:none' }" type="submit" form="${fileRecVO.file_ID}delet" value="Submit"  class='btn btn-danger canclebutton' >刪除影片</button>
+				<form action="fileRec.do" method='post' id="${fileRecVO.file_ID}delet">
+					 <input type="hidden" name="file_ID"	value="${fileRecVO.file_ID}">
+					 <input type="hidden" name="host_ID"	value="${host_ID}">
+		  			 <input type='hidden' name='action' value='delete'>
+				</form>
+				
+				</td>
+				
+				
 			</tr>
 
 		</c:forEach>
@@ -149,9 +182,9 @@ td {
 		<input type="hidden" name="mem_ID"	value="${memVO.mem_ID}">
 	</div>
 	
-	<div id='live_rep'>
-		<a class="btn btn-primary" href="" role="button">檢舉直播主</a>
-	</div>
+<!-- 	<div id='live_rep'> -->
+<!-- 		<a class="btn btn-primary" href="" role="button">檢舉直播主</a> -->
+<!-- 	</div> -->
 	
 	<div id='live_like2'>
 		<form action="<%=request.getContextPath()%>/FrontEnd/live_like/live_like.do" method='post' onsubmit='return allowUser();'>
@@ -175,6 +208,12 @@ td {
 		src="<%=request.getContextPath()%>/Templates/bootstrap4/js/bootstrap.min.js"></script>
 </body>
 <script>
+
+function openbtn(){
+	
+	$(".canclebutton" ).show();
+	} 
+
 // $(document).ready(function(){
 // 	$(".live_like").click(function(){
 		 

@@ -181,6 +181,8 @@ html,body {
         <div class="panel input-area">
             <div class='container-fluid'>
             <div id='userName' style='display:none;'>${memVO.mem_name}</div>
+            <div id='mem_ID' style='display:none;'>${memVO.mem_ID}</div>
+            <div id='host_ID' style='display:none;'>${host_ID}</div>
             <div id="userNa" class="row" >
             
             	<c:forEach var="sVO" items="${sSvc.all}" begin="0" end="${sSvc.all.size()}">
@@ -227,33 +229,33 @@ html,body {
 		</form>
 	</div>
 	
-	<!-- 檢舉跳出 -->
-	   <!-- Button trigger modal -->
-	   <div id='live_rep'>
-<input  type="submit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" value="檢舉直播主"></div>
+	<!-- 檢舉跳出 --> 
+<!-- 	   Button trigger modal -->
+<!-- 	   <div id='live_rep'> -->
+<!-- <input  type="submit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" value="檢舉直播主"></div> -->
 
 
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
+ <!-- Modal --> 
+<!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
+<!--   <div class="modal-dialog" role="document"> -->
+<!--     <div class="modal-content"> -->
+<!--       <div class="modal-header"> -->
+<!--         <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
+<!--         <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
+<!--           <span aria-hidden="true">&times;</span> -->
+<!--         </button> -->
+<!--       </div> -->
+<!--       <div class="modal-body"> -->
+<!--         ... -->
+<!--       </div> -->
+<!--       <div class="modal-footer"> -->
+<!--         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+<!--         <button type="button" class="btn btn-primary">Save changes</button> -->
+<!--       </div> -->
+<!--     </div> -->
+<!--   </div> -->
+<!-- </div> -->
 	
     
     
@@ -349,11 +351,11 @@ html,body {
 	        var jsonObj = JSON.parse(event.data);
 	        
 	        if("stick" == jsonObj.action){
-				var message = jsonObj.userName + ": " +
-						"<img style='width:30px;' src='data:img/png;base64,"+ jsonObj.stick + "'><br>";       
+				var message = "<font size='4px' color='green'>"+jsonObj.userName + ": </font>" +
+						"<img style='width:30px;' src='data:img/png;base64,"+ jsonObj.stick + "'>"+"<br>"+"<font color='#EE7700'>"+jsonObj.chat_date+"</font>" +"<br>";       
 	        	
 	        }else{
-		        var message = jsonObj.userName + ": " + jsonObj.message + "<br>";
+		        var message ="<font size='4px' color='green'>"+ jsonObj.userName + ": </font>" + "<font size='5px'>"+jsonObj.message + "</font>"+"<br>"+"<font color='#EE7700'>"+jsonObj.chat_date+"</font>" +"<br>";
 	        }
 	        messagesArea.innerHTML = messagesArea.innerHTML + message;
 	        
@@ -365,13 +367,17 @@ html,body {
 		};
 	}
 	
-	
+
 	var inputUserName = document.getElementById("userName");
+	var inputmem_ID = document.getElementById("mem_ID");
+	var inputhost_ID = document.getElementById("host_ID");
 // --------------------------------松松加---------------------------------------
 	function sendStick(stick_ID){
 		var userName = inputUserName.innerText.trim();
+		var mem_ID = inputmem_ID.innerText.trim();
+		var host_ID = inputhost_ID.innerText.trim();
 		if(allowUser()){
-		var jsonObj = {"action" : "stick", "stick_ID" : stick_ID,"userName" : userName};
+		var jsonObj = {"action" : "stick", "stick_ID" : stick_ID,"userName" :userName,"mem_ID" :mem_ID,"host_ID" :host_ID};
 		webSocket.send(JSON.stringify(jsonObj));
 		} else{
 			$('#login').modal('show');
@@ -382,6 +388,9 @@ html,body {
 // 	------------------------------------------------------------------------
 	function sendMessage() {
 	    var userName = inputUserName.innerText.trim();
+	    var mem_ID = inputmem_ID.innerText.trim();
+	    var host_ID = inputhost_ID.innerText.trim();
+	
 	    if (userName === ""){
 	    	$('#login').modal('show');
 			 return;
@@ -394,7 +403,7 @@ html,body {
 	        alert ("訊息請勿空白!");
 	        inputMessage.focus();	
 	    }else{
-	        var jsonObj = {"userName" : userName, "message" : message, "action":"text"};
+	        var jsonObj = {"mem_ID" :mem_ID,"userName" : userName, "message" : message, "action":"text","host_ID":host_ID};
 	        webSocket.send(JSON.stringify(jsonObj));
 	        inputMessage.value = "";
 	        inputMessage.focus();

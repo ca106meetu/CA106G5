@@ -24,8 +24,8 @@ public class Live_chatDAO implements Live_chatDAO_interface {
 			e.printStackTrace();
 		}
 	}
-	private static final String INSERT_STMT = "INSERT INTO LIVE_CHAT (CHAT_ID, HOST_ID, MEM_ID, CHAT_CONT, CHAT_DATE) VALUES('CH'||LPAD(to_char(live_chat_seq.NEXTVAL), 6, '0'),?,?,?,?)";
-	private static final String GET_ONE_STMT = "SELECT * FROM LIVE_CHAT where HOST_ID = ?";
+	private static final String INSERT_STMT = "INSERT INTO LIVE_CHAT (CHAT_ID, HOST_ID, MEM_ID, CHAT_CONT, CHAT_DATE,CHAT_TYPE) VALUES('CH'||LPAD(to_char(live_chat_seq.NEXTVAL), 6, '0'),?,?,?,?,?)";
+	private static final String GET_ONE_STMT = "SELECT * FROM LIVE_CHAT where HOST_ID = ? ORDER BY CHAT_DATE ASC";
 	private static final String GET_ALL_STMT = "SELECT * FROM LIVE_CHAT";
 
 	public Live_chatDAO() {
@@ -45,6 +45,7 @@ public class Live_chatDAO implements Live_chatDAO_interface {
 			pstmt.setString(2, live_chatVO.getMem_ID());
 			pstmt.setString(3, live_chatVO.getChat_cont());
 			pstmt.setTimestamp(4, live_chatVO.getChat_date());
+			pstmt.setString(5, live_chatVO.getChat_type());
 
 			pstmt.executeUpdate();
 
@@ -91,6 +92,7 @@ public class Live_chatDAO implements Live_chatDAO_interface {
 				live_chatVO.setMem_ID(rs.getString("MEM_ID"));
 				live_chatVO.setChat_cont(rs.getString("CHAT_CONT"));
 				live_chatVO.setChat_date(rs.getTimestamp("CHAT_DATE"));
+				live_chatVO.setChat_type(rs.getString("CHAT_TYPE"));
 
 				list.add(live_chatVO);
 			}
@@ -143,6 +145,8 @@ public class Live_chatDAO implements Live_chatDAO_interface {
 				live_chatVO.setMem_ID(rs.getString("MEM_ID"));
 				live_chatVO.setChat_cont(rs.getString("CHAT_CONT"));
 				live_chatVO.setChat_date(rs.getTimestamp("CHAT_DATE"));
+				live_chatVO.setChat_type(rs.getString("CHAT_TYPE"));
+
 
 				list.add(live_chatVO);
 			}
