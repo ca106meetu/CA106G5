@@ -762,7 +762,7 @@ Insert into MEETUP_CHAT (CHAT_ID,MEETUP_ID,MEM_ID,CHAT_MSG_TIME,CHAT_MSG)
   values ( 'MPCH'||LPAD(to_char(meetup_chat_seq.NEXTVAL), 6, '0'), 'MP000001', 'M000001', SYSTIMESTAMP, '早安');
 
 Insert into MEETUP_CHAT (CHAT_ID,MEETUP_ID,MEM_ID,CHAT_MSG_TIME,CHAT_MSG)
-  values ( 'MPCH'||LPAD(to_char(meemeetup_chat_seq.NEXTVAL), 6, '0'), 'MP000001', 'M000001', SYSTIMESTAMP, '我是新報名的成員');
+  values ( 'MPCH'||LPAD(to_char(meetup_chat_seq.NEXTVAL), 6, '0'), 'MP000001', 'M000001', SYSTIMESTAMP, '我是新報名的成員');
 
 Insert into MEETUP_CHAT (CHAT_ID,MEETUP_ID,MEM_ID,CHAT_MSG_TIME,CHAT_MSG)
   values ( 'MPCH'||LPAD(to_char(meetup_chat_seq.NEXTVAL), 6, '0'), 'MP000001', 'M000001', SYSTIMESTAMP, '大家多指教');

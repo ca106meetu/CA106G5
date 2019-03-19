@@ -179,7 +179,7 @@ $(document).ready(function(){
 
 </script>		
 
-    <jsp:include page="/Templates/bootstrap4/backFooter.jsp" />
+<jsp:include page="/Templates/bootstrap4/backFooter.jsp" />
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/popper.min.js"></script>
