@@ -56,11 +56,10 @@
           聯誼活動
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/meetup/meetupHomePg.jsp">瀏覽聯誼</a>
-          <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/meetup/addMeetup.jsp">主持聯誼</a>
-          <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/meetup/AllMyMeetup.jsp">我已參加</a>
-          <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/meetupLike/AllMyLikeMeetup.jsp">我的收藏</a>
-          <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/meetup/MyMeetupRep.jsp">我的檢舉</a>
+          <a class="dropdown-item mtPg" href="<%=request.getContextPath()%>/FrontEnd/meetup/meetupHomePg.jsp">瀏覽聯誼</a>
+          <a class="dropdown-item mtHost" href="<%=request.getContextPath()%>/FrontEnd/meetup/listMeetupByHost.jsp">主持聯誼</a>
+          <a class="dropdown-item mtJoin" href="<%=request.getContextPath()%>/FrontEnd/meetupMem/listAllMyMeetup.jsp">我已參加</a>
+          <a class="dropdown-item mtLike" href="<%=request.getContextPath()%>/FrontEnd/meetupLike/AllMyLikeMeetup.jsp">我的收藏</a>
         </div>
       </li>
       
