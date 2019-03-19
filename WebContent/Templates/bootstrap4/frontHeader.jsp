@@ -50,7 +50,7 @@
           <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/od/listMyOm.jsp">我的訂單</a>
         </div>
       </li>
-      
+           
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           聯誼活動
@@ -61,6 +61,15 @@
           <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/meetup/AllMyMeetup.jsp">我已參加</a>
           <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/meetupLike/AllMyLikeMeetup.jsp">我的收藏</a>
           <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/meetup/MyMeetupRep.jsp">我的檢舉</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          會員中心
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/mem/update_mem_input.jsp">修改會員資料</a>
+          <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/point/listMyPr.jsp">點數管理</a>
         </div>
       </li>
       
@@ -179,13 +188,6 @@
 						    "mem_pw":$(".mem_pw").val()},
 					 dataType: "json",
 					 success: function(data){
-						 
-// ------------------------------------------------------------------------loren0319
-						 if(data.mem_state == 0){
-							 window.location.href=("<%=request.getContextPath()%>/FrontEnd/mem/Email.jsp");
-							 return;
-						 }
-// ---------------------------------------------------------------------------
 						 if(data.access == 'true'){
 							$('#login').modal('hide');
 							swal({
@@ -202,7 +204,6 @@
 						}
 					 },
 		             error: function(){
-		            	 alert(5);
 		             
 		             }
 		         });
