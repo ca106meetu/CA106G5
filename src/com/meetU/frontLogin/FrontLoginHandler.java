@@ -29,12 +29,26 @@ public class FrontLoginHandler extends HttpServlet {
 
 	   //【檢查使用者輸入的帳號(account) 密碼(password)是否有效】
 	   //【實際上應至資料庫搜尋比對】
-	  protected boolean allowUser(String mem_acc, String mem_pw, HttpSession session) {
+	  protected boolean allowUser(String mem_acc, String mem_pw, HttpSession session, 
+			  HttpServletRequest req, HttpServletResponse res) {
 		MemService memSvc = new MemService();
 		MemVO memVO = memSvc.getOneMem(mem_acc, mem_pw);
-	    if (memVO != null) {
-	    	session.setAttribute("memVO", memVO);
-	    	return true;
+	    if (memVO != null ) {
+	    	if( memVO.getMem_state() == 0) {
+	    		session.setAttribute("regMemVO", memVO);
+		    	String url = "/FrontEnd/mem/Email.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_mem_input.jsp
+				try {
+					successView.forward(req, res);
+				} catch (ServletException | IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	    		return false;
+	    	}else{
+	    		session.setAttribute("memVO", memVO);
+	    		return true;
+	    	}
 	    }else {
 	      return false;
 	    }
@@ -170,6 +184,7 @@ public class FrontLoginHandler extends HttpServlet {
 			}
 		}
 		
+		
 		if("register".equals(action)) {
 			String register_mem_acc = req.getParameter("register_text_mem_acc");
 			String register_mem_pw = req.getParameter("register_text_mem_pw");
@@ -201,11 +216,33 @@ public class FrontLoginHandler extends HttpServlet {
 			successView.forward(req, res);
 			return;
 		}
-		
+		if("login".equals(action)) {
+			// 【檢查該帳號 , 密碼是否有效】
+			if (!allowUser(mem_acc, mem_pw, session, req, res)) {          //【帳號 , 密碼無效時】
+				out.print("<!-- -->");
+				out.close();
+			
+				
+			}else {                                       //【帳號 , 密碼有效時, 才做以下工作】
+				session.setAttribute("mem_acc", mem_acc);   //*工作1: 才在session內做已經登入過的標識
+				
+				try {                                                        
+					JSONObject obj0 = new JSONObject();
+					obj0.accumulate("access", "true");
+					out.print(obj0.toString());
+					out.flush();
+					out.close();
+				}catch (Exception ignored) { 
+					
+				}
+				
+			}
+			return;
+		}
 		
 		
 			// 【檢查該帳號 , 密碼是否有效】
-			if (!allowUser(mem_acc, mem_pw, session)) {          //【帳號 , 密碼無效時】
+			if (!allowUser(mem_acc, mem_pw, session, req, res)) {          //【帳號 , 密碼無效時】
 				out.print("<!-- -->");
 				out.close();
 			
