@@ -191,7 +191,8 @@ public class LiveServlet extends HttpServlet {
 if(live_pic != null) {
 				Base64.Encoder encoder = Base64.getEncoder();
 				String encodeText = encoder.encodeToString(live_pic);
-				req.setAttribute("encodeText", encodeText);}
+				req.setAttribute("encodeText", encodeText);
+				}
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
@@ -219,7 +220,7 @@ if(live_pic != null) {
 		}
 		
 
-//       新增
+//       後台新增
 		if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -271,6 +272,7 @@ if(live_pic != null) {
 				Base64.Encoder encoder = Base64.getEncoder();
 				String encodeText = encoder.encodeToString(live_pic);
 				req.setAttribute("encodeText", encodeText);
+				
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
@@ -292,6 +294,81 @@ if(live_pic != null) {
 				errorMsgs.add(e.getMessage());
 				req.setAttribute("liveVO", liveVO);
 				RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/live/addLive.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
+//     前台新增
+		if ("insertHome".equals(action)) { // 來自addEmp.jsp的請求
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			LiveVO liveVO = new LiveVO();
+
+			try {
+				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
+				String host_ID = req.getParameter("host_ID").trim();
+				
+
+				String live_name = req.getParameter("live_name").trim();
+				if (live_name == null || live_name.trim().length() == 0) {
+					errorMsgs.add("直播間名稱請勿空白");
+				}
+
+				Integer live_acc = 0;
+				
+				
+				
+				
+				InputStream in = null;
+				byte[] live_pic = null;
+				Part part = req.getPart("live_pic");
+				if(getFileNameFromPart(part) != null) {
+					in = part.getInputStream();
+					live_pic = new byte[in.available()];
+					in.read(live_pic);
+					in.close();
+					}else {
+				errorMsgs.add("請選擇直播間封面");	
+					}
+							
+
+				Date today = new Date();
+				Timestamp live_date = new Timestamp(today.getTime());
+
+				Integer live_status =1;
+				
+
+				liveVO.setLive_name(live_name);
+				liveVO.setLive_acc(live_acc);
+				liveVO.setLive_pic(live_pic);
+				liveVO.setLive_date(live_date);
+				liveVO.setLive_status(live_status);
+				liveVO.setHost_ID(host_ID);
+
+
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					liveVO.setLive_pic(null);
+					req.setAttribute("liveVO", liveVO); // 含有輸入格式錯誤的empVO物件,也存入req
+					RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/live/addLiveHome.jsp?mem_ID="+host_ID);
+					failureView.forward(req, res);
+					return;
+				}
+				/*************************** 2.開始新增資料 ***************************************/
+				LiveService liveSvc = new LiveService();
+				liveVO = liveSvc.addLive(host_ID, live_name, live_acc, live_pic, live_date, live_status);
+				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
+				String url = "/FrontEnd/live/liveHome.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+				successView.forward(req, res);
+
+				/*************************** 其他可能的錯誤處理 **********************************/
+			} catch (Exception e) {
+				errorMsgs.add(e.getMessage());
+				req.setAttribute("liveVO", liveVO);
+				RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/live/liveHome.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -336,5 +413,4 @@ if(live_pic != null) {
 		}
 		return filename;
 	}
-
 }

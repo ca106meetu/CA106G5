@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.annotation.MultipartConfig;
 
 import com.meetU.live.model.LiveVO;
+import com.meetU.live_like.model.Live_likeVO;
 
 public class FileRecService {
 	private FileRecDAO_interface dao;
@@ -57,6 +58,13 @@ public class FileRecService {
 	public List<FileRecVO> getOneFileRec(String host_ID) {
 		List<FileRecVO> list = dao.findByPrimaryKey(host_ID);
 		return list;
+	}
+	
+	
+//	條件查詢2
+	public FileRecVO getOneLive2(String file_ID,String host_ID) {
+		FileRecVO fileRecVO = dao.findByPrimaryKey(file_ID,host_ID);
+		return fileRecVO;
 	}
 
 //	查詢全部
