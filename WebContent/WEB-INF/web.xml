@@ -205,7 +205,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>MeetupRepServlet</servlet-name>
-    <url-pattern>/FrontEnd/meetupRep/meetupRep.do</url-pattern>
+    <url-pattern>/back-end/meetupRep/meetupRep.do</url-pattern>
   </servlet-mapping>
   
    <!-- 後端濾器 -->   

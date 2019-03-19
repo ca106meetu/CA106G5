@@ -47,10 +47,10 @@
 </c:if>
 
 <ul>
-	<li><a href='listAllMeetup.jsp'>List</a>all Meetup</li><br><br>
+	<li><a href='meetupHomePg.jsp'>List</a>all Meetup</li><br><br>
 	
 	<%--另一種寫法 --%>
-	<button type="submit" onclick="location='listAllMeetup.jsp';" value="submit">all Meetup</button>
+	<button type="submit" onclick="location='meetupHomePg.jsp';" value="submit">all Meetup</button>
 	<li>
 		<FORM METHOD="post" ACTION="meetup.do">
 			<b>輸入meetup聯誼編號(如MP000001)</b>

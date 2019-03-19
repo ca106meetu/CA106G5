@@ -93,7 +93,7 @@ public class MeetupMemServlet extends HttpServlet {
 			}catch(Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/meetupMem/listAllMeetupMem.jsp");
+						.getRequestDispatcher("/FrontEnd/meetupMem/listAllMeetupMem.jsp");
 				failureView.forward(req, res);
 			}
 		}

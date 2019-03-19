@@ -22,7 +22,7 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/FrontEnd/meetupRep/meetupRep.do" name="form1">
+<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/meetupRep/meetupRep.do" name="form1">
 	<input type="text" name="meetup_ID" value="MP000001"/><br>
 	<input type="text" name="mem_ID" value="M000006" /><br>
 	<b>檢舉原因</b><br>

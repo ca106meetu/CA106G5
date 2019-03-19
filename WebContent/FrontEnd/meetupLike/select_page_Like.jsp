@@ -47,7 +47,7 @@
 </c:if>
 
 <ul>
-	<li><a href='<%=request.getContextPath()%>/FrontEnd/meetup/listAllMeetup.jsp'>List</a>back to home page (all Meetup)</li><br><br>
+	<li><a href='<%=request.getContextPath()%>/FrontEnd/meetup/meetupHomePg.jsp'>List</a>back to home page (all Meetup)</li><br><br>
 	
 	
 	<li> <%-- 此為直接進入meetup 活動詳情 --%>

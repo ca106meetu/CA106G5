@@ -67,13 +67,13 @@
 	
 	<div class="container">
       <div class="row">
-       <div class="col">
+       <div class="col-6">
           <div class="headIntro introPic">
           	<img class='pic' src='/CA106G5/ShowPic?MEETUP_ID=${meetupVO.meetup_ID}'>
           </div>
         </div> 
         
-        <div class="col">
+        <div class="col-6">
           <div class="headIntro">
           	<ul>
           		<li><%=meetupVO.getMeetup_name()%></li>
@@ -104,12 +104,17 @@
         </div>
        </div>
       </div><!-- 來自ROW-->	
-     
+      
+      <div class="item"><!-- 假文假圖-->
+      	<p><%=meetupVO.getMeetup_info()%></p>
+      </div>
+      
       <div class="item"><!-- 假文假圖-->	
 			<img src="https://api.fnkr.net/testimg/650x800/00CED1/FFF/?text=img+placeholder">
 			<h3>title</h3>
 			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem, cupiditate.</p>
 	  </div>
+      
       <div class="item"><!-- 假文假圖-->	
 			<img src="https://api.fnkr.net/testimg/650x800/00CED1/FFF/?text=img+placeholder">
 			<h3>title</h3>
@@ -117,7 +122,7 @@
 	  </div>
       
       <div class="row">
-      	<div class="col">
+      	<div class="col-12">
       		<div id="rep">
 				<%-- 檢舉內容 --%>
 					<textarea rows="5" cols="100%" name="rep_content" placeholder="請輸入檢舉原因" id="repText"></textarea>		
@@ -209,7 +214,7 @@ $(document).ready(function(){
 	$("#btnRepSubmit").click(function(){
 		$.ajax({
 			 type: "POST",
-			 url: "<%=request.getContextPath()%>/FrontEnd/meetupRep/meetupRep.do",
+			 url: "<%=request.getContextPath()%>/back-end/meetupRep/meetupRep.do",
 			 data: {"meetup_ID":$(this).next().attr('value'), 
 				 	"mem_ID":$(this).next().next().attr('value'),
 				 	"action":"insert", 

@@ -88,7 +88,7 @@
 		<td>${meetupRepVO.mem_ID}</td>
 		<td>${meetupRepVO.rep_date}</td>
 		<td>
-			<FORM METHOD="POST" ACTION="FrontEnd/meetupRep/meetupRep.do" >	
+			<FORM METHOD="POST" ACTION="back-end/meetupRep/meetupRep.do" >	
 				<input type="hidden" name="meetup_rep_ID" value="${meetupRepVO.meetup_rep_ID}">
 				<input type="hidden" name="action" value="getOne_For_Display">
 				<input type="button" value="查看檢舉原因">	
