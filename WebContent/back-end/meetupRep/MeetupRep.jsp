@@ -75,7 +75,7 @@
 </head>
 
 <body>
-<jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
+<jsp:include page="/Templates/bootstrap4/backHeader.jsp" />
 <div class="container">
 	<div class="row">
 
@@ -101,46 +101,60 @@
 					<td>${meetupRepVO.mem_ID}</td>
 					<td>${meetupRepVO.rep_date}</td>
 					<td>
-						<FORM METHOD="POST" ACTION="<%=request.getContextPath()%>/back-end/meetupRep/meetupRep.do" >	
-							<input type="submit" class="btn btn-info btnSaveAns" data-toggle="modal" data-target="#basicModal" value="查看/回覆檢舉原因">
-							<input type="hidden" name="meetup_rep_ID" value="${meetupRepVO.meetup_rep_ID}">
-							<input type="hidden" name="action" value="getOne_For_Update">
-								
-						</FORM>
+						<input type="submit" class="btn btn-info" data-toggle="modal" data-target="#basicModal_${meetupRepVO.meetup_rep_ID}" value="查看/回覆檢舉原因">
+						<input type="hidden" name="meetup_rep_ID" value="${meetupRepVO.meetup_rep_ID}">
+						<input type="hidden" name="action" value="getOne_For_Update">
+						
+<c:if test="${openModal!=null}">	
+	
+	<div class="modal fade" id="basicModal_${meetupRepVO.meetup_rep_ID}" tabindex="-1" role="dialog" aria-labelledby="basicModal_${meetupRepVO.meetup_rep_ID}" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+					
+				<div class="modal-header">
+	               <h3 class="modal-title" id="myModalLabel">聯誼名稱 : ${meetupRepVO.meetup_ID}-${meetupSvc.getOneMeetup(meetupRepVO.meetup_ID).meetup_name}</h3>
+	               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	            </div>
+				
+		  <div class="modal-body">
+			<table>
+				<tr>
+					<th>檢舉者</th>
+					<th>檢舉內容</th>
+				</tr>
+				<tr>
+					<td>${meetupRepVO.mem_ID}</td>
+					<td>${meetupRepVO.rep_content}</td>
+				</tr>
+			</table>
+			<b>管理員針對檢舉回覆</b><br>
+			
+			<selection class="repSelect">
+				<option >--聯誼處理--</option>
+				<option value="0">0-聯誼強制被隱形</option>
+				<option value="1">1-聯誼內容沒問題</option>
+			</selection>			
+			
+			<input type="text" name="rep_ans" placeholder="針對檢舉回覆" class="repAns">
+			<input type="submit" class="btn btn-info btnSaveAns" value="完成回覆" form="formModal">
+			<input type="hidden" name="meetup_rep_ID" value="${meetupRepVO.meetup_rep_ID}"/>
+			<input type="hidden" name="rep_status" value="1">
+			<input type="submit" class="btn btn-info" data-dismiss="modal" value="關閉視窗" id="btnCloseModal" >
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+</c:if>	
 					</td>	
 				</tr>
 </c:forEach>
 </table>
+
 <%@ include file="page2.file" %>
 
 	</div>
 </div>
-
-<c:if test="${openModal!=null}">	
-
-	
-<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-				
-			<div class="modal-header">
-               <h3 class="modal-title" id="myModalLabel">聯誼名稱 : ${meetupRepVO.meetup_ID}-${meetupSvc.getOneMeetup(meetupRepVO.meetup_ID).meetup_name}</h3>
-               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            </div>
-			
-	  <div class="modal-body">
-<!-- =========================================以下為原listOneEmp.jsp的內容========================================== -->
- <jsp:include page="updateRepContentAns.jsp" />
-<!-- =========================================以上為原listOneEmp.jsp的內容========================================== -->
-<input type="submit" class="btn btn-info" data-dismiss="modal" value="關閉視窗" id="btnCloseModal" >
-      </div>
-    </div>
-  </div>
-</div>
-		<script>
-		$("#basicModal").modal({show: true});
-        </script>
-</c:if>
 		
 <script>
 
@@ -152,23 +166,20 @@ $(document).ready(function(){
 			 data: {"meetup_rep_ID":$(this).next().attr('value'), 
 				 	"rep_status":$(this).next().next().attr('value'),
 				 	"action":"update", 
-				 	"rep_ans":$("#repAns").val()},
+				 	"rep_ans":$(this).prev().val(),
+				 	"repSelect":$(this).prev().prev().val()},
 			 dataType: "json",
 			 success: function(){
-				 window.location.reload();
-				 
+				 window.location.reload();		 
 				},
 	         error: function(){alert("請回覆檢舉 或是 選擇離開視窗")}
     	});	
-	
-		
 	});	
 })
 
 </script>		
 
-
-    <jsp:include page="/Templates/bootstrap4/frontFooter.jsp" />
+    <jsp:include page="/Templates/bootstrap4/backFooter.jsp" />
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/popper.min.js"></script>

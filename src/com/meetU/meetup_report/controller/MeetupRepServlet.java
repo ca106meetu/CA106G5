@@ -129,7 +129,7 @@ public class MeetupRepServlet extends HttpServlet {
 				meetupRepVO.setMeetup_rep_ID(meetup_rep_ID);
 				meetupRepVO.setRep_status(rep_status);
 				meetupRepVO.setRep_ans(rep_ans);
-				
+
 				if(!errorMsgs.isEmpty()) {
 					req.setAttribute("meetupRepVO", meetupRepVO);
 					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/meetupRep/repContent.jsp");
