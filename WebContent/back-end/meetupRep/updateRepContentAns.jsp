@@ -80,7 +80,7 @@ $(document).ready(function(){
 				 	"rep_ans":$("#repAns").val()},
 			 dataType: "json",
 			 success: function(){
-				 				 
+				 window.location.reload();		 
 				},
 	         error: function(){alert("請回覆檢舉 或是 選擇離開視窗")}
     	});	

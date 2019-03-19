@@ -89,12 +89,7 @@
 			<td>${prVO.amount}</td>
 			<td>${prVO.rec_date}</td>
 			
-			<td>
-				<form method='post' action='listOdByOm.jsp' style="margin-bottom: 0px;">
-					<input type='submit' value='查看明細'>
-					<input type='hidden' name='order_ID' value='${omVO.order_ID}'>
-				</form>
-			</td>
+			
 		</tr>
  	
 	</c:forEach>

@@ -57,7 +57,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
          
-          <a class="dropdown-item" id="AUTH00050" href="#">聯誼檢舉管理</a>
+          <a class="dropdown-item mtPg" href="<%=request.getContextPath()%>/back-end/meetupRep/MeetupRep.jsp">聯誼檢舉管理</a>
 
         </div>
              <li class="nav-item dropdown">
