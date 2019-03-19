@@ -88,7 +88,7 @@
     
     //var loginOut = document.getElementById('loginOut').style.display = 'none';
     
-    AUTHS.push(AUTH00010,AUTH00020,AUTH00030,AUTH00040,AUTH00050);
+    AUTHS.push(AUTH00010,AUTH00020,AUTH00030,AUTH00040,AUTH00050); 
     
     var len = AUTHS.length;
     for(var i = 0; i < len; i++){
