@@ -208,6 +208,8 @@
     <servlet-name>MeetupRepServlet</servlet-name>
     <url-pattern>/back-end/meetupRep/meetupRep.do</url-pattern>
   </servlet-mapping>
+  
+  <!-- 後端濾器 -->
   <filter>
     <filter-name>backLoginFilter</filter-name>
     <filter-class>com.meetU.backFilters.BackLoginFilter</filter-class>
@@ -222,6 +224,8 @@
     <dispatcher>ERROR</dispatcher>
     <dispatcher>ASYNC</dispatcher>
   </filter-mapping>
+  
+    <!-- 前端濾器 -->
   <filter>
     <filter-name>frontLoginFilter</filter-name>
     <filter-class>com.meetU.frontFilters.FrontLoginFilter</filter-class>
@@ -233,6 +237,7 @@
     <url-pattern>/FrontEnd/od/listMyOm.jsp</url-pattern>
     <url-pattern>/FrontEnd/meetup/listOneMeetup.jsp</url-pattern>
     <url-pattern>/FrontEnd/point/listMyPr.jsp</url-pattern>
+    <url-pattern>/FrontEnd/mem/*</url-pattern>
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>INCLUDE</dispatcher>
