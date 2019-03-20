@@ -25,15 +25,34 @@
 	
 	<script>
 		
-	  $(document).ready(function(){
-			 $('.test').click(function(){
-				 if(!allowUser()){ 
-					 return;
-				 }else{
-					window.location.href=('http://www.ncu.edu.tw');
-				 } 
-		 });
-	    })
+	$(document).ready(function(){
+		  
+		 //$('.test').click(function(){
+			 if(!allowUser()){ 
+				 <%session.setAttribute("location", request.getRequestURI());%>
+				 $('#btn_login').trigger('click');
+				 //$('#login').modal('show');
+				 return;
+			 }else{
+				 //swal('你已經登入了','你已經登入了','success');
+				 return;
+				 //alert('good');
+			 }
+//			 $.ajax({
+//				 type: "POST",
+//				 url: "ShoppingServlet",
+//				 data: {"prod_ID":$(this).next().attr('value'), "action":"add", "quantity":$(this).parent().prev().val()},
+//				 dataType: "json",
+//				 success: function(){
+					 
+//					 $('#myModal').modal('show');
+////	 					 alert("555");
+//					},
+			     
+//	             error: function(){alert("AJAX-grade發生錯誤囉!")}
+//	         });
+	 //});
+   })
 	
 	
 	</script>    
