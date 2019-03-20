@@ -48,6 +48,8 @@
           <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/cart/EShop.jsp">瀏覽商品</a>
           <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/cart/cart.jsp">查看購物車</a>
           <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/od/listMyOm.jsp">我的訂單</a>
+          <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/point/storePoint.jsp">儲值點數</a>
+          <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/od/listMyPr.jsp">我的儲值紀錄</a>
         </div>
       </li>
            

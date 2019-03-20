@@ -233,10 +233,6 @@
   <filter-mapping>
     <filter-name>frontLoginFilter</filter-name>
     <url-pattern>/protected/select_page2_protected.jsp</url-pattern>
-    <url-pattern>/FrontEnd/cart/checkOut.jsp</url-pattern>
-    <url-pattern>/FrontEnd/od/listMyOm.jsp</url-pattern>
-    <url-pattern>/FrontEnd/meetup/listOneMeetup.jsp</url-pattern>
-    <url-pattern>/FrontEnd/point/listMyPr.jsp</url-pattern>
     <url-pattern>/FrontEnd/mem/*</url-pattern>
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>FORWARD</dispatcher>
