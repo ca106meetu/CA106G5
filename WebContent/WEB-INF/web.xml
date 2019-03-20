@@ -175,7 +175,7 @@
     <url-pattern>/back-end/memHobby/memHobby.do</url-pattern>
   </servlet-mapping>
   
-  
+  <!-- Meetup -->  
   <servlet>
     <servlet-name>MeetupServlet</servlet-name>
     <servlet-class>com.meetU.meetup.controller.MeetupServlet</servlet-class>
@@ -206,7 +206,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>MeetupRepServlet</servlet-name>
-    <url-pattern>/back-end/meetupRep/meetupRep.do</url-pattern>
+    <url-pattern>/FrontEnd/meetupRep/meetupRep.do</url-pattern>
   </servlet-mapping>
   
   <!-- 後端濾器 -->

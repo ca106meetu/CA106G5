@@ -75,7 +75,14 @@
 <jsp:include page="/Templates/bootstrap4/backHeader.jsp" />
 <div class="container">
 	<div class="row">
-
+<c:if test="${not empty errorMsgs}">
+	<font style="color:red">請修正以下錯誤</font>
+	<ul>
+		<c:forEach var="message" items="${errorMsgs}">
+			<li style="color:red">${message}</li>
+		</c:forEach>
+	</ul>
+</c:if>
 <jsp:useBean id="meetupSvc" scope="page" class="com.meetU.meetup.model.MeetupService"/>
 
 <%@ include file="page1.file"%>  
@@ -101,17 +108,8 @@
 					<td>${meetupRepVO.mem_ID}</td>
 					<td>${meetupRepVO.rep_date}</td>
 					<td>${meetupRepVO.rep_content}</td>	
-					<td>
-						<select class="repSelect" name="rep_Ans">
-							<option>--聯誼內容審核--</option>
-							<option value="1">內容無不妥</option>
-							<option value="0">聯誼被隱形</option>
-						</select>
-						<input type="submit" value="確定送出" class="btn btn-info btn-sm btnSaveAns" id="${meetupRepVO.meetup_rep_ID}">
-						<input type="hidden" name="action" value="update">
-						<input type="hidden" name="rep_status" value="1">
-						<input type="hidden" name="meetup_rep_ID" value="${meetupRepVO.meetup_rep_ID}">
-					</td>	
+					<td><A href="<%=request.getContextPath()%>/FrontEnd/meetupRep/meetupRep.do?meetup_rep_ID=${meetupRepVO.meetup_rep_ID}&action=getOne_For_Update">
+						前往察看</A></td>	
 				</tr>
 </c:forEach>
 </table>
@@ -121,7 +119,9 @@
 	</div>
 </div>
 		
+<script>
 
+</script>			 
 <jsp:include page="/Templates/bootstrap4/backFooter.jsp" />
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

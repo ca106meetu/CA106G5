@@ -64,4 +64,13 @@ public class MeetupService {
 	public List<MeetupVO> getSearchLoc(String location) {
 		return dao.getSearchLoc(location);
 	}
+	
+	public void InvisibleUpdate(String meetup_ID) {
+		//Invisible
+		dao.InvisibleUpdate(meetup_ID);
+	}
+	
+	public List<MeetupVO> getVisibleAll() {
+		return dao.getVisibleAll();
+	}
 }

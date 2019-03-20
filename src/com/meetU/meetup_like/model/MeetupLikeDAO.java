@@ -25,7 +25,8 @@ public class MeetupLikeDAO implements MeetupLikeDAO_interface{
 	}
 	
 	private static final String INSERT_STMT = "INSERT INTO MEETUP_LIKE (meetup_ID, mem_ID)"+ "VALUES (?,?)";
-	private static final String GET_ALL_STMT = "SELECT * FROM MEETUP_LIKE WHERE MEM_ID =?";
+	private static final String GET_ALL_STMT = 
+			"SELECT MEETUP.*,MEETUP_LIKE.MEM_ID FROM MEETUP JOIN MEETUP_LIKE ON MEETUP.MEETUP_ID = MEETUP_LIKE.MEETUP_ID AND MEETUP.MEETUP_STATUS=1 AND MEETUP_LIKE.MEM_ID =?";
 	private static final String GET_ONE_STMT = "SELECT * FROM MEETUP_LIKE WHERE meetup_ID =? and MEM_ID =?";
 	private static final String DELETE = "DELETE FROM MEETUP_LIKE WHERE meetup_ID =? and MEM_ID =?";
 	

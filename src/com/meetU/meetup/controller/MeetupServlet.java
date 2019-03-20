@@ -66,6 +66,7 @@ public class MeetupServlet extends HttpServlet {
 				}
 				/*=================3.查詢完成,準備轉交(Send the Success view)=================*/
 				req.getSession().setAttribute("meetupVO", meetupVO); // 資料庫取出的empVO物件,存入req
+				System.out.println(meetupVO.getMeetup_ID());
 				String url = "/FrontEnd/meetup/listOneMeetup.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 				successView.forward(req, res);
@@ -391,7 +392,7 @@ public class MeetupServlet extends HttpServlet {
 				}else if("loc".equals(searchType)) {
 					list = meetupSvc.getSearchLoc(searchInfo);
 				}else {
-					list = meetupSvc.getAll();
+					list = meetupSvc.getVisibleAll();
 				}
 				/***************************3.準備轉交(Send the Success view)***********/								
 				req.setAttribute("list", list);				

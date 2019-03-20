@@ -5,7 +5,7 @@
 <%@ page import="com.meetU.meetup_like.model.*"%>
 <% 
 	MeetupService meetupSvc = new MeetupService();
-	List<MeetupVO> list = meetupSvc.getAll();
+	List<MeetupVO> list = meetupSvc.getVisibleAll();
 	pageContext.setAttribute("list", list);
 %>
 
@@ -97,6 +97,7 @@
 	
 	<div class="row">
 	<c:forEach var="meetupVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+		<%-- c:if test="${meetupVO.meetup_status==1}"--%>
 		<div class="col">	
 			<div class="itemImg">
 				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do">

@@ -43,49 +43,35 @@ th, td{
 		</c:forEach>
 	</ul>
 </c:if>
-
+<FORM METHOD="post" ACTION="meetupRep.do">
 <table>
 	<tr>
-		<th>聯誼名稱</th>
-		<th>聯誼封面照</th>
 		<th>檢舉者</th>
 		<th>檢舉內容</th>
+		<th>回饋處理</th>
 	</tr>
 	<tr>
-		<td>${meetupSvc.getOneMeetup(meetupRepVO.meetup_ID).meetup_name}</td>
-		<td><img class='pic' src='/CA106G5/ShowPic?MEETUP_ID=${meetupRepVO.meetup_ID}'></td>
 		<td>${meetupRepVO.mem_ID}</td>
-		<td>${meetupRepVO.rep_content}</td>
+		<td>${meetupRepVO.meetup_rep_ID}:${meetupRepVO.rep_content}</td>
+		<td>
+			<select class="rep_ans" name="rep_ans">
+				<option value="1">內容無不妥</option>
+				<option value="0">聯誼被隱形</option>
+			</select>
+		</td>
 	</tr>
 </table>
-<%--<FORM METHOD="post" ACTION="meetupRep.do" id="formModal"> --%>
-	<b>管理員針對檢舉回覆</b><br>
-	<input type="text" name="rep_ans" placeholder="針對檢舉回覆" id="repAns">
-	<input type="submit" class="btn btn-info" value="完成回覆" form="formModal" id="btnSaveAns">
+	<input type="submit" class="btn btn-info" value="完成回覆" id="btnSaveAns">
 	<input type="hidden" name="meetup_rep_ID" value="${meetupRepVO.meetup_rep_ID}"/>
+	<input type="hidden" name="meetup_ID" value="${meetupRepVO.meetup_ID}"/>
 	<input type="hidden" name="rep_status" value="1">
-<%--	<input type="submit" class="btn btn-info" data-dismiss="modal" value="關閉視窗" id="btnCloseModal" >
-</FORM>  --%>
-	
-<script>
+	<input type="hidden" name="action" value="update">
+</FORM>  
 
-$(document).ready(function(){
-	$("#btnSaveAns").click(function(){
-		$.ajax({
-			 type: "POST",
-			 url: "<%=request.getContextPath()%>/back-end/meetupRep/meetupRep.do",
-			 data: {"meetup_rep_ID":$(this).next().attr('value'), 
-				 	"rep_status":$(this).next().next().attr('value'),
-				 	"action":"update", 
-				 	"rep_ans":$("#repAns").val()},
-			 dataType: "json",
-			 success: function(){
-				 window.location.reload();		 
-				},
-	         error: function(){alert("請回覆檢舉 或是 選擇離開視窗")}
-    	});	
-	});	
-})
+<%-- include listOneMeetup --%>
+<%@ include file="/FrontEnd/meetup/listOneMeetup.jsp"%>
+<%-- include listOneMeetup --%>
+<script>
 
 
 </script>

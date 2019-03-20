@@ -3,17 +3,13 @@
 <%@ page import="com.meetU.meetup.model.*, com.meetU.meetup_like.model.*"%>
 <%@ page import="java.util.* " %>
 <%@ page import="com.meetU.meetup_mem.model.*, com.meetU.meetup_report.*" %>
-<%@page import="com.meetU.mem.model.*"%>
+<%@ page import="com.meetU.mem.model.*"%>
 
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
 	MemVO memVO = (MemVO) session.getAttribute("memVO");
-	MeetupVO meetupVO = (MeetupVO)session.getAttribute("meetupVO");
-	String meetup_ID = meetupVO.getMeetup_ID();
-	pageContext.setAttribute("meetup_ID", meetup_ID);
-	out.print(memVO.getMem_ID());
-	out.print(meetupVO.getMeetup_ID());
+	MeetupVO meetupVO = (MeetupVO)session.getAttribute("meetupVO");	
 %>
 
 <html>
@@ -97,7 +93,7 @@
 			<input type="hidden" name="meetup_ID" value="${meetupVO.meetup_ID}">
 			<input type="hidden" name="mem_ID"	value="${memVO.mem_ID}">
 			
-       		<button type="submit" class="btn btn-info btn-sm" onclick="report()" id="btnRep"> 
+       		<button type="submit" class="btn btn-info btn-sm" id="btnRep"> 
        			<span class="glyphicon glyphicon-alert">檢舉</span>
        		</button>
 		  </div>		
@@ -137,16 +133,17 @@
      </div><!-- 來自CONTAINER-->   
    
 <script>
-
-function report(){
-	$("#rep").show();
-	$("#repText").focus();
-}
 		
 $(document).ready(function(){
 	
 	$(".heart").click(function(){
 		 
+		if(!allowUser()){ 
+			 <%session.setAttribute("location", request.getRequestURI());%>
+			 $('#login').modal('show');
+			 return;
+		}
+		
 		 if($(this).attr("alt") == "unfavorite"){
 			 				 
 			 $.ajax({
@@ -194,6 +191,13 @@ $(document).ready(function(){
 	 });
 	
 	$(".btnJoin").click(function(){
+		
+		if(!allowUser()){ 
+			 <%session.setAttribute("location", request.getRequestURI());%>
+			 $('#login').modal('show');
+			 return;
+		}
+		
 		$.ajax({
 			 type: "POST",
 			 url: "<%=request.getContextPath()%>/FrontEnd/meetupMem/meetupMem.do",
@@ -227,6 +231,17 @@ $(document).ready(function(){
 				},
 	         error: function(){alert("AJAX-grade發生錯誤囉!")}
 	    });	
+	});
+	
+	
+	$("#btnRep").click(function(){
+		if(!allowUser()){ 
+			 <%session.setAttribute("location", request.getRequestURI());%>
+			 $('#login').modal('show');
+			 return;
+		}
+		$("#rep").show();
+		$("#repText").focus();
 	});
 		
 })
