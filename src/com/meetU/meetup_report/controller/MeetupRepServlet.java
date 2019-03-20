@@ -29,7 +29,6 @@ public class MeetupRepServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		
-		
 		if("getOne_For_Display".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -156,7 +155,6 @@ out.close();
 //			}
 		}
 		
-		
 		if("insert".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -197,13 +195,13 @@ out.close();
 				PrintWriter out = res.getWriter();
 				out.print("{}");
 				out.close();
-//				String url = "/FrontEnd/meetup/meetupHomePg.jsp";
+//				String url = "/back-end/meetup/meetupHomePg.jsp";
 //				RequestDispatcher successView = req.getRequestDispatcher(url);	
 //				successView.forward(req, res);	
 //			}catch(Exception e) {
 //				errorMsgs.add("新增資料失敗:"+e.getMessage());
 //				RequestDispatcher failureView = req
-//						.getRequestDispatcher("/FrontEnd/meetup/meetupHomePg.jsp");
+//						.getRequestDispatcher("/back-end/meetup/meetupHomePg.jsp");
 //				failureView.forward(req, res);	
 //			}
 		}

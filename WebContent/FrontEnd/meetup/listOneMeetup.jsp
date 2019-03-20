@@ -212,9 +212,10 @@ $(document).ready(function(){
 	
 	
 	$("#btnRepSubmit").click(function(){
+		
 		$.ajax({
 			 type: "POST",
-			 url: "<%=request.getContextPath()%>/back-end/meetupRep/meetupRep.do",
+			 url: "<%=request.getContextPath()%>/FrontEnd/meetupRep/meetupRep.do",
 			 data: {"meetup_ID":$(this).next().attr('value'), 
 				 	"mem_ID":$(this).next().next().attr('value'),
 				 	"action":"insert", 
