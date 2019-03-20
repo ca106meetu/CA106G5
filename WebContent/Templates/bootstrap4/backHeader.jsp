@@ -43,8 +43,8 @@
           商城管理
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" id="AUTH00020" href="<%=request.getContextPath()%>/FrontEnd/prod/update_prod_input.jsp">商品上架/下架</a>
-          <a class="dropdown-item" id="AUTH00030" href="<%=request.getContextPath()%>/back-end/om/select_om_input.jsp">訂單管理</a>
+          <a class="dropdown-item" id="AUTH00020" href="<%=request.getContextPath()%>/FrontEnd/prod/selectPage.jsp">商品管理</a>
+          <a class="dropdown-item" id="AUTH00030" href="<%=request.getContextPath()%>/back-end/om/selectPageOm.jsp">訂單管理</a>
           
           
         </div>
@@ -68,6 +68,15 @@
           <a class="dropdown-item" id="AUTH00050" href="<%=request.getContextPath()%>/back-end/emp/select_page.jsp">員工資料管理</a>
         </div>   
       </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+       直播管理
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" id="AUTH00060" href="#">直播主管理</a>
+          <a class="dropdown-item" id="AUTH00070" href="#">貼圖管理</a>
+        </div>   
+      </li>
     </ul>
     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/BackLoginHandler" >
     	<input type="hidden" name="action" value="back_logout">
@@ -83,12 +92,14 @@
     var AUTH00030 = document.getElementById("AUTH00030");
     var AUTH00040 = document.getElementById("AUTH00040");
     var AUTH00050 = document.getElementById("AUTH00050");
-    
+    var AUTH00060 = document.getElementById("AUTH00060");
+    var AUTH00070 = document.getElementById("AUTH00070");
 
     
     //var loginOut = document.getElementById('loginOut').style.display = 'none';
     
-    AUTHS.push(AUTH00010,AUTH00020,AUTH00030,AUTH00040,AUTH00050); 
+    AUTHS.push(AUTH00010,AUTH00020,AUTH00030,AUTH00040,AUTH00050,
+ 		   AUTH00060,AUTH00070); 
     
     var len = AUTHS.length;
     for(var i = 0; i < len; i++){
