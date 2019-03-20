@@ -22,6 +22,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import com.meetU.mem.model.*;
+import com.meetU.memHobby.model.*;
 
 @WebServlet("/FrontLoginHandler")
 public class FrontLoginHandler extends HttpServlet {
@@ -33,6 +34,7 @@ public class FrontLoginHandler extends HttpServlet {
 			HttpServletResponse res) {
 		MemService memSvc = new MemService();
 		MemVO memVO = memSvc.getOneMem(mem_acc, mem_pw);
+		String mem_ID = memVO.getMem_ID();
 		if (memVO != null) {
 			if (memVO.getMem_state() == 0) {
 				session.setAttribute("regMemVO", memVO);
@@ -47,6 +49,11 @@ public class FrontLoginHandler extends HttpServlet {
 				return false;
 			} else {
 				session.setAttribute("memVO", memVO);
+				session.setAttribute("mem_ID", mem_ID);
+				
+				MemHobbyService memHobbySvc = new MemHobbyService();
+				List<String> listHobby_ID = memHobbySvc.getPartOfOneMemHobby2(mem_ID);
+				session.setAttribute("listHobby_ID", listHobby_ID);
 				return true;
 			}
 		} else {
@@ -78,6 +85,9 @@ public class FrontLoginHandler extends HttpServlet {
 			session.removeAttribute("memVO");
 			session.removeAttribute("mem_acc");
 			session.removeAttribute("regMemVO");
+			session.removeAttribute("mem_ID");
+			session.removeAttribute("encodeText");
+			session.removeAttribute("listHobby_ID");
 			res.sendRedirect(req.getContextPath() + "/FrontEnd/lorenTest/test.jsp");
 			return;
 		}

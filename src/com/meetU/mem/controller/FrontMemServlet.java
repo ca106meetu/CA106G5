@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import com.meetU.mem.model.*;
+import com.meetU.memHobby.model.*;
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 @WebServlet("/FrontMemServlet")
@@ -41,9 +42,11 @@ public class FrontMemServlet extends HttpServlet {
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 		
-			try {
+//			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+				MemVO memVO = (MemVO)req.getSession().getAttribute("memVO"); 
 				String mem_ID = new String(req.getParameter("mem_ID").trim());//01
+				//String hobby_ID[] = req.getParameterValues("hobby_ID");
 				
 				String mem_pw = req.getParameter("mem_pw");//02
 				String mem_pwReg = "^[(a-zA-Z0-9_)]{4,30}$";
@@ -62,7 +65,7 @@ public class FrontMemServlet extends HttpServlet {
 //	            }
 				
 				String mem_acc = req.getParameter("mem_acc");//04
-				String mem_accReg = "^[(a-zA-Z0-9_)]{4,30}$";
+				String mem_accReg = "^[(a-zA-Z0-9_)]{3,30}$";
 				if (mem_acc == null || mem_acc.trim().length() == 0) {
 					errorMsgs.add("會員帳號: 請勿空白");
 				} else if(!mem_acc.trim().matches(mem_accReg)) { //以下練習正則(規)表示式(regular-expression)
@@ -104,22 +107,26 @@ public class FrontMemServlet extends HttpServlet {
 				
 				String mem_gend = req.getParameter("mem_gend"); //09
 				String mem_gendReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]$";
-				if (mem_gend == null || mem_gend.trim().length() == 0) {
-					errorMsgs.add("會員性別: 請勿空白");
-				} //else if(!mem_gend.trim().matches(mem_gendReg)) { //以下練習正則(規)表示式(regular-expression)
+				//if (mem_gend == null || mem_gend.trim().length() == 0) {
+				//	errorMsgs.add("會員性別: 請勿空白");
+				//} else if(!mem_gend.trim().matches(mem_gendReg)) { //以下練習正則(規)表示式(regular-expression)
 				//	errorMsgs.add("會員性別: 只能是中、英文字母 , 且長度必需在10以內");
 	            //}
-												
-				byte[] mem_pic = null;
-				Part part = req.getPart("mem_pic");//10會員大頭照
+				
 				Base64.Encoder encoder = Base64.getEncoder();
+				byte[] mem_pic = null;
+				if (memVO.getMem_pic() != null) {
+					String encodeText = encoder.encodeToString(memVO.getMem_pic());
+					req.setAttribute("encodeText", encodeText);
+				}
+				Part part = req.getPart("mem_pic");//10會員大頭照
 				if(getFileNameFromPart(part) != null) {
 					InputStream in = part.getInputStream();
 					mem_pic = new byte[in.available()];
 					in.read(mem_pic);
-					in.close();
 					String encodeText = encoder.encodeToString(mem_pic);
 					req.setAttribute("encodeText", encodeText);
+					in.close();
 				} else {
 					if(req.getParameter("encodeText") != null && req.getParameter("encodeText").trim().length() !=0) {
 						Base64.Decoder decoder = Base64.getDecoder();
@@ -195,6 +202,16 @@ public class FrontMemServlet extends HttpServlet {
 //				}
 				
 				String mem_hobby = req.getParameter("mem_hobby").trim(); //19會員興趣
+				String hobby_ID[] = req.getParameterValues("hobby_ID");
+				
+				List<MemHobbyVO> listMemHobbyVO = new LinkedList<MemHobbyVO>();
+				for(Integer i = 0; i < hobby_ID.length; i++) {
+					MemHobbyVO memHobbyVO = new MemHobbyVO();
+					memHobbyVO.setMem_ID(mem_ID);
+					memHobbyVO.setHobby_ID(hobby_ID[i]);
+					listMemHobbyVO.add(memHobbyVO);
+				}
+				
 //				if (mem_hobby == null || mem_hobby.trim().length() == 0) {
 //					errorMsgs.add("會員興趣: 請勿空白");
 //				}
@@ -202,21 +219,21 @@ public class FrontMemServlet extends HttpServlet {
 				byte[] mem_QRCODE = null;
 				Part part2 = req.getPart("mem_QRCODE");//20會員QRCODE
 				Base64.Encoder encoder2 = Base64.getEncoder();
-				if(getFileNameFromPart(part2) != null) {
-					InputStream in2 = part2.getInputStream();
-					mem_QRCODE = new byte[in2.available()];
-					in2.read(mem_QRCODE);
-					in2.close();
-					String encodeText2 = encoder2.encodeToString(mem_QRCODE);
-					req.setAttribute("encodeText2", encodeText2);
-				} else {
-					if(req.getParameter("encodeText2") != null && req.getParameter("encodeText2").trim().length() !=0) {
-						Base64.Decoder decoder2 = Base64.getDecoder();
-						mem_pic = decoder2.decode(req.getParameter("encodeText2"));
-						String encodeText2 = encoder2.encodeToString(mem_QRCODE);
-						req.setAttribute("encodeText2", encodeText2);
-					}
-				}
+//				if(getFileNameFromPart(part2) != null) {
+//					InputStream in2 = part2.getInputStream();
+//					mem_QRCODE = new byte[in2.available()];
+//					in2.read(mem_QRCODE);
+//					in2.close();
+//					String encodeText2 = encoder2.encodeToString(mem_QRCODE);
+//					req.setAttribute("encodeText2", encodeText2);
+//				} else {
+//					if(req.getParameter("encodeText2") != null && req.getParameter("encodeText2").trim().length() !=0) {
+//						Base64.Decoder decoder2 = Base64.getDecoder();
+//						mem_pic = decoder2.decode(req.getParameter("encodeText2"));
+//						String encodeText2 = encoder2.encodeToString(mem_QRCODE);
+//						req.setAttribute("encodeText2", encodeText2);
+//					}
+//				}
 				
 				
 				Integer mem_get_point = null;//21會員點數
@@ -227,7 +244,7 @@ public class FrontMemServlet extends HttpServlet {
 					errorMsgs.add("會員點數請填數字.");
 				}
 				
-				MemVO memVO = new MemVO();
+				//MemVO memVO = new MemVO();
 				memVO.setMem_pw(mem_pw);
 				memVO.setMem_name(mem_name);
 				memVO.setMem_acc(mem_acc);
@@ -266,14 +283,23 @@ public class FrontMemServlet extends HttpServlet {
 				
 				/***************************2.開始修改資料*****************************************/
 				MemService memSvc = new MemService();
-				memVO = memSvc.updateMem(mem_pw, mem_name, mem_acc, mem_nickname, mem_bday,
+				memVO = memSvc.updateMem2(mem_pw, mem_name, mem_acc, mem_nickname, mem_bday,
 						                 mem_email, mem_pho, mem_gend, mem_pic, mem_intro,
 						                 mem_code, mem_state, mem_date, mem_sign_day, mem_login_state,
-						                 mem_address, last_pair, mem_hobby, mem_QRCODE, mem_get_point,
-						                 mem_ID);
+						                 mem_address, last_pair, mem_hobby, mem_get_point, mem_ID);
+				MemHobbyService memHobbySvc = new MemHobbyService();
+				listMemHobbyVO = memHobbySvc.updateAllHobby(mem_ID, listMemHobbyVO);
+				List<String> listHobby_ID = memHobbySvc.getPartOfOneMemHobby2(mem_ID);
+				
+				MemHobbyService memHobbySvc2 = new MemHobbyService();
+				List<MemHobbyVO> list = memHobbySvc2.getPartOfOneMemHobby(mem_ID);
+				
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("memVO", memVO); // 資料庫update成功後,正確的的memVO物件,存入req
+				req.getSession().setAttribute("listMemHobbyVO", listMemHobbyVO);
+				req.getSession().setAttribute("listHobby_ID", listHobby_ID);
+				req.getSession().setAttribute("list", list);
 				String url = "/FrontEnd/lorenTest/test.jsp";
 				System.out.println("檢查點 3");
 
@@ -281,14 +307,14 @@ public class FrontMemServlet extends HttpServlet {
 				successView.forward(req, res);
 
 				/***************************其他可能的錯誤處理*************************************/
-			} catch (Exception e) {
-				System.out.println("檢查點 4");
-
-				errorMsgs.add("修改資料失敗:"+e.getMessage());
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/FrontEnd/mem/update_mem_input.jsp");
-				failureView.forward(req, res);
-			}
+//			} catch (Exception e) {
+//				System.out.println("檢查點 4");
+//
+//				errorMsgs.add("修改資料失敗:"+e.getMessage());
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/FrontEnd/mem/update_mem_input.jsp");
+//				failureView.forward(req, res);
+//			}
 		}
 	}
 	

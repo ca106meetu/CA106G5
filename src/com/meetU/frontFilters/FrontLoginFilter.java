@@ -24,9 +24,10 @@ public class FrontLoginFilter implements Filter {
 		HttpSession session = req.getSession();
 		// 【從 session 判斷此user是否登入過】
 		Object mem_acc = session.getAttribute("mem_acc");
-		if (mem_acc == null) {
+		Object reg_mem_acc = session.getAttribute("register_text_mem_acc");
+		if (mem_acc == null ) {
 			session.setAttribute("location", req.getRequestURI());
-			res.sendRedirect(req.getContextPath() + "/frontLogin.html");
+			res.sendRedirect(req.getContextPath() + "/FrontEnd/lorenTest/test.jsp");
 			return;
 		} else {
 			chain.doFilter(request, response);

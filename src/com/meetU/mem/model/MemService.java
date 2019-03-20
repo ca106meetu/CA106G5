@@ -92,6 +92,40 @@ public class MemService {
 		return memVO;
 	}
 	
+	public MemVO updateMem2(String mem_pw, String mem_name, String mem_acc, String mem_nickname, java.sql.Date mem_bday,
+			String mem_email, String mem_pho, String mem_gend, byte[] mem_pic, String mem_intro,
+			Integer mem_code, Integer mem_state, java.sql.Date mem_date, java.sql.Timestamp mem_sign_day, Integer mem_login_state,
+			String mem_address, java.sql.Timestamp last_pair, String mem_hobby,Integer mem_get_point, String mem_ID) 
+	{
+		
+		MemVO memVO = new MemVO();
+		memVO.setMem_pw(mem_pw);
+		memVO.setMem_name(mem_name);
+		memVO.setMem_acc(mem_acc);
+		memVO.setMem_nickname(mem_nickname);
+		memVO.setMem_bday(mem_bday);
+		memVO.setMem_email(mem_email);
+		memVO.setMem_pho(mem_pho);
+		memVO.setMem_gend(mem_gend);
+		memVO.setMem_pic(mem_pic);
+		memVO.setMem_intro(mem_intro);
+		
+		memVO.setMem_code(mem_code);
+		memVO.setMem_state(mem_state);
+		memVO.setMem_date(mem_date);
+		memVO.setMem_sign_day(mem_sign_day);
+		memVO.setMem_login_state(mem_login_state);
+		memVO.setMem_address(mem_address);
+		memVO.setLast_pair(last_pair);
+		memVO.setMem_hobby(mem_hobby);
+		memVO.setMem_get_point(mem_get_point);
+		memVO.setMem_ID(mem_ID);
+		
+		dao.update(memVO);
+		
+		return memVO;
+	}
+	
 	public void updateMem(MemVO memvo) {
 		dao.update(memvo);
 	}
