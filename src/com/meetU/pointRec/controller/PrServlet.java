@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.meetU.emp.model.EmpVO;
+import com.meetU.mem.model.MemService;
 import com.meetU.mem.model.MemVO;
 import com.meetU.pointRec.model.PointRecDAO;
 import com.meetU.pointRec.model.PointRecVO;
@@ -51,10 +52,10 @@ public class PrServlet extends HttpServlet {
 				
 				
 				
-				MemVO empVO = (MemVO) req.getSession().getAttribute("memVO");
+				MemVO memVO = (MemVO) req.getSession().getAttribute("memVO");
 				
 				Date now = new Date();
-				String mem_ID = empVO.getMem_ID();
+				String mem_ID = memVO.getMem_ID();
 				Timestamp rec_date = new Timestamp(now.getTime());
 				PointRecVO prVO = new PointRecVO();
 				Double amount = Double.valueOf(req.getParameter("amount")); 
@@ -66,6 +67,8 @@ public class PrServlet extends HttpServlet {
 				
 				PointRecDAO dao = new PointRecDAO();
 				dao.insert(prVO);
+				req.getSession().setAttribute("memVO", new MemService().getOneMem(mem_ID));
+//				memVO = new MemService().getOneMem(mem_ID);
 				
 				String url = "/FrontEnd/point/listMyPr.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);

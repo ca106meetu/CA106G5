@@ -15,13 +15,15 @@ public class Live_chatService {
 	}
 
 //  新增
-	public Live_chatVO addLive_chat(String mem_ID, String host_ID, String chat_cont, Timestamp chat_date) {
+	public Live_chatVO addLive_chat(String mem_ID, String host_ID, String chat_cont, Timestamp chat_date,String chat_type) {
 		Live_chatVO live_chatVO = new Live_chatVO();
 
 		live_chatVO.setHost_ID(host_ID);
 		live_chatVO.setMem_ID(mem_ID);
 		live_chatVO.setChat_cont(chat_cont);
 		live_chatVO.setChat_date(chat_date);
+		live_chatVO.setChat_type(chat_type);
+
 		dao.insert(live_chatVO);
 		return live_chatVO;
 	}

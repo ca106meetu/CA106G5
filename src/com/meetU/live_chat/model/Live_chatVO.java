@@ -11,6 +11,8 @@ public class Live_chatVO implements Serializable {
 	private String mem_ID;
 	private String chat_cont;
 	private Timestamp chat_date;
+	private String chat_type;
+
 
 	public Live_chatVO() {
 
@@ -54,6 +56,14 @@ public class Live_chatVO implements Serializable {
 
 	public void setChat_date(Timestamp chat_date) {
 		this.chat_date = chat_date;
+	}
+
+	public String getChat_type() {
+		return chat_type;
+	}
+
+	public void setChat_type(String chat_type) {
+		this.chat_type = chat_type;
 	}
 
 }

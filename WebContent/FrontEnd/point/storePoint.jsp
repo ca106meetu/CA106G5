@@ -14,7 +14,7 @@
     <title>Hello, world!</title>  
   </head>
   <body>
-    <jsp:include page="/Templates/bootstrap4/frontHeader2.jsp" />
+    <jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
     
     
     
@@ -28,7 +28,7 @@
 
 			<div class="row">
 				
-				<form action='pr.do' method='post'>
+				<form action='pr.do' method='post' onsubmit='return allowUser();'>
 					<div class="input-group">
 					  <select name='amount' class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon">
 					    <option selected value='0'>請輸入要儲值的金額</option>
@@ -37,7 +37,7 @@
 					    <option value="20000">20000</option>
 					  </select>
 					  <div class="input-group-append">
-					    <button class="btn btn-outline-secondary" type="submit">Button</button>
+					    <button class="btn btn-outline-secondary store" type="submit">Button</button>
 					  	<input type='hidden' name='action' value='insert'>
 					  </div>
 					</div>
@@ -52,6 +52,21 @@
     
     
     <jsp:include page="/Templates/bootstrap4/frontFooter.jsp" />
+    
+    
+   <script>
+   $(document).ready(function(){
+	    $('.store').click(function(){
+				 if(!allowUser()){ 
+					 <%session.setAttribute("location", request.getRequestURI());%>
+					 $('#login').modal('show');
+					 return;
+				 }else{
+					window.location.href=('http://www.ncu.edu.tw');
+				 } 
+		 });
+   })
+    </script>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

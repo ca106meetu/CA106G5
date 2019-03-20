@@ -14,6 +14,26 @@
 	List<LiveVO> list = liveSvc.getAll();
 	pageContext.setAttribute("list", list);
 	MemVO memVO = (MemVO)session.getAttribute("memVO");
+	
+	
+	//測試會員是否是直播主
+	boolean flag = false;
+	if (memVO != null) {
+		String memId = memVO.getMem_ID();
+		for (LiveVO vo : list) {
+			if (!memId.equals(vo.getHost_ID())) {
+				flag = true;
+			} else {
+				flag = false;
+				break;
+			}
+		}
+	}
+	pageContext.setAttribute("flag", flag);
+	
+	
+	
+	
 %>
 
 <!doctype html>
@@ -56,6 +76,15 @@ th, td {
 	position: fixed;
 	right: 0;
 	top: 20%;
+	width: 8em;
+	z-index:999;
+	margin-top: -2.5em;
+	font: 15px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft JhengHei;   
+}
+#liveadd {
+    position: fixed;
+	right: 0;
+	top: 25%;
 	width: 8em;
 	z-index:999;
 	margin-top: -2.5em;
@@ -119,11 +148,20 @@ font: 100px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft Jh
 		</form>
 	</div>
 	
+
+	<div id='liveadd' style="${flag ? '': 'display:none' }">
+		<form action="<%=request.getContextPath()%>/FrontEnd/live/addLiveHome.jsp" method='post'>
+			<input class="btn btn-success liveCheckOut"  type="submit" value="成為直播主" >
+		    <input type="hidden" name="mem_ID"	value="${memVO.mem_ID}">
+		    <input type='hidden' name='action' value='getOne_For_Display'>
+		</form>
+	</div>
+	
 	
 	
 	
 
-  <div class="jumbotron" style="margin-bottom: 0rem";>
+  <div class="jumbotron" style="margin-bottom: 0rem">
   
 	<div class='container'>
 
