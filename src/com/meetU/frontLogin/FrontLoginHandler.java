@@ -88,6 +88,7 @@ public class FrontLoginHandler extends HttpServlet {
 			session.removeAttribute("mem_ID");
 			session.removeAttribute("encodeText");
 			session.removeAttribute("listHobby_ID");
+			session.invalidate();
 			res.sendRedirect(req.getContextPath() + "/FrontEnd/lorenTest/test.jsp");
 			return;
 		}

@@ -50,7 +50,7 @@ public class BackLoginHandler extends HttpServlet{
 			session.removeAttribute("emp_pw");
 			session.removeAttribute("empVO");
 			session.removeAttribute("auth_IDs");
-			//session.invalidate();
+			session.invalidate();
 			res.sendRedirect(req.getContextPath()+"/backIndex.jsp");
 			return;
 			//res.sendRedirect("/backIndex.jsp"); 
