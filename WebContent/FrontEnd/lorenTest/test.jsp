@@ -18,9 +18,9 @@
     
     
     
-    <button type="button" class="btn btn-outline-success test" >
-		  test
-		</button> 
+<!--     <button type="button" class="btn btn-outline-success test" > -->
+<!-- 		  test -->
+<!-- 		</button>  -->
     
 	
 	<script>
