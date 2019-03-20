@@ -294,7 +294,7 @@ Insert into MEM_HOBBY(MEM_ID, HOBBY_ID)values('M000001','H00002');
 Insert into MEM_HOBBY(MEM_ID, HOBBY_ID)values('M000001','H00003');
 Insert into MEM_HOBBY(MEM_ID, HOBBY_ID)values('M000001','H00004');
 Insert into MEM_HOBBY(MEM_ID, HOBBY_ID)values('M000001','H00005');
-Insert into MEM_HOBBY(MEM_ID, HOBBY_ID)values('M000001','H00005');
+Insert into MEM_HOBBY(MEM_ID, HOBBY_ID)values('M000001','H00006');
 Insert into MEM_HOBBY(MEM_ID, HOBBY_ID)values('M000001','H00007');
 Insert into MEM_HOBBY(MEM_ID, HOBBY_ID)values('M000001','H00008');
 Insert into MEM_HOBBY(MEM_ID, HOBBY_ID)values('M000001','H00009');
