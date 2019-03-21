@@ -203,7 +203,7 @@
    
     
     
-    <jsp:include page="/Templates/bootstrap4/backFooter.jsp" />
+    <jsp:include page="/Templates/bootstrap4/frontFooter.jsp" />
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
