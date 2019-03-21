@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -24,7 +26,10 @@ public class MeetupLikeJNDIDAO implements MeetupLikeDAO_interface{
 	}
 	
 	private static final String INSERT_STMT = "INSERT INTO MEETUP_LIKE (meetup_ID, mem_ID)"+ "VALUES (?,?)";
-	private static final String GET_ALL_STMT = "SELECT * FROM MEETUP_LIKE WHERE MEM_ID =?";
+	private static final String GET_ALL_STMT = 
+			"SELECT MEETUP.*,MEETUP_LIKE.MEM_ID FROM MEETUP JOIN MEETUP_LIKE ON MEETUP.MEETUP_ID = MEETUP_LIKE.MEETUP_ID AND MEETUP.MEETUP_STATUS=1 AND MEETUP_LIKE.MEM_ID =?";
+	
+	private static final String LIKE_BY_WHO = "SELECT * FROM MEETUP_LIKE WHERE meetup_ID =? ";
 	private static final String GET_ONE_STMT = "SELECT * FROM MEETUP_LIKE WHERE meetup_ID =? and MEM_ID =?";
 	private static final String DELETE = "DELETE FROM MEETUP_LIKE WHERE meetup_ID =? and MEM_ID =?";
 	
@@ -181,5 +186,50 @@ public class MeetupLikeJNDIDAO implements MeetupLikeDAO_interface{
 				}
 			}
 		}return list;
+	}
+
+	@Override
+	public Set<MeetupLikeVO> LikeByWho(String meetup_ID) {
+		Set<MeetupLikeVO> hset = new HashSet<MeetupLikeVO>();
+		MeetupLikeVO meetupLikeVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+				
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(LIKE_BY_WHO);
+			pstmt.setString(1, meetup_ID);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				meetupLikeVO = new MeetupLikeVO();
+				meetupLikeVO.setMem_ID(rs.getString("mem_ID"));
+				hset.add(meetupLikeVO);
+			}
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "	+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}return hset;
 	}
 }

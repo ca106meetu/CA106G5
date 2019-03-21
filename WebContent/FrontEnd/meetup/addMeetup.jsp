@@ -26,8 +26,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
- 
 	<script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
+<!-- page label -->    
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+  	<link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
 
 </head>
 <!--<body onload='initMap();'>-->
@@ -50,7 +52,7 @@
 <table>
 	<tr>
 		<th>聯誼名稱</th>
-		<td><input type="text" name="meetup_name" size="45" value="<%=(meetupVO==null)? "Lets meetup":meetupVO.getMeetup_name()%>"/></td>
+		<td><input type="text" name="meetup_name" size="45" value="<%=(meetupVO==null)? "汪汪":meetupVO.getMeetup_name()%>"/></td>
 	</tr>	
 	<tr>
 		<th>主揪</th>

@@ -12,6 +12,10 @@
 	MeetupVO meetupVO = (MeetupVO)session.getAttribute("meetupVO");	
 %>
 
+<%
+	MemService memSvc = new MemService();
+%>
+
 <html>
 <head>
 <!-- Required meta tags -->
@@ -20,7 +24,9 @@
 <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
-    
+<!-- page label -->    
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+  	<link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
 <title>顯示聯誼詳情</title>
 
 <style>
@@ -60,6 +66,9 @@
 </head>
 <body>
 <jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
+
+<jsp:useBean id="mtMemSvc" scope="page" class="com.meetU.meetup_mem.model.MeetupMemService"/>
+<jsp:useBean id="mLikeSvc" scope="page" class="com.meetU.meetup_like.model.MeetupLikeService"/>
 	
 	<div class="container">
       <div class="row">
@@ -73,23 +82,25 @@
           <div class="headIntro">
           	<ul>
           		<li><%=meetupVO.getMeetup_name()%></li>
-          		<li><%=meetupVO.getMeetup_date()%></li>
-          		<li><%=meetupVO.getMeetup_loc()%></li>
+          		<li>聯誼日期 : <%=meetupVO.getMeetup_date()%></li>
+          		<li>聯誼地點 : <%=meetupVO.getMeetup_loc()%></li>
+          		<li>聯誼主揪 : <%=memSvc.getOneMem(meetupVO.getMem_ID()).getMem_nickname()%></li>
+          		<li>共 <%=mtMemSvc.getAll(meetupVO.getMeetup_ID()).size()%> 位參與</li>
+          		<li>共 <%=mLikeSvc.LikeByWho(meetupVO.getMeetup_ID()).size()%> 位收藏</li>
           	</ul>
           	
-<jsp:useBean id="memSvc" scope="page" class="com.meetU.meetup_mem.model.MeetupMemService"/>
           <div class="join"> 
-          	<input type="button" class="${memSvc.getOneMeetupMem(meetupVO.meetup_ID, memVO.mem_ID)!=null?'btn btn-warning disabled': 'btn btn-warning btnJoin'}" 
-          		id="btnJoin" value="${memSvc.getOneMeetupMem(meetupVO.meetup_ID, memVO.mem_ID)!=null?'已報名':'報名'}"  >
+          	<input type="button" class="${mtMemSvc.getOneMeetupMem(meetupVO.meetup_ID, memVO.mem_ID)!=null?'btn btn-warning disabled': 'btn btn-warning btnJoin'}" 
+          		id="btnJoin" value="${mtMemSvc.getOneMeetupMem(meetupVO.meetup_ID, memVO.mem_ID)!=null?'已報名':'報名'}"  >
           	<input type="hidden" name="meetup_ID" value="${meetupVO.meetup_ID}">
 			<input type="hidden" name="mem_ID"	value="${memVO.mem_ID}">     
 		  </div>
 			
-<jsp:useBean id="mLikeSvc" scope="page" class="com.meetU.meetup_like.model.MeetupLikeService"/>					
+					
 		  <div class="HeartnRep"> 
-			<input type='image' src=" ${mLikeSvc.getOneMeetupLike(meetup_ID, memVO.mem_ID)!= null?'img/heart_red.png':'img/heart_white.png'}" 
-			   class='heart' title="${mLikeSvc.getOneMeetupLike(meetup_ID, memVO.mem_ID) != null ? '取消收藏' : '加入收藏' }" 
-			   alt="${mLikeSvc.getOneMeetupLike(meetup_ID, memVO.mem_ID) != null ? 'favorite' : 'unfavorite' }" >
+			<input type='image' src=" ${mLikeSvc.getOneMeetupLike(meetupVO.meetup_ID, memVO.mem_ID)!= null?'img/heart_red.png':'img/heart_white.png'}" 
+			   class='heart' title="${mLikeSvc.getOneMeetupLike(meetupVO.meetup_ID, memVO.mem_ID) != null ? '取消收藏' : '加入收藏' }" 
+			   alt="${mLikeSvc.getOneMeetupLike(meetupVO.meetup_ID, memVO.mem_ID) != null ? 'favorite' : 'unfavorite' }" >
 			<input type="hidden" name="meetup_ID" value="${meetupVO.meetup_ID}">
 			<input type="hidden" name="mem_ID"	value="${memVO.mem_ID}">
 			

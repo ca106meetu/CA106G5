@@ -25,7 +25,8 @@ public class MeetupMemDAO implements MeetupMemDAO_interface{
 	private static final String INSERT_STMT = "INSERT INTO MEETUP_MEM (meetup_ID, mem_ID, mem_showup) VALUES (?,?,?)";
 	private static final String GET_ALL_STMT = "SELECT * FROM MEETUP_MEM WHERE meetup_ID =?";
 	private static final String GET_ONE_STMT = "SELECT * FROM MEETUP_MEM WHERE meetup_ID =? AND MEM_ID=?";
-	private static final String GET_MYALL_STMT = "SELECT * FROM MEETUP_MEM WHERE MEM_ID =?";
+	private static final String GET_MYALL_STMT = "SELECT MEETUP.*,MEETUP_MEM.* FROM MEETUP JOIN MEETUP_MEM ON MEETUP.MEETUP_ID = MEETUP_MEM.MEETUP_ID AND MEETUP.MEETUP_STATUS=1 AND MEETUP_MEM.MEM_ID =?";
+	
 	private static final String DELETE = "DELETE FROM MEETUP_MEM WHERE meetup_ID =? and MEM_ID =?";
 	
 	private static final String UPDATE = "UPDATE MEETUP_MEM SET meetup_rate=?, meetup_comment=?, mem_showup=? WHERE meetup_ID =? and MEM_ID =?";

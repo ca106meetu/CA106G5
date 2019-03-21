@@ -6,10 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-
-import com.meetU.meetup_mem.model.MeetupMemJDBCDAO;
-import com.meetU.meetup_mem.model.MeetupMemVO;
+import java.util.Set;
 
 public class MeetupLikeJDBCDAO implements MeetupLikeDAO_interface{
 
@@ -20,7 +19,7 @@ public class MeetupLikeJDBCDAO implements MeetupLikeDAO_interface{
 	
 	private static final String INSERT_STMT = "INSERT INTO MEETUP_LIKE (meetup_ID, mem_ID)"+ "VALUES (?,?)";
 	private static final String GET_ALL_STMT = "SELECT * FROM MEETUP_LIKE WHERE MEM_ID =?";
-//	private static final String LIKE_BY_WHO = "SELECT * FROM MEETUP_LIKE WHERE MEET_ID =?";
+	private static final String LIKE_BY_WHO = "SELECT * FROM MEETUP_LIKE WHERE MEETUP_ID =?";
 	private static final String GET_ONE_STMT = "SELECT * FROM MEETUP_LIKE WHERE meetup_ID =? and MEM_ID =?";
 	private static final String DELETE = "DELETE FROM MEETUP_LIKE WHERE meetup_ID =? and MEM_ID =?";
 	
@@ -196,6 +195,56 @@ public class MeetupLikeJDBCDAO implements MeetupLikeDAO_interface{
 		}return list;
 	}
 	
+	
+	@Override
+	public Set<MeetupLikeVO> LikeByWho(String meetup_ID) {
+		Set<MeetupLikeVO> hset = new HashSet<MeetupLikeVO>();
+		MeetupLikeVO meetupLikeVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+				
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(LIKE_BY_WHO);
+			pstmt.setString(1, meetup_ID);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				meetupLikeVO = new MeetupLikeVO();
+				meetupLikeVO.setMem_ID(rs.getString("mem_ID"));
+				hset.add(meetupLikeVO);
+			}
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "	+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}return hset;
+	}
+	
 	public static void main(String[] args) {
 		MeetupLikeJDBCDAO dao = new MeetupLikeJDBCDAO();
 		
@@ -217,10 +266,17 @@ public class MeetupLikeJDBCDAO implements MeetupLikeDAO_interface{
 		//查詢
 //		List<MeetupLikeVO> list = dao.getAll("M000002");
 //		for(MeetupLikeVO mtupVO : list) {
-//			System.out.println(mtupVO.getMeetup_ID());
+//			System.out.println(mtupVO.getMeetuMEET_IDp_ID());
 //			System.out.println(mtupVO.getMem_ID());
 //			System.out.println("----------------");
 //		}
+		
+		//查詢
+		Set<MeetupLikeVO> hset = dao.LikeByWho("MP000001");
+		for(MeetupLikeVO mtupVO : hset) {
+			System.out.println(mtupVO.getMem_ID());
+			System.out.println("----------------");
+		}
 
 	}
 

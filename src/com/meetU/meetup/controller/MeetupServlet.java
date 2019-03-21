@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.meetU.meetup.model.MeetupService;
@@ -319,7 +320,7 @@ public class MeetupServlet extends HttpServlet {
 			}
 		}
 		
-		if ("delete".equals(action)) { // 來自listAllEmp.jsp
+		if ("invisible".equals(action)) { // 讓meetup被隱形
 
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -330,10 +331,10 @@ public class MeetupServlet extends HttpServlet {
 				
 				/***************************2.開始刪除資料***************************************/
 				MeetupService meetupSvc = new MeetupService();
-				meetupSvc.deleteMeetup(meetup_ID);
+				meetupSvc.InvisibleUpdate(meetup_ID);
 				
-				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-				String url = "/FrontEnd/meetup/meetupHomePg.jsp";
+				/***************************3.隱形完成,準備轉交(Send the Success view)***********/								
+				String url = "listMeetupByHost.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 				

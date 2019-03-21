@@ -23,6 +23,9 @@
 <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
 	<script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
+<!-- page label -->    
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+  	<link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
 		
     <title>聯誼首頁</title>    
     <style>
@@ -97,7 +100,7 @@
 	
 	<div class="row">
 	<c:forEach var="meetupVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-		<%-- c:if test="${meetupVO.meetup_status==1}"--%>
+		<%-- c:if test="${meetupVO.meetup_status==1}"//過濾狀態為0的不出現--%>
 		<div class="col">	
 			<div class="itemImg">
 				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do">

@@ -6,35 +6,55 @@
 <% 
 	MeetupVO meetupVO =(MeetupVO) request.getAttribute("meetupVO");
 	//EmpServlet.java (Concroller) 存入req的empVO物件 (包括幫忙取出的empVO, 也包括輸入資料錯誤時的empVO物件)
-
 %>
 <html>
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>聯誼資料修改 - update_meetup_input.jsp</title>
-
-<style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
+<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
+	<script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
+<!-- page label -->    
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+  	<link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+<title>聯誼內容修改 update Meetup Content</title>
 
 <style>
   img{
-  	width : 150px;
-  	height: auto;
-  	}	
+	 	width:300px;
+	 	height:auto;
+	 }
+	 
+	  .headIntro{
+        height: 400px;
+        margin-bottom: 20px;
+        
+      }
+      
+      #rep{
+      	display:none;      
+      }
+      
+      *{
+      	font-family:微軟正黑體;
+      }
+      
+      .heart{
+   		margin: 16px 16px 0px 16px;
+   	  }
+   	  #btnRep{
+   		margin-bottom:6px;
+   	  }
+   
+      .HeartnRep{
+   	  	margin-top:5px;
+      }
+      
+</style>
+
+<style>
+  	
   table {
 	width: 450px;
 	background-color: white;
@@ -50,16 +70,8 @@
 </style>
 
 </head>
-<body bgcolor='white'>
+<body>
 
-<table id="table-1">
-	<tr><td>
-	<h3>聯誼資料修改 - update_meetup_input.jsp</h3>
-		 <h4><a href="select_page.jsp">回首頁</a></h4>
-	</td></tr>
-</table>
-
-<h3>資料修改:</h3>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤</font>
 	<ul>

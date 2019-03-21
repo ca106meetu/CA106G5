@@ -9,6 +9,10 @@
 	List<MeetupVO> list = meetupSvc.getAllByHost(memVO.getMem_ID());
 	pageContext.setAttribute("list", list);
 %>
+
+<% 	
+	session.setAttribute("location", "location");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +23,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
 	<script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
 		
-<title>我的主持聯誼</title>    
+<title>我主持的聯誼</title>    
     <style>
     .pic{
 		width:200px;
@@ -109,9 +113,9 @@
                         <input type="hidden" name="action"  value="getOne_For_Display">
             	</FORM>
       		</div>
-      		
+<jsp:useBean id="mtMemSvc" scope="page" class="com.meetU.meetup_mem.model.MeetupMemService"/>      		
       		<div class="itemEdit"> 
-				共 X 位參與者
+				 共 ${mtMemSvc.getAll(meetupVO.meetup_ID).size()-1} 位報名
 			</div>
       		
       		<div class="itemEdit">
@@ -125,7 +129,7 @@
 			  	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="刪除" class="btn btn-warning">
 			     <input type="hidden" name="meetup_ID"  value="${meetupVO.meetup_ID}">
-			     <input type="hidden" name="action" value="delete">
+			     <input type="hidden" name="action" value="invisible">
 			    </FORM>
 			</div>
 	    </div>

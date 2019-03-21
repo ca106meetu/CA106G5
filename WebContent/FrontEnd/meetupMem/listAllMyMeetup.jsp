@@ -114,14 +114,14 @@
             	</FORM>
       		</div>
           		
-      		<div class="itemEdit">
-				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/FrontEnd/meetupMem/meetupMem.do">
-				    <input type="submit" value="送出評價" class="btn btn-warning">
-				    <input type="hidden" name="meetup_ID"  value="${{meetupMemVO.meetup_ID}}">
-				    <input type="hidden" name="mem_ID"  value="${meetupMemVO.mem_ID}">
-				    <input type="hidden" name="action"	value="update">
-			    </FORM>
-			</div>
+<!--       		<div class="itemEdit"> -->
+<%-- 				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/FrontEnd/meetupMem/meetupMem.do"> --%>
+<!-- 				    <input type="submit" value="送出評價" class="btn btn-warning"> -->
+<%-- 				    <input type="hidden" name="meetup_ID"  value="${{meetupMemVO.meetup_ID}}"> --%>
+<%-- 				    <input type="hidden" name="mem_ID"  value="${meetupMemVO.mem_ID}"> --%>
+<!-- 				    <input type="hidden" name="action"	value="update"> -->
+<!-- 			    </FORM> -->
+<!-- 			</div> -->
 			
 			<div class="itemEdit">
 			  <%-- FORM METHOD="post" ACTION="<%=request.getContextPath()%>/FrontEnd/meetupMem/meetupMem.do" > --%>

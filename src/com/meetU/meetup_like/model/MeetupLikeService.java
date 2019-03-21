@@ -1,8 +1,7 @@
 package com.meetU.meetup_like.model;
 
 import java.util.List;
-
-import com.meetU.meetup.model.MeetupVO;
+import java.util.Set;
 
 public class MeetupLikeService {
 	
@@ -31,5 +30,9 @@ public class MeetupLikeService {
 	
 	public List<MeetupLikeVO> getAll(String mem_ID) {
 		return dao.getAll(mem_ID);
+	}
+	
+	public Set <MeetupLikeVO> LikeByWho(String meetup_ID) {
+		return dao.LikeByWho(meetup_ID);
 	}
 }
