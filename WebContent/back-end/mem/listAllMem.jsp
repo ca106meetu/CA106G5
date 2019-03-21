@@ -15,7 +15,7 @@
 <% 
     java.text.DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     String formatDate = df.format(new java.util.Date());
-    out.println(formatDate);
+    //out.println(formatDate);
  %>
 
 <!doctype html>
