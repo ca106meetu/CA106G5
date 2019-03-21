@@ -2,9 +2,8 @@
 <!doctype html>
 <html lang="en">
   <head>
-  <link rel="shortcut icon" href="/favicon.ico"/>
-  <link rel="bookmark" href="/favicon.ico"/>
-  
+  <link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+  <link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
   <style>
   
   	.meetULogo{
