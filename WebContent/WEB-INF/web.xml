@@ -235,7 +235,9 @@
     <url-pattern>/protected/select_page2_protected.jsp</url-pattern>
     <url-pattern>/FrontEnd/cart/checkOut.jsp</url-pattern>
     <url-pattern>/FrontEnd/od/listMyOm.jsp</url-pattern>
-    <url-pattern>/FrontEnd/meetup/listOneMeetup.jsp</url-pattern>
+    <url-pattern>/FrontEnd/meetup/listMeetupByHost.jsp</url-pattern>
+    <url-pattern>/FrontEnd/meetupMem/listAllMyMeetup.jsp</url-pattern>
+    <url-pattern>/FrontEnd/meetupLike/AllMyLikeMeetup.jsp</url-pattern>
     <url-pattern>/FrontEnd/point/listMyPr.jsp</url-pattern>
     <url-pattern>/FrontEnd/mem/update_mem_input.jsp</url-pattern>
     <dispatcher>REQUEST</dispatcher>
