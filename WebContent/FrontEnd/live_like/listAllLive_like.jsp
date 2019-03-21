@@ -114,7 +114,7 @@ td {
 			<tr>
 				<td>${memSvc.getOneMem(live_likeVO.host_ID).mem_name}</td>
 				<td><c:if test="${liveSvc.getOneLive(live_likeVO.host_ID).live_pic != null}">
-					<img class='pic'src='/CA106G5/ShowPic?HOST_ID=${live_likeVO.host_ID}'>
+					<img class='pic'src='<%=request.getContextPath()%>/ShowPic?HOST_ID=${live_likeVO.host_ID}'>
 					</c:if></td>
 					<td>
 					<form method='post'

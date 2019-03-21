@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
 
-    <title>直播影片間</title>  
+    <title>直播主播放間</title>  
     
  <style>  
  
@@ -150,7 +150,8 @@ html,body {
                 position: relative;
                 width:  800px;
                 height: 600px;
-                margin:auto;	
+                margin:auto;
+                
             }
             .videoContainer video {
                 position: absolute;
@@ -182,24 +183,18 @@ html,body {
 				<div class="col-8">
 				
 				<div class="jumbotron" style="margin-bottom: 0rem">
-                <h1 class="display-3"><%= host_name%>的直播間
-<%--  <button style="${(memVO.mem_ID eq host_ID) ? '': 'display:none' }"  class='btn btn-success' onclick='connect2();'>直播推播</button> --%>
- <button style="${(memVO.mem_ID eq host_ID) ? '': 'display:none' }"  class='btn btn-info' onclick="location.href='<%=request.getContextPath()%>/FrontEnd/live/liveHostHome.jsp?host_ID=<%=host_ID%>';" >開始直播</button>
+                <h1 class="display-3"><%= host_name%>的播放間
+ <button style="${(memVO.mem_ID eq host_ID) ? '': 'display:none' }"  class='btn btn-success' onclick='connect2();'>直播推播</button>
                		<a href='<%=request.getContextPath()%>/FrontEnd/live/liveHome.jsp'>
-					<img  src="<%=request.getContextPath()%>/FrontEnd/live/images/back1.gif"	width="100" height="32">
+					<img src="<%=request.getContextPath()%>/FrontEnd/live/images/back1.gif"	width="100" height="32">
 					</a>
                 </h1>
   				<hr class="my-4">
-  				
-  				
-  				
-  				
   				<div class="videoContainer">
-  				<div id="remotes"><img id="notStreaming" src="<%=request.getContextPath()%>/FrontEnd/live/pic/closelive.jpg" width="800" height="600"></div>
-       			 </div>
-       			 
-       			 
-<!--   				<iframe width="95%" height="600" src="https://www.youtube.com/embed/60ZHM9nPQps" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+           			<video id="localVideo" style="height: 600px;" oncontextmenu="return false;"></video>
+            		<div id="localVolume" class="volume_bar"></div>
+        		</div>
+					
 				</div>
 				</div>
 				
@@ -562,6 +557,8 @@ html,body {
 
 
 
+
+        
         <script src="<%=request.getContextPath() %>/SimpleWebRTC-master/simplewebrtc.bundle.js"></script>
         <script>
             // grab the room from the URL
@@ -569,7 +566,7 @@ html,body {
 
             // create our webrtc connection
             var webrtc = new SimpleWebRTC({
-                // the id/element dom element that will hold "our" video
+            	// the id/element dom element that will hold "our" video
                 localVideoEl: 'localVideo',
                 // the id/element dom element that will hold remote videos
                 remoteVideosEl: '',
@@ -577,15 +574,6 @@ html,body {
                 autoRequestMedia: true,
                 debug: false,
                 detectSpeakingEvents: true,
-                
-                receiveMedia: {
-                    offerToReceiveAudio: 1,
-                    offerToReceiveVideo: 1
-                },
-           		media: {
-                	video: false,
-                	audio: false
-            	}
             });
 
             // when it's ready, join if we got a room from the URL
@@ -612,10 +600,6 @@ html,body {
             webrtc.on('videoAdded', function (video, peer) {
                 console.log('video added', peer);
                 var remotes = document.getElementById('remotes');
-                
-                document.getElementById('notStreaming').style.display='none';
-                
-                
                 if (remotes) {
                     var d = document.createElement('div');
                     d.className = 'videoContainer';
@@ -636,12 +620,7 @@ html,body {
                 console.log('video removed ', peer);
                 var remotes = document.getElementById('remotes');
                 var el = document.getElementById('container_' + webrtc.getDomId(peer));
-                
-                
-                
                 if (remotes && el) {
-                	
-                	document.getElementById('notStreaming').style.display='inline';
                     remotes.removeChild(el);
                 }
             });
@@ -703,7 +682,7 @@ html,body {
                     
                 }
             });
-            
         </script>
+        
 </body>
 </html>

@@ -179,7 +179,7 @@ font: 100px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft Jh
 					
 			<div class="card border-danger mb-3">
 			<c:if test="${liveVO.live_pic != null}">
-				<img src="/CA106G5/ShowPic?HOST_ID=<%=liveVO.getHost_ID()%>"
+				<img src="<%=request.getContextPath()%>/ShowPic?HOST_ID=<%=liveVO.getHost_ID()%>"
 					id='pic' class="card-img-top"></c:if>
 				<div class="card-body ">
 					<h5 class="card-title"><%=liveVO.getLive_name()%></h5>
