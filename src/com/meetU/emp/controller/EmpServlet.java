@@ -8,6 +8,8 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 
 import com.meetU.emp.model.*;
+import com.meetU.product.model.ProductService;
+import com.meetU.product.model.ProductVO;
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 public class EmpServlet extends HttpServlet {
@@ -16,7 +18,6 @@ public class EmpServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 		doPost(req, res);
-		
 		
 	}
 
@@ -33,8 +34,11 @@ public class EmpServlet extends HttpServlet {
 
 			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
-				String str = req.getParameter("emp_ID");
-				if (str == null || (str.trim()).length() == 0) {
+				String emp_ID = req.getParameter("emp_ID");
+				
+				
+				
+				if (emp_ID == null || (emp_ID.trim()).length() == 0) {
 					errorMsgs.add("請輸入員工ID");
 				}
 				// Send the use back to the form, if there were errors
@@ -45,12 +49,7 @@ public class EmpServlet extends HttpServlet {
 					return;//程式中斷
 				}
 				
-				String emp_ID = null;
-				try {
-					emp_ID = new String(str);
-				} catch (Exception e) {
-					errorMsgs.add("員工編號格式不正確");
-				}
+				
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
@@ -100,9 +99,20 @@ public class EmpServlet extends HttpServlet {
 				/***************************1.接收請求參數****************************************/
 				String emp_ID = new String(req.getParameter("emp_ID"));
 				
+				
+				
 				/***************************2.開始查詢資料****************************************/
+				/*===========================*/
 				EmpService empSvc = new EmpService();
 				EmpVO empVO = empSvc.getOneEmp(emp_ID);
+				Base64.Encoder encoder = Base64.getEncoder();
+				
+				if(empVO.getEmp_pic() != null) {
+				String encodeText = encoder.encodeToString(empVO.getEmp_pic());
+				req.setAttribute("encodeText", encodeText);
+				}
+				
+				/*===========================*/
 								
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("empVO", empVO);         // 資料庫取出的empVO物件,存入req
@@ -179,26 +189,21 @@ public class EmpServlet extends HttpServlet {
 				//	errorMsgs.add("員工性別: 只能是中、英文字母 , 且長度必需在10以內");
 	            //}
 				
-								
-				byte[] emp_pic = null;//??
+				/*=======================*/
+				InputStream in = null;
+				byte[] emp_pic = null;
+
 				Part part = req.getPart("emp_pic");
-				
-				Base64.Encoder encoder = Base64.getEncoder();
 				if(getFileNameFromPart(part) != null) {
-					InputStream in = part.getInputStream();
+					in = part.getInputStream();
 					emp_pic = new byte[in.available()];
 					in.read(emp_pic);
 					in.close();
-					String encodeText = encoder.encodeToString(emp_pic);
-					req.setAttribute("encodeText", encodeText);
-				} else {
-					if(req.getParameter("encodeText") != null && req.getParameter("encodeText").trim().length() !=0) {
-						Base64.Decoder decoder = Base64.getDecoder();
-						emp_pic = decoder.decode(req.getParameter("encodeText"));
-						String encodeText = encoder.encodeToString(emp_pic);
-						req.setAttribute("encodeText", encodeText);
-					}
+				}else {
+					emp_pic = new EmpService().getOneEmp(emp_ID).getEmp_pic();
 				}
+				/*=======================*/
+				
 				
 				//InputStream in = part.getInputStream();
 				//emp_pic = new byte[in.available()];
@@ -241,6 +246,10 @@ public class EmpServlet extends HttpServlet {
 				empVO.setEmp_hday(emp_hday);
 				empVO.setEmp_address(emp_address);
 				System.out.println("檢查點 1");
+				
+				Base64.Encoder encoder = Base64.getEncoder();
+				String encodeText = encoder.encodeToString(emp_pic);
+				req.setAttribute("encodeText", encodeText);
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
@@ -340,6 +349,7 @@ public class EmpServlet extends HttpServlet {
 				
 				byte[] emp_pic = null;//??
 				Part part = req.getPart("emp_pic");
+				
 				Base64.Encoder encoder = Base64.getEncoder();
 				if(getFileNameFromPart(part) != null) {
 					InputStream in = part.getInputStream();
