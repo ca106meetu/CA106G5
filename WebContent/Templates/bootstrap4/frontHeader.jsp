@@ -74,8 +74,17 @@
         </div>
       </li>
       
+       <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        直播平台
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/live/liveHome.jsp">直播間列表</a>
+        </div>
+      </li>
+      
       <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
+        <a class="nav-link disabled" href="#"></a>
       </li>
     </ul>
     
