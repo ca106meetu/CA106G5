@@ -2,10 +2,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.meetU.mem.model.*"%>
 <%@ page import="com.meetU.memHobby.model.*"%>
+<%@ page import="java.util.*"%>
 
 <%
   MemVO memVO = (MemVO) session.getAttribute("memVO"); //MemServlet.java (Concroller) 存入req的memVO物件 (包括幫忙取出的memVO, 也包括輸入資料錯誤時的memVO物件)
-  
+  Base64.Encoder encoder = Base64.getEncoder();
+  if (memVO.getMem_pic() != null) {
+		String encodeText = encoder.encodeToString(memVO.getMem_pic());
+		session.setAttribute("encodeText", encodeText);
+	}
+ 
 //   System.out.println("---------------------------------------");
 //   System.out.println(memVO==null);
 //   System.out.println("---------------------------------------");
@@ -15,7 +21,10 @@
 <html lang="zh-Hant-TW">
   <head>
 
+    <meta charset="utf-8">
     <!-- Required meta tags -->
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+  <link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
 	<script src="<%=request.getContextPath()%>/Templates/bootstrap4/js/jquery-3.2.1.min.js"></script>
@@ -66,7 +75,7 @@
 <div class="row">
 <div class="col">   
 	<center>
-		 <h3>會員資料註冊 - reg_mem_input.jsp</h3>
+		 <h3>會員資料更新 - update_mem_input.jsp</h3>
 	</center>
 </div>
 </div>
@@ -74,7 +83,7 @@
 <div class="row">
 <div class="col">   
 	<center>
-		<h3>會員資料註冊:</h3>
+		<h3>會員資料更新:</h3>
 	</center>
 </div>
 </div>	
@@ -97,7 +106,7 @@
 <table id="main_data">
 
 		<td class="laber">會員帳號:</td>
-		<td><input type="hidden" name="mem_acc"/> 
+		<td><input type="hidden" name="mem_acc" value="<%= memVO.getMem_acc()%>"/> 
 			 <%= (memVO==null)? "" : memVO.getMem_acc()%> </td>
 		</tr>
 	<tr>
@@ -132,11 +141,13 @@
 	</tr>	
 	<tr>
 		<td class="laber"><label for="mem_gend">會員性別:</label></td>
-		<td><select class="form-control" name="mem_gend" id="mem_gend" >
+		<td><input type="TEXT"  name="mem_gend" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" 
+			 value="<%= (memVO.getMem_gend()==null)? "" : memVO.getMem_gend()%>" />
         	 </select>
         	 </td>
 	</tr>
 	<tr>
+		
 		<td class="laber">會員大頭照:</td>
 		<td><input type="file" name="mem_pic" onchange='readURL(this)' class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"/><br>
 		<img id='pic1' class='pic' src='data:img/png;base64,${encodeText}'  ${(memVO.mem_pic==null) ? 'style="display:none"' : ''}></td>
@@ -157,26 +168,42 @@
 
 	<tr>
 		<td class="laber">會員居住地:</td>
-		<td><input type="TEXT" name="mem_address" aria-label="Default" aria-describedby="inputGroup-sizing-default"
+		<td><input type="TEXT" name="mem_address" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
 			 value="<%= (memVO.getMem_address()==null)? "" : memVO.getMem_address()%>" /></td>
+	</tr>
+	
+	<jsp:useBean id="hobbySvc" scope="page" class="com.meetU.hobby.model.HobbyService" />
+	<tr>
+		<td class="laber">會員興趣:</td>
+		<td>
+		<c:forEach var="hobbyVO" items="${hobbySvc.all}" varStatus="s" >
+		${(s.index%4==0)? '<br>' : ''}
+			<input type="checkbox"  name="hobby_ID" value="${hobbyVO.hobby_ID}" ${listHobby_ID.contains(hobbyVO.hobby_ID)?'checked':''}> ${hobbyVO.hobby_name}
+		</c:forEach>
+		</td>
 	</tr>
 
 	<tr>
 		<td class="laber">會員點數:</td>
-		<td><input type="hidden" name="mem_get_point" >
+		<td><input type="hidden" name="mem_get_point" value="<%= memVO.getMem_get_point()%>" >
 			 <%= (memVO.getMem_get_point()==null)? 0 : memVO.getMem_get_point()%></td>
 	</tr>
-
+		<input type="hidden" name="mem_sign_day" id="f_date3" >
+		<input type="hidden" name="mem_login_state" value="1">
+		<input type="hidden" name="mem_hobby" >
 </table>
 <br>
 <input type="hidden" name="action" value="update">
 <input type="hidden" name="mem_ID" value="<%=memVO.getMem_ID()%>">
-<input type="submit" value="送出修改">
+<input type="submit" class="btn btn-outline-success" value="送出修改">
 </FORM>
 </center>
 </div>
 </div>
 </div>
+<!-- 	<button type="button" class="btn btn-outline-success test" style="display='none'" > -->
+<!-- 	test -->
+<!-- 	</button> -->
    
     
     
@@ -199,6 +226,35 @@
  	    {title:'不公開',value:'不公開'},    
  		];
  	</script>
+ 		<script>
+		
+	  $(document).ready(function(){
+			 $('.test').click(function(){
+				 if(!allowUser()){ 
+					 <%session.setAttribute("location", request.getRequestURI());%>
+					 $('#login').modal('show');
+					 return;
+				 }else{
+					 //alert('good');
+				 }
+// 				 $.ajax({
+// 					 type: "POST",
+// 					 url: "ShoppingServlet",
+// 					 data: {"prod_ID":$(this).next().attr('value'), "action":"add", "quantity":$(this).parent().prev().val()},
+// 					 dataType: "json",
+// 					 success: function(){
+						 
+// 						 $('#myModal').modal('show');
+// //	 					 alert("555");
+// 						},
+				     
+// 		             error: function(){alert("AJAX-grade發生錯誤囉!")}
+// 		         });
+		 });
+	    })
+	
+	
+	</script>    
 </body>
 
 
@@ -248,6 +304,7 @@
 </style>
 
 <script>
+
 function readURL(input){
 	var reader = new FileReader();
   		reader.onload = function (e) {

@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+<link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
   <link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Email驗證</title>

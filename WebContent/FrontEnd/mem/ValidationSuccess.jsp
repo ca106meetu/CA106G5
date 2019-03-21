@@ -8,7 +8,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+    <!-- Required meta tags -->
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+  <link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <script src="<%=request.getContextPath()%>/Templates/bootstrap4/js/jquery-3.2.1.min.js"></script>
 <title>Insert title here</title>
 </head>
@@ -24,7 +28,7 @@ $(document).ready(function(){
 	//alert(s_url);
 	setTimeout(function(){location.href = s_url;
 	//document.getElementById("clickme").click();
-	},5000);
+	},3000);
 })
 
 </script>

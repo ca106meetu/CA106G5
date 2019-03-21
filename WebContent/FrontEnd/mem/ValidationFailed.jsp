@@ -3,7 +3,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+    <!-- Required meta tags -->
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+  <link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title></title>
 </head>
 <body>
