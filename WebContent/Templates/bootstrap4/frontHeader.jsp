@@ -25,20 +25,14 @@
     
     
 <nav class="navbar navbar-expand-lg navbar-light bg-information">
-  <a class="navbar-brand" href="#"><img class='meetULogo' alt="" src="<%=request.getContextPath()%>/Templates/meetULogo.png"></a>
+  <a class="navbar-brand" href="<%=request.getContextPath()%>/FrontEnd/lorenTest/test.jsp"><img class='meetULogo' alt="" src="<%=request.getContextPath()%>/Templates/meetULogo.png"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
+     
       
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -69,8 +63,8 @@
           會員中心
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/mem/update_mem_input.jsp">修改會員資料</a>
-          <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/point/listMyPr.jsp">點數管理</a>
+          <a class="dropdown-item memupdate" href="<%=request.getContextPath()%>/FrontEnd/mem/update_mem_input.jsp" onclick='return allowUser();'>修改會員資料</a>
+          <a class="dropdown-item memupdate" href="<%=request.getContextPath()%>/FrontEnd/point/listMyPr.jsp" onclick='return allowUser();'>點數管理</a>
         </div>
       </li>
       
@@ -181,6 +175,25 @@
     
       
 <script>
+$('.memupdate').click(function(){
+	 if(!allowUser()){ 
+		 <%session.setAttribute("location", request.getRequestURI());%>
+		 $('#login').modal('show');
+		 return;
+	 }else{
+		
+	 } 
+});
+$('.mustlogin').click(function(){
+	 if(!allowUser()){ 
+		 <%session.setAttribute("location", request.getRequestURI());%>
+		 $('#login').modal('show');
+		 return;
+	 }else{
+		
+	 } 
+});
+
 
 		//*==============================================================*/
 		var timer;

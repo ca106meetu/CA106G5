@@ -18,45 +18,16 @@
     
     
     
-<!--     <button type="button" class="btn btn-outline-success test" > -->
-<!-- 		  test -->
-<!-- 		</button>  -->
+     <h1>這是首頁唷!!!!!!!!!</h1><br><br><br><br><br>
+   
     
-	
-	<script>
-		
-	$(document).ready(function(){
-		  
-		 //$('.test').click(function(){
-			 if(!allowUser()){ 
-				 <%session.setAttribute("location", request.getRequestURI());%>
-				 $('#btn_login').trigger('click');
-				 //$('#login').modal('show');
-				 return;
-			 }else{
-				 //swal('你已經登入了','你已經登入了','success');
-				 return;
-				 //alert('good');
-			 }
-//			 $.ajax({
-//				 type: "POST",
-//				 url: "ShoppingServlet",
-//				 data: {"prod_ID":$(this).next().attr('value'), "action":"add", "quantity":$(this).parent().prev().val()},
-//				 dataType: "json",
-//				 success: function(){
-					 
-//					 $('#myModal').modal('show');
-////	 					 alert("555");
-//					},
-			     
-//	             error: function(){alert("AJAX-grade發生錯誤囉!")}
-//	         });
-	 //});
-   })
-	
-	
-	</script>    
-    
+
+
+
+
+
+
+
     
     <jsp:include page="/Templates/bootstrap4/frontFooter.jsp" />
 
