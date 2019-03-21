@@ -23,7 +23,7 @@ public class MemServlet extends HttpServlet {
        
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
-		doPost(req, res);
+		doPost(req, res); 
 	}
 
 
