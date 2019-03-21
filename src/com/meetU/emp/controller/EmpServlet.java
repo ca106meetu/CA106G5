@@ -346,13 +346,13 @@ public class EmpServlet extends HttpServlet {
 				//	errorMsgs.add("員工性別: 只能是中、英文字母 , 且長度必需在10以內");
 	            //}
 				
-				
+				InputStream in = null;
 				byte[] emp_pic = null;//??
 				Part part = req.getPart("emp_pic");
 				
 				Base64.Encoder encoder = Base64.getEncoder();
 				if(getFileNameFromPart(part) != null) {
-					InputStream in = part.getInputStream();
+					in = part.getInputStream();
 					emp_pic = new byte[in.available()];
 					in.read(emp_pic);
 					in.close();
@@ -366,10 +366,7 @@ public class EmpServlet extends HttpServlet {
 						req.setAttribute("encodeText", encodeText);
 					}
 				}
-				//InputStream in = part.getInputStream();
-				//emp_pic = new byte[in.available()];
-				//in.read(emp_pic);
-				//in.close();
+
 				
 				Integer emp_state = null;
 				try {

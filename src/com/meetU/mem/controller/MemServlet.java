@@ -548,10 +548,7 @@ public class MemServlet extends HttpServlet {
 					}
 				}
 				
-				//InputStream in = part.getInputStream();
-				//mem_pic = new byte[in.available()];
-				//in.read(mem_pic);
-				//in.close();
+				
 				
 				StringBuffer bf_intro = new StringBuffer();
 				
@@ -617,14 +614,16 @@ public class MemServlet extends HttpServlet {
 					errorMsgs.add("請輸入會員上次配對時間!");
 				}
 				
-				String mem_hobby = req.getParameter("mem_hobby").trim(); //19會員興趣
+				String mem_hobby = req.getParameter("mem_hobby"); //19會員興趣
 				String hobby_ID[] = req.getParameterValues("hobby_ID");
 				
 				
-//				String mem_hobby = req.getParameter("mem_hobby").trim(); //19會員興趣
+				//String mem_hobby = req.getParameter("mem_hobby"); //19會員興趣
 //				if (mem_address == null || mem_address.trim().length() == 0) {
 //					errorMsgs.add("會員興趣: 請勿空白");
 //				}
+				
+				
 				
 				byte[] mem_QRCODE = null;
 				Part part2 = req.getPart("mem_QRCODE");//20會員QRCODE
@@ -694,10 +693,20 @@ public class MemServlet extends HttpServlet {
 				
 				/***************************2.開始新增資料***************************************/
 				MemService memSvc = new MemService();
-				memVO = memSvc.addMem(mem_pw, mem_name, mem_acc, mem_nickname, mem_bday,
+				memSvc.addMem(mem_pw, mem_name, mem_acc, mem_nickname, mem_bday,
 						              mem_email, mem_pho, mem_gend, mem_pic, mem_intro,
 						              mem_code, mem_state, mem_date, mem_sign_day, mem_login_state,
 						              mem_address, last_pair, mem_hobby, mem_QRCODE, mem_get_point);
+				
+				
+				
+				//新增完之後馬上查詢會員資料給下面使用
+				/*************************************************/
+				
+				memVO = memSvc.getOneMem(mem_acc, mem_pw);
+				
+				/*************************************************/
+						
 				String mem_ID = memVO.getMem_ID();
 				List<MemHobbyVO> listMemHobbyVO = new LinkedList<MemHobbyVO>();
 				for(Integer i = 0; i < hobby_ID.length; i++) {
@@ -706,8 +715,9 @@ public class MemServlet extends HttpServlet {
 					memHobbyVO.setHobby_ID(hobby_ID[i]);
 					listMemHobbyVO.add(memHobbyVO);
 				}
+				
 				MemHobbyService memHobbySvc = new MemHobbyService();
-				listMemHobbyVO = memHobbySvc.updateAllHobby(mem_ID, listMemHobbyVO);
+				memHobbySvc.updateAllHobby(mem_ID, listMemHobbyVO);
 				List<String> listHobby_ID = memHobbySvc.getPartOfOneMemHobby2(mem_ID);
 				
 				MemHobbyService memHobbySvc2 = new MemHobbyService();

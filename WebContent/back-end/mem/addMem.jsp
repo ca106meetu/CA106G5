@@ -1,6 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.meetU.mem.model.*"%>
+<%@ page import="com.meetU.memHobby.model.*"%>
+<%@ page import="com.meetU.hobby.model.*"%>
+<%@ page import="java.util.*"%>
 
 <%
   MemVO memVO = (MemVO) request.getAttribute("memVO");
@@ -165,10 +168,17 @@
 		<td>上次配對時間:</td>
 		<td><input name="last_pair" id="f_date4" type="text"></td>
 	</tr>
+	<jsp:useBean id="hobbySvc" scope="page" class="com.meetU.hobby.model.HobbyService" />
 	<tr>
 		<td>會員興趣:</td>
-		<td><input type="TEXT" name="mem_hobby" size="45"
-			 value="<%= (memVO==null)? "寫Java" : memVO.getMem_hobby()%>" /></td>
+		<td>
+		<input type="hidden" name="mem_hobby" size="45"
+			 value="<%= (memVO==null)? "寫Java" : memVO.getMem_hobby()%>" />
+		<c:forEach var="hobbyVO" items="${hobbySvc.all}" varStatus="s" >
+		${(s.index%4==0)? '<br>' : ''}
+			<input type="checkbox"  name="hobby_ID" value="${hobbyVO.hobby_ID}" > ${hobbyVO.hobby_name}
+		</c:forEach>	 
+		</td>
 	</tr>
 	<tr>
 		<td>會員QRCODE:</td>

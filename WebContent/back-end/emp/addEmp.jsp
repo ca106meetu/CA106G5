@@ -115,7 +115,7 @@
 	 <tr>
 		<td>員工大頭照:</td>
 		<td><input type="file" name="emp_pic" onchange='readURL(this)'/><br>
-		<img class='pic' src='data:img/png;base64,${encodeText}'  ${(empVO.emp_pic==null) ? 'style="display:none"' : '<%=request.getContextPath()%>/ShowPic?emp_ID=${empVO.emp_ID}'}></td>
+		<img class='pic' src='data:img/png;base64,${encodeText}'  ${(empVO.emp_pic==null) ? 'style="display:none"' : ''}></td>
 	</tr>
 	<tr>
 		<td>員工帳號狀態:</td>
