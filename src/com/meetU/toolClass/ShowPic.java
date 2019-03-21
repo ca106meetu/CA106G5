@@ -28,6 +28,9 @@ public class ShowPic extends HttpServlet {
 	public static final String sql_live = "SELECT LIVE_PIC FROM LIVE WHERE HOST_ID = '";
 	public static final String sql_meetup = "SELECT MEETUP_PIC FROM MEETUP WHERE MEETUP_ID = '";
 	public static final String sql_stick = "SELECT STICKER FROM STICK WHERE STICK_ID = '";
+	public static final String sql_emp = "SELECT EMP_PIC FROM EMP WHERE EMP_ID = '";
+	public static final String sql_memPic =  "SELECT MEM_PIC FROM MEM WHERE MEM_ID = '";
+	public static final String sql_memQR =  "SELECT MEM_QRCODE FROM MEM WHERE MEM_ID = '";
 
 	private static DataSource ds = null;
 	static {
@@ -76,6 +79,20 @@ public class ShowPic extends HttpServlet {
 		} else if ("STICK_ID".equals(column)) {
 			sql = sql_stick + req.getParameter(column) + "'";
 			col_pic = "STICKER";
+		}else if ("emp_ID".equals(column)) {
+			sql = sql_emp + req.getParameter(column) + "'";
+			col_pic = "EMP_PIC";
+			System.out.println(req.getParameter(column));
+		}else if ("mem_ID".equals(column)) {
+			
+			if(Integer.parseInt(req.getParameter("photoNo")) == 1) {
+				sql = sql_memPic + req.getParameter(column) + "'";
+				col_pic = "MEM_PIC";
+			}else if(Integer.parseInt(req.getParameter("photoNo")) == 2) {
+				sql = sql_memQR + req.getParameter(column) + "'";
+				col_pic = "MEM_QRCODE";
+			}
+			System.out.println(req.getParameter(column));
 		}
 
 		try {
