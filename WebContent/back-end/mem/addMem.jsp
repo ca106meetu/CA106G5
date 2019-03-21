@@ -171,7 +171,7 @@
 	<tr>
 		<td>會員QRCODE:</td>
 		<td><input type="file" name="mem_QRCODE" onchange='readURL2(this)'/><br>
-		<img id='pic2' class='pic' src='data:img/png;base64,${encodeText}'  ${(memVO.mem_QRCODE==null) ? 'style="display:none"' : ''}></td>
+		<img id='pic2' class='pic' src='data:img/png;base64,${encodeText2}'  ${(memVO.mem_QRCODE==null) ? 'style="display:none"' : ''}></td>
 	</tr>
 	
 	<tr>

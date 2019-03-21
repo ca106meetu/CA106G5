@@ -15,7 +15,8 @@
 <!doctype html>
 <html lang="zh-Hant-TW">
   <head>
-
+  <link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+  <link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
     <!-- Required meta tags -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->

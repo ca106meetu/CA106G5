@@ -3,6 +3,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.*"%>
 <%@ page import="com.meetU.mem.model.*"%>
+<%@ page import="com.meetU.memHobby.model.*"%>
+<%@ page import="com.meetU.hobby.model.*"%>
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
@@ -142,7 +144,18 @@
 			<td>${memVO.mem_login_state}</td>
 			<td>${memVO.mem_address}</td>
 			<td><fmt:formatDate value="${memVO.last_pair}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-			<td>${memVO.mem_hobby}</td>
+			<jsp:useBean id="hobbySvc" scope="page" class="com.meetU.hobby.model.HobbyService" />
+			<jsp:useBean id="memhobbySvc" scope="page" class="com.meetU.memHobby.model.MemHobbyService" />
+			
+			<td>
+			<c:forEach var="MemHobbyVO" items="${memhobbySvc.getPartOfOneMemHobby(memVO.mem_ID)}">
+			
+				${hobbySvc.getOneHobby(MemHobbyVO.hobby_ID).hobby_name}
+			</c:forEach>
+			
+			</td>
+			
+
 			<td>
 			  <img class='pic' src='<%=request.getContextPath() %>/ShowPic?mem_ID=${memVO.mem_ID}&photoNo=2'>
 			</td>

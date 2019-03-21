@@ -42,8 +42,8 @@ public class MemServlet extends HttpServlet {
 
 			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
-				String str = req.getParameter("mem_ID");
-				if (str == null || (str.trim()).length() == 0) {
+				String mem_ID = req.getParameter("mem_ID");
+				if (mem_ID == null || (mem_ID.trim()).length() == 0) {
 					errorMsgs.add("請輸入會員ID");
 				}
 				// Send the use back to the form, if there were errors
@@ -54,9 +54,8 @@ public class MemServlet extends HttpServlet {
 					return;//程式中斷
 				}
 				
-				String mem_ID = null;
 				try {
-					mem_ID = new String(str);
+					mem_ID = new String(mem_ID);
 				} catch (Exception e) {
 					errorMsgs.add("會員ID格式不正確");
 				}
@@ -112,9 +111,30 @@ public class MemServlet extends HttpServlet {
 				/***************************2.開始查詢資料****************************************/
 				MemService memSvc = new MemService();
 				MemVO memVO = memSvc.getOneMem(mem_ID);
-								
+				Base64.Encoder encoder = Base64.getEncoder();
+				
+				if(memVO.getMem_pic() != null) {
+					String encodeText = encoder.encodeToString(memVO.getMem_pic());
+					req.setAttribute("encodeText", encodeText);
+				}
+				
+				Base64.Encoder encoder2 = Base64.getEncoder();
+				if(memVO.getMem_QRCODE() != null) {
+					String encodeText2 = encoder.encodeToString(memVO.getMem_QRCODE());
+					req.setAttribute("encodeText2", encodeText2);
+				}
+				
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("memVO", memVO);         // 資料庫取出的memVO物件,存入req
+				//??
+				MemHobbyService memHobbySvc = new MemHobbyService();
+				//listMemHobbyVO = memHobbySvc.updateAllHobby(mem_ID, listMemHobbyVO);
+				List<String> listHobby_ID = memHobbySvc.getPartOfOneMemHobby2(mem_ID);
+				
+				MemHobbyService memHobbySvc2 = new MemHobbyService();
+				List<MemHobbyVO> list = memHobbySvc2.getPartOfOneMemHobby(mem_ID);
+				req.setAttribute("listHobby_ID", listHobby_ID);
+				
 				String url = "/back-end/mem/update_mem_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_mem_input.jsp
 				successView.forward(req, res);
@@ -206,23 +226,25 @@ public class MemServlet extends HttpServlet {
 				//	errorMsgs.add("會員性別: 只能是中、英文字母 , 且長度必需在10以內");
 	            //}
 												
+				InputStream in = null;
 				byte[] mem_pic = null;
 				Part part = req.getPart("mem_pic");//10會員大頭照
 				Base64.Encoder encoder = Base64.getEncoder();
 				if(getFileNameFromPart(part) != null) {
-					InputStream in = part.getInputStream();
+					in = part.getInputStream();
 					mem_pic = new byte[in.available()];
 					in.read(mem_pic);
 					in.close();
-					String encodeText = encoder.encodeToString(mem_pic);
-					req.setAttribute("encodeText", encodeText);
+					//String encodeText = encoder.encodeToString(mem_pic);
+					//req.setAttribute("encodeText", encodeText);
 				} else {
-					if(req.getParameter("encodeText") != null && req.getParameter("encodeText").trim().length() !=0) {
-						Base64.Decoder decoder = Base64.getDecoder();
-						mem_pic = decoder.decode(req.getParameter("encodeText"));
-						String encodeText = encoder.encodeToString(mem_pic);
-						req.setAttribute("encodeText", encodeText);
-					}
+					mem_pic = new MemService().getOneMem(mem_ID).getMem_pic();
+//					if(req.getParameter("encodeText") != null && req.getParameter("encodeText").trim().length() !=0) {
+//						Base64.Decoder decoder = Base64.getDecoder();
+//						mem_pic = decoder.decode(req.getParameter("encodeText"));
+//						String encodeText = encoder.encodeToString(mem_pic);
+//						req.setAttribute("encodeText", encodeText);
+//					}
 				}
 				
 				//InputStream in = part.getInputStream();
@@ -302,23 +324,25 @@ public class MemServlet extends HttpServlet {
 					listMemHobbyVO.add(memHobbyVO);
 				}
 				
+				InputStream in2 = null;
 				byte[] mem_QRCODE = null;
 				Part part2 = req.getPart("mem_QRCODE");//20會員QRCODE
 				Base64.Encoder encoder2 = Base64.getEncoder();
 				if(getFileNameFromPart(part2) != null) {
-					InputStream in2 = part2.getInputStream();
+					in2 = part2.getInputStream();
 					mem_QRCODE = new byte[in2.available()];
 					in2.read(mem_QRCODE);
 					in2.close();
-					String encodeText2 = encoder2.encodeToString(mem_QRCODE);
-					req.setAttribute("encodeText2", encodeText2);
+					//String encodeText2 = encoder2.encodeToString(mem_QRCODE);
+					//req.setAttribute("encodeText2", encodeText2);
 				} else {
-					if(req.getParameter("encodeText2") != null && req.getParameter("encodeText2").trim().length() !=0) {
-						Base64.Decoder decoder2 = Base64.getDecoder();
-						mem_pic = decoder2.decode(req.getParameter("encodeText2"));
-						String encodeText2 = encoder2.encodeToString(mem_QRCODE);
-						req.setAttribute("encodeText2", encodeText2);
-					}
+					mem_QRCODE = new MemService().getOneMem(mem_ID).getMem_QRCODE();
+//					if(req.getParameter("encodeText2") != null && req.getParameter("encodeText2").trim().length() !=0) {
+//						Base64.Decoder decoder2 = Base64.getDecoder();
+//						mem_QRCODE = decoder2.decode(req.getParameter("encodeText2"));
+//						String encodeText2 = encoder2.encodeToString(mem_QRCODE);
+//						req.setAttribute("encodeText2", encodeText2);
+//					}
 				}
 				
 				//InputStream in2 = part.getInputStream();
@@ -358,6 +382,15 @@ public class MemServlet extends HttpServlet {
 				memVO.setMem_get_point(mem_get_point);
 				memVO.setMem_ID(mem_ID);
 				
+				Base64.Decoder decoder = Base64.getDecoder();
+				mem_pic = decoder.decode(req.getParameter("encodeText"));
+				String encodeText = encoder.encodeToString(mem_pic);
+
+				
+				Base64.Decoder decoder2 = Base64.getDecoder();
+				mem_QRCODE = decoder2.decode(req.getParameter("encodeText2"));
+				String encodeText2 = encoder2.encodeToString(mem_QRCODE);
+				
 				System.out.println("檢查點 1");
 
 				// Send the use back to the form, if there were errors
@@ -380,6 +413,7 @@ public class MemServlet extends HttpServlet {
 						                 mem_ID);
 				MemHobbyService memHobbySvc = new MemHobbyService();
 				listMemHobbyVO = memHobbySvc.updateAllHobby(mem_ID, listMemHobbyVO);
+				List<String> listHobby_ID = memHobbySvc.getPartOfOneMemHobby2(mem_ID);
 				
 				MemHobbyService memHobbySvc2 = new MemHobbyService();
 				List<MemHobbyVO> list = memHobbySvc2.getPartOfOneMemHobby(mem_ID);
@@ -390,6 +424,8 @@ public class MemServlet extends HttpServlet {
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("memVO", memVO); // 資料庫update成功後,正確的的memVO物件,存入req
 				req.setAttribute("list", list);
+				req.setAttribute("listMemHobbyVO", listMemHobbyVO);
+				req.setAttribute("listHobby_ID", listHobby_ID);
 				String url = "/back-end/mem/listOneMem.jsp";
 				System.out.println("檢查點 3");
 
@@ -428,11 +464,11 @@ public class MemServlet extends HttpServlet {
 				
 				String mem_name = req.getParameter("mem_name");//03
 				String mem_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,30}$";
-				if (mem_name == null || mem_name.trim().length() == 0) {
-					errorMsgs.add("會員姓名: 請勿空白");
-				} else if(!mem_name.trim().matches(mem_nameReg)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("會員姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到20之間");
-	            }
+//				if (mem_name == null || mem_name.trim().length() == 0) {
+//					errorMsgs.add("會員姓名: 請勿空白");
+//				} else if(!mem_name.trim().matches(mem_nameReg)) { //以下練習正則(規)表示式(regular-expression)
+//					errorMsgs.add("會員姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到20之間");
+//	            }
 				
 				String mem_acc = req.getParameter("mem_acc");//04
 				String mem_accReg = "^[(a-zA-Z0-9_)]{4,30}$";
@@ -444,11 +480,11 @@ public class MemServlet extends HttpServlet {
 				
 				String mem_nickname = req.getParameter("mem_nickname");//05
 				String mem_nicknameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,30}$";
-				if (mem_nickname == null || mem_nickname.trim().length() == 0) {
-					errorMsgs.add("會員暱稱: 請勿空白");
-				} else if(!mem_nickname.trim().matches(mem_nicknameReg)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("會員暱稱: 只能是中、英文字母、數字和_ , 且長度必需在1到30之間");
-	            }
+//				if (mem_nickname == null || mem_nickname.trim().length() == 0) {
+//					errorMsgs.add("會員暱稱: 請勿空白");
+//				} else if(!mem_nickname.trim().matches(mem_nicknameReg)) { //以下練習正則(規)表示式(regular-expression)
+//					errorMsgs.add("會員暱稱: 只能是中、英文字母、數字和_ , 且長度必需在1到30之間");
+//	            }
 				
 				java.sql.Date mem_bday = null;//06
 				try {
@@ -571,9 +607,13 @@ public class MemServlet extends HttpServlet {
 				}
 				
 				String mem_hobby = req.getParameter("mem_hobby").trim(); //19會員興趣
-				if (mem_address == null || mem_address.trim().length() == 0) {
-					errorMsgs.add("會員興趣: 請勿空白");
-				}
+				String hobby_ID[] = req.getParameterValues("hobby_ID");
+				
+				
+//				String mem_hobby = req.getParameter("mem_hobby").trim(); //19會員興趣
+//				if (mem_address == null || mem_address.trim().length() == 0) {
+//					errorMsgs.add("會員興趣: 請勿空白");
+//				}
 				
 				byte[] mem_QRCODE = null;
 				Part part2 = req.getPart("mem_QRCODE");//20會員QRCODE
@@ -588,7 +628,7 @@ public class MemServlet extends HttpServlet {
 				} else {
 					if(req.getParameter("encodeText2") != null && req.getParameter("encodeText2").trim().length() !=0) {
 						Base64.Decoder decoder2 = Base64.getDecoder();
-						mem_pic = decoder2.decode(req.getParameter("encodeText2"));
+						mem_QRCODE = decoder2.decode(req.getParameter("encodeText2"));
 						String encodeText2 = encoder2.encodeToString(mem_QRCODE);
 						req.setAttribute("encodeText2", encodeText2);
 					}
@@ -647,6 +687,21 @@ public class MemServlet extends HttpServlet {
 						              mem_email, mem_pho, mem_gend, mem_pic, mem_intro,
 						              mem_code, mem_state, mem_date, mem_sign_day, mem_login_state,
 						              mem_address, last_pair, mem_hobby, mem_QRCODE, mem_get_point);
+				String mem_ID = memVO.getMem_ID();
+				List<MemHobbyVO> listMemHobbyVO = new LinkedList<MemHobbyVO>();
+				for(Integer i = 0; i < hobby_ID.length; i++) {
+					MemHobbyVO memHobbyVO = new MemHobbyVO();
+					memHobbyVO.setMem_ID(mem_ID);
+					memHobbyVO.setHobby_ID(hobby_ID[i]);
+					listMemHobbyVO.add(memHobbyVO);
+				}
+				MemHobbyService memHobbySvc = new MemHobbyService();
+				listMemHobbyVO = memHobbySvc.updateAllHobby(mem_ID, listMemHobbyVO);
+				List<String> listHobby_ID = memHobbySvc.getPartOfOneMemHobby2(mem_ID);
+				
+				MemHobbyService memHobbySvc2 = new MemHobbyService();
+				List<MemHobbyVO> list = memHobbySvc2.getPartOfOneMemHobby(mem_ID);
+				
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				String url = "/back-end/mem/listAllMem.jsp";
@@ -678,6 +733,15 @@ public class MemServlet extends HttpServlet {
 				
 				/***************************2.開始刪除資料***************************************/
 				MemService memSvc = new MemService();
+				MemHobbyService memHobbySvc = new MemHobbyService();
+				
+				List<String> listHobby_ID = memHobbySvc.getPartOfOneMemHobby2(mem_ID); 
+				Iterator<String> i = listHobby_ID.listIterator(0);
+				
+				while (i.hasNext()) {
+					memHobbySvc.deleteMemHobby(mem_ID, i.next());
+				}
+				
 				memSvc.deleteMem(mem_ID);
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								

@@ -1,6 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.meetU.mem.model.*"%>
+<%@ page import="com.meetU.memHobby.model.*"%>
+<%@ page import="com.meetU.hobby.model.*"%>
+<%@ page import="java.util.*"%>
 
 <%
   MemVO memVO = (MemVO) request.getAttribute("memVO"); //MemServlet.java (Concroller) 存入req的memVO物件 (包括幫忙取出的memVO, 也包括輸入資料錯誤時的memVO物件)
@@ -129,7 +132,7 @@
 	<tr>
 		<td>會員自我介紹:</td>
 		<td>
-			<textarea name="mem_intro" rows="4" cols="50"><%= (memVO==null)? "陸游出身於一個由「貧居苦學而仕進」的世宦家庭。陸游的高祖是宋仁宗時太傅陸軫，祖父陸佃，父親陸宰。出生時正值宋朝腐敗不振、屢遭金國（女真族）侵略的年代。出生次年，金兵攻陷北宋首都汴京，他於襁褓中即隨家人顛沛流離，因受社會及家庭環境影響，自幼即立志殺胡（金兵）救國。" : memVO.getMem_intro()%>"</textarea>
+			<textarea name="mem_intro" rows="4" cols="50"><%= (memVO==null)? "陸游出身於一個由「貧居苦學而仕進」的世宦家庭。陸游的高祖是宋仁宗時太傅陸軫，祖父陸佃，父親陸宰。出生時正值宋朝腐敗不振、屢遭金國（女真族）侵略的年代。出生次年，金兵攻陷北宋首都汴京，他於襁褓中即隨家人顛沛流離，因受社會及家庭環境影響，自幼即立志殺胡（金兵）救國。" : memVO.getMem_intro()%></textarea>
 		 </td>
 	</tr>
 	<tr>
@@ -164,15 +167,23 @@
 		<td>上次配對時間:</td>
 		<td><input name="last_pair" id="f_date4" type="text"></td>
 	</tr>
+	<jsp:useBean id="hobbySvc" scope="page" class="com.meetU.hobby.model.HobbyService" />
+	
 	<tr>
 		<td>會員興趣:</td>
-		<td><input type="TEXT" name="mem_hobby" size="45"
-			 value="<%= (memVO==null)? "寫Java" : memVO.getMem_hobby()%>" /></td>
+		<td>
+		<c:forEach var="hobbyVO" items="${hobbySvc.all}" varStatus="s" >
+		${(s.index%4==0)? '<br>' : ''}
+			<input type="checkbox"  name="hobby_ID" value="${hobbyVO.hobby_ID}" ${listHobby_ID.contains(hobbyVO.hobby_ID)?'checked':''}> ${hobbyVO.hobby_name}
+		</c:forEach>
+<!-- 		<input type="TEXT" name="mem_hobby" size="45" -->
+<%-- 			 value="<%= (memVO==null)? "寫Java" : memVO.getMem_hobby()%>" /> --%>
+			 </td>
 	</tr>
 	<tr>
 		<td>會員QRCODE:</td>
 		<td><input type="file" name="mem_QRCODE" onchange='readURL2(this)'/><br>
-		<img id='pic2' class='pic' src='data:img/png;base64,${encodeText}'  ${(memVO.mem_QRCODE==null) ? 'style="display:none"' : ''}></td>
+		<img id='pic2' class='pic' src='data:img/png;base64,${encodeText2}'  ${(memVO.mem_QRCODE==null) ? 'style="display:none"' : ''}></td>
 	</tr>
 	
 	<tr>

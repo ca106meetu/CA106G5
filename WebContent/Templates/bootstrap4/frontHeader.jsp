@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.meetU.mem.model.*"%>
 <!doctype html>
 <html lang="en">
   <head>
@@ -84,6 +86,8 @@
         <a class="nav-link disabled" href="#"></a>
       </li>
     </ul>
+    
+    <div ${memVO != null ? "style='display:inline-block'" : "style='display:none'"} >${memVO.mem_acc} 您好</div>
     
       	<!-- Button trigger modal -->
 		<button type="button" id="btn_login" class="btn btn-outline-success" data-toggle="modal" data-target="#login" ${memVO != null ? "style='display:none'" : ''}>
