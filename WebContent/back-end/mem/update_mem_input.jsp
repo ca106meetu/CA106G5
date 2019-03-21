@@ -178,8 +178,8 @@
 		${(s.index%4==0)? '<br>' : ''}
 			<input type="checkbox"  name="hobby_ID" value="${hobbyVO.hobby_ID}" ${listHobby_ID.contains(hobbyVO.hobby_ID)?'checked':''}> ${hobbyVO.hobby_name}
 		</c:forEach>
-<!-- 		<input type="TEXT" name="mem_hobby" size="45" -->
-<%-- 			 value="<%= (memVO==null)? "寫Java" : memVO.getMem_hobby()%>" /> --%>
+ 		<input type="hidden" name="mem_hobby" size="45" 
+ 			 value="<%= (memVO==null)? "寫Java" : memVO.getMem_hobby()%>" /> 
 			 </td>
 	</tr>
 	<tr>

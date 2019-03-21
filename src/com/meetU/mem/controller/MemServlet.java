@@ -158,7 +158,7 @@ public class MemServlet extends HttpServlet {
 		
 			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
-				String mem_ID = new String(req.getParameter("mem_ID").trim());//01
+				String mem_ID = req.getParameter("mem_ID");//01
 				String hobby_ID[] = req.getParameterValues("hobby_ID");
 				
 				String mem_pw = req.getParameter("mem_pw");//02
@@ -181,9 +181,9 @@ public class MemServlet extends HttpServlet {
 				String mem_accReg = "^[(a-zA-Z0-9_)]{4,30}$";
 				if (mem_acc == null || mem_acc.trim().length() == 0) {
 					errorMsgs.add("會員帳號: 請勿空白");
-				} else if(!mem_acc.trim().matches(mem_accReg)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("會員帳號: 只能是英文字母、數字和_ , 且長度必需在4到30之間");
-	            }
+				} //else if(!mem_acc.trim().matches(mem_accReg)) { //以下練習正則(規)表示式(regular-expression)
+				//	errorMsgs.add("會員帳號: 只能是英文字母、數字和_ , 且長度必需在4到30之間");
+	            //}
 				
 				String mem_nickname = req.getParameter("mem_nickname");//05
 				String mem_nicknameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,30}$";
@@ -246,6 +246,14 @@ public class MemServlet extends HttpServlet {
 //						req.setAttribute("encodeText", encodeText);
 //					}
 				}
+				//Base64.Decoder decoder = Base64.getDecoder();
+				//mem_pic = decoder.decode(req.getParameter("encodeText"));
+				if(mem_pic != null) {
+					String encodeText = encoder.encodeToString(mem_pic);
+					req.setAttribute("encodeText", encodeText);
+				}
+				
+				
 				
 				//InputStream in = part.getInputStream();
 				//mem_pic = new byte[in.available()];
@@ -312,7 +320,7 @@ public class MemServlet extends HttpServlet {
 					errorMsgs.add("請輸入會員上次配對時間!");
 				}
 				
-				String mem_hobby = req.getParameter("mem_hobby").trim(); //19會員興趣
+				String mem_hobby = req.getParameter("mem_hobby"); //19會員興趣
 				//if (mem_address == null || mem_address.trim().length() == 0) {
 				//	errorMsgs.add("會員興趣: 請勿空白");
 				//}
@@ -345,6 +353,13 @@ public class MemServlet extends HttpServlet {
 //					}
 				}
 				
+				//Base64.Decoder decoder2 = Base64.getDecoder();
+				//mem_QRCODE = decoder2.decode(req.getParameter("encodeText2"));
+				
+				if(mem_QRCODE != null) {					
+				String encodeText2 = encoder2.encodeToString(mem_QRCODE);
+				req.setAttribute("encodeText2", encodeText2);
+				}
 				//InputStream in2 = part.getInputStream();
 				//mem_QRCODE = new byte[in2.available()];
 				//in2.read(mem_QRCODE);
@@ -357,6 +372,8 @@ public class MemServlet extends HttpServlet {
 					mem_state = 0;
 					errorMsgs.add("會員點數請填數字.");
 				}
+				
+				
 				
 				MemVO memVO = new MemVO();
 				memVO.setMem_pw(mem_pw);
@@ -382,14 +399,7 @@ public class MemServlet extends HttpServlet {
 				memVO.setMem_get_point(mem_get_point);
 				memVO.setMem_ID(mem_ID);
 				
-				Base64.Decoder decoder = Base64.getDecoder();
-				mem_pic = decoder.decode(req.getParameter("encodeText"));
-				String encodeText = encoder.encodeToString(mem_pic);
-
 				
-				Base64.Decoder decoder2 = Base64.getDecoder();
-				mem_QRCODE = decoder2.decode(req.getParameter("encodeText2"));
-				String encodeText2 = encoder2.encodeToString(mem_QRCODE);
 				
 				System.out.println("檢查點 1");
 
@@ -435,6 +445,7 @@ public class MemServlet extends HttpServlet {
 				/***************************其他可能的錯誤處理*************************************/
 			} catch (Exception e) {
 				System.out.println("檢查點 4");
+				e.printStackTrace();
 
 				errorMsgs.add("修改資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
