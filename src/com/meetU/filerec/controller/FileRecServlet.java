@@ -58,9 +58,8 @@ public class FileRecServlet extends HttpServlet {
 
 				/*************************** 2.查詢完成,準備轉交(Send the Success view) *************/
 //				req.setAttribute("host_ID", host_ID); // 資料庫取出的empVO物件,存入req
-				String url = "/FrontEnd/live/liveHome2.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
-				successView.forward(req, res);
+				String url = req.getContextPath() + "/FrontEnd/live/liveHome2.jsp?host_ID=" + host_ID;
+				res.sendRedirect(url); // 成功轉交 listOneEmp.jsp
 
 				/*************************** 其他可能的錯誤處理 *************************************/
 			} catch (Exception e) {

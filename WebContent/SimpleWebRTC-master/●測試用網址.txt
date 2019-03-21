@@ -1,0 +1,22 @@
+
+●以下為https - 可用於遠端網址
+==========================================================
+https://localhost:443/SimpleWebRTC-master/index.html?205
+https://localhost/SimpleWebRTC-master/index.html?205
+https://localhost:9001/index.html?206
+
+
+
+●以下為https - 可用於遠端網址
+==========================================================
+https://54.148.206.111:443/SimpleWebRTC-master/index.html?205
+https://54.148.206.111/SimpleWebRTC-master/index.html?205
+https://54.148.206.111:9001/index.html?205
+
+
+
+●以下非https - 只能用於localhost
+==========================================================
+http://localhost:9000/index.html?205
+
+
