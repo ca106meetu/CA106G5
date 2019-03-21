@@ -124,12 +124,14 @@
 <!-- 			</div> -->
 			
 			<div class="itemEdit">
-			  <%-- FORM METHOD="post" ACTION="<%=request.getContextPath()%>/FrontEnd/meetupMem/meetupMem.do" > --%>
-			     <input type="submit" value="退出" class="btn btn-warning quit">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/FrontEnd/meetupMem/meetupMem.do" >
+			  	<c:if test="${meetupSvc.getOneMeetup(meetupMemVO.meetup_ID).mem_ID!=memVO.mem_ID}">
+			     <input type="submit" value="退出" class="btn btn-warning">
+			    </c:if>
 			     <input type="hidden" name="meetup_ID"  value="${meetupMemVO.meetup_ID}">
-			     <input type="hidden" name="mem_ID"  value="${meetupMemVO.mem_ID}">
+			     <input type="hidden" name="mem_ID"  value="${memVO.mem_ID}">
 			     <input type="hidden" name="action" value="delete">
-			  <%--</FORM>--%>
+			  </FORM>
 			</div>
 			
 	    </div>
@@ -140,27 +142,27 @@
 <%@ include file="page2.file" %>
 
 <script>
-$(document).ready(function(){
+// $(document).ready(function(){
 	
-	$(".quit").click(function(){
-		$.ajax({
-		 type: "POST",
-		 url: "<%=request.getContextPath()%>/FrontEnd/meetupMem/meetupMem.do",
-		 data: {"meetup_ID":$(this).next().attr('value'), 
-			 	"action":"delete", 
-			 	"mem_ID":$(this).next().next().attr('value')},
-		 dataType: "json",
-		 success: function(){
-			 <%--
-			 alert("成功退出");
-			 $(".quit").addClass("disabled");
-			 --%>
-			 window.location.reload();
-			},
-         error: function(){alert("AJAX-grade發生錯誤囉!")}
-    });	
-});
-})
+// 	$(".quit").click(function(){
+// 		$.ajax({
+// 		 type: "POST",
+<%-- 		 url: "<%=request.getContextPath()%>/FrontEnd/meetupMem/meetupMem.do", --%>
+// 		 data: {"meetup_ID":$(this).next().attr('value'), 
+// 			 	"action":"delete", 
+// 			 	"mem_ID":$(this).next().next().attr('value')},
+// 		 dataType: "json",
+// 		 success: function(){
+<%-- 			
+<%-- 			 alert("成功退出"); --%>
+<%-- 			 $(".quit").addClass("disabled"); --%>
+<%-- 			 --%> 
+// 			 window.location.reload();
+// 			},
+//          error: function(){alert("AJAX-grade發生錯誤囉!")}
+//     });	
+// });
+// })
 </script>
 
     <jsp:include page="/Templates/bootstrap4/frontFooter.jsp" />

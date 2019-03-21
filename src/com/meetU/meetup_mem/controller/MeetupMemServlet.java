@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.meetU.meetup.model.MeetupService;
 import com.meetU.meetup_mem.model.MeetupMemService;
 import com.meetU.meetup_mem.model.MeetupMemVO;
 
@@ -197,29 +198,39 @@ public class MeetupMemServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 		
-//			try {
+			try {
 				/***************************1.接收請求參數***************************************/
 				String meetup_ID = req.getParameter("meetup_ID");
 				String mem_ID = req.getParameter("mem_ID");
 				/***************************2.開始刪除資料***************************************/
-				MeetupMemService meetupMemSvc = new MeetupMemService();
-				meetupMemSvc.deleteMeetupMem(meetup_ID, mem_ID);
+				MeetupService mtSvc = new MeetupService();
+				
+				String hostId = mtSvc.getOneMeetup(meetup_ID).getMem_ID();
+				String url = "/FrontEnd/meetupMem/listAllMyMeetup.jsp";
+				
+				if(hostId.equals(mem_ID)){
+					errorMsgs.add("無法刪除自己成立的聯誼");
+					throw new Exception();
+					//RequestDispatcher successView = req.getRequestDispatcher(url);
+				}else {
+					MeetupMemService meetupMemSvc = new MeetupMemService();
+					meetupMemSvc.deleteMeetupMem(meetup_ID, mem_ID);
+					RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+					successView.forward(req, res);
+				}
 	
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-				PrintWriter out = res.getWriter();
-				out.println("{}");
-				out.close();
-//				String url = "/meetupMem/select_page_mem.jsp";
-//				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
-//				successView.forward(req, res);
+//				PrintWriter out = res.getWriter();
+//				out.println("{}");
+//				out.close();
 				
 				/***************************其他可能的錯誤處理**********************************/
-//			} catch (Exception e) {
-//				errorMsgs.add("刪除資料失敗:"+e.getMessage());
-//				RequestDispatcher failureView = req
-//						.getRequestDispatcher("/meetupMem/select_page_mem.jsp");
-//				failureView.forward(req, res);
-//			}
+			} catch (Exception e) {
+				errorMsgs.add("刪除資料失敗:"+e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/FrontEnd/meetupMem/listAllMyMeetup.jsp");
+				failureView.forward(req, res);
+			}
 		}
 		
 		if("list_All_MyMeetup".equals(action)) { // 來自select_page.jsp的請求 //看個人參加的所有聯誼

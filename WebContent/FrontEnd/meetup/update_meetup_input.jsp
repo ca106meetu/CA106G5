@@ -9,6 +9,10 @@
 %>
 <html>
 <head>
+<!-- DateTimer -->
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
+	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
+	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
 <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -26,28 +30,28 @@
 	 	height:auto;
 	 }
 	 
-	  .headIntro{
+  .headIntro{
         height: 400px;
         margin-bottom: 20px;
         
       }
       
-      #rep{
+   #rep{
       	display:none;      
       }
       
-      *{
+   *{
       	font-family:微軟正黑體;
       }
       
-      .heart{
+   .heart{
    		margin: 16px 16px 0px 16px;
    	  }
-   	  #btnRep{
+   #btnRep{
    		margin-bottom:6px;
    	  }
    
-      .HeartnRep{
+   .HeartnRep{
    	  	margin-top:5px;
       }
       
@@ -98,7 +102,7 @@
 	</tr>	
 	<tr>
 		<th>聯誼地址</th>
-		<td><input type="text" name="meetup_loc" size="45" value="<%=meetupVO.getMeetup_loc()%>"/></td>
+		<td><input type="text" name="meetup_loc" size="45" value="<%=meetupVO.getMeetup_loc()%>" /></td>
 	</tr>	
 	<tr>	
 		<th>聯誼狀態</th>
@@ -139,10 +143,6 @@ function readURL(input){
 </script>
 
 <!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
-
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
-<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
-<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
 
 <style>
   .xdsoft_datetimepicker .xdsoft_datepicker {

@@ -22,9 +22,6 @@
    
 </style>
 <!-- dateTimePicker -->
-	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
-	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
-	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
 
 <meta>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -48,71 +45,67 @@
 	</ul>
 </c:if>
 
+
 <div class="container">
-	<div class="row">
-    	<div class="col">
-			
 <FORM METHOD="POST" ACTION="meetup.do" name="form1" enctype='multipart/form-data'>
-<table>
-	<tr>
-		<th>聯誼名稱</th>
-		<td><input type="text" name="meetup_name" size="45" value="<%=(meetupVO==null)? "汪汪":meetupVO.getMeetup_name()%>"/></td>
-	</tr>	
-	<tr>
-		<th>主揪</th>
-		<td><input type="hidden" name="mem_ID" size="45" value="<%=memVO.getMem_ID()%>"/> <%=memVO.getMem_name()%></td>
-	</tr>	
-	<tr>		
-		<th>聯誼日期</th>
-		<td><input type="text" name="meetup_date" id="f_date1"/></td>
-	</tr>	
-	<tr>
-		<th>聯誼地址</th>
-		<td>
-			<select id="twCityName">
-			  <option >--請選擇縣市--</option>
-			  <c:forEach var="city" items="${listCity}">
-			  	<option value="${city}"> ${city}</option>
-			  </c:forEach>
-	  		</select>
-	  
-	  		<select id="CityAreaName" >
-			  <option >--請選擇區域--</option>
-	  		</select>
-			    
-      		<select id="AreaRoadName" >
-			  <option >--請選擇路名--</option>
-	  		</select>	    
-	  
-		  	<input type="text" placeholder="請輸入門牌號碼" id="num">
-		  	<input type="button" value="確認" id="btnLoc">	
-		</td>
-	</tr>
-	<tr>
-		<th></th>
-		<td>
-			<input id="addressTotal" name="meetup_loc" type="text" size="50" value="<%=(meetupVO==null)?"資策會":meetupVO.getMeetup_loc()%>">
-		</td>
-	</tr>
-	<tr>
-		<th>聯誼封面照</th>
-		<td><input type="file" name="meetup_pic" size="45" id="imgUpload"/><br>
+      <div class="row">
+      
+       <div class="col-6">
+          <div class="headIntro introPic">
+          	<input type="file" name="meetup_pic" size="45" id="imgUpload"/>
 			<input type='hidden' name='encodeText' value='${encodeText}'/>
-			<img class='pic' src='data:img/png;base64,${encodeText}' ${(meetupVO.meetup_pic == null) ? "style='display:none'" : ''}></td>
-	</tr>		 
-	<tr>	
-		<th>聯誼資訊</th>
-		<td><input type="text" name="meetup_info" size="45" value="<%=(meetupVO==null)?"來嘛~":meetupVO.getMeetup_info()%>"/></td>			
-	</tr>
-</table>
-<input type="hidden" name="meetup_status" value="1">
-<input type="hidden" name="action" value="insert">
-<button type="submit" >送出新增</button>
+			<img class='pic' src='data:img/png;base64,${encodeText}' ${(meetupVO.meetup_pic == null) ? "style='display:none'" : ''}>
+          </div>
+        </div> 
+        
+        <div class="col-6">
+          <div class="headIntro">
+          	<ul>
+          		<li>聯誼名稱 : <input type="text" name="meetup_name" size="45" value="<%=(meetupVO==null)? "汪汪":meetupVO.getMeetup_name()%>"/></li>
+          		<li>聯誼日期 : <input type="text" name="meetup_date" id="f_date1"/></li>
+          		<li>聯誼地點 : <select id="twCityName">
+				  <option >--請選擇縣市--</option>
+				  <c:forEach var="city" items="${listCity}">
+				  	<option value="${city}"> ${city}</option>
+				  </c:forEach>
+			  		</select>
+			  
+			  		<select id="CityAreaName" >
+					  <option >--請選擇區域--</option>
+			  		</select>
+					    
+		      		<select id="AreaRoadName" >
+					  <option >--請選擇路名--</option>
+			  		</select>	    
+			  
+				  	<input type="text" placeholder="請輸入門牌號碼" id="num">
+				  	<input type="button" value="確認" id="btnLoc">	
+				
+					<input id="addressTotal" name="meetup_loc" type="text" size="50" value="<%=(meetupVO==null)?"資策會":meetupVO.getMeetup_loc()%>">
+				</li>
+          		<li>聯誼主揪 : <input type="hidden" name="mem_ID" size="45" value="<%=memVO.getMem_ID()%>"/> <%=memVO.getMem_name()%></li>
+          	</ul>
+          	
+        </div>
+       </div>
+      </div><!-- 來自ROW-->	
+      
+      <div class="row">
+       <div class="col-12">
+      	<div class="item"><!-- 假文假圖-->
+      	<p><input type="text" name="meetup_info" size="45" value="<%=(meetupVO==null)?"來嘛~":meetupVO.getMeetup_info()%>"/></p>
+      	</div>
+       </div>
+	  </div><!-- 來自Row-->   
+
+	<input type="hidden" name="meetup_status" value="1">
+	<input type="hidden" name="action" value="insert">
+	<button type="submit" >送出新增</button>
 </FORM>
-    <div id="map"></div>
+    
+	<div id="map"></div>
 </div>
-</div>
-</div>
+
 <script>
 <!-- 圖片上傳 -->
 $('#imgUpload').change(function(){
@@ -227,6 +220,11 @@ $(document).ready(function(){
 </script>
 
 <!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
+	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
+	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+
+
 <% 
   java.sql.Date meetup_date = null;
   try {
