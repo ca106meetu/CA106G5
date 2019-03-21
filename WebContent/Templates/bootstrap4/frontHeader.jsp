@@ -2,7 +2,10 @@
 <!doctype html>
 <html lang="en">
   <head>
+  <link rel="icon" href="<%=request.getContextPath()%>/Templates/favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favicon.ico" type="image/x-icon" />
   <style>
+  
   	.meetULogo{
   		width:200px;
   		height:200px;
