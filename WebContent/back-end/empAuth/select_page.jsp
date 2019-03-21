@@ -6,6 +6,8 @@
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
+     <link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+  <link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
@@ -85,6 +87,20 @@
        <input type="submit" value="送出">
     </FORM>
   </li>
+  
+  <jsp:useBean id="AuthSvc" scope="page" class="com.meetU.auth.model.AuthService" />
+  <li>
+     <FORM METHOD="post" ACTION="auth.do" >
+       <b>選擇權限:</b>
+       <select size="1" name="auth_ID">
+         <c:forEach var="AuthVO" items="${AuthSvc.all}" > 
+          <option value="${AuthVO.auth_ID}">${AuthVO.auth_name}
+         </c:forEach>   
+       </select>
+       <input type="hidden" name="action" value="getSome_For_Display">
+       <input type="submit" value="送出">
+    </FORM>
+  </li>   
   
 <!--   <li> -->
 <!--      <FORM METHOD="post" ACTION="empAuth.do" > -->

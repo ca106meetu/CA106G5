@@ -13,6 +13,8 @@
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
+     <link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+  <link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
@@ -63,7 +65,7 @@
 <table id="table-1">
 	<tr><td>
 		 <h3>員工權限資料 - ListSomeEmpAuth.jsp</h3>
-		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
+		 <h4><a href="../emp/select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
 	</td></tr>
 </table>
 
@@ -71,8 +73,7 @@
 	<tr>
 		<th>員工ID</th>
 		<th>權限ID</th>
-		<th>修改</th>
-		<th>刪除</th>
+		
 	</tr>
 	<%@ include file="page1.file" %> 
 	<c:forEach var="empAuthVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
@@ -80,21 +81,6 @@
 			<td>${empAuthVO.emp_ID}</td>
 			<td>${empAuthVO.auth_ID}</td>
 		
-						
-			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/giftbox/giftbox.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="修改">
-			     <input type="hidden" name="emp_ID"  value="${giftboxVO.emp_ID}">
-			     <input type="hidden" name="auth_ID"  value="${giftboxVO.auth_ID}">
-			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
-			</td>
-			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/giftbox/giftbox.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="刪除">
-			     <input type="hidden" name="emp_ID"  value="${giftboxVO.emp_ID}">
-			     <input type="hidden" name="auth_ID"  value="${giftboxVO.auth_ID}">
-			     <input type="hidden" name="action" value="delete"></FORM>
-			</td>
 		</tr>
 	</c:forEach>
 </table>

@@ -3,6 +3,8 @@
 <%@ page import="com.meetU.emp.model.*"%>
 
 <%
+//EmpService empSvc = new EmpService();
+//EmpVO empVO2 = empSvc.getOneEmp(request.getParameter("emp_ID"));
   EmpVO empVO = (EmpVO) request.getAttribute("empVO"); //EmpServlet.java (Concroller) 存入req的empVO物件 (包括幫忙取出的empVO, 也包括輸入資料錯誤時的empVO物件)
 %>
 
@@ -11,6 +13,8 @@
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
+     <link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+  <link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->

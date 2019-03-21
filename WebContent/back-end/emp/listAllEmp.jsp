@@ -2,13 +2,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.*"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.meetU.emp.model.*"%>
+<%@ page import="com.meetU.empAuth.model.*"%>
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
     EmpService empSvc = new EmpService();
     List<EmpVO> list = empSvc.getAll();
     pageContext.setAttribute("list",list);
+    
 %>
 <% 
     java.text.DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -21,6 +25,8 @@
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
+     <link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+  <link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
@@ -100,6 +106,7 @@
 		<th>員工居住地</th>
 		
 		<th>修改</th>
+		<th>修改權限</th>
 		<th>刪除</th>
 	</tr>
 	<%@ include file="page1.file" %> 
@@ -114,6 +121,7 @@
 			<td>${empVO.emp_pho}</td>
 			<td>${empVO.emp_gend}</td>
 			<td>
+			
 			<img class='pic' src='<%=request.getContextPath() %>/ShowPic?emp_ID=${empVO.emp_ID}'>
 			</td>
 			<td>${empVO.emp_state}</td>
@@ -124,7 +132,16 @@
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/emp/emp.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">
 			     <input type="hidden" name="emp_ID"  value="${empVO.emp_ID}">
-			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+			     <input type="hidden" name="action"	value="getOne_For_Update">
+			  </FORM>
+			</td>
+			<td>
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/empAuth/empAuth.do" style="margin-bottom: 0px;">
+			     <input type="submit" value="修改權限">
+			     <input type="hidden" name="emp_ID"  value="${empVO.emp_ID}">
+<%-- 			     <input type="hidden" name="empVO"  value="${empVO}"> --%>
+			     <input type="hidden" name="action"	value="getAuths_For_Update">
+			  </FORM>
 			</td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/emp/emp.do" style="margin-bottom: 0px;">
@@ -154,6 +171,9 @@
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery-3.3.1.slim.min.js"></script>
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/popper.min.js"></script>
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/js/bootstrap.min.js"></script>
+    <script src="<%=request.getContextPath()%>Templates/bootstrap4/js/jquery-1.12.4.min.js"></script>
+    
+    
   
 </body>
 </html>
