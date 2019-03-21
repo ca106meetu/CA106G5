@@ -6,7 +6,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta>
+<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/js/jquery-1.12.4.min.js"></script>
+	
+    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/js/sweetalert2.all.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/sweetalert2.css">
+
 <title>repContent.jsp</title>
 <style>
 img{
@@ -31,7 +40,7 @@ th, td{
 
 </head>
 <body>
-
+<jsp:include page="/Templates/bootstrap4/backHeader.jsp" />
 <%-- 錯誤表列 --%>
 <jsp:useBean id="meetupSvc" scope="request" class="com.meetU.meetup.model.MeetupService"/>
 
@@ -69,12 +78,8 @@ th, td{
 </FORM>  
 
 <%-- include listOneMeetup --%>
-<%@ include file="/FrontEnd/meetup/listOneMeetup.jsp"%>
+<jsp:include page="/Templates/bootstrap4/backFooter.jsp" />
 <%-- include listOneMeetup --%>
-<script>
-
-
-</script>
 
 </body>
 </html>
