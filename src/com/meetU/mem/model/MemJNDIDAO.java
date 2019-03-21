@@ -22,7 +22,7 @@ public class MemJNDIDAO implements MemDAO_interface{
 			Context ctx = new InitialContext();
 			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/CA106G5DB");
 		} catch (NamingException e) {
-			e.printStackTrace();
+			e.printStackTrace(); 
 		}
 	}
 	

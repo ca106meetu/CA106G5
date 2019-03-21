@@ -15,7 +15,7 @@ public class MemVO implements Serializable{
 	private String mem_email;
 	private String mem_pho;
 	private String mem_gend;
-	private byte[] mem_pic;
+	private byte[] mem_pic; 
 	private String mem_intro;
 	private Integer mem_code;
 	private Integer mem_state;
