@@ -9,14 +9,14 @@ import javax.servlet.http.*;
 
 import com.meetU.emp.model.*;
 import com.meetU.product.model.ProductService;
-import com.meetU.product.model.ProductVO;
+import com.meetU.product.model.ProductVO; 
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 public class EmpServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
   
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
-			throws ServletException, IOException { 
+			throws ServletException, IOException {
 		doPost(req, res);
 		
 	}

@@ -23,7 +23,7 @@
 <title>會員資料新增 - addEmp.jsp</title>
 
 <style>
-  table#table-1 {
+  table#table-1 { 
 	background-color: #CCCCFF;
     border: 2px solid black;
     text-align: center;

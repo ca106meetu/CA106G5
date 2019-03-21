@@ -114,7 +114,7 @@
 	</tr>
 	 <tr>
 		<td>員工大頭照:</td>
-		<td><input type="file" name="emp_pic" onchange='readURL(this)'/><br> 
+		<td><input type="file" name="emp_pic" onchange='readURL(this)'/><br>  
 		<img class='pic' src='data:img/png;base64,${encodeText}'  ${(empVO.emp_pic==null) ? 'style="display:none"' : ''}></td>
 	</tr>
 	<tr>

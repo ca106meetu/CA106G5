@@ -23,7 +23,7 @@ public class MemServlet extends HttpServlet {
        
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
-		doPost(req, res); 
+		doPost(req, res);
 	}
 
 
@@ -703,7 +703,7 @@ public class MemServlet extends HttpServlet {
 				//新增完之後馬上查詢會員資料給下面使用
 				/*************************************************/
 				
-				memVO = memSvc.getOneMem(mem_acc, mem_pw);
+				memVO = memSvc.getOneMem(mem_acc, mem_pw); 
 				
 				/*************************************************/
 						
