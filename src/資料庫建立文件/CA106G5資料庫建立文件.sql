@@ -672,6 +672,12 @@ NOCACHE;
 
 Insert into MEETUP (MEETUP_ID,MEETUP_NAME,MEM_ID,MEETUP_DATE,MEETUP_LOC,MEETUP_STATUS,MEETUP_PIC,MEETUP_INFO) 
   values ('MP'||LPAD(to_char(meetup_seq.NEXTVAL), 6, '0'),'ValentinesDates','M000001',TO_DATE('2018-03-14','YYYY-MM-DD'),'110台北市-信義區-市府路1號','1',null,'大家一起過白色情人節');
+
+
+Insert into MEETUP (MEETUP_ID,MEETUP_NAME,MEM_ID,MEETUP_DATE,MEETUP_LOC,MEETUP_STATUS,MEETUP_PIC,MEETUP_INFO) 
+  values ('MP'||LPAD(to_char(meetup_seq.NEXTVAL), 6, '0'),'Mr. Right','M000002',
+    TO_DATE('2019-05-14','YYYY-MM-DD'),'320桃園市-中壢區-中央路300號','1',null,'異男限定');
+  
 Insert into MEETUP (MEETUP_ID,MEETUP_NAME,MEM_ID,MEETUP_DATE,MEETUP_LOC,MEETUP_STATUS,MEETUP_PIC,MEETUP_INFO) 
   values ('MP'||LPAD(to_char(meetup_seq.NEXTVAL), 6, '0'),'好山好水好幸福','M000003',
     TO_DATE('2019-05-14','YYYY-MM-DD'),'970花蓮市-中正路106號','1',null,'一起找到幸福');
@@ -688,9 +694,6 @@ Insert into MEETUP (MEETUP_ID,MEETUP_NAME,MEM_ID,MEETUP_DATE,MEETUP_LOC,MEETUP_S
   values ('MP'||LPAD(to_char(meetup_seq.NEXTVAL), 6, '0'),'愛情摩天輪','M000006',
     TO_DATE('2019-05-14','YYYY-MM-DD'),'812高雄市-小港區-小港二街31號','1',null,'讓摩天輪轉吧!');
 
-Insert into MEETUP (MEETUP_ID,MEETUP_NAME,MEM_ID,MEETUP_DATE,MEETUP_LOC,MEETUP_STATUS,MEETUP_PIC,MEETUP_INFO) 
-  values ('MP'||LPAD(to_char(meetup_seq.NEXTVAL), 6, '0'),'Mr. Right','M000002',
-    TO_DATE('2019-05-14','YYYY-MM-DD'),'320桃園市-中壢區-中央路300號','1',null,'異男限定');
 ----------------------------
 --  for Table MEETUP_MEM
 ----------------------------
