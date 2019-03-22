@@ -39,7 +39,7 @@ public class MemServlet extends HttpServlet {
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
- 
+
 			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				String mem_ID = req.getParameter("mem_ID");
@@ -425,15 +425,15 @@ public class MemServlet extends HttpServlet {
 				listMemHobbyVO = memHobbySvc.updateAllHobby(mem_ID, listMemHobbyVO);
 				List<String> listHobby_ID = memHobbySvc.getPartOfOneMemHobby2(mem_ID);
 				
-				MemHobbyService memHobbySvc2 = new MemHobbyService();
-				List<MemHobbyVO> list = memHobbySvc2.getPartOfOneMemHobby(mem_ID);
-				if (list.isEmpty() == true) {
-					errorMsgs.add("查無資料");
+				if(!listHobby_ID.isEmpty()) {
+					MemHobbyService memHobbySvc2 = new MemHobbyService();
+					List<MemHobbyVO> list = memHobbySvc2.getPartOfOneMemHobby(mem_ID);
 				}
+				
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("memVO", memVO); // 資料庫update成功後,正確的的memVO物件,存入req
-				req.setAttribute("list", list);
+				//req.setAttribute("list", list);
 				req.setAttribute("listMemHobbyVO", listMemHobbyVO);
 				req.setAttribute("listHobby_ID", listHobby_ID);
 				String url = "/back-end/mem/listOneMem.jsp";
@@ -715,14 +715,14 @@ public class MemServlet extends HttpServlet {
 					memHobbyVO.setHobby_ID(hobby_ID[i]);
 					listMemHobbyVO.add(memHobbyVO);
 				}
-				
 				MemHobbyService memHobbySvc = new MemHobbyService();
-				memHobbySvc.updateAllHobby(mem_ID, listMemHobbyVO);
-				List<String> listHobby_ID = memHobbySvc.getPartOfOneMemHobby2(mem_ID);
+				if(!listMemHobbyVO.isEmpty()) {
+					memHobbySvc.updateAllHobby(mem_ID, listMemHobbyVO);
+					List<String> listHobby_ID = memHobbySvc.getPartOfOneMemHobby2(mem_ID);
 				
-				MemHobbyService memHobbySvc2 = new MemHobbyService();
-				List<MemHobbyVO> list = memHobbySvc2.getPartOfOneMemHobby(mem_ID);
-				
+					MemHobbyService memHobbySvc2 = new MemHobbyService();
+					List<MemHobbyVO> list = memHobbySvc2.getPartOfOneMemHobby(mem_ID);
+				}
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				String url = "/back-end/mem/listAllMem.jsp";
