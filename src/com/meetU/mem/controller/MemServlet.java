@@ -437,6 +437,8 @@ public class MemServlet extends HttpServlet {
 					List<MemHobbyVO> list = memHobbySvc2.getPartOfOneMemHobby(mem_ID);
 					req.setAttribute("listMemHobbyVO", listMemHobbyVO);
 					req.setAttribute("listHobby_ID", listHobby_ID);
+				}else {
+					errorMsgs.add("會員興趣: 請勾選");
 				}
 				
 				
@@ -731,6 +733,17 @@ public class MemServlet extends HttpServlet {
 				
 					MemHobbyService memHobbySvc2 = new MemHobbyService();
 					List<MemHobbyVO> list = memHobbySvc2.getPartOfOneMemHobby(mem_ID);
+				}else {
+					errorMsgs.add("會員興趣: 請勾選");
+				}
+				
+				if (!errorMsgs.isEmpty()) {
+					System.out.println("檢查點 2");
+					req.setAttribute("memVO", memVO); // 含有輸入格式錯誤的memVO物件,也存入req
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/back-end/mem/addMem.jsp");
+					failureView.forward(req, res);
+					return;
 				}
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
