@@ -30,7 +30,7 @@ public class MemServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) 
 			throws ServletException, IOException {
 
-		req.setCharacterEncoding("UTF-8");
+		req.setCharacterEncoding("UTF-8"); 
 		String action = req.getParameter("action");
 		
 		if ("getOne_For_Display".equals(action)) { // 來自addMem.jsp的請求
@@ -703,7 +703,7 @@ public class MemServlet extends HttpServlet {
 				//新增完之後馬上查詢會員資料給下面使用
 				/*************************************************/
 				
-				memVO = memSvc.getOneMem(mem_acc, mem_pw); 
+				memVO = memSvc.getOneMem(mem_acc, mem_pw);
 				
 				/*************************************************/
 						
