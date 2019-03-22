@@ -80,7 +80,7 @@
 		<th>商品單價</th>
 		<th>數量</th>
 		<th>圖片</th>
-		<th>刪除</th>
+<!-- 		<th>刪除</th> -->
 	</tr>
 	
 	<jsp:useBean id='prodSvc' scope='page' class='com.meetU.product.model.ProductService'/>
@@ -96,15 +96,15 @@
 			<td>${odVO.price}</td>
 			<td>${odVO.quantity}</td>
 			<td><img class='pic' src='/CA106G5/ShowPic?PROD_ID=${prodSvc.getOneProd(odVO.prod_ID).prod_ID}'></td>
-			<td>	
-				<form method='post' action='od.do' style="margin-bottom: 0px;">
-					<input type='submit' value='刪除'>
-					<input type='hidden' name='order_ID' value='<%=order_ID%>'>
-					<input type='hidden' name='order_ID' value='${prodSvc.getOneProd(odVO.prod_ID).prod_ID}'>
-					<input type='hidden' name='action' value='delete'>				
-				</form>
+<!-- 			<td>	 -->
+<!-- 				<form method='post' action='od.do' style="margin-bottom: 0px;"> -->
+<!-- 					<input type='submit' value='刪除'> -->
+<%-- 					<input type='hidden' name='order_ID' value='<%=order_ID%>'> --%>
+<%-- 					<input type='hidden' name='order_ID' value='${prodSvc.getOneProd(odVO.prod_ID).prod_ID}'> --%>
+<!-- 					<input type='hidden' name='action' value='delete'>				 -->
+<!-- 				</form> -->
 			
-			</td>
+<!-- 			</td> -->
 			
 		</tr>
  	

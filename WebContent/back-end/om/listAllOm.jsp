@@ -88,7 +88,7 @@
 		<th>備註</th>
 		<th>明細</th>
 		<th>修改</th>
-		<th>刪除</th>		
+<!-- 		<th>刪除</th>		 -->
 	</tr>
 	<%@ include file="page1.file" %> 
 	<%
@@ -122,14 +122,14 @@
 					<input type='hidden' name='order_ID' value='${omVO.order_ID}'>
 					<input type='hidden' name='action' value='getOne_For_Update'>				
 				</form></td>
-			<td>	
-				<form method='post' action='om.do' style="margin-bottom: 0px;">
-					<input type='submit' value='刪除'>
-					<input type='hidden' name='order_ID' value='${omVO.order_ID}'>
-					<input type='hidden' name='action' value='delete'>				
-				</form>
+<!-- 			<td>	 -->
+<!-- 				<form method='post' action='om.do' style="margin-bottom: 0px;"> -->
+<!-- 					<input type='submit' value='刪除'> -->
+<%-- 					<input type='hidden' name='order_ID' value='${omVO.order_ID}'> --%>
+<!-- 					<input type='hidden' name='action' value='delete'>				 -->
+<!-- 				</form> -->
 			
-			</td>
+<!-- 			</td> -->
 		
 		
 		</tr>
