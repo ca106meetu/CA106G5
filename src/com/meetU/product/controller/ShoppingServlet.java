@@ -170,7 +170,7 @@ public class ShoppingServlet extends HttpServlet {
 						errorMsgs.add("訂單價格:訂單價格請填數字");
 					}
 					String tip = req.getParameter("tip").trim();
-					
+					 
 					
 					String out_add = req.getParameter("out_add");
 					String recipient = req.getParameter("recipient");
