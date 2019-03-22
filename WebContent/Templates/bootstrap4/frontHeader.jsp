@@ -72,7 +72,6 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item memupdate" href="<%=request.getContextPath()%>/FrontEnd/mem/update_mem_input.jsp" onclick='return allowUser();'>修改會員資料</a>
-          <a class="dropdown-item memupdate" href="<%=request.getContextPath()%>/FrontEnd/point/listMyPr.jsp" onclick='return allowUser();'>點數管理</a>
         </div>
       </li>
       

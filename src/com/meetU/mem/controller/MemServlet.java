@@ -398,15 +398,7 @@ public class MemServlet extends HttpServlet {
 				System.out.println("檢查點 1");
 
 				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					System.out.println("檢查點 2");
-
-					req.setAttribute("memVO", memVO); // 含有輸入格式錯誤的memVO物件,也存入req
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/mem/update_mem_input.jsp");
-					failureView.forward(req, res);
-					return; //程式中斷
-				}
+			
 				
 				/***************************2.開始修改資料*****************************************/
 				MemService memSvc = new MemService();
@@ -441,6 +433,15 @@ public class MemServlet extends HttpServlet {
 					errorMsgs.add("會員興趣: 請勾選");
 				}
 				
+				if (!errorMsgs.isEmpty()) {
+					System.out.println("檢查點 2");
+
+					req.setAttribute("memVO", memVO); // 含有輸入格式錯誤的memVO物件,也存入req
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/back-end/mem/update_mem_input.jsp");
+					failureView.forward(req, res);
+					return; //程式中斷
+				}
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("memVO", memVO); // 資料庫update成功後,正確的的memVO物件,存入req
