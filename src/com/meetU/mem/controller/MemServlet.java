@@ -415,6 +415,9 @@ public class MemServlet extends HttpServlet {
 						                 mem_code, mem_state, mem_date, mem_sign_day, mem_login_state,
 						                 mem_address, last_pair, mem_hobby, mem_QRCODE, mem_get_point,
 						                 mem_ID);
+				req.setAttribute("memVO", memVO);
+				
+				
 				String hobby_ID[] = req.getParameterValues("hobby_ID");
 				if (hobby_ID.length!=0) {
 					List<MemHobbyVO> listMemHobbyVO = new LinkedList<MemHobbyVO>();
@@ -709,6 +712,7 @@ public class MemServlet extends HttpServlet {
 				/*************************************************/
 				
 				memVO = memSvc.getOneMem(mem_acc, mem_pw);
+				req.setAttribute("memVO", memVO);
 				
 				/*************************************************/
 				String hobby_ID[] = req.getParameterValues("hobby_ID");

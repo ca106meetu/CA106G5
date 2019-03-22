@@ -133,7 +133,7 @@
 	<tr>
 		<td>會員自我介紹:</td>
 		<td>
-			<textarea name="mem_intro" rows="4" cols="50"><%= (memVO==null)? "陸游出身於一個由「貧居苦學而仕進」的世宦家庭。陸游的高祖是宋仁宗時太傅陸軫，祖父陸佃，父親陸宰。出生時正值宋朝腐敗不振、屢遭金國（女真族）侵略的年代。出生次年，金兵攻陷北宋首都汴京，他於襁褓中即隨家人顛沛流離，因受社會及家庭環境影響，自幼即立志殺胡（金兵）救國。" : memVO.getMem_intro()%>"</textarea>
+			<textarea name="mem_intro" rows="4" cols="50"><%= (memVO==null)? "陸游出身於一個由「貧居苦學而仕進」的世宦家庭。" : memVO.getMem_intro()%>"</textarea>
 		 </td>
 	</tr>
 	<tr>
