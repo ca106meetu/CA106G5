@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.meetU.mem.model.MemService;
 import com.meetU.orderDetail.model.OrderDetailService;
 import com.meetU.orderMaster.model.OrderMasterService;
 import com.meetU.orderMaster.model.OrderMasterVO;
@@ -215,6 +216,7 @@ public class ShoppingServlet extends HttpServlet {
 					//**********************************
 					OrderDetailService odSvc = new OrderDetailService();
 					odSvc.insertOmOd(mem_ID, price, order_date, tip, out_add, recipient, phone, out_date, out_status, order_status, buyList);
+					req.getSession().setAttribute("memVO", new MemService().getOneMem(mem_ID));
 					req.setAttribute("lastPage", true);
 					
 					//**********************************
