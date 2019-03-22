@@ -10,9 +10,7 @@
 <html>
 <head>
 <!-- DateTimer -->
-	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
-	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
-	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+	
 <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -75,7 +73,7 @@
 
 </head>
 <body>
-
+<jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤</font>
 	<ul>
@@ -106,7 +104,7 @@
 	</tr>	
 	<tr>	
 		<th>聯誼狀態</th>
-		<td><input type="text" name="meetup_status" size="45" value="<%=meetupVO.getMeetup_status()%>"/></td>
+		<td><input type="hidden" name="meetup_status" size="45" value="<%=meetupVO.getMeetup_status()%>"/><%=meetupVO.getMeetup_status()%></td>
 	</tr>	 
 	<tr>
 		<th>聯誼封面照</th>
@@ -143,7 +141,9 @@ function readURL(input){
 </script>
 
 <!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
-
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
+	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
+	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
 <style>
   .xdsoft_datetimepicker .xdsoft_datepicker {
            width:  300px;   /* width:  300px; */
@@ -216,4 +216,6 @@ function readURL(input){
         //      }});
         
 </script>
+<jsp:include page="/Templates/bootstrap4/frontFooter.jsp" />
+</body>
 </html>

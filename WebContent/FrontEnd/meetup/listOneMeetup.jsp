@@ -240,7 +240,7 @@ $(document).ready(function(){
 			 success: function(){
 				 alert("謝謝您的回饋，管理員會盡快處理");
 				},
-	         error: function(){alert("AJAX-grade發生錯誤囉!")}
+	         error: function(){alert("請確認輸入文字後送出")}
 	    });	
 	});
 	
