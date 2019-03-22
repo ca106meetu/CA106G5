@@ -113,10 +113,15 @@
 			<br>
 			<img class='pic' src='data:img/png;base64,${encodeText}'/></td>
 			
-	</tr>		
+	</tr>
+			
 	<tr>	
 		<th>聯誼資訊</th>
-		<td><input type="text" name="meetup_info" size="45" value="<%=meetupVO.getMeetup_info()%>"/></td>			
+		<td>
+			<script src="<%=request.getContextPath()%>/ckeditor4/ckeditor.js"></script>
+	      	<textarea name="meetup_info" rows="10" cols="45">${param.meetup_info}</textarea>
+	       	<script>CKEDITOR.replace('meetup_info');</script>
+	    </td>   				
 	</tr>
 </table>
 <br>

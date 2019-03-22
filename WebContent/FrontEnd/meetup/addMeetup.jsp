@@ -93,8 +93,10 @@
       <div class="row">
        <div class="col-12">
       	<div class="item"><!-- 假文假圖-->
-      	<p><input type="text" name="meetup_info" size="45" value="<%=(meetupVO==null)?"來嘛~":meetupVO.getMeetup_info()%>"/></p>
-      	</div>
+	      	<script src="<%=request.getContextPath()%>/ckeditor4/ckeditor.js"></script>
+	      	<textarea name="meetup_info" rows="10" cols="45">${param.meetup_info}</textarea>
+	       	<script>CKEDITOR.replace('meetup_info');</script>
+       	</div>
        </div>
 	  </div><!-- 來自Row-->   
 
