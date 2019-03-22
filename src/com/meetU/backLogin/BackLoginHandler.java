@@ -85,9 +85,9 @@ public class BackLoginHandler extends HttpServlet{
 				//System.out.println(auth_IDs);
 				session.setAttribute("auth_IDs", auth_IDs);
 				try {                                                        
-					String location = (String) session.getAttribute("location");
+					String location = (String) session.getAttribute("blocation");
 					if (location != null) {
-						session.removeAttribute("location");   //*工作2: 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)
+						session.removeAttribute("blocation");   //*工作2: 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)
 						res.sendRedirect(location);            
 						return;
 					}
