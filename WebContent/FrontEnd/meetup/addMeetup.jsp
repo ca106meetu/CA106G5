@@ -19,6 +19,11 @@
         height: 400px;
         width: 100%;
        }
+       
+ img {
+       
+        width: 300px;
+       }
    
 </style>
 <!-- dateTimePicker -->
@@ -61,7 +66,7 @@
         <div class="col-6">
           <div class="headIntro">
           	<ul>
-          		<li>聯誼名稱 : <input type="text" name="meetup_name" size="45" value="<%=(meetupVO==null)? "汪汪":meetupVO.getMeetup_name()%>"/></li>
+          		<li>聯誼名稱 : <input type="text" name="meetup_name" size="45" value="<%=(meetupVO==null)? "":meetupVO.getMeetup_name()%>"/></li>
           		<li>聯誼日期 : <input type="text" name="meetup_date" id="f_date1"/></li>
           		<li>聯誼地點 : <select id="twCityName">
 				  <option >--請選擇縣市--</option>
@@ -81,7 +86,7 @@
 				  	<input type="text" placeholder="請輸入門牌號碼" id="num">
 				  	<input type="button" value="確認" id="btnLoc">	
 				
-					<input id="addressTotal" name="meetup_loc" type="text" size="50" value="<%=(meetupVO==null)?"資策會":meetupVO.getMeetup_loc()%>">
+					<input id="addressTotal" name="meetup_loc" type="text" size="50" value="<%=(meetupVO==null)?"":meetupVO.getMeetup_loc()%>">
 				</li>
           		<li>聯誼主揪 : <input type="hidden" name="mem_ID" size="45" value="<%=memVO.getMem_ID()%>"/> <%=memVO.getMem_name()%></li>
           	</ul>
