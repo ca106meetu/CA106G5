@@ -5,10 +5,10 @@
 <%@ page import="java.util.*"%>
 
 <%
-  MemVO regMemVO = (MemVO) session.getAttribute("regMemVO"); //MemServlet.java (Concroller) 存入req的memVO物件 (包括幫忙取出的memVO, 也包括輸入資料錯誤時的memVO物件)
+  MemVO memVO = (MemVO) session.getAttribute("memVO"); //MemServlet.java (Concroller) 存入req的memVO物件 (包括幫忙取出的memVO, 也包括輸入資料錯誤時的memVO物件)
   
 //   System.out.println("---------------------------------------");
-//   System.out.println(regMemVO==null);
+//   System.out.println(memVO==null);
 //   System.out.println("---------------------------------------");
 %>
 
@@ -100,23 +100,23 @@
 <table id="main_data">
 
 		<td class="laber">會員帳號:</td>
-		<td><input type="hidden" name="mem_acc" value="<%= (regMemVO==null)? "" : regMemVO.getMem_acc()%>"/> 
-			 <%= (regMemVO==null)? "" : regMemVO.getMem_acc()%> </td>
+		<td><input type="hidden" name="mem_acc" value="<%= (memVO==null)? "" : memVO.getMem_acc()%>"/> 
+			 <%= (memVO==null)? "" : memVO.getMem_acc()%> </td>
 		</tr>
 	<tr>
 		<td class="laber">會員密碼:</td>
 		<td><input type="TEXT" name="mem_pw" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" 
-			 value="<%= (regMemVO==null)? "1234" : regMemVO.getMem_pw()%>" /></td>
+			 value="<%= (memVO==null)? "" : memVO.getMem_pw()%>" /></td>
 	</tr>
 	<tr>
 		<td class="laber">會員姓名:</td>
 		<td><input type="TEXT" name="mem_name" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
-			 value="<%= (regMemVO.getMem_name()==null)? "" : regMemVO.getMem_name()%>" /></td>
+			 value="<%= (memVO.getMem_name()==null)? "" : memVO.getMem_name()%>" /></td>
 	</tr>
 	<tr>
 		<td class="laber">會員暱稱:</td>
 		<td><input type="TEXT" name="mem_nickname" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
-			 value="<%= (regMemVO.getMem_nickname()==null)? "" : regMemVO.getMem_nickname()%>" /></td>
+			 value="<%= (memVO.getMem_nickname()==null)? "" : memVO.getMem_nickname()%>" /></td>
 	</tr>
 	<tr>
 		<td class="laber">會員生日:</td>
@@ -125,75 +125,60 @@
 	</tr>	
 	<tr>
 		<td class="laber">會員電子郵件信箱:</td>
-		<td><input type="hidden" name="mem_email" value="<%=regMemVO.getMem_email()%>"> 
-			 <%= (regMemVO.getMem_email()==null)? "" : regMemVO.getMem_email()%></td>
+		<td><input type="hidden" name="mem_email" value="<%=memVO.getMem_email()%>"> 
+			 <%= (memVO.getMem_email()==null)? "" : memVO.getMem_email()%></td>
 	</tr>
 	<tr>
 		<td class="laber">會員手機:</td>
 		<td><input type="TEXT" name="mem_pho" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" 
-			 value="<%= (regMemVO.getMem_pho()==null)? "" : regMemVO.getMem_pho()%>" /></td>
+			 value="<%= (memVO.getMem_pho()==null)? "" : memVO.getMem_pho()%>" /></td>
 	</tr>	
 	<tr>
 		<td class="laber"><label for="mem_gend">會員性別:</label></td>
-		<td><select class="form-control" name="mem_gend" id="mem_gend" >
-        	 </select>
-        	 </td>
+		<td><input type="TEXT" name="mem_gend" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" 
+			 value="<%= (memVO.getMem_gend()==null)? "" : memVO.getMem_gend()%>" />
+		
+        </td>
 	</tr>
 	<tr>
 		<td class="laber">會員大頭照:</td>
 		<td><input type="file" name="mem_pic" onchange='readURL(this)' class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"/><br>
-		<img id='pic1' class='pic' src='data:img/png;base64,${encodeText}'  ${(regMemVO.mem_pic==null) ? 'style="display:none"' : ''}></td>
+		<img id='pic1' class='pic' src='data:img/png;base64,${encodeText}'  ${(memVO.mem_pic==null) ? 'style="display:none"' : ''}></td>
 	</tr>
 	<tr>
 		<td class="laber">會員自我介紹:</td>
 		<td>
-			<textarea name="mem_intro" rows="4" cols="50"><%= (regMemVO.getMem_intro()==null)? "" : regMemVO.getMem_intro()%></textarea>
+			<textarea name="mem_intro" rows="4" cols="50"><%= (memVO.getMem_intro()==null)? "" : memVO.getMem_intro()%></textarea>
 		 </td>
 	</tr>
 
 	<tr>
 		<td class="laber">會員註冊日期:</td>
 		<td><input type="hidden" name="mem_date" id="f_date2" >
-			<%= regMemVO.getMem_date() %>
+			<%= memVO.getMem_date() %>
 		</td>
 	</tr>
 
 	<tr>
 		<td class="laber">會員居住地:</td>
 		<td><input type="TEXT" name="mem_address" aria-label="Default" aria-describedby="inputGroup-sizing-default"
-			 value="<%= (regMemVO.getMem_address()==null)? "" : regMemVO.getMem_address()%>" /></td>
+			 value="<%= (memVO.getMem_address()==null)? "" : memVO.getMem_address()%>" /></td>
 	</tr>
 	
-	<jsp:useBean id="hobbySvc" scope="page" class="com.meetU.hobby.model.HobbyService" />
-	<tr>
-		<td class="laber">會員興趣:</td>
-		<td>
-		<c:forEach var="hobbyVO" items="${hobbySvc.all}" varStatus="s" >
-		${(s.index%4==0)? '<br>' : ''}
-			<input type="checkbox"  name="hobby_ID" value="${hobbyVO.hobby_ID}" ${listHobby_ID.contains(hobbyVO.hobby_ID)?'checked':''}> ${hobbyVO.hobby_name}
-		</c:forEach>
-		</td>
-	</tr>
-
-	<tr>
-		<td class="laber">會員QRCODE:</td>
-		<td><input type="file" name="mem_QRCODE" onchange='readURL2(this)'/><br>
-		<img id='pic2' class='pic' src='data:img/png;base64,${encodeText}'  ${(memVO.mem_QRCODE==null) ? 'style="display:none"' : ''}></td>
-	</tr>
-
 	<tr>
 		<td class="laber">會員點數:</td>
-		<td><input type="hidden" name="mem_get_point" value="<%= (regMemVO.getMem_get_point()==null)? 0 : regMemVO.getMem_get_point()%>">
-			 <%= (regMemVO.getMem_get_point()==null)? 0 : regMemVO.getMem_get_point()%></td>
+		<td><input type="hidden" name="mem_get_point" value="<%= (memVO.getMem_get_point()==null)? 0 : memVO.getMem_get_point()%>">
+			 <%= (memVO.getMem_get_point()==null)? 0 : memVO.getMem_get_point()%></td>
 	</tr>
+		<input type="hidden" name="mem_QRCODE" />
 		<input type="hidden" name="mem_sign_day" id="f_date3" >
 		<input type="hidden" name="mem_login_state" value="1">
-		<input type="hidden" name="mem_hobby" >
+		<input type="hidden" name="mem_hobby" value="打LOL">
 
 </table>
 <br>
-<input type="hidden" name="action" value="update">
-<input type="hidden" name="mem_ID" value="<%=regMemVO.getMem_ID()%>">
+<input type="hidden" name="action" value="reg">
+<input type="hidden" name="mem_ID" value="<%=memVO.getMem_ID()%>">
 <input type="submit" value="送出修改">
 </FORM>
 </center>
@@ -230,28 +215,28 @@
 <% 
   java.sql.Date mem_bday = null;
   try {
-	  mem_bday = regMemVO.getMem_bday();
+	  mem_bday = memVO.getMem_bday();
    } catch (Exception e) {
 	  mem_bday = new java.sql.Date(System.currentTimeMillis());
    }
   
   java.sql.Date mem_date = null;
   try {
-	  mem_date = regMemVO.getMem_date();
+	  mem_date = memVO.getMem_date();
    } catch (Exception e) {
 	  mem_date = new java.sql.Date(System.currentTimeMillis());
    }
   
   java.sql.Timestamp mem_sign_day = null;
   try {
-	  mem_sign_day = regMemVO.getMem_sign_day();
+	  mem_sign_day = memVO.getMem_sign_day();
    } catch (Exception e) {
 	   mem_sign_day = new java.sql.Timestamp(System.currentTimeMillis());
    }
   
   java.sql.Timestamp last_pair = null;
   try {
-	  last_pair = regMemVO.getLast_pair();
+	  last_pair = memVO.getLast_pair();
    } catch (Exception e) {
 	  last_pair = new java.sql.Timestamp(System.currentTimeMillis());
    }

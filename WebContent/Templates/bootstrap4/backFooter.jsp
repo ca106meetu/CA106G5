@@ -12,7 +12,7 @@
   </head>
   <body>
     <!-- Footer -->
-<footer class="page-footer font-small mdb-color pt-4">
+<footer class="page-footer font-small mdb-color pt-4 bg-info text-white">
 
     <!-- Footer Links -->
     <div class="container text-center text-md-left">
@@ -23,8 +23,7 @@
         <!-- Grid column -->
         <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
           <h6 class="text-uppercase mb-4 font-weight-bold">Company name</h6>
-          <p>Here you can use rows and columns here to organize your footer content. Lorem ipsum dolor sit amet, consectetur
-            adipisicing elit.</p>
+          <p >資策會-CA106G5-MEETU</p>
         </div>
         <!-- Grid column -->
 
@@ -32,19 +31,11 @@
 
         <!-- Grid column -->
         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
-          <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
-          <p>
-            <a href="#!">MDBootstrap</a>
+          <h6 class="text-uppercase mb-4 font-weight-bold">Members</h6>
+          <p >
+              先離開的人-賴柏松<br>還留著的人-陳彥彰<br>地方的媽媽-江欣旻<br>永遠同一件-徐効群<br>沉默就是金-張浩銘<br>今天又沒來-王以信
           </p>
-          <p>
-            <a href="#!">MDWordPress</a>
-          </p>
-          <p>
-            <a href="#!">BrandFlow</a>
-          </p>
-          <p>
-            <a href="#!">Bootstrap Angular</a>
-          </p>
+     
         </div>
         <!-- Grid column -->
 
@@ -52,19 +43,17 @@
 
         <!-- Grid column -->
         <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
-          <h6 class="text-uppercase mb-4 font-weight-bold">Useful links</h6>
-          <p>
-            <a href="#!">Your Account</a>
+          <h6 class="text-uppercase mb-4 font-weight-bold">Take it easy</h6>
+         
+          <p >
+            為什麼連假不能工作？
+           </a>
           </p>
-          <p>
-            <a href="#!">Become an Affiliate</a>
+          <p >
+              因為會變成連假勞工
+           
           </p>
-          <p>
-            <a href="#!">Shipping Rates</a>
-          </p>
-          <p>
-            <a href="#!">Help</a>
-          </p>
+                   
         </div>
 
         <!-- Grid column -->
@@ -73,14 +62,14 @@
         <!-- Grid column -->
         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
           <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
-          <p>
-            <i class="fas fa-home mr-3"></i> New York, NY 10012, US</p>
-          <p>
-            <i class="fas fa-envelope mr-3"></i> info@gmail.com</p>
-          <p>
-            <i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
-          <p>
-            <i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
+          <p >
+            <i class="fas fa-home mr-3"></i> 台灣中壢中央大學</p>
+          <p >
+            <i class="fas fa-envelope mr-3"></i> meetU@gmail.com</p>
+          <p >
+            <i class="fas fa-phone mr-3"></i> 0905 106 205</p>
+          <p >
+            <i class="fas fa-print mr-3"></i> JAVA CA106 第五組</p>
         </div>
         <!-- Grid column -->
 
@@ -96,9 +85,9 @@
         <div class="col-md-7 col-lg-8">
 
           <!--Copyright-->
-          <p class="text-center text-md-left">© 2018 Copyright:
-            <a href="https://mdbootstrap.com/education/bootstrap/">
-              <strong> MDBootstrap.com</strong>
+          <p class="text-center text-md-left">© 2019 Copyright
+            <a href="">
+              <strong> meetU.com</strong>
             </a>
           </p>
 

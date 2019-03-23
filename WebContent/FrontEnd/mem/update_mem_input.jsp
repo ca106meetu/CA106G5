@@ -172,17 +172,6 @@
 			 value="<%= (memVO.getMem_address()==null)? "" : memVO.getMem_address()%>" /></td>
 	</tr>
 	
-	<jsp:useBean id="hobbySvc" scope="page" class="com.meetU.hobby.model.HobbyService" />
-	<tr>
-		<td class="laber">會員興趣:</td>
-		<td>
-		<c:forEach var="hobbyVO" items="${hobbySvc.all}" varStatus="s" >
-		${(s.index%4==0)? '<br>' : ''}
-			<input type="checkbox"  name="hobby_ID" value="${hobbyVO.hobby_ID}" ${listHobby_ID.contains(hobbyVO.hobby_ID)?'checked':''}> ${hobbyVO.hobby_name}
-		</c:forEach>
-		</td>
-	</tr>
-
 	<tr>
 		<td class="laber">會員點數:</td>
 		<td><input type="hidden" name="mem_get_point" value="<%= memVO.getMem_get_point()%>" >

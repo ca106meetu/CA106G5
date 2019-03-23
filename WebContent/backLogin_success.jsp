@@ -17,6 +17,7 @@
 </head>
 <body bgcolor='white'>
 	<jsp:include page="/Templates/bootstrap4/backHeader.jsp" />
+	<br><br><br><br><br><br>
 <div class="container">
 	<div class="row justify-content-center">
 	  	<div class="col-6">
@@ -26,6 +27,7 @@
 		</div>
 	</div>
 </div>
+<br><br><br><br><br><br><br><br><br><br><br><br>
 <jsp:include page="/Templates/bootstrap4/backFooter.jsp" />
 
 <script src="Templates/bootstrap4/popper.min.js" ></script>

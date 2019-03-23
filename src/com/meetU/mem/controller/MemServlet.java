@@ -38,7 +38,7 @@ public class MemServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs); 
+			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
@@ -126,7 +126,7 @@ public class MemServlet extends HttpServlet {
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("memVO", memVO);         // 資料庫取出的memVO物件,存入req
-				
+				//??
 				MemHobbyService memHobbySvc = new MemHobbyService();
 				//listMemHobbyVO = memHobbySvc.updateAllHobby(mem_ID, listMemHobbyVO);
 				List<String> listHobby_ID = memHobbySvc.getPartOfOneMemHobby2(mem_ID);
@@ -159,7 +159,7 @@ public class MemServlet extends HttpServlet {
 			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				String mem_ID = req.getParameter("mem_ID");//01
-				
+				String hobby_ID[] = req.getParameterValues("hobby_ID");
 				
 				String mem_pw = req.getParameter("mem_pw");//02
 				String mem_pwReg = "^[(a-zA-Z0-9_)]{4,30}$";
@@ -324,7 +324,13 @@ public class MemServlet extends HttpServlet {
 				//if (mem_address == null || mem_address.trim().length() == 0) {
 				//	errorMsgs.add("會員興趣: 請勿空白");
 				//}
-				
+				List<MemHobbyVO> listMemHobbyVO = new LinkedList<MemHobbyVO>();
+				for(Integer i = 0; i < hobby_ID.length; i++) {
+					MemHobbyVO memHobbyVO = new MemHobbyVO();
+					memHobbyVO.setMem_ID(mem_ID);
+					memHobbyVO.setHobby_ID(hobby_ID[i]);
+					listMemHobbyVO.add(memHobbyVO);
+				}
 				
 				InputStream in2 = null;
 				byte[] mem_QRCODE = null;
@@ -398,41 +404,6 @@ public class MemServlet extends HttpServlet {
 				System.out.println("檢查點 1");
 
 				// Send the use back to the form, if there were errors
-			
-				
-				/***************************2.開始修改資料*****************************************/
-				MemService memSvc = new MemService();
-				memVO = memSvc.updateMem(mem_pw, mem_name, mem_acc, mem_nickname, mem_bday,
-						                 mem_email, mem_pho, mem_gend, mem_pic, mem_intro,
-						                 mem_code, mem_state, mem_date, mem_sign_day, mem_login_state,
-						                 mem_address, last_pair, mem_hobby, mem_QRCODE, mem_get_point,
-						                 mem_ID);
-				req.setAttribute("memVO", memVO);
-				
-				
-				String hobby_ID[] = req.getParameterValues("hobby_ID");
-				if (hobby_ID.length!=0) {
-					List<MemHobbyVO> listMemHobbyVO = new LinkedList<MemHobbyVO>();
-					for(Integer i = 0; i < hobby_ID.length; i++) {
-						MemHobbyVO memHobbyVO = new MemHobbyVO();
-						memHobbyVO.setMem_ID(mem_ID);
-						memHobbyVO.setHobby_ID(hobby_ID[i]);
-						listMemHobbyVO.add(memHobbyVO);
-					}
-				
-					MemHobbyService memHobbySvc = new MemHobbyService();
-					listMemHobbyVO = memHobbySvc.updateAllHobby(mem_ID, listMemHobbyVO);
-					List<String> listHobby_ID = memHobbySvc.getPartOfOneMemHobby2(mem_ID);
-				
-				
-					MemHobbyService memHobbySvc2 = new MemHobbyService();
-					List<MemHobbyVO> list = memHobbySvc2.getPartOfOneMemHobby(mem_ID);
-					req.setAttribute("listMemHobbyVO", listMemHobbyVO);
-					req.setAttribute("listHobby_ID", listHobby_ID);
-				}else {
-					errorMsgs.add("會員興趣: 請勾選");
-				}
-				
 				if (!errorMsgs.isEmpty()) {
 					System.out.println("檢查點 2");
 
@@ -443,10 +414,28 @@ public class MemServlet extends HttpServlet {
 					return; //程式中斷
 				}
 				
+				/***************************2.開始修改資料*****************************************/
+				MemService memSvc = new MemService();
+				memVO = memSvc.updateMem(mem_pw, mem_name, mem_acc, mem_nickname, mem_bday,
+						                 mem_email, mem_pho, mem_gend, mem_pic, mem_intro,
+						                 mem_code, mem_state, mem_date, mem_sign_day, mem_login_state,
+						                 mem_address, last_pair, mem_hobby, mem_QRCODE, mem_get_point,
+						                 mem_ID);
+				MemHobbyService memHobbySvc = new MemHobbyService();
+				listMemHobbyVO = memHobbySvc.updateAllHobby(mem_ID, listMemHobbyVO);
+				List<String> listHobby_ID = memHobbySvc.getPartOfOneMemHobby2(mem_ID);
+				
+				if(!listHobby_ID.isEmpty()) {
+					MemHobbyService memHobbySvc2 = new MemHobbyService();
+					List<MemHobbyVO> list = memHobbySvc2.getPartOfOneMemHobby(mem_ID);
+				}
+				
+				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("memVO", memVO); // 資料庫update成功後,正確的的memVO物件,存入req
 				//req.setAttribute("list", list);
-				
+				req.setAttribute("listMemHobbyVO", listMemHobbyVO);
+				req.setAttribute("listHobby_ID", listHobby_ID);
 				String url = "/back-end/mem/listOneMem.jsp";
 				System.out.println("檢查點 3");
 
@@ -567,9 +556,9 @@ public class MemServlet extends HttpServlet {
 				bf_intro.append(mem_intro);
 				String mem_introReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{0,1000}$";
 				//System.out.println(mem_intro);
-				//if(!mem_intro.trim().matches(mem_introReg)) {
-				//	errorMsgs.add("會員自我介紹:不能超過1000個字");
-				//}
+				if(!mem_intro.trim().matches(mem_introReg)) {
+					errorMsgs.add("會員自我介紹:不能超過1000個字");
+				}
 				
 				
 				Integer mem_code = null;//12
@@ -626,7 +615,7 @@ public class MemServlet extends HttpServlet {
 				}
 				
 				String mem_hobby = req.getParameter("mem_hobby"); //19會員興趣
-				
+				String hobby_ID[] = req.getParameterValues("hobby_ID");
 				
 				
 				//String mem_hobby = req.getParameter("mem_hobby"); //19會員興趣
@@ -715,36 +704,24 @@ public class MemServlet extends HttpServlet {
 				/*************************************************/
 				
 				memVO = memSvc.getOneMem(mem_acc, mem_pw);
-				req.setAttribute("memVO", memVO);
 				
 				/*************************************************/
-				String hobby_ID[] = req.getParameterValues("hobby_ID");
+						
 				String mem_ID = memVO.getMem_ID();
-				if(hobby_ID.length!=0) {
-					List<MemHobbyVO> listMemHobbyVO = new LinkedList<MemHobbyVO>();
-					for(Integer i = 0; i < hobby_ID.length; i++) {
-						MemHobbyVO memHobbyVO = new MemHobbyVO();
-						memHobbyVO.setMem_ID(mem_ID);
-						memHobbyVO.setHobby_ID(hobby_ID[i]);
-						listMemHobbyVO.add(memHobbyVO);
-					}
-					MemHobbyService memHobbySvc = new MemHobbyService();
+				List<MemHobbyVO> listMemHobbyVO = new LinkedList<MemHobbyVO>();
+				for(Integer i = 0; i < hobby_ID.length; i++) {
+					MemHobbyVO memHobbyVO = new MemHobbyVO();
+					memHobbyVO.setMem_ID(mem_ID);
+					memHobbyVO.setHobby_ID(hobby_ID[i]);
+					listMemHobbyVO.add(memHobbyVO);
+				}
+				MemHobbyService memHobbySvc = new MemHobbyService();
+				if(!listMemHobbyVO.isEmpty()) {
 					memHobbySvc.updateAllHobby(mem_ID, listMemHobbyVO);
 					List<String> listHobby_ID = memHobbySvc.getPartOfOneMemHobby2(mem_ID);
 				
 					MemHobbyService memHobbySvc2 = new MemHobbyService();
 					List<MemHobbyVO> list = memHobbySvc2.getPartOfOneMemHobby(mem_ID);
-				}else {
-					errorMsgs.add("會員興趣: 請勾選");
-				}
-				
-				if (!errorMsgs.isEmpty()) {
-					System.out.println("檢查點 2");
-					req.setAttribute("memVO", memVO); // 含有輸入格式錯誤的memVO物件,也存入req
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/mem/addMem.jsp");
-					failureView.forward(req, res);
-					return;
 				}
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/

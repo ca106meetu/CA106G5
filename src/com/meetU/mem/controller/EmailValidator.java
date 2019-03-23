@@ -45,18 +45,11 @@ public class EmailValidator extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String action = req.getParameter("action");
 		//MemVO memvo = (MemVO) req.getSession().getAttribute("memVO");
-		MemVO memvo = (MemVO) req.getSession().getAttribute("regMemVO");
 		
-		if (memvo == null) {
-			req.setAttribute("errorMsg", "請先登入會員!!!");
-			RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/mem/ValidationFailed.jsp");
-			failureView.forward(req, res);
-			return;
-		}
-		
-		String mem_ID = memvo.getMem_ID();
-		
-		if ("ask_validation_email".equals(action)) {
+		if ("register".equals(action)) {
+			MemVO regMemVO = (MemVO) req.getSession().getAttribute("regMemVO");
+			
+			String mem_ID = regMemVO.getMem_ID();
 			String charpool = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 			StringBuilder sb = new StringBuilder("/");			
 
@@ -66,35 +59,18 @@ public class EmailValidator extends HttpServlet {
 			}
 			
 			String url = sb.toString();
-			
-			if (pendingList.containsKey(mem_ID)) {
-				pendingList.remove(mem_ID);
-			}
-			pendingList.put(mem_ID, url);
+			System.out.println(url);
+			pendingList.put(url,mem_ID);
 			
 			MailService mailSvc = new MailService();
-			String to = memvo.getMem_email();
-			String subject = memvo.getMem_acc() + "你好: 這是您的信箱驗證信";
-			/*==============================================================*/
+			String to = regMemVO.getMem_email();
+			String subject = regMemVO.getMem_acc() + "你好: 這是您的信箱驗證信";
+			
 			String link = req.getRequestURL() + url;
 			String messageText = "請到" + link + "驗證您的信箱";
-			//String messageText = "<a href=\"" + link + "\">請點此連結驗證您的信箱</a>";
+			
 			mailSvc.sendMail(to, subject, messageText);
-			/*===============================================================*/
-//            MimeBodyPart textPart = new MimeBodyPart();
-//            StringBuffer html = new StringBuffer();
-//            html.append("<a href=\"");
-//            html.append(link);
-//            html.append("\">請點此連結驗證您的信箱</a>");
-//            try {
-//				textPart.setContent(html.toString(), "text/html; charset=UTF-8");
-//			} catch (MessagingException e) {
-//				e.printStackTrace();
-//			}
-			/*===============================================================*/
-			
-//			mailSvc.sendMail(to, subject, textPart);
-			
+				
 			
 			RequestDispatcher successView = req.getRequestDispatcher( 
 					"/FrontEnd/mem/ValidationMailSent.jsp");
@@ -103,31 +79,33 @@ public class EmailValidator extends HttpServlet {
 		}
 
 		String validationLink = req.getPathInfo();
-		if (!pendingList.containsValue(validationLink)) {
+		//System.out.println(validationLink);
+		//System.out.println(pendingList);
+		//System.out.println(pendingList.get(validationLink));
+		
+		if (!pendingList.containsKey(validationLink)) {
 			req.setAttribute("errorMsg", "連結無效!!!");
 			RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/mem/ValidationFailed.jsp");
 			failureView.forward(req, res);
 			return;
 		}
 		
-		if (mem_ID == null) {
-			req.setAttribute("errorMsg", "請先登入會員再點連結");
+		if (pendingList.get(validationLink) == null) {
+			req.setAttribute("errorMsg", "偽裝註冊是危險動作");
 			RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/mem/ValidationFailed.jsp");
 			failureView.forward(req, res);
 			return;
 		}
-		
-		if (pendingList.get(mem_ID).equals(validationLink)) {
 			MemService memSvc = new MemService();
-			memvo.setMem_state(1);
-			memSvc.updateMem(memvo);
+			MemVO memVO = memSvc.getOneMem(pendingList.get(validationLink));
+			pendingList.remove(validationLink);
+			System.out.println(pendingList.get(memVO.getMem_ID()));
+			memVO.setMem_state(1);
+			memSvc.updateMem(memVO);
+			req.getSession().setAttribute("memVO", memVO);
+			req.getSession().setAttribute("mem_acc", memVO.getMem_acc());
 			RequestDispatcher successView = req.getRequestDispatcher("/FrontEnd/mem/ValidationSuccess.jsp");
 			//RequestDispatcher successView = req.getRequestDispatcher("/FrontEnd/mem/reg_mem_input.jsp");
 			successView.forward(req, res);
-		} else {
-			req.setAttribute("errorMsg", "連結不對喔 請不要亂登別人的帳號");
-			RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/mem/ValidationFailed.jsp");
-			failureView.forward(req, res);
-		}
 	}
 }
