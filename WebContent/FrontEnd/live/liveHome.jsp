@@ -123,6 +123,8 @@ small{
 font: 100px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft JhengHei; 
 }
 
+
+
 </style>
 <!-- Required meta tags -->
 <meta charset="utf-8">
@@ -228,31 +230,31 @@ font: 100px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft Jh
 <!-- 推播跳出 -->
 <div class="modal" tabindex="-1" role="dialog" id='myModal2'>
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-body text-center">
+    <div class="modal-content"     style="border-radius: 10%;">
+      <div class="modal-body text-center" style="background: #b3d7ff;border-radius: 8%;">
       
       <div class='row'>
-      	<div class='col-6'><img  id='img1' width='200px' height='200px' src='images/excited.gif'></div>
-      	<div class='col-6'>        
-      		<h3>開台囉!!!</h3>
+      	<div class='col-6' style="background: #f8f9fa;"><img  id='img1' width='200px' height='200px' src='images/excited.gif' style="border-radius: 50%;
+	border: 7px outset #3085d6cf;"></div>
+      	<div class='col-6' style="background: #f8f9fa;">
+      		<h3 style="font-family:Impact;color:#dc3545;">Live broadcast!</h3>
       		<hr>
-      		<h2 id='info1' style="color:red;"></h2>
-      		<h2 id='info2' style="color:red;"></h2>
-      		<h4 id='info3' style="color:blue;"></h4>
+      		<h2 id='info2' style="color:#28a745;font-family:Microsoft JhengHei"></h2>
+      		<h4 id='info3' style="color:blue;font-family:Microsoft JhengHei"></h4>
         </div>
       </div>
       <div class='row'>
-      	<div class='col-3'></div>
-        <div class='col-6'>
+      	<div class='col-3' style="background: #f8f9fa;"></div>
+        <div class='col-6' style="background: #f8f9fa;">
         
         
         
-        
+   
         
            
-			<a class="btn btn-primary gotoLive" href="" role="button">進入直播主房間</a>	
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button></div>
-        <div class='col-3'></div>
+			<a class="btn btn-primary gotoLive" href="" role="button" style="font-family:Microsoft JhengHei">進入直播主房間</a>	
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="font-family:Microsoft JhengHei">取消</button></div>
+        <div class='col-3' style="background: #f8f9fa;"></div>
       </div>
       </div>
     </div>
@@ -289,13 +291,13 @@ font: 100px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft Jh
 
 		webSocket2.onmessage = function(event) {
 	        var jsonObj2 = JSON.parse(event.data);
-	        var message1 = "會員編號"+jsonObj2.host_ID
+	        var message1 = "會員名稱"
 	        var message2 = jsonObj2.host_name
 	        var message3 = jsonObj2.message
 	        var message4 = "data:img/png;base64,"+jsonObj2.encodeText
 	   
 	        $('.gotoLive').attr('href',"<%=request.getContextPath()%>/FrontEnd/live/liveHome2.jsp?host_ID=" + jsonObj2.host_ID);
-	        $('#info1').text(message1);
+	        
 	        $('#info2').text(message2);
 	        $('#info3').text(message3);
 	        $('#img1').attr('src', message4);
