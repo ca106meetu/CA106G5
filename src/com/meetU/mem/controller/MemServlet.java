@@ -126,15 +126,7 @@ public class MemServlet extends HttpServlet {
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("memVO", memVO);         // 資料庫取出的memVO物件,存入req
-				//??
-				MemHobbyService memHobbySvc = new MemHobbyService();
-				//listMemHobbyVO = memHobbySvc.updateAllHobby(mem_ID, listMemHobbyVO);
-				List<String> listHobby_ID = memHobbySvc.getPartOfOneMemHobby2(mem_ID);
-				
-				MemHobbyService memHobbySvc2 = new MemHobbyService();
-				List<MemHobbyVO> list = memHobbySvc2.getPartOfOneMemHobby(mem_ID);
-				req.setAttribute("listHobby_ID", listHobby_ID);
-				
+								
 				String url = "/back-end/mem/update_mem_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_mem_input.jsp
 				successView.forward(req, res);
@@ -159,39 +151,34 @@ public class MemServlet extends HttpServlet {
 			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				String mem_ID = req.getParameter("mem_ID");//01
-				String hobby_ID[] = req.getParameterValues("hobby_ID");
-				
+								
 				String mem_pw = req.getParameter("mem_pw");//02
 				String mem_pwReg = "^[(a-zA-Z0-9_)]{4,30}$";
-				if (mem_pw == null || mem_pw.trim().length() == 0) {
-					errorMsgs.add("會員密碼: 請勿空白");
-				} else if(!mem_pw.trim().matches(mem_pwReg)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("會員密碼:只能是英文字母、數字和_ , 且長度必需在4到20之間");
-	            }
+//				if (mem_pw == null || mem_pw.trim().length() == 0) {
+//					errorMsgs.add("會員密碼: 請勿空白");
+//				} else if(!mem_pw.trim().matches(mem_pwReg)) { //以下練習正則(規)表示式(regular-expression)
+//					errorMsgs.add("會員密碼:只能是英文字母、數字和_ , 且長度必需在4到20之間");
+//	            }
 				
 				String mem_name = req.getParameter("mem_name");//03
-				String mem_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,30}$";
-				if (mem_name == null || mem_name.trim().length() == 0) {
-					errorMsgs.add("會員姓名: 請勿空白");
-				} else if(!mem_name.trim().matches(mem_nameReg)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("會員姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到20之間");
-	            }
+				String mem_nameReg = "^[/.]{0,30}$";
+//				if(!mem_name.trim().matches(mem_nameReg)) { //以下練習正則(規)表示式(regular-expression)
+//					errorMsgs.add("會員姓名: 只能是中、英文字母、數字和_ , 且長度必需在0到30之間");
+//	            }
 				
 				String mem_acc = req.getParameter("mem_acc");//04
 				String mem_accReg = "^[(a-zA-Z0-9_)]{4,30}$";
-				if (mem_acc == null || mem_acc.trim().length() == 0) {
-					errorMsgs.add("會員帳號: 請勿空白");
-				} //else if(!mem_acc.trim().matches(mem_accReg)) { //以下練習正則(規)表示式(regular-expression)
-				//	errorMsgs.add("會員帳號: 只能是英文字母、數字和_ , 且長度必需在4到30之間");
-	            //}
+//				if (mem_acc == null || mem_acc.trim().length() == 0) {
+//					errorMsgs.add("會員帳號: 請勿空白");
+//				} else if(!mem_acc.trim().matches(mem_accReg)) { //以下練習正則(規)表示式(regular-expression)
+//					errorMsgs.add("會員帳號: 只能是英文字母、數字和_ , 且長度必需在4到30之間");
+//	            }
 				
 				String mem_nickname = req.getParameter("mem_nickname");//05
-				String mem_nicknameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,30}$";
-				if (mem_nickname == null || mem_nickname.trim().length() == 0) {
-					errorMsgs.add("會員暱稱: 請勿空白");
-				} else if(!mem_nickname.trim().matches(mem_nicknameReg)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("會員暱稱: 只能是中、英文字母、數字和_ , 且長度必需在1到30之間");
-	            }
+				String mem_nicknameReg = "^[/./]{0,30}$";
+//				if(!mem_nickname.trim().matches(mem_nicknameReg)) { //以下練習正則(規)表示式(regular-expression)
+//					errorMsgs.add("會員暱稱: 長度必需在0到30之間");
+//	            }
 				
 				java.sql.Date mem_bday = null;//06
 				try {
@@ -204,27 +191,28 @@ public class MemServlet extends HttpServlet {
 				String mem_email = req.getParameter("mem_email");//07
 				//String mem_emailReg = "^[a-zA-Z0-9\\._-@]+$";
 				String mem_emailReg = "^[\\.a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$";
-				if (mem_email == null || mem_email.trim().length() == 0) {
-					errorMsgs.add("會員電子信箱: 請勿空白");
-				} else if(!mem_email.trim().matches(mem_emailReg)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("請輸入有效的電子郵件");
-	            }
+//				if (mem_email == null || mem_email.trim().length() == 0) {
+//					errorMsgs.add("會員電子信箱: 請勿空白");
+//				} else if(!mem_email.trim().matches(mem_emailReg)) { //以下練習正則(規)表示式(regular-expression)
+//					errorMsgs.add("請輸入有效的電子郵件");
+//	            }
 				
 				String mem_pho = req.getParameter("mem_pho");//08
 				String mem_phoReg = "^[(a-zA-Z0-9_)]$";
-				if (mem_pho == null || mem_pho.trim().length() == 0) {
-					errorMsgs.add("會員手機: 請勿空白");
-				} //else if(!mem_pho.trim().matches(mem_phoReg)) { //以下練習正則(規)表示式(regular-expression)
-					//errorMsgs.add("會員電話: 只能是數字");
-	            //}
+//				if (mem_pho == null || mem_pho.trim().length() == 0) {
+//					errorMsgs.add("會員手機: 請勿空白");
+//				} //else if(!mem_pho.trim().matches(mem_phoReg)) { //以下練習正則(規)表示式(regular-expression)
+//					//errorMsgs.add("會員電話: 只能是數字");
+//	            //}
 				
 				String mem_gend = req.getParameter("mem_gend"); //09
-				String mem_gendReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]$";
-				if (mem_gend == null || mem_gend.trim().length() == 0) {
-					errorMsgs.add("會員性別: 請勿空白");
-				} //else if(!mem_gend.trim().matches(mem_gendReg)) { //以下練習正則(規)表示式(regular-expression)
-				//	errorMsgs.add("會員性別: 只能是中、英文字母 , 且長度必需在10以內");
-	            //}
+				String mem_gendReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{0,10}$";
+//				if (mem_gend == null || mem_gend.trim().length() == 0) {
+//					errorMsgs.add("會員性別: 請勿空白");
+//				} 
+//				if(!mem_gend.trim().matches(mem_gendReg)) { //以下練習正則(規)表示式(regular-expression)
+//					errorMsgs.add("會員性別: 只能是中、英文字母 , 且長度必需在10以內");
+//	            }
 												
 				InputStream in = null;
 				byte[] mem_pic = null;
@@ -235,37 +223,21 @@ public class MemServlet extends HttpServlet {
 					mem_pic = new byte[in.available()];
 					in.read(mem_pic);
 					in.close();
-					//String encodeText = encoder.encodeToString(mem_pic);
-					//req.setAttribute("encodeText", encodeText);
 				} else {
 					mem_pic = new MemService().getOneMem(mem_ID).getMem_pic();
-//					if(req.getParameter("encodeText") != null && req.getParameter("encodeText").trim().length() !=0) {
-//						Base64.Decoder decoder = Base64.getDecoder();
-//						mem_pic = decoder.decode(req.getParameter("encodeText"));
-//						String encodeText = encoder.encodeToString(mem_pic);
-//						req.setAttribute("encodeText", encodeText);
-//					}
 				}
-				//Base64.Decoder decoder = Base64.getDecoder();
-				//mem_pic = decoder.decode(req.getParameter("encodeText"));
+				
 				if(mem_pic != null) {
 					String encodeText = encoder.encodeToString(mem_pic);
 					req.setAttribute("encodeText", encodeText);
 				}
 				
-				
-				
-				//InputStream in = part.getInputStream();
-				//mem_pic = new byte[in.available()];
-				//in.read(mem_pic);
-				//in.close();
-				
+								
 				String mem_intro = req.getParameter("mem_intro").trim();//11
 				String mem_introReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{0,1000}$";
-				//System.out.println(mem_intro);
-				//if(!mem_intro.trim().matches(mem_introReg)) {
-				//	errorMsgs.add("會員自我介紹:不能超過1000個字");
-				//}
+//				if(!mem_intro.trim().matches(mem_introReg)) {
+//					errorMsgs.add("會員自我介紹:不能超過1000個字");
+//				}
 				
 				Integer mem_code = null;//12會員登入狀態
 				try {
@@ -279,7 +251,7 @@ public class MemServlet extends HttpServlet {
 				try {
 					mem_state = new Integer(req.getParameter("mem_state").trim());
 				} catch (NumberFormatException e) {
-					mem_state = 0;
+					mem_state = 1;
 					errorMsgs.add("會員帳號狀態請填數字.");
 				}
 				
@@ -308,29 +280,22 @@ public class MemServlet extends HttpServlet {
 				}
 				
 				String mem_address = req.getParameter("mem_address").trim(); //17會員居住地
-				if (mem_address == null || mem_address.trim().length() == 0) {
-					errorMsgs.add("會員居住地: 請勿空白");
-				}
+//				if (mem_address == null || mem_address.trim().length() == 0) {
+//					errorMsgs.add("會員居住地: 請勿空白");
+//				}
 				
 				java.sql.Timestamp last_pair = null; //18上次配對時間
-				try {
-					last_pair = java.sql.Timestamp.valueOf(req.getParameter("last_pair").trim());
-				} catch (IllegalArgumentException e) {
-					last_pair = new java.sql.Timestamp(System.currentTimeMillis());
-					errorMsgs.add("請輸入會員上次配對時間!");
-				}
+//				try {
+//					last_pair = java.sql.Timestamp.valueOf(req.getParameter("last_pair").trim());
+//				} catch (IllegalArgumentException e) {
+//					last_pair = new java.sql.Timestamp(System.currentTimeMillis());
+//					errorMsgs.add("請輸入會員上次配對時間!");
+//				}
 				
 				String mem_hobby = req.getParameter("mem_hobby"); //19會員興趣
 				//if (mem_address == null || mem_address.trim().length() == 0) {
 				//	errorMsgs.add("會員興趣: 請勿空白");
 				//}
-				List<MemHobbyVO> listMemHobbyVO = new LinkedList<MemHobbyVO>();
-				for(Integer i = 0; i < hobby_ID.length; i++) {
-					MemHobbyVO memHobbyVO = new MemHobbyVO();
-					memHobbyVO.setMem_ID(mem_ID);
-					memHobbyVO.setHobby_ID(hobby_ID[i]);
-					listMemHobbyVO.add(memHobbyVO);
-				}
 				
 				InputStream in2 = null;
 				byte[] mem_QRCODE = null;
@@ -341,29 +306,15 @@ public class MemServlet extends HttpServlet {
 					mem_QRCODE = new byte[in2.available()];
 					in2.read(mem_QRCODE);
 					in2.close();
-					//String encodeText2 = encoder2.encodeToString(mem_QRCODE);
-					//req.setAttribute("encodeText2", encodeText2);
 				} else {
 					mem_QRCODE = new MemService().getOneMem(mem_ID).getMem_QRCODE();
-//					if(req.getParameter("encodeText2") != null && req.getParameter("encodeText2").trim().length() !=0) {
-//						Base64.Decoder decoder2 = Base64.getDecoder();
-//						mem_QRCODE = decoder2.decode(req.getParameter("encodeText2"));
-//						String encodeText2 = encoder2.encodeToString(mem_QRCODE);
-//						req.setAttribute("encodeText2", encodeText2);
-//					}
 				}
 				
-				//Base64.Decoder decoder2 = Base64.getDecoder();
-				//mem_QRCODE = decoder2.decode(req.getParameter("encodeText2"));
 				
 				if(mem_QRCODE != null) {					
-				String encodeText2 = encoder2.encodeToString(mem_QRCODE);
-				req.setAttribute("encodeText2", encodeText2);
+					String encodeText2 = encoder2.encodeToString(mem_QRCODE);
+					req.setAttribute("encodeText2", encodeText2);
 				}
-				//InputStream in2 = part.getInputStream();
-				//mem_QRCODE = new byte[in2.available()];
-				//in2.read(mem_QRCODE);
-				//in2.close();
 				
 				Integer mem_get_point = null;//21會員點數
 				try {
@@ -421,21 +372,9 @@ public class MemServlet extends HttpServlet {
 						                 mem_code, mem_state, mem_date, mem_sign_day, mem_login_state,
 						                 mem_address, last_pair, mem_hobby, mem_QRCODE, mem_get_point,
 						                 mem_ID);
-				MemHobbyService memHobbySvc = new MemHobbyService();
-				listMemHobbyVO = memHobbySvc.updateAllHobby(mem_ID, listMemHobbyVO);
-				List<String> listHobby_ID = memHobbySvc.getPartOfOneMemHobby2(mem_ID);
-				
-				if(!listHobby_ID.isEmpty()) {
-					MemHobbyService memHobbySvc2 = new MemHobbyService();
-					List<MemHobbyVO> list = memHobbySvc2.getPartOfOneMemHobby(mem_ID);
-				}
-				
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("memVO", memVO); // 資料庫update成功後,正確的的memVO物件,存入req
-				//req.setAttribute("list", list);
-				req.setAttribute("listMemHobbyVO", listMemHobbyVO);
-				req.setAttribute("listHobby_ID", listHobby_ID);
 				String url = "/back-end/mem/listOneMem.jsp";
 				System.out.println("檢查點 3");
 
@@ -467,35 +406,31 @@ public class MemServlet extends HttpServlet {
 								
 				String mem_pw = req.getParameter("mem_pw");//02
 				String mem_pwReg = "^[(a-zA-Z0-9_)]{4,30}$";
-				if (mem_pw == null || mem_pw.trim().length() == 0) {
-					errorMsgs.add("會員密碼: 請勿空白");
-				} else if(!mem_pw.trim().matches(mem_pwReg)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("會員密碼:只能是英文字母、數字和_ , 且長度必需在4到20之間");
-	            }
+//				if (mem_pw == null || mem_pw.trim().length() == 0) {
+//					errorMsgs.add("會員密碼: 請勿空白");
+//				} else if(!mem_pw.trim().matches(mem_pwReg)) { //以下練習正則(規)表示式(regular-expression)
+//					errorMsgs.add("會員密碼:只能是英文字母、數字和_ , 且長度必需在4到20之間");
+//	            }
 				
 				String mem_name = req.getParameter("mem_name");//03
-				String mem_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,30}$";
-//				if (mem_name == null || mem_name.trim().length() == 0) {
-//					errorMsgs.add("會員姓名: 請勿空白");
-//				} else if(!mem_name.trim().matches(mem_nameReg)) { //以下練習正則(規)表示式(regular-expression)
-//					errorMsgs.add("會員姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到20之間");
+				String mem_nameReg = "^[.]{0,30}$";
+//				if(!mem_name.trim().matches(mem_nameReg)) { //以下練習正則(規)表示式(regular-expression)
+//					errorMsgs.add("會員姓名: 只能是中、英文字母、數字和_ , 且長度必需在0到30之間");
 //	            }
 				
 				String mem_acc = req.getParameter("mem_acc");//04
 				String mem_accReg = "^[(a-zA-Z0-9_)]{4,30}$";
-				if (mem_acc == null || mem_acc.trim().length() == 0) {
-					errorMsgs.add("會員帳號: 請勿空白");
-				} else if(!mem_acc.trim().matches(mem_accReg)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("會員帳號: 只能是英文字母、數字和_ , 且長度必需在4到30之間");
-	            }
+//				if (mem_acc == null || mem_acc.trim().length() == 0) {
+//					errorMsgs.add("會員帳號: 請勿空白");
+//				} else if(!mem_acc.trim().matches(mem_accReg)) { //以下練習正則(規)表示式(regular-expression)
+//					errorMsgs.add("會員帳號: 只能是英文字母、數字和_ , 且長度必需在4到30之間");
+//	            }
 				
 				String mem_nickname = req.getParameter("mem_nickname");//05
-				String mem_nicknameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,30}$";
-//				if (mem_nickname == null || mem_nickname.trim().length() == 0) {
-//					errorMsgs.add("會員暱稱: 請勿空白");
-//				} else if(!mem_nickname.trim().matches(mem_nicknameReg)) { //以下練習正則(規)表示式(regular-expression)
-//					errorMsgs.add("會員暱稱: 只能是中、英文字母、數字和_ , 且長度必需在1到30之間");
-//	            }
+				String mem_nicknameReg = "^[.]{0,30}$";
+				if(!mem_nickname.trim().matches(mem_nicknameReg)) { //以下練習正則(規)表示式(regular-expression)
+					errorMsgs.add("會員暱稱: 長度必需在0到30之間");
+	            }
 				
 				java.sql.Date mem_bday = null;//06
 				try {
@@ -506,28 +441,30 @@ public class MemServlet extends HttpServlet {
 				}
 				
 				String mem_email = req.getParameter("mem_email");//07
-				String mem_emailReg = "^[a-zA-Z0-9\\._-@]$";
-				if (mem_email == null || mem_email.trim().length() == 0) {
-					errorMsgs.add("會員電子信箱: 請勿空白");
-				}// else if(!mem_email.trim().matches(mem_emailReg)) { //以下練習正則(規)表示式(regular-expression)
-				//	errorMsgs.add("會員電子信箱: 只能是英文字母、數字和_");
-	            //}
+				//String mem_emailReg = "^[a-zA-Z0-9\\._-@]+$";
+				String mem_emailReg = "^[\\.a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$";
+//				if (mem_email == null || mem_email.trim().length() == 0) {
+//					errorMsgs.add("會員電子信箱: 請勿空白");
+//				} else if(!mem_email.trim().matches(mem_emailReg)) { //以下練習正則(規)表示式(regular-expression)
+//					errorMsgs.add("請輸入有效的電子郵件");
+//	            }
 				
 				String mem_pho = req.getParameter("mem_pho");//08
 				String mem_phoReg = "^[(a-zA-Z0-9_)]$";
-				if (mem_pho == null || mem_pho.trim().length() == 0) {
-					errorMsgs.add("會員手機: 請勿空白");
-				} //else if(!mem_pho.trim().matches(mem_phoReg)) { //以下練習正則(規)表示式(regular-expression)
-					//errorMsgs.add("會員電話: 只能是數字");
-	            //}
+//				if (mem_pho == null || mem_pho.trim().length() == 0) {
+//					errorMsgs.add("會員手機: 請勿空白");
+//				} //else if(!mem_pho.trim().matches(mem_phoReg)) { //以下練習正則(規)表示式(regular-expression)
+//					//errorMsgs.add("會員電話: 只能是數字");
+//	            //}
 				
 				String mem_gend = req.getParameter("mem_gend"); //09
-				String mem_gendReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]$";
-				if (mem_gend == null || mem_gend.trim().length() == 0) {
-					errorMsgs.add("會員性別: 請勿空白");
-				} //else if(!mem_gend.trim().matches(mem_gendReg)) { //以下練習正則(規)表示式(regular-expression)
-				//	errorMsgs.add("會員性別: 只能是中、英文字母 , 且長度必需在10以內");
-	            //}
+				String mem_gendReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{0,10}$";
+//				if (mem_gend == null || mem_gend.trim().length() == 0) {
+//					errorMsgs.add("會員性別: 請勿空白");
+//				} 
+//				if(!mem_gend.trim().matches(mem_gendReg)) { //以下練習正則(規)表示式(regular-expression)
+//					errorMsgs.add("會員性別: 只能是中、英文字母 , 且長度必需在10以內");
+//	            }
 												
 				byte[] mem_pic = null;
 				Part part = req.getPart("mem_pic");//10會員大頭照
@@ -548,20 +485,13 @@ public class MemServlet extends HttpServlet {
 					}
 				}
 				
-				
-				
-				StringBuffer bf_intro = new StringBuffer();
-				
 				String mem_intro = req.getParameter("mem_intro").trim();//11
-				bf_intro.append(mem_intro);
 				String mem_introReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{0,1000}$";
-				//System.out.println(mem_intro);
-				if(!mem_intro.trim().matches(mem_introReg)) {
-					errorMsgs.add("會員自我介紹:不能超過1000個字");
-				}
+//				if(!mem_intro.trim().matches(mem_introReg)) {
+//					errorMsgs.add("會員自我介紹:不能超過1000個字");
+//				}
 				
-				
-				Integer mem_code = null;//12
+				Integer mem_code = null;//12會員登入狀態
 				try {
 					mem_code = new Integer(req.getParameter("mem_code").trim());
 				} catch (NumberFormatException e) {
@@ -573,7 +503,7 @@ public class MemServlet extends HttpServlet {
 				try {
 					mem_state = new Integer(req.getParameter("mem_state").trim());
 				} catch (NumberFormatException e) {
-					mem_state = 0;
+					mem_state = 1;
 					errorMsgs.add("會員帳號狀態請填數字.");
 				}
 				
@@ -602,26 +532,22 @@ public class MemServlet extends HttpServlet {
 				}
 				
 				String mem_address = req.getParameter("mem_address").trim(); //17會員居住地
-				if (mem_address == null || mem_address.trim().length() == 0) {
-					errorMsgs.add("會員居住地: 請勿空白");
-				}
+//				if (mem_address == null || mem_address.trim().length() == 0) {
+//					errorMsgs.add("會員居住地: 請勿空白");
+//				}
 				
 				java.sql.Timestamp last_pair = null; //18上次配對時間
-				try {
-					last_pair = java.sql.Timestamp.valueOf(req.getParameter("last_pair").trim());
-				} catch (IllegalArgumentException e) {
-					last_pair = new java.sql.Timestamp(System.currentTimeMillis());
-					errorMsgs.add("請輸入會員上次配對時間!");
-				}
+//				try {
+//					last_pair = java.sql.Timestamp.valueOf(req.getParameter("last_pair").trim());
+//				} catch (IllegalArgumentException e) {
+//					last_pair = new java.sql.Timestamp(System.currentTimeMillis());
+//					errorMsgs.add("請輸入會員上次配對時間!");
+//				}
 				
 				String mem_hobby = req.getParameter("mem_hobby"); //19會員興趣
-				String hobby_ID[] = req.getParameterValues("hobby_ID");
-				
-				
-				//String mem_hobby = req.getParameter("mem_hobby"); //19會員興趣
-//				if (mem_address == null || mem_address.trim().length() == 0) {
-//					errorMsgs.add("會員興趣: 請勿空白");
-//				}
+				//if (mem_address == null || mem_address.trim().length() == 0) {
+				//	errorMsgs.add("會員興趣: 請勿空白");
+				//}
 				
 				
 				
@@ -644,10 +570,6 @@ public class MemServlet extends HttpServlet {
 					}
 				}
 				
-				//InputStream in2 = part.getInputStream();
-				//mem_QRCODE = new byte[in2.available()];
-				//in2.read(mem_QRCODE);
-				//in2.close();
 				
 				Integer mem_get_point = null;//21會員點數
 				try {
@@ -698,31 +620,6 @@ public class MemServlet extends HttpServlet {
 						              mem_code, mem_state, mem_date, mem_sign_day, mem_login_state,
 						              mem_address, last_pair, mem_hobby, mem_QRCODE, mem_get_point);
 				
-				
-				
-				//新增完之後馬上查詢會員資料給下面使用
-				/*************************************************/
-				
-				memVO = memSvc.getOneMem(mem_acc, mem_pw);
-				
-				/*************************************************/
-						
-				String mem_ID = memVO.getMem_ID();
-				List<MemHobbyVO> listMemHobbyVO = new LinkedList<MemHobbyVO>();
-				for(Integer i = 0; i < hobby_ID.length; i++) {
-					MemHobbyVO memHobbyVO = new MemHobbyVO();
-					memHobbyVO.setMem_ID(mem_ID);
-					memHobbyVO.setHobby_ID(hobby_ID[i]);
-					listMemHobbyVO.add(memHobbyVO);
-				}
-				MemHobbyService memHobbySvc = new MemHobbyService();
-				if(!listMemHobbyVO.isEmpty()) {
-					memHobbySvc.updateAllHobby(mem_ID, listMemHobbyVO);
-					List<String> listHobby_ID = memHobbySvc.getPartOfOneMemHobby2(mem_ID);
-				
-					MemHobbyService memHobbySvc2 = new MemHobbyService();
-					List<MemHobbyVO> list = memHobbySvc2.getPartOfOneMemHobby(mem_ID);
-				}
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				String url = "/back-end/mem/listAllMem.jsp";
