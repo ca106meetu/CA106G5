@@ -17,7 +17,7 @@
 
 <style>
   table#table-1 {
-	width: 450px;
+
 	background-color: #CCCCFF;
 	margin-top: 5px;
 	margin-bottom: 10px;
@@ -60,56 +60,77 @@
 </c:if>
 
 <ul>
-  <li><a href='listAllMem.jsp'>List</a> all Mems.  <br><br></li>
-  
+  <li>
+    <h3><a href='listAllMem.jsp'>List all Mems.</a></h3>
+  </li>
+  <br><br>
   
   <li>
     <FORM METHOD="post" ACTION="mem.do" >
-        <b>輸入會員ID :</b>
-        <input type="text" name="mem_ID">
-        <input type="hidden" name="action" value="getOne_For_Display">
-        <input type="submit" value="送出">
+    <div class="input-group">
+       <div class="input-group-prepend">
+     	 <label class="input-group-text">輸入會員ID :</label>
+       </div>
+         <input type="text" name="mem_ID" class="form-control">
+       <div class="input-group-append">
+         <input type="hidden" name="action" value="getOne_For_Display">
+         <button class="btn btn-outline-info" type="submit"><b>送出</b></button>
+       </div>
+    </div>
     </FORM>
   </li>
+  <br>
 
   <jsp:useBean id="memSvc" scope="page" class="com.meetU.mem.model.MemService" />
    
   <li>
      <FORM METHOD="post" ACTION="mem.do" >
-       <b>選擇會員ID:</b>
-       <select size="1" name="mem_ID">
-         <c:forEach var="memVO" items="${memSvc.all}" > 
-          <option value="${memVO.mem_ID}">${memVO.mem_ID}
-         </c:forEach>   
-       </select>
-       <input type="hidden" name="action" value="getOne_For_Display">
-       <input type="submit" value="送出">
+     <div class="input-group">
+     	<div class="input-group-prepend">
+     	  <label class="input-group-text">選擇會員ID:</label>     
+        </div>
+        <select size="1" name="mem_ID" class="custom-select">
+          <c:forEach var="memVO" items="${memSvc.all}" > 
+            <option value="${memVO.mem_ID}">${memVO.mem_ID}
+          </c:forEach>   
+        </select>
+        <div class="input-group-append">
+       	<input type="hidden" name="action" value="getOne_For_Display">
+       	<button class="btn btn-outline-info" type="submit"><b>送出</b></button>
+       </div>
+    </div>    
     </FORM>
   </li>
+<br>
   
   <li>
      <FORM METHOD="post" ACTION="mem.do" >
-       <b>選擇會員姓名:</b>
-       <select size="1" name="mem_ID">
+   	 <div class="input-group">
+	     <div class="input-group-prepend">
+	     	<label class="input-group-text">選擇會員帳號 :</label>
+	     </div>	
+       <select size="1" name="mem_ID" class="custom-select">
          <c:forEach var="memVO" items="${memSvc.all}" > 
-          <option value="${memVO.mem_ID}">${memVO.mem_name}
+          <option value="${memVO.mem_ID}">${memVO.mem_acc}
          </c:forEach>   
        </select>
+       <div class="input-group-append">
        <input type="hidden" name="action" value="getOne_For_Display">
-       <input type="submit" value="送出">
+       <button class="btn btn-outline-info" type="submit"><b>送出</b></button>
+       </div>
+     </div>
      </FORM>
   </li>
 </ul>
 
 
-<h3>會員管理</h3>
-
 <ul>
-  <li><a href='addMem.jsp'>Add</a> a new Mem.</li>
+<!--   <li><a href='addMem.jsp'>Add</a> a new Mem.</li> -->
 </ul>
 </div>
 </div>
 </div>
+<br><br>
  <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="<%=request.getContextPath()%>/bootstrap4/jquery-3.3.1.slim.min.js"></script>

@@ -68,27 +68,39 @@
 </head>
 <body bgcolor='white'>
 <jsp:include page="/Templates/bootstrap4/backHeader.jsp" />
-<div class="container justify-content-center">
-<div class="row">
-<div class="col-6">
-<h4>此頁練習採用 EL 的寫法取值:</h4>
-<table id="table-1">
-	<tr><td>
-		 <h3>所有會員資料 - listAllMem.jsp</h3>
-		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
+<div class="container  justify-content-center">
+<div class="row justify-content-center">
+	<div class="col">
+		<center>
+			<h3>所有會員資料 - listAllMem.jsp</h3>
+		</center>
 
-<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
-
+		<center>
+		 <h4><a href="select_page.jsp">回首頁</a></h4>
+		</center>
+	</div>
+</div> 
+	
+<div class="row justify-content-center">
+	<div class="col">
+		<center>
+			<%-- 錯誤表列 --%>
+			<c:if test="${not empty errorMsgs}">
+				<font style="color:red">請修正以下錯誤:</font>
+				<ul>
+					<c:forEach var="message" items="${errorMsgs}">
+						<li style="color:red">${message}</li>
+					</c:forEach>
+				</ul>
+			</c:if>
+		</center>
+	</div>
+</div>
+ 
+ <div class="row justify-content-center">
+	<div class="col">
+		<center> 
+ 
 <table>
 	<tr>
 		<th>會員ID</th>
@@ -104,16 +116,9 @@
 		<th>會員大頭照</th>
 		
 		<th>會員自我介紹</th>
-		<th>會員驗證碼</th>
 		<th>會員帳號狀態</th>
 		<th>會員註冊日期</th>
-		<th>會員最後簽到時間</th>
-		
-		<th>會員登入狀態</th>
 		<th>會員居住地</th>
-		<th>上次配對時間</th>
-		<th>會員興趣</th>
-		<th>會員QRCODE</th>
 		<th>會員點數</th>
 		
 		<th>修改</th>
@@ -138,50 +143,35 @@
 			</td>
 			
 			<td>${memVO.mem_intro}</td>
-			<td>${memVO.mem_code}</td>
-			<td>${memVO.mem_state}</td>
+			<td>${mS[memVO.mem_state]}</td>
 			<td><fmt:formatDate value="${memVO.mem_date}" pattern="yyyy-MM-dd"/></td>
-			<td><fmt:formatDate value="${memVO.mem_sign_day}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 			
-			<td>${memVO.mem_login_state}</td>
 			<td>${memVO.mem_address}</td>
-			<td><fmt:formatDate value="${memVO.last_pair}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-			<jsp:useBean id="hobbySvc" scope="page" class="com.meetU.hobby.model.HobbyService" />
-			<jsp:useBean id="memhobbySvc" scope="page" class="com.meetU.memHobby.model.MemHobbyService" />
 			
-			<td>
-			<c:forEach var="MemHobbyVO" items="${memhobbySvc.getPartOfOneMemHobby(memVO.mem_ID)}">
-			
-				${hobbySvc.getOneHobby(MemHobbyVO.hobby_ID).hobby_name}
-			</c:forEach>
-			
-			</td>
-			
-
-			<td>
-			  <img class='pic' src='<%=request.getContextPath() %>/ShowPic?mem_ID=${memVO.mem_ID}&photoNo=2'>
-			</td>
 			
 			<td>${memVO.mem_get_point}</td>
 						
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/mem/mem.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="修改">
+			     <button class="btn btn-outline-info" type="submit">修改</button>
 			     <input type="hidden" name="mem_ID"  value="${memVO.mem_ID}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/mem/mem.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="刪除">
+			     <button class="btn btn-outline-info" type="submit">刪除</button>
 			     <input type="hidden" name="mem_ID"  value="${memVO.mem_ID}">
 			     <input type="hidden" name="action" value="delete"></FORM>
 			</td>
 		</tr>
 	</c:forEach>
 </table>
-<%@ include file="page2.file" %>
-</div>
-</div>
+</center>
+	</div>
+ </div>
+ <center>
+	<%@ include file="page2.file" %>
+</center>
 </div>
  <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

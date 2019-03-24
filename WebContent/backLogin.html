@@ -3,21 +3,23 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>backLogin</title>
+ 
+    
+    <script src="Templates/bootstrap4/js/jquery-1.12.4.min.js"></script>
+    <script src="Templates/sweetalert-master/sweetalert.min.js"></script>
+    <script src="Templates/bootstrap4/js/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="Templates/bootstrap4/css/sweetalert.css">
+    <script type="text/javascript">swal.setDefaults({confirmButtonText:"確定",cancelButtonText:"取消"}); </script>
 </head>
 <body>
+
+	<button onclick='inputs()'>Boton 1</button>
+	
 <center>
 	<form action="BackLoginHandler" method="post">
 		
 			<table border=1>
-				<tr>
-					<td colspan=2>
-						<p align=center>
-							輸入<b>(測試登入)</b>:<br> 
-							員工ID:<b>tomcat</b><br>
-							員工密碼:<b>tomcat</b><br>
-					</td>
-				</tr>
-
+				
 				<tr>
 					<td>
 						<p align=right>
@@ -51,6 +53,60 @@
 			</table>
 	</form>
 </center>
+<script>
 
+$(function(){
+	//swal("Hello world！");
+	//swal("这是一条信息！", "很漂亮，不是吗？");
+	swal("干得漂亮！", "你点击了按钮！","success");
+});
+function inputs(){
+	swal({
+		title: "請輸入訊息",
+		text: "寫一些有趣的事情:",
+		type: "input",
+		showCancelButton: true,
+		closeOnConfirm: false,
+		animation: "slide-from-top",
+		inputPlaceholder: "請輸入文字訊息"
+    },
+	function(inputValue){
+    	if (inputValue === false) return false;
+    	if (inputValue === ""){
+    		swal.showInputError("你太懶了，不可以空白！");
+    		return false;
+    	}
+    	swal("很好！","你輸入的是："+inputValue,"success");
+    });
+}
+
+function mensaje2() {
+swal({
+	  title: "An input!",
+	  text: "Write something interesting:",
+	  type: "input",
+	  showCancelButton: true,
+	  closeOnConfirm: false,
+	  animation: "slide-from-top",
+	  inputPlaceholder: "Write something"
+	},
+	function(inputValue){
+	  if (inputValue === false) return false;
+	  
+	  if (inputValue === "") {
+	    swal.showInputError("You need to write something!");
+	    return false
+	  }
+	  
+	  swal("Nice!", "You wrote: " + inputValue, "success");
+	});
+};
+
+</script>
+<!-- <script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery-3.3.1.slim.min.js"></script> -->
+<!-- <script src="Templates/bootstrap4/jquery-3.3.1.slim.min.js"></script> -->
+<!-- <script src="Templates/bootstrap4/popper.min.js"></script> -->
+    <!-- <script src="<%=request.getContextPath()%>/Templates/bootstrap4/popper.min.js"></script> -->
+<!--     <script src="Templates/bootstrap4/js/bootstrap.min.js"></script> -->
 </body>
 </html>

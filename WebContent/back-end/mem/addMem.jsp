@@ -19,11 +19,11 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
 
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/> 
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <title>會員資料新增 - addEmp.jsp</title>
 
 <style>
-  table#table-1 { 
+  table#table-1 {
 	background-color: #CCCCFF;
     border: 2px solid black;
     text-align: center;
@@ -67,7 +67,7 @@
 		     <h3>會員資料新增 - addEmp.jsp</h3>
 		 </td>
 		 <td>
-		     <h4><a href="select_page.jsp"><img src="images/tomcat.png" width="100" height="100" border="0">回首頁</a></h4>
+		     <h4><a href="select_page.jsp">回首頁</a></h4>
 	     </td>
 	</tr>
 </table>
@@ -133,7 +133,7 @@
 	<tr>
 		<td>會員自我介紹:</td>
 		<td>
-			<textarea name="mem_intro" rows="4" cols="50"><%= (memVO==null)? "陸游出身於一個由「貧居苦學而仕進」的世宦家庭。" : memVO.getMem_intro()%>"</textarea>
+			<textarea name="mem_intro" rows="4" cols="50"><%= (memVO==null)? "陸游出身於一個由「貧居苦學而仕進」的世宦家庭。陸游的高祖是宋仁宗時太傅陸軫，祖父陸佃，父親陸宰。出生時正值宋朝腐敗不振、屢遭金國（女真族）侵略的年代。出生次年，金兵攻陷北宋首都汴京，他於襁褓中即隨家人顛沛流離，因受社會及家庭環境影響，自幼即立志殺胡（金兵）救國。" : memVO.getMem_intro()%>"</textarea>
 		 </td>
 	</tr>
 	<tr>
@@ -195,7 +195,8 @@
 </table>
 <br>
 <input type="hidden" name="action" value="insert">
-<input type="submit" value="送出新增"></FORM>
+<button class="btn btn-outline-info" type="submit"><b>送出新增</b></button>
+</FORM>
 </div>
 </div>
 </div>

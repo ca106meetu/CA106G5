@@ -1,13 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ page import="java.util.*"%>
 <%@ page import="com.meetU.giftbox.model.*"%>
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
-   GiftboxVO giftboxVO = (GiftboxVO)request.getAttribute("GiftboxVO");
+  //List<GiftboxVO> list = (List<GiftboxVO>)request.getAttribute("list");
 %>
-
+<jsp:useBean id="list" scope="session" type="java.util.List<GiftboxVO>"/>
 <!doctype html>
 <html lang="zh-Hant-TW">
   <head>
@@ -62,7 +62,7 @@
 <h4>此頁暫練習採用 Script 的寫法取值:</h4>
 <table id="table-1">
 	<tr><td>
-		 <h3>禮物盒資料 - ListOneGiftbox.jsp</h3>
+		 <h3>禮物盒資料 - ListSomeGiftbox.jsp</h3>
 		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
 	</td></tr>
 </table>
@@ -72,18 +72,35 @@
 		<th>會員ID</th>
 		<th>禮物ID</th>
 		<th>禮物數量</th>
-		
+		<th>修改</th>
+		<th>刪除</th>
 	</tr>
+	<%@ include file="page1.file" %> 
+	<c:forEach var="giftboxVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		<tr>
 			<td>${giftboxVO.mem_ID}</td>
 			<td>${giftboxVO.prod_ID}</td>
 			<td>${giftboxVO.gift_quantity}</td>
 						
-			
+			<td>
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/giftbox/giftbox.do" style="margin-bottom: 0px;">
+			     <input type="submit" value="修改">
+			     <input type="hidden" name="mem_ID"  value="${giftboxVO.mem_ID}">
+			     <input type="hidden" name="prod_ID"  value="${giftboxVO.prod_ID}">
+			     <input type="hidden" name="gift_quantity"  value="${giftboxVO.gift_quantity}">
+			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+			</td>
+			<td>
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/giftbox/giftbox.do" style="margin-bottom: 0px;">
+			     <input type="submit" value="刪除">
+			     <input type="hidden" name="mem_ID"  value="${giftboxVO.mem_ID}">
+			     <input type="hidden" name="prod_ID"  value="${giftboxVO.prod_ID}">
+			     <input type="hidden" name="action" value="delete"></FORM>
+			</td>
 		</tr>
-
+	</c:forEach>
 </table>
-
+<%@ include file="page2.file" %>
 </div>
 </div>
 </div>

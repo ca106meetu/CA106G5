@@ -66,7 +66,7 @@
     <FORM METHOD="post" ACTION="giftbox.do" >
         <b>輸入會員ID :</b>
         <input type="text" name="mem_ID">
-        <input type="hidden" name="action" value="getOne_For_Display">
+        <input type="hidden" name="action" value="getSome_For_Display">
         <input type="submit" value="送出">
     </FORM>
   </li>
@@ -81,23 +81,23 @@
           <option value="${giftboxVO.getMem_ID()}">${giftboxVO.getMem_ID()}
          </c:forEach>   
        </select>
-       <input type="hidden" name="action" value="getOne_For_Display">
+       <input type="hidden" name="action" value="getSome_For_Display">
        <input type="submit" value="送出">
     </FORM>
   </li>
   
-  <li>
-     <FORM METHOD="post" ACTION="giftbox.do" >
-       <b>選擇禮物ID:</b>
-       <select size="1" name="prod_ID">
-         <c:forEach var="giftboxVO" items="${giftboxSvc.all}" > 
-          <option value="${giftboxVO.prod_ID}">${giftboxVO.prod_ID}
-         </c:forEach>   
-       </select>
-       <input type="hidden" name="action" value="getOne_For_Display">
-       <input type="submit" value="送出">
-     </FORM>
-  </li>
+<!--   <li> -->
+<!--      <FORM METHOD="post" ACTION="giftbox.do" > -->
+<!--        <b>選擇禮物ID:</b> -->
+<!--        <select size="1" name="prod_ID"> -->
+<%--          <c:forEach var="giftboxVO" items="${giftboxSvc.all}" >  --%>
+<%--           <option value="${giftboxVO.prod_ID}">${giftboxVO.prod_ID} --%>
+<%--          </c:forEach>    --%>
+<!--        </select> -->
+<!--        <input type="hidden" name="action" value="getSome_For_Display"> -->
+<!--        <input type="submit" value="送出"> -->
+<!--      </FORM> -->
+<!--   </li> -->
 </ul>
 
 

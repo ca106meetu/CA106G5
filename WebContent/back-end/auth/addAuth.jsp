@@ -65,7 +65,7 @@
 		     <h3>權限資料新增 - addAuth.jsp</h3>
 		 </td>
 		 <td>
-		     <h4><a href="select_page.jsp"><img src="images/tomcat.png" width="100" height="100" border="0">回首頁</a></h4>
+		     <h4><a href="select_page.jsp">回首頁</a></h4>
 	     </td>
 	</tr>
 </table>

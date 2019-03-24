@@ -42,7 +42,7 @@
 
 <style>
   table {
-	width: 450px;
+	
 	background-color: white;
 	margin-top: 1px;
 	margin-bottom: 1px;
@@ -59,27 +59,45 @@
 <body bgcolor='white'>
 <jsp:include page="/Templates/bootstrap4/backHeader.jsp" />
 <div class="container justify-content-center">
-<div class="row">
-<div class="col-6">
-<table id="table-1">
-	<tr><td>
-		 <h3>員工權限資料修改 - update_empAuth_input.jsp</h3>
-		 <h4><a href="../emp/select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
-
-<h3>資料修改:</h3>
-
-<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
-
+<div class="row justify-content-center">
+		<div class="col-6">   
+		  <center>
+		 	<h3>員工權限資料修改 - update_empAuth_input.jsp</h3>
+		  </center>
+		</div>
+	 </div>
+	 <div class="row justify-content-center">
+		<div class="col-6">   
+		  <center>
+		 <h4><a href="../emp/select_page.jsp">回首頁</a></h4>
+		  </center>
+		</div>
+	 </div>
+	 <div class="row justify-content-center">
+		<div class="col-6">   
+		  <center>
+			<h3>員工權限資料修改:</h3>
+		  </center>
+		</div>
+	 </div>
+	 <div class="row justify-content-center">
+		<div class="col-6">   
+		  <center>
+			<%-- 錯誤表列 --%>
+			<c:if test="${not empty errorMsgs}">
+				<font style="color:red">請修正以下錯誤:</font>
+				<ul>
+					<c:forEach var="message" items="${errorMsgs}">
+						<li style="color:red">${message}</li>
+					</c:forEach>
+				</ul>
+			</c:if>
+		  </center>
+		</div>
+	 </div>
+<div class="row justify-content-center">
+	<div class="col">
+		<center> 
 <FORM METHOD="post" ACTION="empAuth.do" name="form1">
 <table>
 	<jsp:useBean id="empSvc" scope="page" class="com.meetU.emp.model.EmpService" />
@@ -88,7 +106,6 @@
 		<td>
 			 ${empVO.emp_name}
 		</td>
-
 	</tr>
 		<jsp:useBean id="authSvc" scope="page" class="com.meetU.auth.model.AuthService" />
 
@@ -101,18 +118,19 @@
 		</c:forEach>
 		
 		</td>
-
 	</tr>
-	
-	
 </table>
 <br>
 <input type="hidden" name="action" value="update">
 <input type="hidden" name="emp_ID" value="${empVO.emp_ID}">
-<input type="submit" value="送出修改"></FORM>
+<button class="btn btn-outline-info" type="submit">送出修改</button>
+</FORM>
+</center>
 </div>
 </div>
 </div>
+<br><br><br><br><br><br>
+
  <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="<%=request.getContextPath()%>/bootstrap4/jquery-3.3.1.slim.min.js"></script>

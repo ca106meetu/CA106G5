@@ -49,7 +49,7 @@
 
 <style>
   table {
-	width: 600px;
+	
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -66,89 +66,74 @@
 </head>
 <body bgcolor='white'>
 <jsp:include page="/Templates/bootstrap4/backHeader.jsp" />
-<div class="container justify-content-center">
-<div class="row">
-<div class="col-6">    
-<h4>此頁暫練習採用 Script 的寫法取值:</h4>
-<table id="table-1">
-	<tr><td>
+<br><br>
+<div class="container-fluid justify-content-center">
+<div class="row justify-content-center">
+	<div class="col">    
+		<center>
 		 <h3>會員資料 - ListOneMem.jsp</h3>
-		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
+		</center>
 
-<table>
-	<tr>
-		<th>會員ID</th>
-		<th>會員密碼</th>
-		<th>會員姓名</th>
-		<th>會員帳號</th>
-		<th>會員暱稱</th>
-		
-		<th>會員生日</th>
-		<th>會員電子郵件信箱</th>
-		<th>會員手機</th>
-		<th>會員性別</th>
-		<th>會員大頭照</th>
-		
-		<th>會員自我介紹</th>
-		<th>會員驗證碼</th>
-		<th>會員帳號狀態</th>
-		<th>會員註冊日期</th>
-		<th>會員最後簽到時間</th>
-		
-		<th>會員登入狀態</th>
-		<th>會員居住地</th>
-		<th>上次配對時間</th>
-		<th>會員興趣</th>
-		<th>會員QRCODE</th>
-		<th>會員點數</th>
-	</tr>
-	<tr>
-		<td>${memVO.mem_ID}</td>
-			<td>${memVO.mem_pw}</td>
-			<td>${memVO.mem_name}</td>
-			<td>${memVO.mem_acc}</td>
-			<td>${memVO.mem_nickname}</td>
+		<center>
+		 <h4><a href="select_page.jsp">回首頁</a></h4>
+		</center>
+	</div>
+</div> 
+
+<div class="row justify-content-center">
+	<div class="col">
+		<center>
+			<table>
+				<tr>
+					<th>會員ID</th>
+					<th>會員密碼</th>
+					<th>會員姓名</th>
+					<th>會員帳號</th>
+					<th>會員暱稱</th>
+					
+					<th>會員生日</th>
+					<th>會員電子郵件信箱</th>
+					<th>會員手機</th>
+					<th>會員性別</th>
+					<th>會員大頭照</th>
+					
+					<th>會員自我介紹</th>
+					<th>會員帳號狀態</th>
+					<th>會員註冊日期</th>
 			
-			<td><fmt:formatDate value="${memVO.mem_bday}" pattern="yyyy-MM-dd"/></td>
-			<td>${memVO.mem_email}</td>
-			<td>${memVO.mem_pho}</td>
-			<td>${memVO.mem_gend}</td>
-			<td>
-			  <img class='pic' src='<%=request.getContextPath() %>/ShowPic?mem_ID=${memVO.mem_ID}&photoNo=1'>
-			</td>
+					<th>會員居住地</th>
 			
-			<td>${memVO.mem_intro}</td>
-			<td>${memVO.mem_code}</td>
-			<td>${memVO.mem_state}</td>
-			<td><fmt:formatDate value="${memVO.mem_date}" pattern="yyyy-MM-dd"/></td>
-			<td><fmt:formatDate value="${memVO.mem_sign_day}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-			
-			<td>${memVO.mem_login_state}</td>
-			<td>${memVO.mem_address}</td>
-			<td><fmt:formatDate value="${memVO.last_pair}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-			<jsp:useBean id="hobbySvc" scope="page" class="com.meetU.hobby.model.HobbyService" />
-			<jsp:useBean id="memhobbySvc" scope="page" class="com.meetU.memHobby.model.MemHobbyService" />
-			
-			<td>
-			<c:forEach var="MemHobbyVO" items="${memhobbySvc.getPartOfOneMemHobby(memVO.mem_ID)}">
-			
-				${hobbySvc.getOneHobby(MemHobbyVO.hobby_ID).hobby_name}
-			</c:forEach>
-			
-			</td>
-			
-			<td>
-			  <img class='pic' src='<%=request.getContextPath() %>/ShowPic?mem_ID=${memVO.mem_ID}&photoNo=2'>
-			</td>
-			
-			<td>${memVO.mem_get_point}</td>
-	</tr>
-</table>
+					<th>會員點數</th>
+				</tr>
+				<tr>
+					<td>${memVO.mem_ID}</td>
+						<td>${memVO.mem_pw}</td>
+						<td>${memVO.mem_name}</td>
+						<td>${memVO.mem_acc}</td>
+						<td>${memVO.mem_nickname}</td>
+						
+						<td><fmt:formatDate value="${memVO.mem_bday}" pattern="yyyy-MM-dd"/></td>
+						<td>${memVO.mem_email}</td>
+						<td>${memVO.mem_pho}</td>
+						<td>${memVO.mem_gend}</td>
+						<td>
+						  <img class='pic' src='<%=request.getContextPath() %>/ShowPic?mem_ID=${memVO.mem_ID}&photoNo=1'>
+						</td>
+						
+						<td>${memVO.mem_intro}</td>
+						<td>${mS[memVO.mem_state]}</td>
+						<td><fmt:formatDate value="${memVO.mem_date}" pattern="yyyy-MM-dd"/></td>
+						
+						<td>${memVO.mem_address}</td>
+								
+						<td>${memVO.mem_get_point}</td>
+				</tr>
+			</table>
+			</center>
 </div>
 </div>
 </div>
+<br><br><br><br>
  <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="<%=request.getContextPath()%>/bootstrap4/jquery-3.3.1.slim.min.js"></script>

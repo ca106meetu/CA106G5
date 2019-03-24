@@ -13,14 +13,27 @@
   <%}%>  
 
 <br><br>
-
+<div class="container">
+<div class="row justify-content-center">
+<div class="col-3">
   <%if (pageNumber>1) {%>
+	
     <FORM METHOD="post" ACTION="<%=request.getRequestURI()%>">   
-       <select size="1" name="whichPage">
+  	<div class="input-group">
+       <select size="1" name="whichPage" class="custom-select">
          <%for (int i=1; i<=pageNumber; i++){%>
             <option value="<%=i%>">跳至第<%=i%>頁
          <%}%> 
        </select>
-       <input type="submit" value="確定" >  
+       <div class="input-group-append">
+         <button class="btn btn-outline-info" type="submit"><b>確定</b></button>
+       </div>  
+    </div>
     </FORM>
+  </center>
   <%}%>
+</div>
+</div>
+</div>
+
+<br><br>

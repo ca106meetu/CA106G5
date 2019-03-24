@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.meetU.empAuth.model.*"%>
+<%@ page import="com.meetU.emp.model.*"%>
+<%@ page import="com.meetU.auth.model.*"%>
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
@@ -41,7 +43,7 @@
 
 <style>
   table {
-	width: 600px;
+
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -59,35 +61,49 @@
 <body bgcolor='white'>
 <jsp:include page="/Templates/bootstrap4/backHeader.jsp" />
 <div class="container justify-content-center">
-<div class="row">
-<div class="col-6">
-<h4>此頁暫練習採用 Script 的寫法取值:</h4>
-<table id="table-1">
-	<tr><td>
-		 <h3>員工權限資料 - ListSomeEmpAuth.jsp</h3>
-		 <h4><a href="../emp/select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
+	<div class="row justify-content-center">
+	    <div class="col-4">
+		  <center>
+		    <h3>員工權限資料 - ListSomeEmpAuth.jsp</h3>
+		  </center>
+		</div>
+	</div>
+	<div class="row justify-content-center">
+	    <div class="col-4">
+		  <center>
+		 <h4><a href="../emp/select_page.jsp">回首頁</a></h4>
+		  </center>
+		</div>
+	</div>
+<div class="row justify-content-center">
+	<div class="col">
+		<center> 
+			<table>
+				<tr>
+					<th>員工ID</th>
+					<th>權限ID</th>
+					
+				</tr>
+				<%@ include file="page1.file" %>
+				 
+				<c:forEach var="empAuthVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+					<tr>
+						<td>${empAuthVO.emp_ID}</td>
+						<td>${empAuthVO.auth_ID}</td>
+					
+					</tr>
+				</c:forEach>
+			</table>
+		</center>
+	</div>
+</div>
 
-<table>
-	<tr>
-		<th>員工ID</th>
-		<th>權限ID</th>
-		
-	</tr>
-	<%@ include file="page1.file" %> 
-	<c:forEach var="empAuthVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-		<tr>
-			<td>${empAuthVO.emp_ID}</td>
-			<td>${empAuthVO.auth_ID}</td>
-		
-		</tr>
-	</c:forEach>
-</table>
-<%@ include file="page2.file" %>
+		  <center>
+			<%@ include file="page2.file" %>
+		  </center>
+
 </div>
-</div>
-</div>
+<br><br><br><br>
  <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="<%=request.getContextPath()%>/bootstrap4/jquery-3.3.1.slim.min.js"></script>

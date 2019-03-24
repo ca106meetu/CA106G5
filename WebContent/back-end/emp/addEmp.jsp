@@ -38,7 +38,6 @@
 
 <style>
   table {
-	width: 450px;
 	background-color: white;
 	margin-top: 1px;
 	margin-bottom: 1px;
@@ -57,21 +56,18 @@
     
 <div class="container justify-content-center">
 <div class="row">
-<div class="col-6">
-<table id="table-1">
-	<tr>
-	     <td>
+<div class="col">
+			<center>
 		     <h3>員工資料新增 - addEmp.jsp</h3>
-		 </td>
-		 <td>
-		     <h4><a href="select_page.jsp"><img src="images/tomcat.png" width="100" height="100" border="0">回首頁</a></h4>
-	     </td>
-	</tr>
-</table>
-
-<h3>資料新增:</h3>
-
+			</center>
+			<center>
+		     <h4><a href="select_page.jsp">回首頁</a></h4>
+	    	</center>
+			<center>
+			<h3>資料新增:</h3>
+			</center>
 <%-- 錯誤表列 --%>
+<center>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
 	<ul>
@@ -80,55 +76,64 @@
 		</c:forEach>
 	</ul>
 </c:if>
-
+</center>
+<center>
 <FORM METHOD="post" ACTION="emp.do" name="form1" enctype="multipart/form-data">
 <table>
     <tr>
 		<td>員工密碼:</td>
-		<td><input type="TEXT" name="emp_pw" size="45" 
+		<td><input type="TEXT" name="emp_pw" class="form-control" 
 			 value="<%= (empVO==null)? "1234" : empVO.getEmp_pw()%>" /></td>
 	</tr>
 	<tr>
 		<td>員工姓名:</td>
-		<td><input type="TEXT" name="emp_name" size="45" 
+		<td><input type="TEXT" name="emp_name" class="form-control"
 			 value="<%= (empVO==null)? "陸游" : empVO.getEmp_name()%>" /></td>
 	</tr>
 	<tr>
 		<td>員工生日:</td>
-		<td><input name="emp_bday" id="f_date1" type="text"></td>
+		<td>
+		<input name="emp_bday" id="f_date1" type="text" class="form-control">
+		</td>
 	</tr>	
 	<tr>
 		<td>員工電子郵件信箱:</td>
-		<td><input type="TEXT" name="emp_email" size="45" 
+		<td><input type="TEXT" name="emp_email" class="form-control"
 			 value="<%= (empVO==null)? "jack931@gmail.com" : empVO.getEmp_email()%>" /></td>
 	</tr>
 	<tr>
 		<td>員工手機:</td>
-		<td><input type="TEXT" name="emp_pho" size="45" 
+		<td><input type="TEXT" name="emp_pho" class="form-control"
 			 value="<%= (empVO==null)? "098885761" : empVO.getEmp_pho()%>" /></td>
 	</tr>	
 	<tr>
 		<td>員工性別:</td>
-		<td><input type="TEXT" name="emp_gend" size="45" 
+		<td><input type="TEXT" name="emp_gend" class="form-control" 
 			 value="<%= (empVO==null)? "男性" : empVO.getEmp_gend()%>" /></td>
 	</tr>
 	 <tr>
 		<td>員工大頭照:</td>
-		<td><input type="file" name="emp_pic" onchange='readURL(this)'/><br>  
+		<td><input type="file" name="emp_pic" onchange='readURL(this)' class="form-control"/><br>
 		<img class='pic' src='data:img/png;base64,${encodeText}'  ${(empVO.emp_pic==null) ? 'style="display:none"' : ''}></td>
 	</tr>
 	<tr>
 		<td>員工帳號狀態:</td>
-		<td><input type="TEXT" name="emp_state" size="45"
-			 value="<%= (empVO==null)? "0" : empVO.getEmp_state()%>" /></td>
+		<td>
+		<select name="emp_state">
+		<c:forEach var='emp_state' items='${eS}'>
+		<option value='${eS.indexOf(emp_state)}' 
+							${empVO.emp_state==eS.indexOf(emp_state) ? 'selected' : '' }> ${emp_state}		
+		</c:forEach>
+		</select>
+<%-- 			 value="<%= (empVO==null)? "0" : empVO.getEmp_state()%>" /></td> --%>
 	</tr>
 	<tr>
 		<td>員工就職時間:</td>
-		<td><input name="emp_hday" id="f_date2" type="text"></td>
+		<td><input name="emp_hday" id="f_date2" type="text" class="form-control"></td>
 	</tr>
 	<tr>
 		<td>員工居住地:</td>
-		<td><input type="TEXT" name="emp_address" size="45"
+		<td><input type="TEXT" name="emp_address" class="form-control"
 			 value="<%= (empVO==null)? "" : empVO.getEmp_address()%>" /></td>
 	</tr>
 
@@ -136,18 +141,14 @@
 </table>
 <br>
 <input type="hidden" name="action" value="insert">
-<input type="submit" value="送出新增"></FORM>
+<input type="submit" value="送出新增" class="btn btn-outline-info">
+</FORM>
+</center>
+
 </div>
 </div>
 </div>
- <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="<%=request.getContextPath()%>/bootstrap4/jquery-3.3.1.slim.min.js"></script>
-    <script src="<%=request.getContextPath()%>/bootstrap4/popper.min.js"></script>
-    <script src="<%=request.getContextPath()%>/bootstrap4/js/bootstrap.min.js"></script>
-</body>
-    
-    
+  
     
     
     <jsp:include page="/Templates/bootstrap4/backFooter.jsp" />

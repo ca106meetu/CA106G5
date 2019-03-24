@@ -36,6 +36,7 @@
 		   </div>
 	   </div>
 	</div>
+	<br>
 	<div class="row justify-content-center">
 	  	<div class="col-6">
 	  		<div class="input-group mb-3">
@@ -46,6 +47,7 @@
 		   </div>
 	  	</div>
 	</div>
+	<br>
 	<div class="row justify-content-center">
 	  	<div class="col-6">
 	  	<center>
@@ -55,7 +57,7 @@
 	</div>
 	</form>
   </div>
-  <br><br><br><br><br><br><br><br><br>
+  <br><br><br><br><br><br><br>
   
 
 <!-- <button id="btn-click-me" class="btn btn-outline-success btn-lg">click me</button> -->

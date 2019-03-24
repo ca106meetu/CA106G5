@@ -53,7 +53,7 @@
 
 <style>
   table {
-	width: 800px;
+	
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -71,17 +71,18 @@
 <body bgcolor='white'>
 <jsp:include page="/Templates/bootstrap4/backHeader.jsp" />
 <div class="container justify-content-center">
-<div class="row">
-<div class="col-6">
-<h4>此頁練習採用 EL 的寫法取值:</h4>
-<table id="table-1">
-	<tr><td>
+<div class="row justify-content-center">
+<div class="col">
+
+		<center>
 		 <h3>所有員工資料 - listAllEmp.jsp</h3>
-		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
+		</center>
+		<center> 
+		 <h4><a href="select_page.jsp">回首頁</a></h4>
+		</center>
 
 <%-- 錯誤表列 --%>
+<center>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
 	<ul>
@@ -90,7 +91,8 @@
 		</c:forEach>
 	</ul>
 </c:if>
-
+</center>
+<center>
 <table>
 	<tr>
 		<th>員工ID</th>
@@ -124,45 +126,41 @@
 			
 			<img class='pic' src='<%=request.getContextPath() %>/ShowPic?emp_ID=${empVO.emp_ID}'>
 			</td>
-			<td>${empVO.emp_state}</td>
+			<td>${eS[empVO.emp_state]}</td>
 			<td><fmt:formatDate value="${empVO.emp_hday}" pattern="yyyy-MM-dd"/></td>
 			<td>${empVO.emp_address}</td>
 			
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/emp/emp.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="修改">
+			     <button class="btn btn-outline-info" type="submit"><b>修改</b></button>
 			     <input type="hidden" name="emp_ID"  value="${empVO.emp_ID}">
 			     <input type="hidden" name="action"	value="getOne_For_Update">
 			  </FORM>
 			</td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/empAuth/empAuth.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="修改權限">
+			     <button class="btn btn-outline-info" type="submit"><b>修改權限</b></button>
 			     <input type="hidden" name="emp_ID"  value="${empVO.emp_ID}">
-<%-- 			     <input type="hidden" name="empVO"  value="${empVO}"> --%>
 			     <input type="hidden" name="action"	value="getAuths_For_Update">
 			  </FORM>
 			</td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/emp/emp.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="刪除">
+			     <button class="btn btn-outline-info" type="submit"><b>刪除</b></button>
 			     <input type="hidden" name="emp_ID"  value="${empVO.emp_ID}">
-			     <input type="hidden" name="action" value="delete"></FORM>
+			     <input type="hidden" name="action" value="delete" class="btn btn-outline-info"></FORM>
 			</td>
 		</tr>
 	</c:forEach>
 </table>
+</center>
+<center>
 <%@ include file="page2.file" %>
+</center>
 </div>
 </div>
 </div>
- <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="<%=request.getContextPath()%>/bootstrap4/jquery-3.3.1.slim.min.js"></script>
-    <script src="<%=request.getContextPath()%>/bootstrap4/popper.min.js"></script>
-    <script src="<%=request.getContextPath()%>/bootstrap4/js/bootstrap.min.js"></script>
-
-    
+   
     
     <jsp:include page="/Templates/bootstrap4/backFooter.jsp" />
 
