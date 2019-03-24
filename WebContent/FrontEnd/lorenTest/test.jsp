@@ -1,6 +1,21 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page import="com.meetU.mem.model.MemVO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.*"%>
+<%@page import="com.meetU.live.model.*"%>
+<%@page import="com.meetU.filerec.model.*"%>
+<%@page import="java.util.List"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%
+	LiveService liveSvc = new LiveService();
+	List<LiveVO> list = liveSvc.getAll();
+	pageContext.setAttribute("list", list);
+	MemVO memVO = (MemVO)session.getAttribute("memVO");
+	
+%>
 
 <!doctype html>
 <html lang="en">
@@ -76,102 +91,112 @@
     </header>
     
     <section class="welcome-post-sliders owl-carousel">
+    
+    
+    
+    	<c:forEach var="liveVO" items="${list}">
 
         <!-- Single Slide -->
         <div class="welcome-single-slide">
             <!-- Post Thumb -->
-            <img src="img/bg-img/slide-1.jpg" alt="">
+            
+            <a href="<%=request.getContextPath()%>/FrontEnd/live/liveHome2.jsp?host_ID=${liveVO.host_ID}"><img src="/CA106G5/ShowPic?HOST_ID=${liveVO.host_ID}" ></a>
             <!-- Overlay Text -->
             <div class="project_title">
                 <div class="post-date-commnents d-flex">
-                    <a href="#">May 19, 2017</a>
-                    <a href="#">5 Comment</a>
+                    <a>直播間創立時間</a>
+                    <a href="<%=request.getContextPath()%>/FrontEnd/live/liveHome2.jsp?host_ID=${liveVO.host_ID}"><fmt:formatDate value="${liveVO.live_date}"
+						pattern="yyyy-MM-dd HH:mm" /></a>
+                    
                 </div>
-                <a href="#">
-                    <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
+                <a href="<%=request.getContextPath()%>/FrontEnd/live/liveHome2.jsp?host_ID=${liveVO.host_ID}">
+                    <h5>${liveVO.live_name}</h5>
                 </a>
             </div>
         </div>
+        
+        
+		</c:forEach>
 
-        <!-- Single Slide -->
-        <div class="welcome-single-slide">
-            <!-- Post Thumb -->
-            <img src="img/bg-img/slide-2.jpg" alt="">
-            <!-- Overlay Text -->
-            <div class="project_title">
-                <div class="post-date-commnents d-flex">
-                    <a href="#">May 19, 2017</a>
-                    <a href="#">5 Comment</a>
-                </div>
-                <a href="#">
-                    <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
-                </a>
-            </div>
-        </div>
+<!--         Single Slide -->
+<!--         <div class="welcome-single-slide"> -->
+<!--             Post Thumb -->
+<!--             <img src="img/bg-img/slide-2.jpg" alt=""> -->
+<!--             Overlay Text -->
+<!--             <div class="project_title"> -->
+<!--                 <div class="post-date-commnents d-flex"> -->
+<!--                     <a href="#">May 19, 2017</a> -->
+<!--                     <a href="#">5 Comment</a> -->
+<!--                 </div> -->
+<!--                 <a href="#"> -->
+<!--                     <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5> -->
+<!--                 </a> -->
+<!--             </div> -->
+<!--         </div> -->
 
-        <!-- Single Slide -->
-        <div class="welcome-single-slide">
-            <!-- Post Thumb -->
-            <img src="img/bg-img/slide-3.jpg" alt="">
-            <!-- Overlay Text -->
-            <div class="project_title">
-                <div class="post-date-commnents d-flex">
-                    <a href="#">May 19, 2017</a>
-                    <a href="#">5 Comment</a>
-                </div>
-                <a href="#">
-                    <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
-                </a>
-            </div>
-        </div>
+<!--         Single Slide -->
+<!--         <div class="welcome-single-slide"> -->
+<!--             Post Thumb -->
+<!--             <img src="img/bg-img/slide-3.jpg" alt=""> -->
+<!--             Overlay Text -->
+<!--             <div class="project_title"> -->
+<!--                 <div class="post-date-commnents d-flex"> -->
+<!--                     <a href="#">May 19, 2017</a> -->
+<!--                     <a href="#">5 Comment</a> -->
+<!--                 </div> -->
+<!--                 <a href="#"> -->
+<!--                     <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5> -->
+<!--                 </a> -->
+<!--             </div> -->
+<!--         </div> -->
 
-        <!-- Single Slide -->
-        <div class="welcome-single-slide">
-            <!-- Post Thumb -->
-            <img src="img/bg-img/slide-4.jpg" alt="">
-            <!-- Overlay Text -->
-            <div class="project_title">
-                <div class="post-date-commnents d-flex">
-                    <a href="#">May 19, 2017</a>
-                    <a href="#">5 Comment</a>
-                </div>
-                <a href="#">
-                    <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
-                </a>
-            </div>
-        </div>
+<!--         Single Slide -->
+<!--         <div class="welcome-single-slide"> -->
+<!--             Post Thumb -->
+<!--             <img src="img/bg-img/slide-4.jpg" alt=""> -->
+<!--             Overlay Text -->
+<!--             <div class="project_title"> -->
+<!--                 <div class="post-date-commnents d-flex"> -->
+<!--                     <a href="#">May 19, 2017</a> -->
+<!--                     <a href="#">5 Comment</a> -->
+<!--                 </div> -->
+<!--                 <a href="#"> -->
+<!--                     <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5> -->
+<!--                 </a> -->
+<!--             </div> -->
+<!--         </div> -->
 
-        <!-- Single Slide -->
-        <div class="welcome-single-slide">
-            <!-- Post Thumb -->
-            <img src="img/bg-img/slide-5.jpg" alt="">
-            <!-- Overlay Text -->
-            <div class="project_title">
-                <div class="post-date-commnents d-flex">
-                    <a href="#">May 19, 2017</a>
-                    <a href="#">5 Comment</a>
-                </div>
-                <a href="#">
-                    <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
-                </a>
-            </div>
-        </div>
+<!--         Single Slide -->
+<!--         <div class="welcome-single-slide"> -->
+<!--             Post Thumb -->
+<!--             <img src="img/bg-img/slide-5.jpg" alt=""> -->
+<!--             Overlay Text -->
+<!--             <div class="project_title"> -->
+<!--                 <div class="post-date-commnents d-flex"> -->
+<!--                     <a href="#">May 19, 2017</a> -->
+<!--                     <a href="#">5 Comment</a> -->
+<!--                 </div> -->
+<!--                 <a href="#"> -->
+<!--                     <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5> -->
+<!--                 </a> -->
+<!--             </div> -->
+<!--         </div> -->
 
-        <!-- Single Slide -->
-        <div class="welcome-single-slide">
-            <!-- Post Thumb -->
-            <img src="img/bg-img/slide-6.jpg" alt="">
-            <!-- Overlay Text -->
-            <div class="project_title">
-                <div class="post-date-commnents d-flex">
-                    <a href="#">May 19, 2017</a>
-                    <a href="#">5 Comment</a>
-                </div>
-                <a href="#">
-                    <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
-                </a>
-            </div>
-        </div>
+<!--         Single Slide -->
+<!--         <div class="welcome-single-slide"> -->
+<!--             Post Thumb -->
+<!--             <img src="img/bg-img/slide-6.jpg" alt=""> -->
+<!--             Overlay Text -->
+<!--             <div class="project_title"> -->
+<!--                 <div class="post-date-commnents d-flex"> -->
+<!--                     <a href="#">May 19, 2017</a> -->
+<!--                     <a href="#">5 Comment</a> -->
+<!--                 </div> -->
+<!--                 <a href="#"> -->
+<!--                     <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5> -->
+<!--                 </a> -->
+<!--             </div> -->
+<!--         </div> -->
 
     </section>
     <!-- ****** Welcome Area End ****** -->
@@ -187,7 +212,7 @@
                     <div class="single_catagory wow fadeInUp" data-wow-delay=".3s">
                         <img src="img/catagory-img/1.jpg" alt="">
                         <div class="catagory-title">
-                            <a href="#">
+                            <a href="<%=request.getContextPath()%>/FrontEnd/live/liveHome.jsp">
                                 <h5>直播間</h5>
                             </a>
                         </div>
@@ -207,7 +232,7 @@
                     <div class="single_catagory wow fadeInUp" data-wow-delay=".9s">
                         <img src="img/catagory-img/3.jpg" alt="">
                         <div class="catagory-title">
-                            <a href="#">
+                            <a href="<%=request.getContextPath()%>/FrontEnd/cart/EShop.jsp">
                                 <h5>商城商品</h5>
                             </a>
                         </div>
@@ -386,7 +411,7 @@
                 <div class="yummy-table">
                     <div class="yummy-table-cell">
                         <div class="follow-me text-center">
-                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>前往購買</a>
+                            <a href="<%=request.getContextPath()%>/FrontEnd/cart/EShop.jsp"><i class="fa fa-instagram" aria-hidden="true"></i>前往購買</a>
                         </div>
                     </div>
                 </div>
@@ -402,7 +427,7 @@
                 <div class="yummy-table">
                     <div class="yummy-table-cell">
                         <div class="follow-me text-center">
-                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>前往購買</a>
+                            <a href="<%=request.getContextPath()%>/FrontEnd/cart/EShop.jsp"><i class="fa fa-instagram" aria-hidden="true"></i>前往購買</a>
                         </div>
                     </div>
                 </div>
@@ -418,7 +443,7 @@
                 <div class="yummy-table">
                     <div class="yummy-table-cell">
                         <div class="follow-me text-center">
-                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>前往購買</a>
+                            <a href="<%=request.getContextPath()%>/FrontEnd/cart/EShop.jsp"><i class="fa fa-instagram" aria-hidden="true"></i>前往購買</a>
                         </div>
                     </div>
                 </div>
@@ -434,7 +459,7 @@
                 <div class="yummy-table">
                     <div class="yummy-table-cell">
                         <div class="follow-me text-center">
-                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>前往購買</a>
+                            <a href="<%=request.getContextPath()%>/FrontEnd/cart/EShop.jsp"><i class="fa fa-instagram" aria-hidden="true"></i>前往購買</a>
                         </div>
                     </div>
                 </div>
@@ -450,7 +475,7 @@
                 <div class="yummy-table">
                     <div class="yummy-table-cell">
                         <div class="follow-me text-center">
-                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>前往購買</a>
+                            <a href="<%=request.getContextPath()%>/FrontEnd/cart/EShop.jsp"><i class="fa fa-instagram" aria-hidden="true"></i>前往購買</a>
                         </div>
                     </div>
                 </div>
@@ -466,7 +491,7 @@
                 <div class="yummy-table">
                     <div class="yummy-table-cell">
                         <div class="follow-me text-center">
-                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>前往購買</a>
+                            <a href="<%=request.getContextPath()%>/FrontEnd/cart/EShop.jsp"><i class="fa fa-instagram" aria-hidden="true"></i>前往購買</a>
                         </div>
                     </div>
                 </div>
@@ -482,7 +507,7 @@
                 <div class="yummy-table">
                     <div class="yummy-table-cell">
                         <div class="follow-me text-center">
-                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>前往購買</a>
+                            <a href="<%=request.getContextPath()%>/FrontEnd/cart/EShop.jsp"><i class="fa fa-instagram" aria-hidden="true"></i>前往購買</a>
                         </div>
                     </div>
                 </div>
@@ -498,7 +523,7 @@
                 <div class="yummy-table">
                     <div class="yummy-table-cell">
                         <div class="follow-me text-center">
-                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>前往購買</a>
+                            <a href="<%=request.getContextPath()%>/FrontEnd/cart/EShop.jsp"><i class="fa fa-instagram" aria-hidden="true"></i>前往購買</a>
                         </div>
                     </div>
                 </div>
