@@ -15,7 +15,6 @@
   	
   	*{
   		font-family:微軟正黑體;
-  	
   	}
   	.barcolor {
     background-color: #b3d7ffa6!important;
@@ -43,64 +42,62 @@
      
       
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" style="font-size:x-large;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           購物商城
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/cart/EShop.jsp">瀏覽商品</a>
-          <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/cart/cart.jsp">查看購物車</a>
-          <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/od/listMyOm.jsp" ${memVO != null ? '' : 'style="display:none;"'}>我的訂單</a>
-          <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/point/storePoint.jsp" ${memVO != null ? '' : 'style="display:none;"'}>儲值點數</a>
-          <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/point/listMyPr.jsp" ${memVO != null ? '' : 'style="display:none;"'}>我的儲值紀錄</a>
+          <a class="dropdown-item" style="font-size:large;" href="<%=request.getContextPath()%>/FrontEnd/cart/EShop.jsp">瀏覽商品</a>
+          <a class="dropdown-item" style="font-size:large;" href="<%=request.getContextPath()%>/FrontEnd/cart/cart.jsp">查看購物車</a>
+          <a class="dropdown-item" style="font-size:large;" href="<%=request.getContextPath()%>/FrontEnd/od/listMyOm.jsp" ${memVO != null ? '' : 'style="display:none;"'}>我的訂單</a>
+          <a class="dropdown-item" style="font-size:large;" href="<%=request.getContextPath()%>/FrontEnd/point/storePoint.jsp" ${memVO != null ? '' : 'style="display:none;"'}>儲值點數</a>
+          <a class="dropdown-item" style="font-size:large;" href="<%=request.getContextPath()%>/FrontEnd/point/listMyPr.jsp" ${memVO != null ? '' : 'style="display:none;"'}>我的儲值紀錄</a>
         </div>
       </li>
            
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" style="font-size:x-large;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           聯誼活動
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item mtPg" href="<%=request.getContextPath()%>/FrontEnd/meetup/meetupHomePg.jsp">瀏覽聯誼</a>
-          <a class="dropdown-item mustlogin" href="<%=request.getContextPath()%>/FrontEnd/meetup/listMeetupByHost.jsp" onclick='return allowUser();'>主持聯誼</a>
-          <a class="dropdown-item mustlogin" href="<%=request.getContextPath()%>/FrontEnd/meetupMem/listAllMyMeetup.jsp" onclick='return allowUser();'>我已參加</a>
-          <a class="dropdown-item mustlogin" href="<%=request.getContextPath()%>/FrontEnd/meetupLike/AllMyLikeMeetup.jsp" onclick='return allowUser();'>我的收藏</a>
+          <a class="dropdown-item mtPg" style="font-size:large;" href="<%=request.getContextPath()%>/FrontEnd/meetup/meetupHomePg.jsp">瀏覽聯誼</a>
+          <a class="dropdown-item mustlogin" style="font-size:large;" href="<%=request.getContextPath()%>/FrontEnd/meetup/listMeetupByHost.jsp" onclick='return allowUser();'>主持聯誼</a>
+          <a class="dropdown-item mustlogin" style="font-size:large;" href="<%=request.getContextPath()%>/FrontEnd/meetupMem/listAllMyMeetup.jsp" onclick='return allowUser();'>我已參加</a>
+          <a class="dropdown-item mustlogin" style="font-size:large;" href="<%=request.getContextPath()%>/FrontEnd/meetupLike/AllMyLikeMeetup.jsp" onclick='return allowUser();'>我的收藏</a>
         </div>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" style="font-size:x-large;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           會員中心
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item memupdate" href="<%=request.getContextPath()%>/FrontEnd/mem/update_mem_input.jsp" onclick='return allowUser();'>修改會員資料</a>
+          <a class="dropdown-item mustlogin" style="font-size:large;" href="<%=request.getContextPath()%>/FrontEnd/mem/update_mem_input.jsp" onclick='return allowUser();'>修改會員資料</a>
         </div>
       </li>
       
        <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" style="font-size:x-large;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         直播平台
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="<%=request.getContextPath()%>/FrontEnd/live/liveHome.jsp">直播間列表</a>
+          <a class="dropdown-item" style="font-size:large;" href="<%=request.getContextPath()%>/FrontEnd/live/liveHome.jsp">直播間列表</a>
         </div>
       </li>
       
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#"></a>
-      </li>
+
     </ul>
     
     <div ${memVO != null ? "style='display:inline-block'" : "style='display:none'"} >${memVO.mem_acc} 您好</div>
     
       	<!-- Button trigger modal -->
-		<button type="button" id="btn_login" class="btn btn-outline-success" data-toggle="modal" data-target="#login" ${memVO != null ? "style='display:none'" : ''}>
+		<button type="button" id="btn_login" class="btn btn-outline-success btn-lg" data-toggle="modal" data-target="#login" ${memVO != null ? "style='display:none'" : ''}>
 		  登入
 		</button>
-		<button type="button" id="btn_register" class="btn btn-outline-success" data-toggle="modal" data-target="#register"  ${memVO != null ? "style='display:none'" : ''} >
+		<button type="button" id="btn_register" class="btn btn-outline-success btn-lg" data-toggle="modal" data-target="#register"  ${memVO != null ? "style='display:none'" : ''} >
 		  註冊
 		</button>
 		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/FrontLoginHandler" >
     		<input type="hidden" name="action" value="front_logout">
-    		<button id="btn_logOut" type="submit" class="btn btn-outline-success" ${memVO != null ? "style='display:inline'" : "style='display:none'"} >登出</button>
+    		<button id="btn_logOut" type="submit" class="btn btn-outline-success btn-lg" ${memVO != null ? "style='display:inline'" : "style='display:none'"} >登出</button>
     	</FORM>
   </div>
 </nav>
