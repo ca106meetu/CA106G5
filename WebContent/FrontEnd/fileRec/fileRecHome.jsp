@@ -63,7 +63,7 @@ html,body {
 	width: 172.5px;
 	height: 230px;
 }
-.table thead th {
+.table {
    
     text-align: center;
 }
@@ -120,7 +120,7 @@ html,body {
 				</div></div>
 				<div class="col-1"><div class="xxx"></div></div>
 			
-			</div>
+		
 		</div>
 	
 	
@@ -192,7 +192,7 @@ html,body {
 				<div class="col-1"><div class="xxx"></div></div>
 				
 			</div>
-		</div>
+	
 	
 	
 	

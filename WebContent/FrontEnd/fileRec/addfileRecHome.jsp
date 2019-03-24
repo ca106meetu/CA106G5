@@ -29,7 +29,7 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
 
-<title>新增影片 - addfileRecHome.jsp</title>
+<title>新增影片</title>
 
 
 <style>
@@ -69,16 +69,29 @@ table, th, td {
 th, td {
 	padding: 1px;
 }
+.bg-warning {
+    
+    margin-top: 150px;
+}
 </style>
 
 </head>
 <body>
 	<jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
 
-<table id="table-1">
+<div class="container-fluid">
+			<div class="row">
+				
+				<div class="col-4"><div class="xxx"></div></div>
+				<div class="col-4">
+				
+				
+	
+				
+				<table id="table-1">
 		<tr>
 			<td>
-				<h3>新增影片 - addfileRecHome.jsp</h3>
+				<h3>新增影片</h3>
 			</td>
 			<td>
 				<h4>
@@ -134,7 +147,18 @@ th, td {
 		</table>
 		<br> <input type="hidden" name="action" value="insertfile"> <input
 			type="submit" value="送出新增">
-	</FORM>
+	</FORM></div>
+				<div class="col-4"><div class="xxx"></div></div>
+				
+			</div>
+		</div>
+
+
+
+
+
+
+
 	
 	<jsp:include page="/Templates/bootstrap4/frontFooter.jsp" />
 	<!-- Optional JavaScript -->

@@ -51,41 +51,55 @@
 }
 
 .pic {
-	width: 172.5px;
 	height: 230px;
 }
-
-table {
-	width: 1200px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
+.table  {
+   
+    text-align: center;
+}
+html,body {	
+	font: 15px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft JhengHei;   
+	 
+}
+#gointo{
+    border: none;
+    padding: 5px 5px;
+    border-radius: 5px;
+    width: auto;
+    background: orange;
+    box-shadow: inset 0 0 10px #000000;
+    font: 15px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft JhengHei; 
+    font-weight: bold;
+	
+}
+#gointo:hover{
+    border: none;
+    padding: 5px 5px;
+    border-radius: 5px;
+    width: auto;
+    background: 	#FFFF77;
+    box-shadow: inset 0 0 10px #000000;
+    font: 15px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft JhengHei; 
+    font-weight: bold;
+	
 }
 
-table, th, td {
-	border: 1px solid #FFBB00;
-}
 
-th {
-	padding: 2px;
-	text-align: center;
-}
-
-td {
-	width: 150PX;
-	height: 200PX;
-	padding: 2px;
-	text-align: center;
-}
 </style>
 </head>
 <body>
 	<jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
-
-	<table id='table-1'>
-		<tr>
-			<td>
-				<h3>收藏直播間-listAllLive_like.jsp</h3>
+	
+	
+	
+	<div class="container-fluid">
+			<div class="row">
+				
+				<div class="col-1"><div class="xxx"></div></div>
+				<div class="col-10"><table class="table">
+  <thead class="table-active">
+    <tr>
+      <th scope="col"><h3>收藏直播間</h3>
 				<h4>
 					<a href='<%=request.getContextPath()%>/FrontEnd/live/liveHome.jsp'>
 						<img
@@ -93,52 +107,103 @@ td {
 						width="100" height="32">
 					</a>
 				</h4>
-			</td>
-		</tr>
-	</table>
-
-	<table>
-		<tr>
-			<th>直播主姓名</th>
-			<th>直播間照片</th>
-			<th>進入直播間</th>
-			<th>取消收藏</th>
-		</tr>
+				</th>
+    </tr>
+  </thead>
+</table></div>
+				<div class="col-1"><div class="xxx"></div></div>
+				
+			</div>
+		</div>
 	
-
-		<jsp:useBean id="memSvc"  scope="page" class="com.meetU.mem.model.MemService" />
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="container-fluid">
+			<div class="row">
+				
+				<div class="col-1"><div class="xxx"></div></div>
+				<div class="col-10"><table class="table">
+  <thead class="table-active	">
+    <tr>
+      <th scope="col">直播主姓名</th>
+      <th scope="col">直播間照片</th>
+      <th scope="col">進入直播間</th>
+      <th scope="col">取消收藏</th>
+    </tr>
+  </thead>
+  		<jsp:useBean id="memSvc"  scope="page" class="com.meetU.mem.model.MemService" />
 		<jsp:useBean id="liveSvc" scope="page" class="com.meetU.live.model.LiveService"/>
-
-
-
-
 		<c:forEach var="live_likeVO" items="${list}">
-			<tr>
-				<td>${memSvc.getOneMem(live_likeVO.host_ID).mem_name}</td>
-				<td><c:if test="${liveSvc.getOneLive(live_likeVO.host_ID).live_pic != null}">
+  
+  <tbody>
+    <tr>
+      <th scope="row">${memSvc.getOneMem(live_likeVO.host_ID).mem_name}</th>
+      <td><c:if test="${liveSvc.getOneLive(live_likeVO.host_ID).live_pic != null}">
 					<img class='pic'src='<%=request.getContextPath()%>/ShowPic?HOST_ID=${live_likeVO.host_ID}'>
 					</c:if></td>
-					<td>
-					<form method='post'
+      <td><form method='post'
 						action='<%=request.getContextPath()%>/FrontEnd/fileRec/fileRec.do'
 						style="margin-bottom: 0px;">
-						<input type='submit' value='進入直播主房間'> 
+						<input type='submit' value='進入直播主房間' id='gointo'> 
 						<input type='hidden' name='host_ID' value='${live_likeVO.host_ID}'> 
 						<input type='hidden' name='action' value='go_to_fileRec_front'>
-					</form>
-					</td>
-		<td>
-						<form action="<%=request.getContextPath()%>/FrontEnd/live_like/live_like.do" method='post'>
+					</form></td>
+      <td>	<form action="<%=request.getContextPath()%>/FrontEnd/live_like/live_like.do" method='post'>
 						<input class="btn btn-danger "  type="submit" value="取消收藏">
 		    			<input type="hidden" name="mem_ID"	value="${memVO.mem_ID}">
 		    			<input type="hidden" name="host_ID"	value="${live_likeVO.host_ID}">
 		    			<input type='hidden' name='action' value='delete2'>
-						</form>
-		</td>
-			</tr>
+						</form></td>
+    </tr>
+   
+    
+  </tbody>
+   </c:forEach>
+</table></div>
+				<div class="col-1"><div class="xxx"></div></div>
+				
+			</div>
+		</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
-		</c:forEach>
-	</table>
+	
+
+
+	
 	
 	
 	

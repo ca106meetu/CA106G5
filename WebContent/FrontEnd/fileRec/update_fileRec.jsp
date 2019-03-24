@@ -26,10 +26,10 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
 
-<title>影片資料修改 - update_fileRec.jsp</title>
+<title>影片資料修改</title>
 <style>
 table#table-1 {
-	background-color: #CCCCFF;
+	background-color:#FFCC22;
 	border: 2px solid black;
 	text-align: center;
 }
@@ -60,17 +60,31 @@ table, th, td {
 th, td {
 		padding: 1px;
 }
-
+.bg-warning {
+    
+    margin-top: 150px;
+}
 
 </style>
 </head>
 <body bgcolor='white'>
 <jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
 
-	<table id="table-1">
+
+
+
+
+
+
+<div class="container-fluid">
+			<div class="row">
+				
+				<div class="col-4"><div class="xxx"></div></div>
+				<div class="col-4">
+				<table id="table-1">
 		<tr>
 			<td>
-				<h3>影片資料修改 - update_fileRec.jsp</h3>
+				<h3>影片資料修改</h3>
 				<h4>
 					<a href='fileRecHome.jsp?host_ID=<%=host_ID%>'><img src="<%=request.getContextPath()%>/FrontEnd/live/images/back1.gif" width="100" height="32" border="0">回影片區</a>
 				</h4>
@@ -126,6 +140,18 @@ th, td {
 		<input	type="hidden" name="file_ID" value="<%=fileRecVO.getFile_ID()%>">
 		<input type="submit" value="送出修改">
 	</FORM>
+				</div>
+				<div class="col-4"><div class="xxx"></div></div>
+				
+			</div>
+		</div>
+
+
+
+
+
+
+	
 	
 <jsp:include page="/Templates/bootstrap4/frontFooter.jsp" />
 	<!-- Optional JavaScript -->
