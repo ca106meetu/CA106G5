@@ -46,11 +46,11 @@
           <h6 class="text-uppercase mb-4 font-weight-bold">Take it easy</h6>
          
           <p >
-            為什麼連假不能工作？
+            祈求程式不會有bug該拜什麼神
            </a>
           </p>
           <p >
-              因為會變成連假勞工
+            拜雍正，專治八阿哥
            
           </p>
                    

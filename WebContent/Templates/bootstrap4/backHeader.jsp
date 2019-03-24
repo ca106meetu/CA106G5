@@ -73,11 +73,12 @@
        直播管理
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" id="AUTH00060" href="<%=request.getContextPath()%>/FrontEnd/live/selectPage.jsp">直播主管理</a>
+          <a class="dropdown-item" id="AUTH00060" href="<%=request.getContextPath()%>/FrontEnd/live/select_page.jsp">直播主管理</a>
           <a class="dropdown-item" id="AUTH00070" href="#">貼圖管理</a>
         </div>   
       </li>
     </ul>
+    <div ${empVO != null ? "style='display:inline-block'" : "style='display:none'"} ><h3>${empVO.emp_name} 您好</h3></div>
     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/BackLoginHandler" >
     	<input type="hidden" name="action" value="back_logout">
     	<button id="loginOut" type="submit" class="btn btn-outline-success btn-lg" ${empVO != null ? "style='display:inline'" : "style='display:none'"}>登出</button>
@@ -85,7 +86,11 @@
   </div>
 </nav>
   
-    <script>
+<script>
+
+setInterval("setAuthsFunc();", 1000);
+
+
     var AUTHS = new Array();
     var AUTH00010 = document.getElementById("AUTH00010");
     var AUTH00020 = document.getElementById("AUTH00020");
@@ -100,7 +105,7 @@
     
     AUTHS.push(AUTH00010,AUTH00020,AUTH00030,AUTH00040,AUTH00050,
  		   AUTH00060,AUTH00070); 
-    
+ function setAuthsFunc(){    
     var len = AUTHS.length;
     for(var i = 0; i < len; i++){
     	AUTHS[i].style.display="none";
@@ -109,14 +114,9 @@
     
     //loginOut.style.display = "none";
     
-    
-    
 <% 
 	List<String> auth_IDs = (List<String>)session.getAttribute("auth_IDs");
 	if(auth_IDs != null){
-%>
-		//loginOut.style.display = "inline";	
-<%
 		for(String auth: auth_IDs){
  %> 
  		<%=auth%>.style.display="inline";
@@ -125,6 +125,8 @@
  		}
  	}
  %> 
+}
+
  </script>
     
 
