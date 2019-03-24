@@ -14,6 +14,8 @@
 
 <html>
 <head>
+	<link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+  	<link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
 <title>所有直播主資料-listAllLive.jsp</title>
 
 

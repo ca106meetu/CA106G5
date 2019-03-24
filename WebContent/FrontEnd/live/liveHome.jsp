@@ -39,6 +39,8 @@
 <!doctype html>
 <html lang="en">
 <head>
+	<link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+  	<link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
 <style>
 div {
 	font-family: DFKai-sb;
