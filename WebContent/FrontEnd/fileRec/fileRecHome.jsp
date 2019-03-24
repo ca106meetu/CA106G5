@@ -32,7 +32,7 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
 
-<title>直播主影片(前端)-fileRecHome.jsp</title>
+<title>直播主影片</title>
 <style>
 .btn-primary {
     color: #fff;
@@ -63,29 +63,12 @@ html,body {
 	width: 172.5px;
 	height: 230px;
 }
-
-table {
-	width: 1200px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
+.table thead th {
+   
+    text-align: center;
 }
 
-table, th, td {
-	border: 1px solid #FFBB00;
-}
 
-th {
-	padding: 2px;
-	text-align: center;
-}
-
-td {
-	width: 150PX;
-	height: 200PX;
-	padding: 2px;
-	text-align: center;
-}
 
 .canclebutton {
 	display: none;
@@ -97,18 +80,27 @@ td {
 		src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
 	<jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
 	
-
-	<table id='table-1'>
+	
+	
+	
+	
+		<div class="container-fluid">
+			<div class="row">
+				<!-- 第一行 -->
+				<div class="col-1"><div class="xxx"></div></div>
+				<div class="col-10">
+				<table class="table">
+ 				 <thead class="table-active">
 		<tr>
-			<td>
-				<h3>直播主影片(前端)-fileRecHome.jsp</h3>
+			<th scope="col">
+				<h3>直播主影片</h3>
 				<h4>
 					<a href='<%=request.getContextPath()%>/FrontEnd/live/liveHome2.jsp?host_ID=<%=host_ID%>'>
 						<img
 						src="<%=request.getContextPath()%>/FrontEnd/live/images/back1.gif"
 						width="100" height="32">
 					</a>
-<!-- TODO -->
+
 <button style="${(memVO.mem_ID eq host_ID) ? '': 'display:none' }"  class='btn btn-success' onclick='openbtn();'>編輯影片</button>
 <button style="${(memVO.mem_ID eq host_ID) ? '': 'display:none' }" type="submit" form="addfileRec" value="Submit" class='btn btn-info canclebutton' >新增影片</button>
 
@@ -119,23 +111,39 @@ td {
 
 
 				</h4>
-			</td>
+			</th>
 		</tr>
 	</table>
-
-	<table>
-		<tr>
-			<th>直播主姓名</th>
-			<th>影片名稱</th>
-			<th>影片描述</th>
-			<th>影片內容</th>
-			<th>影片上架時間</th>
-			<th class='canclebutton'>修改影片</th>
+				
+				
+				
+				</div></div>
+				<div class="col-1"><div class="xxx"></div></div>
 			
-			
-
-		</tr>
-		<%@ include file="page1.file"%>
+			</div>
+		</div>
+	
+	
+	
+	<div class="container-fluid">
+			<div class="row">
+				<!-- 第一行 -->
+				<div class="col-1"><div class="xxx"></div></div>
+				<div class="col-10">
+				<table class="table">
+	<%@ include file="page1.file"%>
+  <thead class="table-active">
+    <tr>
+      <th scope="col">直播主姓名</th>
+      <th scope="col">影片名稱</th>
+      <th scope="col">影片描述</th>
+      <th scope="col">影片內容</th>
+      <th scope="col">影片上架時間</th>
+      <th class='canclebutton'>修改影片</th>
+    </tr>
+  </thead>
+  
+  
 
 		<jsp:useBean id="memSvc" scope="page"
 			class="com.meetU.mem.model.MemService" />
@@ -145,18 +153,21 @@ td {
 
 		<c:forEach var="fileRecVO" items="${list}" begin="<%=pageIndex%>"
 			end="<%=pageIndex+rowsPerPage-1%>">
-			<tr>
-				<td>${memSvc.getOneMem(fileRecVO.host_ID).mem_name}</td>
-				<td>${fileRecVO.file_name}</td>
-				<td>${fileRecVO.live_des}</td>
-				<td><iframe height="100%" src="${fileRecVO.file_cont}"
-						allowfullscreen></iframe></td>
-				<td><fmt:formatDate value="${fileRecVO.file_date}"
-						pattern="yyyy-MM-dd HH:mm" /></td>
-				
-				<td class='canclebutton'>
-				
-				<button style="${(memVO.mem_ID eq host_ID) ? '': 'display:none' }" type="submit" form="${fileRecVO.file_ID}" value="Submit"  class='btn btn-warning canclebutton' >修改影片</button>
+		
+
+		
+  
+  
+  
+  <tbody>
+    <tr>
+      <th scope="row">${memSvc.getOneMem(fileRecVO.host_ID).mem_name}</th>
+      <td>${fileRecVO.file_name}</td>
+      <td>${fileRecVO.live_des}</td>
+      <td><iframe height="100%" src="${fileRecVO.file_cont}" allowfullscreen></iframe></td>
+      <td><fmt:formatDate value="${fileRecVO.file_date}" pattern="yyyy-MM-dd HH:mm" /></td>
+      <td  class='canclebutton'>
+            <button style="${(memVO.mem_ID eq host_ID) ? '': 'display:none' }" type="submit" form="${fileRecVO.file_ID}" value="Submit"  class='btn btn-warning canclebutton' >修改影片</button>
 				<form action="fileRec.do" method='post' id="${fileRecVO.file_ID}">
 					 <input type="hidden" name="file_ID"	value="${fileRecVO.file_ID}">
 		   			 <input type="hidden" name="host_ID"	value="${host_ID}">
@@ -169,14 +180,39 @@ td {
 					 <input type="hidden" name="host_ID"	value="${host_ID}">
 		  			 <input type='hidden' name='action' value='delete'>
 				</form>
+	  </td>
+     
+    </tr>
+  
+  </tbody>
+  </c:forEach>
+  <%@ include file="page2.file"%>
+</table>
+				</div></div>
+				<div class="col-1"><div class="xxx"></div></div>
 				
-				</td>
-				
-				
-			</tr>
+			</div>
+		</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
-		</c:forEach>
-	</table>
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
 	<jsp:useBean id="live_likeSvc" scope="page" class="com.meetU.live_like.model.Live_likeService"/>
 	<div id='live_like'>
 		<input class="${live_likeSvc.getOneLive_like2(memVO.mem_ID,param.host_ID ) != null ? 'btn btn-danger ' : 'btn btn-primary ' } live_like"  type="submit" value="${live_likeSvc.getOneLive_like2(memVO.mem_ID,param.host_ID ) != null ? '退訂直播主' : '收藏直播主' }">
@@ -197,7 +233,7 @@ td {
 	</div>
 	
 	
-	<%@ include file="page2.file"%>
+
 
 	<jsp:include page="/Templates/bootstrap4/frontFooter.jsp" />
 
@@ -216,52 +252,7 @@ function openbtn(){
 	$(".canclebutton" ).show();
 	} 
 
-// $(document).ready(function(){
-// 	$(".live_like").click(function(){
-		 
-// 		 if($(this).val() == "收藏直播主"){
-			 				 
-// 			 $.ajax({
-// 				 type: "POST",
-<%-- 				 url: "<%=request.getContextPath()%>/FrontEnd/live_like/live_like.do", --%>
-// 				 data: {"host_ID":$(this).next().attr('value'), 
-// 					 	"action":"insert", 
-// 					 	"mem_ID":$(this).next().next().attr('value')},
-// 				 dataType: "json",
-// 				 success: function(){
-					 
-// 					 $(".live_like").val("退訂直播主");
-// 					 $(".live_like").attr("class","btn btn-danger live_like");
-					
-					
-// 					 alert("成功加入收藏");
-// 					},
-					
-// 	             error: function(){alert("愛你唷,不過錯了")}
-// 		         });
-			 
-			 
-// 		 }else if($(this).val() == "退訂直播主"){
-			 
-// 			 $.ajax({
-// 				 type: "POST",
-<%-- 				 url: "<%=request.getContextPath()%>/FrontEnd/live_like/live_like.do", --%>
-// 				 data: {"host_ID":$(this).next().attr('value'), 
-// 					 	"action":"delete", 
-// 					 	"mem_ID":$(this).next().next().attr('value')},
-// 						 dataType: "json",
-// 				 success: function(){
-					 
-// 					 $(".live_like").val("收藏直播主");
-// 					 $(".live_like").attr("class","btn btn-primary live_like");
-												
-// 					 alert("成功取消收藏");
-// 					},
-// 	             error: function(){alert("愛你唷,不過錯了2")}
-// 		         });				
-// 		 }
-// 	 });
-// })
+
 
 //以下登入
 $('.live_like').click(function(){
