@@ -40,7 +40,7 @@ public class FrontMemServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs);
+			req.setAttribute("errorMsgs", errorMsgs); 
 		
 			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
@@ -524,7 +524,7 @@ public class FrontMemServlet extends HttpServlet {
 				errorMsgs.add("修改資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/FrontEnd/mem/reg_mem_input.jsp");
-				failureView.forward(req, res);
+				failureView.forward(req, res); 
 			}
 		}
 	}

@@ -106,6 +106,6 @@ public class EmailValidator extends HttpServlet {
 			req.getSession().setAttribute("mem_acc", memVO.getMem_acc());
 			RequestDispatcher successView = req.getRequestDispatcher("/FrontEnd/mem/ValidationSuccess.jsp");
 			//RequestDispatcher successView = req.getRequestDispatcher("/FrontEnd/mem/reg_mem_input.jsp");
-			successView.forward(req, res);
+			successView.forward(req, res); 
 	}
 }
