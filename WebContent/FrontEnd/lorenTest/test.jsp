@@ -46,9 +46,7 @@
     
     <style>
     
-   body {
-    background: #f5ffaa80;
-}
+  
 .list-blog.single-post {
     margin-bottom: 30px;
     border-bottom: 1px solid #721c24ab;
@@ -56,7 +54,7 @@
     </style>
    
   </head>
-  <body >
+  <body>
     <jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
       
    
