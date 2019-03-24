@@ -264,12 +264,11 @@ public class FrontMemServlet extends HttpServlet {
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("memVO", memVO); // 資料庫update成功後,正確的的memVO物件,存入req
-				
-				String url = "/FrontEnd/lorenTest/test.jsp";
-				System.out.println("檢查點 3");
+				String url = req.getContextPath() + "/FrontEnd/lorenTest/test.jsp";
+			
+				res.sendRedirect(url); // 成功轉交 listOneEmp.jsp
 
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneMem.jsp
-				successView.forward(req, res);
+				
 
 				/***************************其他可能的錯誤處理*************************************/
 			} catch (Exception e) {
