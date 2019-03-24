@@ -179,12 +179,13 @@
 <br>
 <input type="hidden" name="action" value="reg">
 <input type="hidden" name="mem_ID" value="<%=memVO.getMem_ID()%>">
-<input type="submit" value="送出修改">
+<button class="btn btn-outline-success" type="submit"><b>送出修改</b></button>
 </FORM>
 </center>
 </div>
 </div>
 </div>
+<br><br><br>
    
     
     

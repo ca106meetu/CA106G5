@@ -24,21 +24,21 @@
 <title>Insert title here</title>
 </head>
 <body>
-<jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
 
-<h1>${memVO.mem_acc}你好! 您的信箱${memVO.mem_email}已經通過驗證!</h1>
 
-<jsp:include page="/Templates/bootstrap4/frontFooter.jsp" />
+<%-- <h1>${memVO.mem_acc}你好! 您的信箱${memVO.mem_email}已經通過驗證!</h1> --%>
+
+
 <script> 
 
 $(document).ready(function(){
 	var url = "<%=request.getContextPath()%>/FrontEnd/mem/reg_mem_input.jsp";
 	var s_url = new String(url);
-	
+	swal({title:"驗證信已送出", html:"<h5>${memVO.mem_acc}你好! 您的信箱${memVO.mem_email}已經通過驗證!</h5>", type:"success", confirmButtonText:"確定"});
 	//alert(s_url);
 	setTimeout(function(){location.href = s_url;
 	//document.getElementById("clickme").click();
-	},2500);
+	},3000);
 })
 
 </script>

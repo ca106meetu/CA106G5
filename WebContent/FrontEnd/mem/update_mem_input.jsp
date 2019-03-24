@@ -54,7 +54,6 @@
 
 <style>
   table {
-	/*width: 450px;*/
 	background-color: white;
 	margin-top: 1px;
 	margin-bottom: 1px;
@@ -184,12 +183,13 @@
 <br>
 <input type="hidden" name="action" value="update">
 <input type="hidden" name="mem_ID" value="<%=memVO.getMem_ID()%>">
-<input type="submit" class="btn btn-outline-success" value="送出修改">
+<button class="btn btn-outline-success" type="submit"><b>送出修改</b></button>
 </FORM>
 </center>
 </div>
 </div>
 </div>
+<br><br><br>
 <!-- 	<button type="button" class="btn btn-outline-success test" style="display='none'" > -->
 <!-- 	test -->
 <!-- 	</button> -->

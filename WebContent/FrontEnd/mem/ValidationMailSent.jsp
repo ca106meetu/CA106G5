@@ -22,10 +22,39 @@
 <title>Insert title here</title>
 </head>
 <body>
-<jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
-	<h1>驗證信已送出</h1>
-	<p>
-	<a href="mailto:${memVO.mem_email}">提醒您驗證信只有最新的一封有效</a></p>
-<jsp:include page="/Templates/bootstrap4/frontFooter.jsp" />
+
+<!-- 	<h1>驗證信已送出</h1> -->
+<!-- 	<p>提醒您驗證信只有最新的一封有效</p> -->
+<script type="text/javascript">
+$(document).ready(function(){ 
+	//swal({title:"驗證信已送出", html:"<h4>提醒您驗證信只有最新的一封有效</h4>", type:"success", confirmButtonText:"確定"});
+// 	swal({title:"驗證信已送出", 
+// 	      html:"<h4><a id='link' href='mailto:who@yahoo.com.tw'>提醒您驗證信只有最新的一封有效</a></h4>",
+// 		  type:"success",
+// 		  confirmButtonText:"確定"}).then(
+// 	        function (result) {
+// 				if (result.value) {
+// 	                //使用者按下「確定」要做的事
+// 	                //swal("完成!", "資料已經刪除", "success");
+// 					$('#link').trigger('click');
+// 	            } 
+// 	        });//end then 
+// 	});
+
+	swal({title:"驗證信已送出", html:"<h4>提醒您驗證信只有最新的一封有效</h4>", type:"success"}).then(function (result) {
+        //導頁寫在此
+        //window.location.href = "mailto:bell0920tw@gmail.com";
+        window.location.href = "mailto:${memVO.mem_email}";
+    }); 
+
+}); 
+
+
+</script>
+
+<!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/popper.min.js"></script>
+    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/js/bootstrap.min.js"></script>
 </body>
 </html>

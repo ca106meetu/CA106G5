@@ -18,10 +18,22 @@
 <title></title>
 </head>
 <body>
-<jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
-	
-	<h1>${errorMsg}</h1>
 
-<jsp:include page="/Templates/bootstrap4/frontFooter.jsp" />
+	
+<%-- 	<h1>${errorMsg}</h1> --%>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+	swal({title:"驗證信錯誤訊息", html:"<h4>${errorMsg}</h4>", type:"warning", confirmButtonText:"確定"});
+}); 
+
+</script>
+
+<!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/popper.min.js"></script>
+    <script src="<%=request.getContextPath()%>/Templates/bootstrap4/js/bootstrap.min.js"></script>
+    
 </body>
 </html>
