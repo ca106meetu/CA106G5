@@ -63,13 +63,13 @@
         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
           <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
           <p style="color:#007bff;">
-            <i class="fas fa-home mr-3"></i> 台灣中壢中央大學</p>
+            <i class="fas  mr-3"></i> 台灣中壢中央大學</p>
           <p style="color:#007bff;">
-            <i class="fas fa-envelope mr-3"></i> meetU@gmail.com</p>
+            <i class="fas  mr-3"></i> meetU@gmail.com</p>
           <p style="color:#007bff;">
-            <i class="fas fa-phone mr-3"></i> 0905 106 205</p>
+            <i class="fas  mr-3"></i> 0905 106 205</p>
           <p style="color:#007bff;">
-            <i class="fas fa-print mr-3"></i> JAVA CA106 第五組</p>
+            <i class="fas  mr-3"></i> JAVA CA106 第五組</p>
         </div>
         <!-- Grid column -->
 
@@ -98,30 +98,6 @@
         <div class="col-md-5 col-lg-4 ml-lg-0">
 
           <!-- Social buttons -->
-          <div class="text-center text-md-right">
-            <ul class="list-unstyled list-inline">
-              <li class="list-inline-item">
-                <a class="btn-floating btn-sm rgba-white-slight mx-1">
-                  <i class="fab fa-facebook-f"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a class="btn-floating btn-sm rgba-white-slight mx-1">
-                  <i class="fab fa-twitter"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a class="btn-floating btn-sm rgba-white-slight mx-1">
-                  <i class="fab fa-google-plus-g"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a class="btn-floating btn-sm rgba-white-slight mx-1">
-                  <i class="fab fa-linkedin-in"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
 
         </div>
         <!-- Grid column -->
