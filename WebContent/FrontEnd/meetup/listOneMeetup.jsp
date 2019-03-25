@@ -48,7 +48,9 @@
       }
       
       #rep{
-      	display:none;      
+      	display:none;
+      	margin:50px 0px 50px 0px; 
+      	margin-left:15%;     
       }
       
       *{
@@ -97,35 +99,38 @@
           		<p>聯誼地點 : <%=meetupVO.getMeetup_loc()%></p>
           		<p>聯誼主揪 : <%=memSvc.getOneMem(meetupVO.getMem_ID()).getMem_nickname()%></p>
 				<p>至少 <%=meetupVO.getMeetup_minppl()%> 人成團</p>
-				<p>至多 <%=meetupVO.getMeetup_maxppl()%> 人滿團</p>
+				<p>至多 <font style="color:red" > <%=meetupVO.getMeetup_maxppl()%> </font>人滿團</p>
         		
           <div class="join"> 
           	<input type="button" class="${mtMemSvc.getOneMeetupMem(meetupVO.meetup_ID, memVO.mem_ID)!=null?'btn btn-warning disabled': 'btn btn-warning btnJoin'}" 
           		id="btnJoin" value="${mtMemSvc.getOneMeetupMem(meetupVO.meetup_ID, memVO.mem_ID)!=null?'已報名':'報名'}" >
-          		 <i class="fa fa-user"></i> <%=mtMemSvc.getAll(meetupVO.getMeetup_ID()).size()%> 位
           	<input type="hidden" name="meetup_ID" value="${meetupVO.meetup_ID}">
-			<input type="hidden" name="mem_ID"	value="${memVO.mem_ID}">     
+			<input type="hidden" name="mem_ID"	value="${memVO.mem_ID}"> 
+          		 <i class="fa fa-user"></i> <%=mtMemSvc.getAll(meetupVO.getMeetup_ID()).size()%> 位
+          	    
 		  </div>
 			
 		  <div class="HeartnRep"> 
-			<input type='image' src=" ${mLikeSvc.getOneMeetupLike(meetupVO.meetup_ID, memVO.mem_ID)!= null?'img/heart_red.png':'img/heart_white.png'}" 
+			<input type='image' src="${mLikeSvc.getOneMeetupLike(meetupVO.meetup_ID, memVO.mem_ID)!= null?'img/heart_red.png':'img/heart_white.png'}" 
 			   class='heart' title="${mLikeSvc.getOneMeetupLike(meetupVO.meetup_ID, memVO.mem_ID) != null ? '取消收藏' : '加入收藏' }" 
 			   alt="${mLikeSvc.getOneMeetupLike(meetupVO.meetup_ID, memVO.mem_ID) != null ? 'favorite' : 'unfavorite' }" >
-			    	 <%=mLikeSvc.LikeByWho(meetupVO.getMeetup_ID()).size()%> 位
 			<input type="hidden" name="meetup_ID" value="${meetupVO.meetup_ID}">
 			<input type="hidden" name="mem_ID"	value="${memVO.mem_ID}">
-			
+ 				<%=mLikeSvc.LikeByWho(meetupVO.getMeetup_ID()).size()%> 位			
 			<button class="btn btn-info" type="submit" id="btnRep"><i class="fa fa-bullhorn"></i> 檢舉</button>
 		  </div>		
         </div>
        </div>
       </div><!-- 來自ROW-->	
       
-      
-      <div class="item"><!-- 假文假圖-->
-      	<p><%=meetupVO.getMeetup_info()%></p>
-      </div>
-      
+      <div class="row">
+      	<div class="col">
+	      <div class="item"><!-- 假文假圖-->
+	      	<p><%=meetupVO.getMeetup_info()%></p>
+	      </div>
+      	</div>
+	 </div>
+	       	
       <div class="row">
       	<div class="map">
       		<iframe width="800" height="600" frameborder="0" style="border:0" 
@@ -138,7 +143,7 @@
       	<div class="col-12">
       		<div id="rep">
 				<%-- 檢舉內容 --%>
-					<textarea rows="5" cols="100%" name="rep_content" placeholder="請輸入檢舉原因" id="repText"></textarea>		
+					<textarea rows="5" cols="95%" name="rep_content" placeholder="請輸入檢舉原因" id="repText"></textarea>		
 					<br><input type="reset" class="btn btn-info btn-sm" value="取消">
 					<input type="submit" class="btn btn-info btn-sm" value="送出檢舉" id="btnRepSubmit">
 					<input type="hidden" name="meetup_ID" value="${meetupVO.meetup_ID}">

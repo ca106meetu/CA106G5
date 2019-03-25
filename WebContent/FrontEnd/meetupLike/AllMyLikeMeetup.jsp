@@ -125,14 +125,6 @@
 
 <%@ include file="page2.file" %>
 
-<script>
-$(document).ready(function(){
-	
-})
-
-</script>
-
-
 <jsp:include page="/Templates/bootstrap4/frontFooter.jsp" />
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

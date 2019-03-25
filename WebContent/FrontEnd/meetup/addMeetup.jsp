@@ -11,10 +11,23 @@
 
 <html>
 <head>
+<meta>
+<!-- map -->
+	<script src="http://maps.google.com/maps/api/js?key=AIzaSyBbAAPKAKdERmjzz1pWIZVULGozcKOY6Y8&sensor=false"></script>
+<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
+	<script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
+<!-- page label -->    
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+  	<link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+
 <title>新增聯誼</title>
 
 <style>
-  #map {
+ #map {
         margin-top:50px;
         height: 400px;
         width: 100%;
@@ -33,17 +46,6 @@
  }
 </style>
 
-<meta>
-<!-- map -->
-	<script src="http://maps.google.com/maps/api/js?key=AIzaSyBbAAPKAKdERmjzz1pWIZVULGozcKOY6Y8&sensor=false"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
-	<script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
-<!-- page label -->    
-    <link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
-  	<link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
-
 </head>
 
 <body onload='initMap();'>
@@ -58,11 +60,9 @@
 	</ul>
 </c:if>
 
-
 <div class="container">
 <FORM METHOD="POST" ACTION="meetup.do" name="form1" enctype='multipart/form-data'>
       <div class="row">
-      
        <div class="col-6">
           <div class="headIntro introPic form-group">
           	<label for="imgUpload"></label>
@@ -77,21 +77,34 @@
           	<ul>
           		<li>聯誼主揪<input type="hidden" class="form-control" name="mem_ID" value="<%=memVO.getMem_ID()%>"/><font> <%=memVO.getMem_name()%></li>
           		<li>聯誼名稱 <input type="text" class="form-control" name="meetup_name" value="<%=(meetupVO==null)? "":meetupVO.getMeetup_name()%>"/></li>
-          		<li>聯誼日期 <input type="text" class="form-control" name="meetup_date" id="f_date1"/></li>
+          		<li>聯誼時間 <input type="text" class="form-control" name="meetup_date" id="f_date1"/></li>
+          		<li>報名截止 <input type="text" class="form-control" name="meetup_joindate" id="f_date2"/></li>
+          		<li>人數下限<select name="meetup_minppl" class="form-control" id="minppl">
+								  <%for(int i=1; i<100; i++){%>
+								  	<option value="<%=i%>"> <%=i%>
+							  		</option>
+						      	  <%} %>
+						  </select>
+          		</li>
+          		
+          		<li>人數上限<select name="meetup_maxppl" class="form-control" id="maxppl">
+						  </select>
+          		</li>
           		<li>聯誼地點 <select id="twCityName" class="form-control">
-				  <option >--請選擇縣市--</option>
-				  <c:forEach var="city" items="${listCity}">
-				  	<option value="${city}"> ${city}</option>
-				  </c:forEach>
-			  		</select>
-			  
-			  		<select id="CityAreaName" class="form-control">
-					  <option >--請選擇區域--</option>
-			  		</select>
-					    
-		      		<select id="AreaRoadName" class="form-control">
-					  <option >--請選擇路名--</option>
-			  		</select>	    
+							  <option >--請選擇縣市--</option>
+								  <c:forEach var="city" items="${listCity}">
+								  	<option value="${city}"> ${city}
+							  		</option>
+						      	  </c:forEach>
+						  </select>
+						  
+						  <select id="CityAreaName" class="form-control">
+								  <option >--請選擇區域--</option>
+						  </select>
+								    
+					      <select id="AreaRoadName" class="form-control">
+								  <option >--請選擇路名--</option>
+						  </select>	    
 			  
 				  	<input type="text" class="form-control" placeholder="請輸入門牌號碼" id="num">
 				  	<input type="button" class="btn btn-info form-control" value="確認" id="btnLoc" >	
@@ -101,8 +114,8 @@
 				</li>
           	</ul>
         </div>
-       </div>
-      </div><!-- 來自ROW-->	
+      </div>
+	</div><!-- 來自ROW-->	
       
       <div class="row">
        <div class="col-12">
@@ -116,11 +129,22 @@
 	  
 	<input type="hidden" name="meetup_status" value="1">
 	<input type="hidden" name="action" value="insert">
-	<button type="submit" class="form-control btn btn-info">新增聯誼活動</button>
+	<button type="submit" class="form-control btn btn-danger">新增聯誼活動</button>
 </FORM>
     
 	<div id="map"></div>
 </div>
+
+<script>
+$('#minppl').change(function(){
+	
+	var min = $('#minppl option:selected').val();
+	for(i=min; i<50 ; i++){
+		$('#maxppl').append('<option value="'+i+'">'+i+'</option>');
+	}
+});
+
+</script>
 
 <script>
 <!-- 圖片上傳 -->
@@ -262,15 +286,27 @@ $(document).ready(function(){
         $.datetimepicker.setLocale('zh');
         $('#f_date1').datetimepicker({
            theme: '',              //theme: 'dark',
- 	       timepicker:false,       //timepicker:true,
- 	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
- 	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
+ 	       timepicker:true,       //timepicker:true,
+ 	       step: 15,                //step: 60 (這是timepicker的預設間隔60分鐘)
+ 	       format:'Y-m-d H:i:s',         //format:'Y-m-d H:i:s',
  		   value: '<%=meetup_date%>', // value:   new Date(),
            //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
            //startDate:	            '2017/07/10',  // 起始日
            minDate:               '-1970-01-01', // 去除今日(不含)之前
            //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
         });
+        
+        $('#f_date2').datetimepicker({
+            theme: '',              //theme: 'dark',
+  	       timepicker:false,       //timepicker:true,
+  	       step: 15,                //step: 60 (這是timepicker的預設間隔60分鐘)
+  	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
+  		   value: '<%=meetup_date%>', // value:   new Date(),
+            //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
+            //startDate:	            '2017/07/10',  // 起始日
+            minDate:               '-1970-01-01', // 去除今日(不含)之前
+            //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
+         });
 </script>
 
 <jsp:include page="/Templates/bootstrap4/frontFooter.jsp" />

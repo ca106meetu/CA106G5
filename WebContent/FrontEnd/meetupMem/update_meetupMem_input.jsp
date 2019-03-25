@@ -3,7 +3,6 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.meetU.meetup_mem.model.*, com.meetU.meetup.model.* "%>
 <%@ page import="com.meetU.mem.model.*"%>
-<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 
 <% MeetupMemVO meetupMemVO = (MeetupMemVO) request.getAttribute("meetupMemVO");%>
 
@@ -22,26 +21,25 @@
 <!-- fontAwesome --> 
 <%-- 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"> 	 -->
 <-- 	<link rel="stylesheet" href="<%=request.getContextPath()%>/FrontEnd/meetup/fontawesome/css/fontawesome.min.css"/> --%>
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">	
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>	
 <title>聯誼評價</title>
 
 <style>
-  img{
-  	width : 150px;
-  	height: auto;
+  .introPic{
+  	width : 400px;
+  	height: 400px;
   }	
-  table {
-	width: 450px;
-	background-color: white;
-	margin-top: 1px;
-	margin-bottom: 1px;
+  
+  .head{
+  	margin:50px 0px 50px 0px;
   }
-  table, th, td {
-    border: 0px solid #CCCCFF;
+  
+  img{
+  	width : 400px;
+  	height: AUTO;
   }
-  th, td {
-    padding: 1px;
-  }
+  
 </style>  
 <style>
   	.star-rating{
@@ -91,47 +89,45 @@
 
 <div class="container">
 	<div class="row">
-	<FORM METHOD="POST" ACTION="meetupMem.do" name="form1" enctype='multipart/form-data'>
-	<table>
-		<tr>
-			<th>聯誼名稱</th>
-			<td><input type="text" name="meetup_ID" size="45" value="<%=meetupMemVO.getMeetup_ID()%>"/></td>
-		</tr>
-		
-		<tr>
-			<th>聯誼成員</th>
-			<td><input type="text" name="mem_ID" size="45" value="<%=meetupMemVO.getMem_ID()%>"/></td>
-		</tr>
-		<tr>
-			<th>聯誼評價</th>
-			<td>
-				<div class="star-rating">
-			      <div class="star-rating__wrap">
-			        <input class="star-rating__input" id="star-rating-5" type="radio" name="meetup_rate" value="5">
-			        	<label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-5" title="5 out of 5 stars"></label>
-			        <input class="star-rating__input" id="star-rating-4" type="radio" name="meetup_rate" value="4">
-			        	<label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-4" title="4 out of 5 stars"></label>
-			        <input class="star-rating__input" id="star-rating-3" type="radio" name="meetup_rate" value="3">
-			        	<label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-3" title="3 out of 5 stars"></label>
-			        <input class="star-rating__input" id="star-rating-2" type="radio" name="meetup_rate" value="2">
-			        	<label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-2" title="2 out of 5 stars"></label>
-			        <input class="star-rating__input" id="star-rating-1" type="radio" name="meetup_rate" value="1">
-			        	<label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-1" title="1 out of 5 stars"></label>
-			      </div>
-			    </div>
-			</td>
-		</tr>	
-		<tr>
-			<th>評價內容</th>
-			<td><input type="text" name="meetup_comment" size="45" value="<%=(meetupMemVO==null)? "很棒":meetupMemVO.getMeetup_comment()%>"/></td>
-		</tr>	
-	</table>
-	<br>
-	<input type="hidden" name="action" value="update">
-	<button type="submit" >送出新增</button>
-	</FORM>
+		<div class="col-6">
+			<div class="head introPic">
+          		<img class='pic' src='/CA106G5/ShowPic?MEETUP_ID=${meetupMemVO.meetup_ID}'>
+          	</div>
+		</div>
+	
+	<jsp:useBean id="meetupSvc" scope="page" class="com.meetU.meetup.model.MeetupService"/>
+	
+		<div class="col-6">
+			<div class="head">
+			<FORM METHOD="POST" ACTION="meetupMem.do" name="form1" enctype='multipart/form-data'>
+				<input type="hidden" name="meetup_ID" value="<%=meetupMemVO.getMeetup_ID()%>"/>
+				<input type="hidden" name="mem_ID" value="<%=meetupMemVO.getMem_ID()%>"/>	
+				<h1> ${meetupSvc.getOneMeetup(meetupMemVO.meetup_ID).meetup_name} </h1>
+				
+				<h6>聯誼評價</h6>
+					<div class="star-rating">
+				      <div class="star-rating__wrap">
+				        <input class="star-rating__input" id="star-rating-5" type="radio" name="meetup_rate" value="5">
+				        	<label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-5" title="5 out of 5 stars"></label>
+				        <input class="star-rating__input" id="star-rating-4" type="radio" name="meetup_rate" value="4">
+				        	<label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-4" title="4 out of 5 stars"></label>
+				        <input class="star-rating__input" id="star-rating-3" type="radio" name="meetup_rate" value="3">
+				        	<label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-3" title="3 out of 5 stars"></label>
+				        <input class="star-rating__input" id="star-rating-2" type="radio" name="meetup_rate" value="2">
+				        	<label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-2" title="2 out of 5 stars"></label>
+				        <input class="star-rating__input" id="star-rating-1" type="radio" name="meetup_rate" value="1">
+				        	<label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-1" title="1 out of 5 stars"></label>
+				      </div>
+				    </div>
+				<h6>評價內容</h6> 
+				<textarea name="meetup_comment" rows="10" cols="45" placeholder="請輸入評價內容" /></textarea>
+				<input type="hidden" name="action" value="update">
+				<button type="submit" class="btn btn-outline-info">送出新增</button>
+			</FORM>
+		</div></div>
 	</div>
 </div>
+
 <jsp:include page="/Templates/bootstrap4/frontFooter.jsp" />
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
