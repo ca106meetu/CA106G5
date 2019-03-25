@@ -307,36 +307,36 @@ public class OrderMasterJDBCDAO implements OrderMasterDAO_interface {
 		
 		Date today = new Date();
 		
-		OrderMasterVO orderVO1 = new OrderMasterVO();
-		orderVO1.setMem_ID("M000002");
-		orderVO1.setPrice(new Double(666.99));
-		orderVO1.setOrder_date(new Timestamp(today.getTime()));
-		orderVO1.setTip("一三五七九");
-		orderVO1.setOut_add("在你心裡");
-		orderVO1.setRecipient("馬小九");
-		orderVO1.setPhone("0800092000");
-		orderVO1.setOut_date(new Timestamp(today.getTime()));
-		orderVO1.setOut_status(1);
-		orderVO1.setOrder_status(0);
-		dao.insert(orderVO1);
+//		OrderMasterVO orderVO1 = new OrderMasterVO();
+//		orderVO1.setMem_ID("M000002");
+//		orderVO1.setPrice(new Double(666.99));
+//		orderVO1.setOrder_date(new Timestamp(today.getTime()));
+//		orderVO1.setTip("一三五七九");
+//		orderVO1.setOut_add("在你心裡");
+//		orderVO1.setRecipient("馬小九");
+//		orderVO1.setPhone("0800092000");
+//		orderVO1.setOut_date(new Timestamp(today.getTime()));
+//		orderVO1.setOut_status(1);
+//		orderVO1.setOrder_status(0);
+//		dao.insert(orderVO1);
 		
 		//修改
-		OrderMasterVO orderVO2 = new OrderMasterVO();
-		orderVO2.setOrder_ID("OM000002");
-		orderVO2.setMem_ID("M000002");
-		orderVO2.setPrice(new Double(666.99));
-		orderVO2.setOrder_date(new Timestamp(today.getTime()));
-		orderVO2.setTip("一三五七九");
-		orderVO2.setOut_add("在你心裡");
-		orderVO2.setRecipient("馬小九");
-		orderVO2.setPhone("0800092000");
-		orderVO2.setOut_date(new Timestamp(today.getTime()));
-		orderVO2.setOut_status(1);
-		orderVO2.setOrder_status(0);
-		dao.update(orderVO2);
+//		OrderMasterVO orderVO2 = new OrderMasterVO();
+//		orderVO2.setOrder_ID("OM000002");
+//		orderVO2.setMem_ID("M000002");
+//		orderVO2.setPrice(new Double(666.99));
+//		orderVO2.setOrder_date(new Timestamp(today.getTime()));
+//		orderVO2.setTip("一三五七九");
+//		orderVO2.setOut_add("在你心裡");
+//		orderVO2.setRecipient("馬小九");
+//		orderVO2.setPhone("0800092000");
+//		orderVO2.setOut_date(new Timestamp(today.getTime()));
+//		orderVO2.setOut_status(1);
+//		orderVO2.setOrder_status(0);
+//		dao.update(orderVO2);
 		
 		//刪除
-		dao.delete("OM000006");
+//		dao.delete("OM000006");
 		
 		//查詢1
 		OrderMasterVO orderVO3 = dao.findByPrimaryKey("OM000003");

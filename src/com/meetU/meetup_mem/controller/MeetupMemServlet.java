@@ -88,13 +88,13 @@ public class MeetupMemServlet extends HttpServlet {
 				MeetupMemVO meetupMemVO = meetupMemSvc.getOneMeetupMem(meetup_ID, mem_ID);
 				/*=================3.查詢完成,準備轉交(Send the Success view)*/
 				req.setAttribute("meetupMemVO", meetupMemVO);
-				String url = "/meetup/update_meetup_input.jsp";
+				String url = "/FrontEnd/meetupMem/update_meetupMem_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 				successView.forward(req, res);	
 			}catch(Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/FrontEnd/meetupMem/listAllMeetupMem.jsp");
+						.getRequestDispatcher("/FrontEnd/meetupMem/listAllMyMeetup.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -103,57 +103,60 @@ public class MeetupMemServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
-			try {
+//			try {
 				/*=================1.接收請求參數，輸入格式的錯誤處理----------*/
-				String meetup_ID = req.getParameter("meetup_ID").trim();
-				String mem_ID = req.getParameter("mem_ID").trim();
+				String meetup_ID = req.getParameter("meetup_ID");
+				String mem_ID = req.getParameter("mem_ID");
 				Integer meetup_rate;
 				try{
 					meetup_rate = new Integer(req.getParameter("meetup_rate").trim());
 				} catch(NumberFormatException e) {
-					meetup_rate = 0;
+					meetup_rate = 5;
 					errorMsgs.add("請填數字");
 				}
 
-				Integer mem_showup;
-				try{
-					mem_showup = new Integer(req.getParameter("mem_show").trim());
-				} catch(NumberFormatException e) {
-					mem_showup = 0;
-					errorMsgs.add("請填數字");
-				}
-	
+//				Integer mem_showup=1;
+//				try{
+//					mem_showup = new Integer(req.getParameter("mem_show").trim());
+//				} catch(NumberFormatException e) {
+//					mem_showup = 0;
+//					errorMsgs.add("請填數字");
+//				}
 				
-				String meetup_comment = req.getParameter("meetup_comment").trim();
+				String meetup_comment = req.getParameter("meetup_comment");
 				
 				MeetupMemVO meetupMemVO = new MeetupMemVO();
 				meetupMemVO.setMeetup_ID(meetup_ID);
 				meetupMemVO.setMem_ID(mem_ID);
-				meetupMemVO.setMem_showup(mem_showup);
+//				meetupMemVO.setMem_showup(mem_showup);
 				meetupMemVO.setMeetup_rate(meetup_rate);
 				meetupMemVO.setMeetup_comment(meetup_comment);
 				
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("meetupMemVO", meetupMemVO); // 含有輸入格式錯誤的empVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/meetupMem/listAllMyMeetup.jsp");
+							.getRequestDispatcher("/FrontEnd/meetupMem/listAllMyMeetup.jsp");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
 				/*=================2.開始修改資料---------------*/
 				MeetupMemService meetupMemSvc = new MeetupMemService();
-				meetupMemVO = meetupMemSvc.updateMeetupMem(meetup_ID, mem_ID, meetup_rate, mem_showup, meetup_comment);
+				meetupMemVO = meetupMemSvc.updateMeetupMem(meetup_ID, mem_ID, meetup_rate, meetup_comment);
 				/*=================3.修改完成,準備轉交(Send the Success view)----------*/
+//				PrintWriter out = res.getWriter();
+//				out.print("{}");
+//				out.close();
+				
 				req.setAttribute("meetupMemVO", meetupMemVO); // 資料庫update成功後,正確的的empVO物件,存入req
-				String url = "/meetupMem/select_page_mem.jsp";
+				String url = "/FrontEnd/meetupMem/listAllMyMeetup.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
-			}catch (Exception e) {
-				errorMsgs.add("修改資料失敗:"+e.getMessage());
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/meetupMem/listAllMyMeetup.jsp");
-				failureView.forward(req, res);
-			}
+//			}catch (Exception e) {
+//				errorMsgs.add("修改資料失敗:"+e.getMessage());
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/FrontEnd/meetupMem/listAllMyMeetup.jsp");
+//				failureView.forward(req, res);
+//			}
 		}
 		
 		if("insert".equals(action)) { //報名參加meetup

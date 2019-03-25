@@ -7,7 +7,6 @@
 
 <% 	
 	MemVO memVO = (MemVO) session.getAttribute("memVO");
-	
 %>
 
 <html>
@@ -16,19 +15,27 @@
 
 <style>
   #map {
+        margin-top:50px;
         height: 400px;
         width: 100%;
        }
        
  img {
-       
         width: 300px;
        }
-   
+       
+ .headIntro{
+ 		margin-top:50px;
+ }  
+ 
+ .ckedit{
+ 		margin:50px 0px 50px 0px;
+ }
 </style>
-<!-- dateTimePicker -->
 
 <meta>
+<!-- map -->
+	<script src="http://maps.google.com/maps/api/js?key=AIzaSyBbAAPKAKdERmjzz1pWIZVULGozcKOY6Y8&sensor=false"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
@@ -38,8 +45,9 @@
   	<link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
 
 </head>
-<!--<body onload='initMap();'>-->
-<body>
+
+<body onload='initMap();'>
+
 <jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
@@ -56,58 +64,59 @@
       <div class="row">
       
        <div class="col-6">
-          <div class="headIntro introPic">
-          	<input type="file" name="meetup_pic" size="45" id="imgUpload"/>
+          <div class="headIntro introPic form-group">
+          	<label for="imgUpload"></label>
+          	<input type="file" name="meetup_pic" class="form-control-file" id="imgUpload"/>
 			<input type='hidden' name='encodeText' value='${encodeText}'/>
 			<img class='pic' src='data:img/png;base64,${encodeText}' ${(meetupVO.meetup_pic == null) ? "style='display:none'" : ''}>
           </div>
         </div> 
         
         <div class="col-6">
-          <div class="headIntro">
+          <div class="headIntro form-group">
           	<ul>
-          		<li>聯誼名稱 : <input type="text" name="meetup_name" size="45" value="<%=(meetupVO==null)? "":meetupVO.getMeetup_name()%>"/></li>
-          		<li>聯誼日期 : <input type="text" name="meetup_date" id="f_date1"/></li>
-          		<li>聯誼地點 : <select id="twCityName">
+          		<li>聯誼主揪<input type="hidden" class="form-control" name="mem_ID" value="<%=memVO.getMem_ID()%>"/><font> <%=memVO.getMem_name()%></li>
+          		<li>聯誼名稱 <input type="text" class="form-control" name="meetup_name" value="<%=(meetupVO==null)? "":meetupVO.getMeetup_name()%>"/></li>
+          		<li>聯誼日期 <input type="text" class="form-control" name="meetup_date" id="f_date1"/></li>
+          		<li>聯誼地點 <select id="twCityName" class="form-control">
 				  <option >--請選擇縣市--</option>
 				  <c:forEach var="city" items="${listCity}">
 				  	<option value="${city}"> ${city}</option>
 				  </c:forEach>
 			  		</select>
 			  
-			  		<select id="CityAreaName" >
+			  		<select id="CityAreaName" class="form-control">
 					  <option >--請選擇區域--</option>
 			  		</select>
 					    
-		      		<select id="AreaRoadName" >
+		      		<select id="AreaRoadName" class="form-control">
 					  <option >--請選擇路名--</option>
 			  		</select>	    
 			  
-				  	<input type="text" placeholder="請輸入門牌號碼" id="num">
-				  	<input type="button" value="確認" id="btnLoc">	
+				  	<input type="text" class="form-control" placeholder="請輸入門牌號碼" id="num">
+				  	<input type="button" class="btn btn-info form-control" value="確認" id="btnLoc" >	
 				
-					<input id="addressTotal" name="meetup_loc" type="text" size="50" value="<%=(meetupVO==null)?"":meetupVO.getMeetup_loc()%>">
+					<input type="text" id="addressTotal" class="form-control" name="meetup_loc">
+					<input type="button" class="btn btn-info form-control" value="在地圖上顯示" onClick="codeAddress()">	
 				</li>
-          		<li>聯誼主揪 : <input type="hidden" name="mem_ID" size="45" value="<%=memVO.getMem_ID()%>"/> <%=memVO.getMem_name()%></li>
           	</ul>
-          	
         </div>
        </div>
       </div><!-- 來自ROW-->	
       
       <div class="row">
        <div class="col-12">
-      	<div class="item"><!-- 假文假圖-->
+      	<div class="ckedit" >
 	      	<script src="<%=request.getContextPath()%>/ckeditor4/ckeditor.js"></script>
-	      	<textarea name="meetup_info" rows="10" cols="45">${param.meetup_info}</textarea>
+	      	<textarea name="meetup_info" rows="10" cols="45" >${param.meetup_info}</textarea>
 	       	<script>CKEDITOR.replace('meetup_info');</script>
        	</div>
        </div>
 	  </div><!-- 來自Row-->   
-
+	  
 	<input type="hidden" name="meetup_status" value="1">
 	<input type="hidden" name="action" value="insert">
-	<button type="submit" >送出新增</button>
+	<button type="submit" class="form-control btn btn-info">新增聯誼活動</button>
 </FORM>
     
 	<div id="map"></div>
@@ -190,7 +199,7 @@ $(document).ready(function(){
 </script>
 
 <script>
-<%-- GoogleMap 
+//GoogleMap 
       var geocoder= new google.maps.Geocoder();
 
       function initMap() {
@@ -223,7 +232,6 @@ $(document).ready(function(){
           }
         });
       }
-      --%>
 </script>
 
 <!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
@@ -233,11 +241,11 @@ $(document).ready(function(){
 
 
 <% 
-  java.sql.Date meetup_date = null;
+  java.sql.Timestamp meetup_date = null;
   try {
 	  meetup_date = meetupVO.getMeetup_date();
    } catch (Exception e) {
-	  meetup_date = new java.sql.Date(System.currentTimeMillis());
+	  meetup_date = new java.sql.Timestamp(System.currentTimeMillis());
    }
 %>
 

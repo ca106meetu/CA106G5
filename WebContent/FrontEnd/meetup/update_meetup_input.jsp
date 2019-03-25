@@ -20,6 +20,7 @@
 <!-- page label -->    
     <link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
   	<link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+
 <title>聯誼內容修改 update Meetup Content</title>
 
 <style>

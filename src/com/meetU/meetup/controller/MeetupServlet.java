@@ -1,8 +1,6 @@
 package com.meetU.meetup.controller;
 
 import java.io.*;
-import java.sql.Date;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,7 +12,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.meetU.meetup.model.MeetupService;
@@ -39,7 +36,7 @@ public class MeetupServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-			try {
+//			try {
 				/*=================1.接收請求參數 - 輸入格式的錯誤處理=================*/
 				String meetup_ID = req.getParameter("meetup_ID");
 				if(meetup_ID == null || (meetup_ID.trim()).length()==0) {
@@ -72,11 +69,11 @@ public class MeetupServlet extends HttpServlet {
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 				successView.forward(req, res);
 				
-			}catch(Exception e) {
-				errorMsgs.add("無法取得資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/meetup/select_page.jsp");
-				failureView.forward(req, res);
-			}
+//			}catch(Exception e) {
+//				errorMsgs.add("無法取得資料:" + e.getMessage());
+//				RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/meetup/select_page.jsp");
+//				failureView.forward(req, res);
+//			}
 		}
 		if("getOne_For_Update".equals(action)) {// 單筆修改;來自listAllEmp.jsp的請求
 			List<String> errorMsgs = new LinkedList<String>();
@@ -126,12 +123,20 @@ public class MeetupServlet extends HttpServlet {
 					errorMsgs.add("聯誼名稱只能是中、英文字母、數字和_ , 且長度必需在2到20之間");
 				}
 				
-				java.sql.Date meetup_date = null;
+				java.sql.Timestamp meetup_date = null;
 				try {
-					meetup_date = java.sql.Date.valueOf(req.getParameter("meetup_date").trim());
+					meetup_date = java.sql.Timestamp.valueOf(req.getParameter("meetup_date").trim());
 				}catch(IllegalArgumentException e) {
-					meetup_date = new java.sql.Date(System.currentTimeMillis());
-					errorMsgs.add("請輸入日期");
+					meetup_date = new java.sql.Timestamp(System.currentTimeMillis());
+					errorMsgs.add("請輸入日期時間");
+				}
+				
+				java.sql.Date meetup_joindate = null;
+				try {
+					meetup_joindate = java.sql.Date.valueOf(req.getParameter("meetup_joindate").trim());
+				}catch(IllegalArgumentException e) {
+					meetup_joindate = new java.sql.Date(System.currentTimeMillis());
+					errorMsgs.add("請輸入日期時間");
 				}
 				
 				String meetup_loc = req.getParameter("meetup_loc").trim();
@@ -184,6 +189,22 @@ public class MeetupServlet extends HttpServlet {
 					errorMsgs.add("聯誼內容請勿空白");
 				}
 				
+				Integer meetup_minppl;
+				try {
+					meetup_minppl = new Integer(req.getParameter("meetup_minppl").trim());
+				}catch(NumberFormatException e) {
+					meetup_minppl=1;
+					errorMsgs.add("請填成團的最少人數");
+				}
+				
+				Integer meetup_maxppl;
+				try {
+					meetup_maxppl = new Integer(req.getParameter("meetup_maxppl").trim());
+				}catch(NumberFormatException e) {
+					meetup_maxppl=1;
+					errorMsgs.add("請填此團人數上限");
+				}
+				
 				MeetupVO meetupVO = new MeetupVO();
 				meetupVO.setMeetup_ID(meetup_ID);
 				meetupVO.setMeetup_name(meetup_name);
@@ -192,6 +213,9 @@ public class MeetupServlet extends HttpServlet {
 				meetupVO.setMeetup_status(meetup_status);
 				meetupVO.setMeetup_pic(meetup_pic);
 				meetupVO.setMeetup_info(meetup_info);
+				meetupVO.setMeetup_minppl(meetup_minppl);
+				meetupVO.setMeetup_maxppl(meetup_maxppl);
+				meetupVO.setMeetup_joindate(meetup_joindate);
 				
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("meetupVO", meetupVO); // 含有輸入格式錯誤的empVO物件,也存入req
@@ -202,7 +226,7 @@ public class MeetupServlet extends HttpServlet {
 				}
 				/*=================2.開始修改資料---------------*/
 				MeetupService meetupSvc = new MeetupService();
-				meetupVO = meetupSvc.updateMeetup(meetup_ID, meetup_name, meetup_date, meetup_loc, meetup_status, meetup_pic, meetup_info);
+				meetupVO = meetupSvc.updateMeetup(meetup_ID, meetup_name, meetup_date, meetup_loc, meetup_status, meetup_pic, meetup_info, meetup_minppl, meetup_maxppl, meetup_joindate);
 				/*=================3.修改完成,準備轉交(Send the Success view)----------*/
 				req.setAttribute("meetupVO", meetupVO); // 資料庫update成功後,正確的的empVO物件,存入req
 				String url = "/FrontEnd/meetup/listOneMeetup.jsp";
@@ -235,12 +259,20 @@ public class MeetupServlet extends HttpServlet {
 					errorMsgs.add("聯誼編號 請勿空白");
 				}
 				
-				java.sql.Date meetup_date = null;
+				java.sql.Timestamp meetup_date = null;
 				try {
-					meetup_date = java.sql.Date.valueOf(req.getParameter("meetup_date").trim());
+					meetup_date = java.sql.Timestamp.valueOf(req.getParameter("meetup_date").trim());
 				}catch(IllegalArgumentException e) {
-					meetup_date = new java.sql.Date(System.currentTimeMillis());
-					errorMsgs.add("請輸入日期");
+					meetup_date = new java.sql.Timestamp(System.currentTimeMillis());
+					errorMsgs.add("請輸入日期時間");
+				}
+				
+				java.sql.Date meetup_joindate = null;
+				try {
+					meetup_joindate = java.sql.Date.valueOf(req.getParameter("meetup_joindate").trim());
+				}catch(IllegalArgumentException e) {
+					meetup_joindate = new java.sql.Date(System.currentTimeMillis());
+					errorMsgs.add("請輸入報名截止日期");
 				}
 				
 				String meetup_loc = req.getParameter("meetup_loc").trim();
@@ -266,6 +298,22 @@ public class MeetupServlet extends HttpServlet {
 				String meetup_info = req.getParameter("meetup_info").trim();
 				if(meetup_info == null || meetup_info.trim().length()==0) {
 					errorMsgs.add("聯誼內容請勿空白");
+				}
+				
+				Integer meetup_minppl;
+				try {
+					meetup_minppl = new Integer(req.getParameter("meetup_minppl").trim());
+				}catch(NumberFormatException e) {
+					meetup_minppl=1;
+					errorMsgs.add("請填成團的最少人數");
+				}
+				
+				Integer meetup_maxppl;
+				try {
+					meetup_maxppl = new Integer(req.getParameter("meetup_maxppl").trim());
+				}catch(NumberFormatException e) {
+					meetup_maxppl=1;
+					errorMsgs.add("請填此團人數上限");
 				}
 				
 				byte[] meetup_pic=null;
@@ -296,7 +344,9 @@ public class MeetupServlet extends HttpServlet {
 				meetupVO.setMeetup_status(meetup_status);
 				meetupVO.setMeetup_pic(meetup_pic);
 				meetupVO.setMeetup_info(meetup_info);
-				
+				meetupVO.setMeetup_minppl(meetup_minppl);
+				meetupVO.setMeetup_maxppl(meetup_maxppl);
+				meetupVO.setMeetup_joindate(meetup_joindate);
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("meetupVO", meetupVO); // 含有輸入格式錯誤的empVO物件,也存入req
 					RequestDispatcher failureView = req
@@ -306,7 +356,7 @@ public class MeetupServlet extends HttpServlet {
 				}
 				/*=================2.開始新增資料-----------------*/
 				MeetupService meetupSvc = new MeetupService();
-				meetupVO = meetupSvc.addMeetup(meetup_name, mem_ID, meetup_date, meetup_loc, meetup_status, meetup_pic, meetup_info);
+				meetupVO = meetupSvc.addMeetup(meetup_name, mem_ID, meetup_date, meetup_loc, meetup_status, meetup_pic, meetup_info, meetup_minppl, meetup_maxppl, meetup_joindate);
 				/*=================3.新增完成,準備轉交(Send the Success view)-----------*/
 				String url = "/FrontEnd/meetup/meetupHomePg.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp

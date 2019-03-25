@@ -15,6 +15,8 @@
 	pageContext.setAttribute("meetupSvc", meetupSvc);
 %>
 
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,30 +26,30 @@
 <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
 	<script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
+	<!-- page label -->    
+<link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+<link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+<!-- fontAwesome --> 
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"> 	
+<link rel="stylesheet" href="<%=request.getContextPath()%>/FrontEnd/meetup/fontawesome/css/fontawesome.min.css"/>
 		
 <title>我參加的聯誼</title>
 <style>
 	
 	.pic{
-		width:200px;
+		width:150px;
 		height:auto;
 	}
     
     .itemImg{
-		width: 200px;
-		height: 200px;
-		<%--margin: 20px 0px 10px 0px;
-		<%--padding: 10px 25px 0px 25px;
-		flex-grow: 1;
-		background-color:black;--%>
+		width: 150px;
+		height: 150px;
 		align:center;
 	}
     
     .itemTitle{
-    	width:200px;
-    	text-align:center;
+    	width:180px;
     	margin:0px;
-	 	
   		font-weight: bold;
   	}
     
@@ -56,28 +58,33 @@
     }
     
     .cart-item {
-    	 
-		  position: relative;
-		  margin-bottom: 30px;
-		  padding: 0 50px 0 50px;
-		  background-color: #fff;
-		  box-shadow: 0 12px 20px 1px rgba(64, 64, 64, .09);
+		position: relative;
+		margin-bottom: 30px;
+		padding: 0 50px 0 50px;
+		background-color: #fff;
+		box-shadow: 0 12px 20px 1px rgba(64, 64, 64, .09);
 	}
 	
 	.itemImg, .itemTitle, .itemEdit{
     	float:left;
 		margin:20px;
-    	height: 200px;
-    	line-height:200px;
+    	height: 150px;
+    	line-height:150px;
     	text-align:center;
-    	
     }
     
-    .addMeetup{
-    	float:right;    
+    .itemEdit{
+    	width:150px;
     }
     
-
+    .itemEdit .textRate{
+    	margin-top:35%;
+    	height: 30px;
+    	line-height:30px;
+    	text-align:center;
+    	width:150px;
+    }
+    
 </style>
 </head>
 
@@ -95,7 +102,12 @@
 </c:if>
 
 <div class="container">
-
+	<div class="row">
+		<div class="col cart-item">
+		    <div class="itemHeader">
+		    	<div class="itemImg">
+		    	
+		    </div></div></div></div>
 <c:forEach var="meetupMemVO" items="${listAll}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">	
 	<div class="row">
 		<div class="col cart-item">
@@ -106,6 +118,7 @@
                     <input class='pic' type='image' src='/CA106G5/ShowPic?MEETUP_ID=${meetupMemVO.meetup_ID}' alt='submit'>                    
                  </FORM>
             </div>
+            
             <div class="itemTitle">
             	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do">
                     <button type="submit" class="btn btn-light">${meetupSvc.getOneMeetup(meetupMemVO.meetup_ID).meetup_name}</button>
@@ -114,19 +127,37 @@
             	</FORM>
       		</div>
           		
-<!--       		<div class="itemEdit"> -->
-<%-- 				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/FrontEnd/meetupMem/meetupMem.do"> --%>
-<!-- 				    <input type="submit" value="送出評價" class="btn btn-warning"> -->
-<%-- 				    <input type="hidden" name="meetup_ID"  value="${{meetupMemVO.meetup_ID}}"> --%>
-<%-- 				    <input type="hidden" name="mem_ID"  value="${meetupMemVO.mem_ID}"> --%>
-<!-- 				    <input type="hidden" name="action"	value="update"> -->
-<!-- 			    </FORM> -->
-<!-- 			</div> -->
+      		<div class="itemEdit">
+	      		<% request.setAttribute("currentTime", new Date()); %>
+	      			<c:choose>
+						<c:when test="${meetupSvc.getOneMeetup(meetupMemVO.meetup_ID).meetup_date.compareTo(currentTime)<0}">
+							<p><font style="color:red">活動已結束</font></p>
+						</c:when>					
+	  					<c:otherwise>
+	  						<p><font style="color:blue">未來的活動</font></p>
+	  					</c:otherwise>	
+					</c:choose>  								      				
+			</div>
 			
+			<div class="itemEdit">
+				<form METHOD="post" ACTION="<%=request.getContextPath()%>/FrontEnd/meetupMem/meetupMem.do">
+				<c:if test="${meetupSvc.getOneMeetup(meetupMemVO.meetup_ID).meetup_date.compareTo(currentTime)<0 and meetupSvc.getOneMeetup(meetupMemVO.meetup_ID).mem_ID!=memVO.mem_ID}">
+					<input type="hidden" name="meetup_ID"  value="${meetupMemVO.meetup_ID}">
+					<input type="hidden" name="mem_ID"  value="${memVO.mem_ID}">
+					<input type="hidden" name="action"	value="getOne_For_Update">
+					<input type="submit" class="btn btn-warning" value="前往評價">
+				</c:if>
+				</form>	
+			
+				<c:if test="${meetupSvc.getOneMeetup(meetupMemVO.meetup_ID).meetup_date.compareTo(currentTime)>0}">
+	  					<input type="submit" class="btn btn-warning disabled" value="尚未開放評價">
+				</c:if>
+			</div>
+			    
 			<div class="itemEdit">
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/FrontEnd/meetupMem/meetupMem.do" >
 			  	<c:if test="${meetupSvc.getOneMeetup(meetupMemVO.meetup_ID).mem_ID!=memVO.mem_ID}">
-			     <input type="submit" value="退出" class="btn btn-warning">
+			     <button type="submit" class="btn" class="btn btn-warning"><i class="fa fa-trash"></i> 退出</button>
 			    </c:if>
 			     <input type="hidden" name="meetup_ID"  value="${meetupMemVO.meetup_ID}">
 			     <input type="hidden" name="mem_ID"  value="${memVO.mem_ID}">
@@ -143,21 +174,19 @@
 
 <script>
 // $(document).ready(function(){
-	
-// 	$(".quit").click(function(){
+// 	$(".rate").click(function(){
 // 		$.ajax({
 // 		 type: "POST",
 <%-- 		 url: "<%=request.getContextPath()%>/FrontEnd/meetupMem/meetupMem.do", --%>
 // 		 data: {"meetup_ID":$(this).next().attr('value'), 
-// 			 	"action":"delete", 
-// 			 	"mem_ID":$(this).next().next().attr('value')},
+// 			 	"action":"update", 
+// 			 	"mem_ID":$(this).next().next().attr('value'),
+// 			 	"meetup_comment":$(this).prev().attr('value')},
 // 		 dataType: "json",
 // 		 success: function(){
-<%-- 			
-<%-- 			 alert("成功退出"); --%>
-<%-- 			 $(".quit").addClass("disabled"); --%>
-<%-- 			 --%> 
-// 			 window.location.reload();
+		
+// 			 $(".rate").addClass("disabled");
+			 
 // 			},
 //          error: function(){alert("AJAX-grade發生錯誤囉!")}
 //     });	

@@ -73,6 +73,12 @@
 <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
 	<script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
+<!-- page label -->    
+<link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+<link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+<!-- fontAwesome --> 
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"> 	
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/FrontEnd/meetup/fontawesome/css/fontawesome.min.css"/>
 		
 </head>
 
@@ -101,7 +107,7 @@
 				<input type="radio" name="searchType" value="loc">區域
 				<input type=hidden name=action value="getSearch">
 				<input type="text" class="searchInfo" name="searchInfo" placeholder="Search.." >
-				<input type="submit" class="btn btn-info" value="查詢" >
+				<button type="submit" class="btn btn-info"> 查詢 <i class="fa fa-search"></i></button>
 			</form>
 	</div></div></div>
 	

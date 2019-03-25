@@ -1,7 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="com.meetU.meetup.model.*, com.meetU.meetup_like.model.*"%>
-<%@ page import="java.util.* " %>
+<%@ page import="java.util.*" %>
 <%@ page import="com.meetU.meetup_mem.model.*, com.meetU.meetup_report.*" %>
 <%@ page import="com.meetU.mem.model.*"%>
 
@@ -18,6 +19,7 @@
 
 <html>
 <head>
+<script src="http://maps.google.com/maps/api/js?key=AIzaSyBbAAPKAKdERmjzz1pWIZVULGozcKOY6Y8&sensor=false"></script>
 <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -27,6 +29,9 @@
 <!-- page label -->    
     <link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
   	<link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+<!-- fontAwesome --> 
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"> 	
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/FrontEnd/meetup/fontawesome/css/fontawesome.min.css"/>
 <title>顯示聯誼詳情</title>
 
 <style>
@@ -39,7 +44,7 @@
 	  .headIntro{
         height: 400px;
         margin-bottom: 20px;
-        
+        margin-top: 50px;
       }
       
       #rep{
@@ -51,14 +56,20 @@
       }
       
       .heart{
-   		margin: 16px 16px 0px 16px;
+   		margin: 16px 10px 0px 16px;
    	  }
    	  #btnRep{
-   		margin-bottom:6px;
+   		margin-right:50px;
+   		float:right;
    	  }
    
       .HeartnRep{
    	  	margin-top:5px;
+      }
+      
+      .map{
+      	margin:20px;
+      	margin-left:15%;
       }
       
 </style>
@@ -80,53 +91,48 @@
         
         <div class="col-6">
           <div class="headIntro">
-          	<ul>
-          		<li><%=meetupVO.getMeetup_name()%></li>
-          		<li>聯誼日期 : <%=meetupVO.getMeetup_date()%></li>
-          		<li>聯誼地點 : <%=meetupVO.getMeetup_loc()%></li>
-          		<li>聯誼主揪 : <%=memSvc.getOneMem(meetupVO.getMem_ID()).getMem_nickname()%></li>
-          		<li>共 <%=mtMemSvc.getAll(meetupVO.getMeetup_ID()).size()%> 位參與</li>
-          		<li>共 <%=mLikeSvc.LikeByWho(meetupVO.getMeetup_ID()).size()%> 位收藏</li>
-          	</ul>
-          	
+          		<h1><%=meetupVO.getMeetup_name()%></h1>
+          		<p>聯誼日期 : <fmt:formatDate value="${meetupVO.meetup_date}" pattern="yyyy-MM-dd HH:mm"/></p>
+          		<p>報名截止 : <fmt:formatDate value="${meetupVO.meetup_joindate}" pattern="yyyy-MM-dd"/></p>
+          		<p>聯誼地點 : <%=meetupVO.getMeetup_loc()%></p>
+          		<p>聯誼主揪 : <%=memSvc.getOneMem(meetupVO.getMem_ID()).getMem_nickname()%></p>
+				<p>至少 <%=meetupVO.getMeetup_minppl()%> 人成團</p>
+				<p>至多 <%=meetupVO.getMeetup_maxppl()%> 人滿團</p>
+        		
           <div class="join"> 
           	<input type="button" class="${mtMemSvc.getOneMeetupMem(meetupVO.meetup_ID, memVO.mem_ID)!=null?'btn btn-warning disabled': 'btn btn-warning btnJoin'}" 
-          		id="btnJoin" value="${mtMemSvc.getOneMeetupMem(meetupVO.meetup_ID, memVO.mem_ID)!=null?'已報名':'報名'}"  >
+          		id="btnJoin" value="${mtMemSvc.getOneMeetupMem(meetupVO.meetup_ID, memVO.mem_ID)!=null?'已報名':'報名'}" >
+          		 <i class="fa fa-user"></i> <%=mtMemSvc.getAll(meetupVO.getMeetup_ID()).size()%> 位
           	<input type="hidden" name="meetup_ID" value="${meetupVO.meetup_ID}">
 			<input type="hidden" name="mem_ID"	value="${memVO.mem_ID}">     
 		  </div>
 			
-					
 		  <div class="HeartnRep"> 
 			<input type='image' src=" ${mLikeSvc.getOneMeetupLike(meetupVO.meetup_ID, memVO.mem_ID)!= null?'img/heart_red.png':'img/heart_white.png'}" 
 			   class='heart' title="${mLikeSvc.getOneMeetupLike(meetupVO.meetup_ID, memVO.mem_ID) != null ? '取消收藏' : '加入收藏' }" 
 			   alt="${mLikeSvc.getOneMeetupLike(meetupVO.meetup_ID, memVO.mem_ID) != null ? 'favorite' : 'unfavorite' }" >
+			    	 <%=mLikeSvc.LikeByWho(meetupVO.getMeetup_ID()).size()%> 位
 			<input type="hidden" name="meetup_ID" value="${meetupVO.meetup_ID}">
 			<input type="hidden" name="mem_ID"	value="${memVO.mem_ID}">
 			
-       		<button type="submit" class="btn btn-info btn-sm" id="btnRep"> 
-       			<span class="glyphicon glyphicon-alert">檢舉</span>
-       		</button>
+			<button class="btn btn-info" type="submit" id="btnRep"><i class="fa fa-bullhorn"></i> 檢舉</button>
 		  </div>		
         </div>
        </div>
       </div><!-- 來自ROW-->	
       
+      
       <div class="item"><!-- 假文假圖-->
       	<p><%=meetupVO.getMeetup_info()%></p>
       </div>
       
-      <div class="item"><!-- 假文假圖-->	
-			<img src="https://api.fnkr.net/testimg/650x800/00CED1/FFF/?text=img+placeholder">
-			<h3>title</h3>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem, cupiditate.</p>
-	  </div>
-      
-      <div class="item"><!-- 假文假圖-->	
-			<img src="https://api.fnkr.net/testimg/650x800/00CED1/FFF/?text=img+placeholder">
-			<h3>title</h3>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem, cupiditate.</p>
-	  </div>
+      <div class="row">
+      	<div class="map">
+      		<iframe width="800" height="600" frameborder="0" style="border:0" 
+      			src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDCEmXxcPeO_-ka9O1sp8EItwFMq5mFTYM&q=<%=meetupVO.getMeetup_loc()%>" allowfullscreen="">
+			</iframe>
+      	</div>
+      </div>
       
       <div class="row">
       	<div class="col-12">
@@ -140,8 +146,8 @@
 					<input type="hidden" name="rep_status" value="0">
 			</div>
       	</div>
-      </div>
-     </div><!-- 來自CONTAINER-->   
+    </div>
+</div><!-- 來自CONTAINER-->   
    
 <script>
 		
@@ -254,7 +260,7 @@ $(document).ready(function(){
 		$("#rep").show();
 		$("#repText").focus();
 	});
-		
+	
 })
 </script>
 

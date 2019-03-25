@@ -24,6 +24,13 @@
 <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
+<!-- page label -->    
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+  	<link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+<!-- fontAwesome --> 
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"> 	
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/FrontEnd/meetup/fontawesome/css/fontawesome.min.css"/>
+ 
 <style>
     .pic{
 		width:200px;
@@ -50,6 +57,19 @@
 	 	
     }
    
+   	.itemTitle a:hover{
+   		color: #000;
+   	}
+   	
+   	
+   	.itemTitle a{
+   		margin-right: 30px;
+	    position: relative;
+	    z-index: 1;
+	    color: #b5aec4;
+	    font-size: 17px;
+   	}
+   	
    .heart{
    		margin-top:10px;
    }
@@ -82,12 +102,15 @@
 					</FORM>
 				</div>
 				<div> 
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do" class="itemTitle">
-						<button type="submit" class="btn btn-light">${meetupSvc.getOneMeetup(meetupLikeVO.meetup_ID).meetup_name}</button> 
-						<input type="hidden" name="meetup_ID"  value="${meetupLikeVO.meetup_ID}">
-			     		<input type="hidden" name="action"	value="getOne_For_Display">
-					</FORM>
-					
+					<div class="itemTitle"> 
+					<a href="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do?meetup_ID=${meetupLikeVO.meetup_ID}&action=getOne_For_Display">
+						${meetupSvc.getOneMeetup(meetupLikeVO.meetup_ID).meetup_name}</a>
+<%-- 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do" class="itemTitle"> --%>
+<%-- 						<button type="submit" class="btn btn-light">${meetupSvc.getOneMeetup(meetupLikeVO.meetup_ID).meetup_name}</button>  --%>
+<%-- 						<input type="hidden" name="meetup_ID"  value="${meetupLikeVO.meetup_ID}"> --%>
+<!-- 			     		<input type="hidden" name="action"	value="getOne_For_Display"> -->
+<!-- 					</FORM> -->
+					</div>
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/FrontEnd/meetupLike/meetupLike.do">
 						<input type='image' src="<%=request.getContextPath()%>/FrontEnd/meetup/img/heart_red.png" class='heart' title='取消收藏' alt="favorite">
 						<input type="hidden" name="action"	value="delete">

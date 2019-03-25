@@ -10,9 +10,7 @@
 	pageContext.setAttribute("list", list);
 %>
 
-<% 	
-	session.setAttribute("location", "location");
-%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,6 +20,12 @@
 <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
 	<script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
+<!-- page label -->    
+	<link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+	<link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+<!-- fontAwesome --> 
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"> 	
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/FrontEnd/meetup/fontawesome/css/fontawesome.min.css"/>
 		
 <title>我主持的聯誼</title>    
     <style>
@@ -67,11 +71,16 @@
     	height: 200px;
     	line-height:200px;
     	text-align:center;
-    	
     }
     
     .addMeetup{
     	float:right;    
+    }
+    
+    .memPhoto{
+    	border-radius:50%;
+    	height:50px;
+    	width:50px;
     }
     
     </style> 
@@ -113,10 +122,7 @@
                         <input type="hidden" name="action"  value="getOne_For_Display">
             	</FORM>
       		</div>
-<jsp:useBean id="mtMemSvc" scope="page" class="com.meetU.meetup_mem.model.MeetupMemService"/>      		
-      		<div class="itemEdit"> 
-				 共 ${mtMemSvc.getAll(meetupVO.meetup_ID).size()-1} 位報名
-			</div>
+
       		
       		<div class="itemEdit">
 				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do" style="margin-bottom: 0px;">
@@ -127,7 +133,7 @@
 			</div>
 			<div class="itemEdit">
 			  	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="刪除" class="btn btn-warning">
+			     <button type="submit"  class="btn btn-warning">刪除<i class="fa fa-trash"></i></button>
 			     <input type="hidden" name="meetup_ID"  value="${meetupVO.meetup_ID}">
 			     <input type="hidden" name="action" value="invisible">
 			    </FORM>

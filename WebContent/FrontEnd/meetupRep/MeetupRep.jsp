@@ -33,14 +33,14 @@
 	}
 	
 	table{
-		border:1px solid black;
+		border:1px solid #ddd;
 		margin:3em;	
 	}
 	
 	th, td {
 	    padding: 15px;
 	    text-align: center;
-	    border:1px solid black;
+	    border:1px solid #ddd;
 	}
 
 	
@@ -66,6 +66,10 @@
 		width:70%;
 		height:auto;
 		margin:20px;
+	}
+	
+	tr:nth-child(even) {
+  		background-color: #f2f2f2;
 	}
 	
 </style>

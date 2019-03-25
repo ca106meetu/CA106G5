@@ -46,14 +46,14 @@
           <h6 class="text-uppercase mb-4 font-weight-bold">Take it easy</h6>
          
           <p style="color:#007bff;">
-            為什麼連假不能工作？
-           </a>
+              為什麼連假不能工作？
           </p>
           <p style="color:#007bff;">
               因為會變成連假勞工
-           
           </p>
-                   
+          <p style="color:#007bff;">
+             董董美學 deeppink
+          </p>         
         </div>
 
         <!-- Grid column -->

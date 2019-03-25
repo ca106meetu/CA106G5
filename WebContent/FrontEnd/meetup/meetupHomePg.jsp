@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.meetU.meetup.model.*, com.meetU.mem.model.*"%>
 <%@ page import="com.meetU.meetup_like.model.*"%>
@@ -18,7 +19,9 @@
 <html>
 <head>
 <!-- Required meta tags -->
-    <meta charset="utf-8">
+<meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
@@ -26,39 +29,35 @@
 <!-- page label -->    
     <link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
   	<link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+<!-- fontAwesome --> 
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"> 	
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/FrontEnd/meetup/fontawesome/css/fontawesome.min.css"/>
+  	
+  	 <!-- Favicon -->
+    <link rel="icon" href="modelMaster/img/core-img/favicon.ico">
+
+    <!-- Core Stylesheet -->
+    <link href="modelMaster/style.css" rel="stylesheet">
+
+    <!-- Responsive CSS -->
+    <link href="modelMaster/css/responsive/responsive.css" rel="stylesheet">
 		
     <title>聯誼首頁</title>    
     <style>
     *{
     	font-family:微軟正黑體;	
     }
-    
-    .pic{
-		width:200px;
+   	
+   	.pic{
+		width:300px;
 		height:auto;
 	}
-    
-    .itemImg{
-		width: 250px;
-		height: 200px;
-		margin: 20px 0px 10px 0px;
-		padding: 10px 25px 0px 25px;
-		flex-grow: 1;
-		align:center;
+	
+   	.itemImg{
+		width: 300px;
+		height: auto;
+		margin: 20px;
 	}
-    
-    .itemTitle{
-    	width:200px;
-    	text-align:center;
-    	float:left;
-	 	margin:0px;
-	 	dispay:inline;
-    }
-   
-   	.heart{
-   		margin-top:10px;
-   	}
-   
       
    	.search input[type=search] { 
 	  padding: 6px;
@@ -88,13 +87,13 @@
 <div class="container">
 	<div class="row">
 		<div class="col searchDiv">
-			<div class="search"> <span class="glyphicon glyphicon-filter"></span>
+			<div class="search">
 			<form METHOD="POST" action="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do">
 				<input type="radio" name="searchType" value="nam">名稱
 				<input type="radio" name="searchType" value="loc">區域
 				<input type=hidden name=action value="getSearch">
 				<input type="text" class="searchInfo" name="searchInfo" placeholder="Search.." >
-				<input type="submit" class="btn btn-info" value="查詢" >
+				<button type="submit" class="btn btn-info"> 查詢 <i class="fa fa-search"></i></button>
 			</form>
 	</div></div></div>
 	
@@ -102,6 +101,7 @@
 	<c:forEach var="meetupVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		<%-- c:if test="${meetupVO.meetup_status==1}"//過濾狀態為0的不出現--%>
 		<div class="col">	
+			<div class="welcome-single-slide">
 			<div class="itemImg">
 				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do">
 					<input type=hidden name=meetup_ID value="${meetupVO.meetup_ID}">
@@ -109,21 +109,24 @@
 					<input class='pic' type='image' src='/CA106G5/ShowPic?MEETUP_ID=${meetupVO.meetup_ID}' alt='submit'>					
 				</FORM>
 			</div>
-			<div>
-				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do" class="itemTitle">
-					<button type="submit" class="btn btn-light">${meetupVO.meetup_name}</button>
-					<input type="hidden" name="meetup_ID"  value="${meetupVO.meetup_ID}">
-			     	<input type="hidden" name="action"	value="getOne_For_Display">
-				</FORM>
-
+			
+			<div class="project_title" style="font-family:Microsoft JhengHei;">
+				<div class="post-date-commnents d-flex">
+			     	<a href="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do?meetup_ID=${meetupVO.meetup_ID}&action=getOne_For_Display">
+			     		<fmt:formatDate value="${meetupVO.meetup_date}" pattern="yyyy-MM-dd HH:mm"/></a>
+			    </div>
+                <a href="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do?meetup_ID=${meetupVO.meetup_ID}&action=getOne_For_Display">
+                    <h5>${meetupVO.meetup_name}</h5>
+                </a> 	
+			</div>
 <jsp:useBean id="mLikeSvc" scope="page" class="com.meetU.meetup_like.model.MeetupLikeService"/>					
 					
-				<input type='image' class='heart' id="${meetupVO.meetup_ID}" 
-						src=" ${mLikeSvc.getOneMeetupLike(meetupVO.meetup_ID, memVO.mem_ID)!= null?'img/heart_red.png':'img/heart_white.png'}" 
-		 				title="${mLikeSvc.getOneMeetupLike(meetupVO.meetup_ID, memVO.mem_ID) != null ? '取消收藏' : '加入收藏' }" 
-		   				alt="${mLikeSvc.getOneMeetupLike(meetupVO.meetup_ID, memVO.mem_ID) != null ? 'favorite' : 'unfavorite' }" >
-				<input type="hidden" name="meetup_ID" value="${meetupVO.meetup_ID}">
-				<input type="hidden" name="mem_ID"	value="${memVO.mem_ID}">
+<%-- 				<input type='image' class='heart' id="${meetupVO.meetup_ID}"  --%>
+<%-- 						src=" ${mLikeSvc.getOneMeetupLike(meetupVO.meetup_ID, memVO.mem_ID)!= null?'img/heart_red.png':'img/heart_white.png'}"  --%>
+<%-- 		 				title="${mLikeSvc.getOneMeetupLike(meetupVO.meetup_ID, memVO.mem_ID) != null ? '取消收藏' : '加入收藏' }"  --%>
+<%-- 		   				alt="${mLikeSvc.getOneMeetupLike(meetupVO.meetup_ID, memVO.mem_ID) != null ? 'favorite' : 'unfavorite' }" > --%>
+<%-- 				<input type="hidden" name="meetup_ID" value="${meetupVO.meetup_ID}"> --%>
+<%-- 				<input type="hidden" name="mem_ID"	value="${memVO.mem_ID}"> --%>
 					
 			</div>
 		</div>

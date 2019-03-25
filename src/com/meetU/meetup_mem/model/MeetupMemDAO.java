@@ -29,7 +29,7 @@ public class MeetupMemDAO implements MeetupMemDAO_interface{
 	
 	private static final String DELETE = "DELETE FROM MEETUP_MEM WHERE meetup_ID =? and MEM_ID =?";
 	
-	private static final String UPDATE = "UPDATE MEETUP_MEM SET meetup_rate=?, meetup_comment=?, mem_showup=? WHERE meetup_ID =? and MEM_ID =?";
+	private static final String UPDATE = "UPDATE MEETUP_MEM SET meetup_rate=?, meetup_comment=? WHERE meetup_ID =? and MEM_ID =?";
 	
 
 	@Override
@@ -76,9 +76,9 @@ public class MeetupMemDAO implements MeetupMemDAO_interface{
 			
 			pstmt.setInt(1, meetupMemVO.getMeetup_rate());
 			pstmt.setString(2, meetupMemVO.getMeetup_comment());
-			pstmt.setInt(3, meetupMemVO.getMem_showup());
-			pstmt.setString(4, meetupMemVO.getMeetup_ID());
-			pstmt.setString(5, meetupMemVO.getMem_ID());
+//			pstmt.setInt(3, meetupMemVO.getMem_showup());
+			pstmt.setString(3, meetupMemVO.getMeetup_ID());
+			pstmt.setString(4, meetupMemVO.getMem_ID());
 			pstmt.executeUpdate();
 			
 		}catch(SQLException se) {
