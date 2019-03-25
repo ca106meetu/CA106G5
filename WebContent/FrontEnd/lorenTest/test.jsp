@@ -60,6 +60,10 @@
     <title>MeetU!!!</title>
     
     <style>
+    .owl-carousel .owl-item img {
+    
+    margin: 12px;
+}
     
   
 .list-blog.single-post {
