@@ -66,7 +66,7 @@
 <body bgcolor='white'>
 <jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
 <div class="container justify-content-center">
-<div class="row">
+<div class="row justify-content-center">
 <div class="col">   
 	<center>
 		 <h3>會員資料註冊 - reg_mem_input.jsp</h3>
@@ -74,7 +74,7 @@
 </div>
 </div>
 
-<div class="row">
+<div class="row justify-content-center">
 <div class="col">   
 	<center>
 		<h3>會員資料註冊:</h3>
@@ -82,11 +82,9 @@
 </div>
 </div>	
 
-<div class="row">
+<div class="row justify-content-center">
 <div class="col"> 
 <center>
-<h3>資料修改:</h3>
-
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
@@ -96,6 +94,17 @@
 		</c:forEach>
 	</ul>
 </c:if>
+</center>
+	</div>
+ </div>
+<div class="row justify-content-end">
+    <div class="col-1">
+      <button type="button" class="btn btn-outline-secondary btn-sm" id="Qclick">小按鈕</button>
+    </div>
+</div> 
+<div class="row justify-content-center">
+	<div class="col">
+		<center>
 <FORM METHOD="post" ACTION="FrontMem.do" name="form1" enctype="multipart/form-data">
 <table id="main_data">
 
@@ -105,18 +114,21 @@
 		</tr>
 	<tr>
 		<td class="laber">會員密碼:</td>
-		<td><input type="TEXT" name="mem_pw" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" 
-			 value="<%= (memVO==null)? "" : memVO.getMem_pw()%>" /></td>
+		<td><input type="TEXT" name="mem_pw" class="form-control" aria-label="Default" id="tm_pw" 
+			aria-describedby="inputGroup-sizing-default" value="<%= (memVO==null)? "" : memVO.getMem_pw()%>" />
+		</td>
 	</tr>
 	<tr>
 		<td class="laber">會員姓名:</td>
-		<td><input type="TEXT" name="mem_name" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
-			 value="<%= (memVO.getMem_name()==null)? "" : memVO.getMem_name()%>" /></td>
+		<td><input type="TEXT" name="mem_name" class="form-control" aria-label="Default"  id="tm_name"
+			aria-describedby="inputGroup-sizing-default" value="<%= (memVO.getMem_name()==null)? "" : memVO.getMem_name()%>" />
+		</td>
 	</tr>
 	<tr>
 		<td class="laber">會員暱稱:</td>
-		<td><input type="TEXT" name="mem_nickname" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
-			 value="<%= (memVO.getMem_nickname()==null)? "" : memVO.getMem_nickname()%>" /></td>
+		<td><input type="TEXT" name="mem_nickname" class="form-control" aria-label="Default" id="tm_nickname"
+			aria-describedby="inputGroup-sizing-default" value="<%= (memVO.getMem_nickname()==null)? "" : memVO.getMem_nickname()%>" />
+		</td>
 	</tr>
 	<tr>
 		<td class="laber">會員生日:</td>
@@ -130,13 +142,14 @@
 	</tr>
 	<tr>
 		<td class="laber">會員手機:</td>
-		<td><input type="TEXT" name="mem_pho" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" 
-			 value="<%= (memVO.getMem_pho()==null)? "" : memVO.getMem_pho()%>" /></td>
+		<td><input type="TEXT" name="mem_pho" class="form-control" aria-label="Default" id="tm_pho"
+			aria-describedby="inputGroup-sizing-default" value="<%= (memVO.getMem_pho()==null)? "" : memVO.getMem_pho()%>" />
+		</td>
 	</tr>	
 	<tr>
 		<td class="laber"><label for="mem_gend">會員性別:</label></td>
-		<td><input type="TEXT" name="mem_gend" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" 
-			 value="<%= (memVO.getMem_gend()==null)? "" : memVO.getMem_gend()%>" />
+		<td><input type="TEXT" name="mem_gend" class="form-control" aria-label="Default" id="tm_gend"
+			aria-describedby="inputGroup-sizing-default" value="<%= (memVO.getMem_gend()==null)? "" : memVO.getMem_gend()%>" />
 		
         </td>
 	</tr>
@@ -148,7 +161,7 @@
 	<tr>
 		<td class="laber">會員自我介紹:</td>
 		<td>
-			<textarea name="mem_intro" rows="4" cols="50"><%= (memVO.getMem_intro()==null)? "" : memVO.getMem_intro()%></textarea>
+			<textarea name="mem_intro" rows="4" cols="50" id="tm_intro"><%= (memVO.getMem_intro()==null)? "" : memVO.getMem_intro()%></textarea>
 		 </td>
 	</tr>
 
@@ -161,8 +174,8 @@
 
 	<tr>
 		<td class="laber">會員居住地:</td>
-		<td><input type="TEXT" name="mem_address" aria-label="Default" aria-describedby="inputGroup-sizing-default"
-			 value="<%= (memVO.getMem_address()==null)? "" : memVO.getMem_address()%>" /></td>
+		<td><input type="TEXT" name="mem_address" aria-label="Default" id="tm_address"
+			aria-describedby="inputGroup-sizing-default" value="<%= (memVO.getMem_address()==null)? "" : memVO.getMem_address()%>" /></td>
 	</tr>
 	
 	<tr>
@@ -197,10 +210,22 @@
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/popper.min.js"></script>
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/js/bootstrap.min.js"></script>
  	<script type="text/javascript">
- 	$(function(){
+ 	$(document).ready(function(){
 	 	gend.map(function(data){
 	        $('#mem_gend').append('<option value="'+ data.value +'">' + data.title + '</option>');
 	    });
+	 	
+	 	$("#Qclick").click(function(){
+    	  	$("#tm_pw").val("123456");
+    	  	$("#tm_name").val("死侍");
+    	  	$("#tm_nickname").val("嘴炮傭兵");
+    	    $("#f_date1").val("1991-02-01");
+    	    $("#tm_pho").val("0916066866");
+    	    $("#tm_gend").val("男性");
+    	    $("#tm_intro").val("死侍原本是傭兵，為了治療癌症而在早期接受「Weapon X」的實驗，就算接受酷刑也能夠迅速再生，身體四分五裂了也能恢復原狀，也因此造成腦細胞過度增長，因而變得瘋瘋癲癲的。再生能力與癌細胞互相排斥，導致身體滿是疤痕，自己深感羞愧不想連累女友的幸福人生，所以離開了她。");
+    	    $("#tm_address").val("桃園市");
+    	});
+	 	
  	});
  	var gend = [
  	    {title:'男性',value:'男性'},

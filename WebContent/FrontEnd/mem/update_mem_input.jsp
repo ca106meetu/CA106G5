@@ -111,21 +111,21 @@
 	<tr>
 		<td class="laber">會員密碼:</td>
 		<td><input type="TEXT" name="mem_pw" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" 
-			 value="<%= (memVO==null)? "1234" : memVO.getMem_pw()%>" /></td>
+			 value="<%= (memVO==null)? "1234" : memVO.getMem_pw()%>" id="tm_pw"/></td>
 	</tr>
 	<tr>
 		<td class="laber">會員姓名:</td>
 		<td><input type="TEXT" name="mem_name" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
-			 value="<%= (memVO.getMem_name()==null)? "" : memVO.getMem_name()%>" /></td>
+			 value="<%= (memVO.getMem_name()==null)? "" : memVO.getMem_name()%>" id="tm_name"/></td>
 	</tr>
 	<tr>
 		<td class="laber">會員暱稱:</td>
 		<td><input type="TEXT" name="mem_nickname" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
-			 value="<%= (memVO.getMem_nickname()==null)? "" : memVO.getMem_nickname()%>" /></td>
+			 value="<%= (memVO.getMem_nickname()==null)? "" : memVO.getMem_nickname()%>" id="tm_nickname"/></td>
 	</tr>
 	<tr>
 		<td class="laber">會員生日:</td>
-		<td><input name="mem_bday" id="f_date1" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
+		<td><input name="mem_bday" id="f_date1" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="tm_bday"
 		     /></td>
 	</tr>	
 	<tr>
@@ -136,12 +136,12 @@
 	<tr>
 		<td class="laber">會員手機:</td>
 		<td><input type="TEXT" name="mem_pho" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" 
-			 value="<%= (memVO.getMem_pho()==null)? "" : memVO.getMem_pho()%>" /></td>
+			 value="<%= (memVO.getMem_pho()==null)? "" : memVO.getMem_pho()%>" id="tm_pho"/></td>
 	</tr>	
 	<tr>
 		<td class="laber"><label for="mem_gend">會員性別:</label></td>
 		<td><input type="TEXT"  name="mem_gend" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" 
-			 value="<%= (memVO.getMem_gend()==null)? "" : memVO.getMem_gend()%>" />
+			 value="<%= (memVO.getMem_gend()==null)? "" : memVO.getMem_gend()%>" id="tm_gend"/>
         	 </select>
         	 </td>
 	</tr>
@@ -154,7 +154,7 @@
 	<tr>
 		<td class="laber">會員自我介紹:</td>
 		<td>
-			<textarea name="mem_intro" rows="4" cols="50"><%= (memVO.getMem_intro()==null)? "" : memVO.getMem_intro()%></textarea>
+			<textarea name="mem_intro" rows="4" cols="50" id="tm_intro"><%= (memVO.getMem_intro()==null)? "" : memVO.getMem_intro()%></textarea>
 		 </td>
 	</tr>
 
@@ -168,7 +168,7 @@
 	<tr>
 		<td class="laber">會員居住地:</td>
 		<td><input type="TEXT" name="mem_address" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
-			 value="<%= (memVO.getMem_address()==null)? "" : memVO.getMem_address()%>" /></td>
+			 value="<%= (memVO.getMem_address()==null)? "" : memVO.getMem_address()%>" id="tm_address" /></td>
 	</tr>
 	
 	<tr>
