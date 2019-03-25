@@ -60,7 +60,7 @@
 
 <ul>
   <li>
-    <h4><a href='listAllEmp.jsp'>List all Emps.</a></h4>
+    <h4><a href='listAllEmp.jsp'>顯示所有員工列表</a></h4>
   </li>
   <br><br>
   
@@ -126,7 +126,7 @@
 <h3>員工管理</h3>
 
 <ul>
-  <li><h4><a href='addEmp.jsp'>Add a new Emp.</a></h4></li>
+  <li><h4><a href='addEmp.jsp'>增加一位員工</a></h4></li>
 </ul>
 </div>
 </div>

@@ -61,7 +61,7 @@
 
 <ul>
   <li>
-    <h4><a href='listAllMem.jsp'>List all Mems.</a></h4>
+    <h4><a href='listAllMem.jsp'>顯示所有會員列表</a></h4>
   </li>
   <br><br>
   
@@ -125,7 +125,7 @@
 
 <br>
 <ul>
-  <li><h4><a href='addMem.jsp'>Add a new Mem.</a></h4></li>
+  <li><a href='addMem.jsp'>增加一位會員.</a></li>
 </ul>
 </div>
 </div>
