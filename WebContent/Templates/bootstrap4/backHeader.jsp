@@ -73,7 +73,7 @@
        直播管理
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" id="AUTH00060" href="<%=request.getContextPath()%>/FrontEnd/live/select_page.jsp">直播主管理</a>
+          <a class="dropdown-item" id="AUTH00060" href="<%=request.getContextPath()%>/FrontEnd/live/selectPage.jsp">直播主管理</a>
           <a class="dropdown-item" id="AUTH00070" href="#">貼圖管理</a>
         </div>   
       </li>
