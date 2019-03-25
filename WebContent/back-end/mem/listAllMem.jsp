@@ -30,7 +30,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
 
-<title>所有會員資料 - listAllEmp.jsp</title>
+<title>所有會員資料 - listAllEmp.jsp</title> 
 
 <style>
   table#table-1 {

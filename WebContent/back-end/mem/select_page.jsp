@@ -125,7 +125,7 @@
 
 <br>
 <ul>
-  <li><a href='addMem.jsp'>Add a new Mem.</a></li>
+  <li><h4><a href='addMem.jsp'>Add a new Mem.</a></h4></li>
 </ul>
 </div>
 </div>
