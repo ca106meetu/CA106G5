@@ -15,8 +15,14 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/sweetalert2.css">
+<!-- page label -->    
+	<link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+	<link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+<!-- fontAwesome --> 
+<%-- 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"> 	 -->
+<-- 	<link rel="stylesheet" href="<%=request.getContextPath()%>/FrontEnd/meetup/fontawesome/css/fontawesome.min.css"/> --%>
 
-<title>repContent.jsp</title>
+<title>聯誼檢舉處理</title>
 <style>
 img{
 	 	width:150px;
@@ -26,8 +32,9 @@ img{
 	font-family:微軟正黑體;
 }
 
-table{
+.tableA{
 	border:1px solid black;
+	margin:50px 0px 20px 0px;
 } 
 
 th, td{
@@ -36,7 +43,16 @@ th, td{
 	border:1px solid black;
 }
 
+.repA{
+	margin-left:30%;
+}
 
+#btnSaveAns{
+	margin-left:50%;
+}
+.aLine{
+	color:#ccc;
+}
 
 </style>
 
@@ -44,7 +60,7 @@ th, td{
 <body>
 <jsp:include page="/Templates/bootstrap4/backHeader.jsp" />
 <%-- 錯誤表列 --%>
-<jsp:useBean id="meetupSvc" scope="request" class="com.meetU.meetup.model.MeetupService"/>
+
 
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤</font>
@@ -54,34 +70,45 @@ th, td{
 		</c:forEach>
 	</ul>
 </c:if>
-<FORM METHOD="post" ACTION="meetupRep.do">
-<table>
-	<tr>
-		<th>檢舉者</th>
-		<th>檢舉內容</th>
-		<th>回饋處理</th>
-	</tr>
-	<tr>
-		<td>${meetupRepVO.mem_ID}</td>
-		<td>${meetupRepVO.meetup_rep_ID}:${meetupRepVO.rep_content}</td>
-		<td>
-			<select class="rep_ans" name="rep_ans">
-				<option value="1">內容無不妥</option>
-				<option value="0">聯誼被隱形</option>
-			</select>
-		</td>
-	</tr>
-</table>
-	<input type="submit" class="btn btn-info" value="完成回覆" id="btnSaveAns">
-	<input type="hidden" name="meetup_rep_ID" value="${meetupRepVO.meetup_rep_ID}"/>
-	<input type="hidden" name="meetup_ID" value="${meetupRepVO.meetup_ID}"/>
-	<input type="hidden" name="rep_status" value="1">
-	<input type="hidden" name="action" value="update">
-</FORM>  
 
-<%-- include listOneMeetup --%>
+<jsp:useBean id="meetupSvc" scope="request" class="com.meetU.meetup.model.MeetupService"/>
+
+<div class="container">
+	<div class="row">
+		<div class="col repA">
+		<FORM METHOD="post" ACTION="meetupRep.do">
+		<table class="tableA">
+			<tr>
+				<th>檢舉者</th>
+				<th>檢舉編號</th>
+				<th>檢舉內容</th>
+				<th>回饋處理</th>
+			</tr>
+			<tr>
+				<td>${meetupRepVO.mem_ID}</td>
+				<td>${meetupRepVO.meetup_rep_ID}</td>
+				<td>${meetupRepVO.rep_content}</td>
+				<td>
+					<select class="rep_ans" name="rep_ans">
+						<option value="1">內容無不妥</option>
+						<option value="0">聯誼被隱形</option>
+					</select>
+				</td>
+			</tr>
+		</table>
+			<button type="submit" class="btn btn-outline-dark" id="btnSaveAns">確認</button>
+			<input type="hidden" name="meetup_rep_ID" value="${meetupRepVO.meetup_rep_ID}"/>
+			<input type="hidden" name="meetup_ID" value="${meetupRepVO.meetup_ID}"/>
+			<input type="hidden" name="rep_status" value="1">
+			<input type="hidden" name="action" value="update">
+		</FORM>  
+		<hr class="aLine">
+		</div>
+	</div>
+</div>
+
+<jsp:include page="/FrontEnd/meetup/listOneForRep.jsp" />
+
 <jsp:include page="/Templates/bootstrap4/backFooter.jsp" />
-<%-- include listOneMeetup --%>
-
 </body>
 </html>

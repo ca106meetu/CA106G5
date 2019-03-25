@@ -20,8 +20,14 @@
 <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
+<!-- page label -->    
+	<link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+	<link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+<!-- fontAwesome --> 
+<%-- 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"> 	 -->
+<-- 	<link rel="stylesheet" href="<%=request.getContextPath()%>/FrontEnd/meetup/fontawesome/css/fontawesome.min.css"/> --%>
 
-<title>Meetup Report</title>
+<title>聯誼檢舉</title>
 <style>
 	*{
 		font-family:微軟正黑體;
@@ -77,8 +83,7 @@
 
 <body>
 <jsp:include page="/Templates/bootstrap4/backHeader.jsp" />
-<div class="container">
-	<div class="row">
+
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤</font>
 	<ul>
@@ -87,12 +92,16 @@
 		</c:forEach>
 	</ul>
 </c:if>
+
+<div class="container">
+	<div class="row">
+
 <jsp:useBean id="meetupSvc" scope="page" class="com.meetU.meetup.model.MeetupService"/>
 
 <%@ include file="page1.file"%>  
 
-<form method="post" action="meetupRep.do">
-<table class="table1">
+		<FORM METHOD="post" action="meetupRep.do">
+			<table class="table1">
 				<tr>
 					<th>檢舉狀態</th>
 					<th>檢舉編號</th>
@@ -102,30 +111,28 @@
 					<th>檢舉內容</th>	
 					<th>聯誼處理</th>		
 				</tr>
-
-<c:forEach var="meetupRepVO" items="${list}" varStatus="varstatus" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+			
+			<c:forEach var="meetupRepVO" items="${list}" varStatus="varstatus" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 				<tr>
 					<td><div id="${meetupRepVO.meetup_rep_ID}" Class="${meetupRepVO.rep_status ==0?'redBall':'greenBall' }"></div></td>
 					<td id="meetupRepId">${meetupRepVO.meetup_rep_ID}</td>
 					<td><A href="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do?meetup_ID=${meetupRepVO.meetup_ID}&action=getOne_For_Display">
-					${meetupSvc.getOneMeetup(meetupRepVO.meetup_ID).meetup_name}</a></td>
+						${meetupSvc.getOneMeetup(meetupRepVO.meetup_ID).meetup_name}</a></td>
 					<td>${meetupRepVO.mem_ID}</td>
 					<td>${meetupRepVO.rep_date}</td>
 					<td>${meetupRepVO.rep_content}</td>	
 					<td><A href="<%=request.getContextPath()%>/FrontEnd/meetupRep/meetupRep.do?meetup_rep_ID=${meetupRepVO.meetup_rep_ID}&action=getOne_For_Update">
-						前往察看</A></td>	
+							前往處理</A></td>	
 				</tr>
-</c:forEach>
-</table>
-</form>
+			</c:forEach>
+			</table>
+		</Form>
 
 <%@ include file="page2.file" %>
 	</div>
 </div>
 		
-<script>
-
-</script>			 
+			 
 <jsp:include page="/Templates/bootstrap4/backFooter.jsp" />
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

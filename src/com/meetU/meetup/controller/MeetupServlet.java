@@ -116,7 +116,7 @@ public class MeetupServlet extends HttpServlet {
 				}
 				
 				String meetup_name = req.getParameter("meetup_name");
-				String meetup_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,255}$";
+				String meetup_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9)\\s]{2,255}$";
 				if(meetup_name == null || meetup_name.trim().length()==0) {
 					errorMsgs.add("聯誼名稱 請勿空白");
 				}else if(!meetup_name.trim().matches(meetup_nameReg)) {
@@ -136,7 +136,7 @@ public class MeetupServlet extends HttpServlet {
 					meetup_joindate = java.sql.Date.valueOf(req.getParameter("meetup_joindate").trim());
 				}catch(IllegalArgumentException e) {
 					meetup_joindate = new java.sql.Date(System.currentTimeMillis());
-					errorMsgs.add("請輸入日期時間");
+					errorMsgs.add("請輸入日期");
 				}
 				
 				String meetup_loc = req.getParameter("meetup_loc").trim();
@@ -189,6 +189,7 @@ public class MeetupServlet extends HttpServlet {
 					errorMsgs.add("聯誼內容請勿空白");
 				}
 				
+				
 				Integer meetup_minppl;
 				try {
 					meetup_minppl = new Integer(req.getParameter("meetup_minppl").trim());
@@ -229,7 +230,7 @@ public class MeetupServlet extends HttpServlet {
 				meetupVO = meetupSvc.updateMeetup(meetup_ID, meetup_name, meetup_date, meetup_loc, meetup_status, meetup_pic, meetup_info, meetup_minppl, meetup_maxppl, meetup_joindate);
 				/*=================3.修改完成,準備轉交(Send the Success view)----------*/
 				req.setAttribute("meetupVO", meetupVO); // 資料庫update成功後,正確的的empVO物件,存入req
-				String url = "/FrontEnd/meetup/listOneMeetup.jsp";
+				String url = "/FrontEnd/meetup/meetupHomePg.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
 				
@@ -247,11 +248,11 @@ public class MeetupServlet extends HttpServlet {
 			try {
 				/*=================1.接收請求參數，輸入格式的錯誤處理------------------*/
 				String meetup_name = req.getParameter("meetup_name");
-				String meetup_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,255}$";
+				String meetup_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9)\\s]{2,255}$";
 				if(meetup_name == null || meetup_name.trim().length()==0) {
 					errorMsgs.add("聯誼名稱 請勿空白");
 				}else if(!meetup_name.trim().matches(meetup_nameReg)) {
-					errorMsgs.add("聯誼名稱只能是中、英文字母、數字和_ , 且長度必需在2到20之間");
+					errorMsgs.add("聯誼名稱只能是中、英文字母、數字和 , 且長度必需在2到20之間");
 				}
 				
 				String mem_ID = req.getParameter("mem_ID").trim();

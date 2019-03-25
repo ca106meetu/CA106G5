@@ -121,13 +121,14 @@ public class MeetupDAO implements MeetupDAO_interface{
 			pstmt.setInt(4, meetupVO.getMeetup_status());
 			pstmt.setBytes(5, meetupVO.getMeetup_pic());
 			pstmt.setString(6, meetupVO.getMeetup_info());
-			pstmt.setString(7, meetupVO.getMeetup_ID());
-			pstmt.setInt(8, meetupVO.getMeetup_minppl());
-			pstmt.setInt(9, meetupVO.getMeetup_maxppl());
-			pstmt.setDate(10, meetupVO.getMeetup_joindate());
+			pstmt.setInt(7, meetupVO.getMeetup_minppl());
+			pstmt.setInt(8, meetupVO.getMeetup_maxppl());
+			pstmt.setDate(9, meetupVO.getMeetup_joindate());
+			pstmt.setString(10, meetupVO.getMeetup_ID());
 			pstmt.executeUpdate();
 			
 		}catch(SQLException se) {
+			se.printStackTrace();
 			throw new RuntimeException("A database error occured." + se.getMessage());
 		}finally {
 			if(pstmt != null) {

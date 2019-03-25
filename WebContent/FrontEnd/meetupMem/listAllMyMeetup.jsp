@@ -172,28 +172,6 @@
 
 <%@ include file="page2.file" %>
 
-<script>
-// $(document).ready(function(){
-// 	$(".rate").click(function(){
-// 		$.ajax({
-// 		 type: "POST",
-<%-- 		 url: "<%=request.getContextPath()%>/FrontEnd/meetupMem/meetupMem.do", --%>
-// 		 data: {"meetup_ID":$(this).next().attr('value'), 
-// 			 	"action":"update", 
-// 			 	"mem_ID":$(this).next().next().attr('value'),
-// 			 	"meetup_comment":$(this).prev().attr('value')},
-// 		 dataType: "json",
-// 		 success: function(){
-		
-// 			 $(".rate").addClass("disabled");
-			 
-// 			},
-//          error: function(){alert("AJAX-grade發生錯誤囉!")}
-//     });	
-// });
-// })
-</script>
-
     <jsp:include page="/Templates/bootstrap4/frontFooter.jsp" />
 
     <!-- Optional JavaScript -->

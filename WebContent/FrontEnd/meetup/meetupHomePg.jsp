@@ -32,15 +32,12 @@
 <!-- fontAwesome --> 
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"> 	
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/FrontEnd/meetup/fontawesome/css/fontawesome.min.css"/>
-  	
-  	 <!-- Favicon -->
-    <link rel="icon" href="modelMaster/img/core-img/favicon.ico">
-
-    <!-- Core Stylesheet -->
-    <link href="modelMaster/style.css" rel="stylesheet">
-
-    <!-- Responsive CSS -->
-    <link href="modelMaster/css/responsive/responsive.css" rel="stylesheet">
+<!-- Favicon -->
+    <link rel="icon" href="<%=request.getContextPath()%>/FrontEnd/meetup/modelMaster/img/core-img/favicon.ico">
+<!-- Core Stylesheet -->
+    <link href="<%=request.getContextPath()%>/FrontEnd/meetup/modelMaster/style.css" rel="stylesheet">
+<!-- Responsive CSS -->
+    <link href="<%=request.getContextPath()%>/FrontEnd/meetup/modelMaster/css/responsive/responsive.css" rel="stylesheet">
 		
     <title>聯誼首頁</title>    
     <style>
