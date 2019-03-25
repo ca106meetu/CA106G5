@@ -43,7 +43,7 @@
   	<link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
 <style>
 div {
-	font-family: DFKai-sb;
+	font-family: Microsoft JhengHei;
 }
 
 .card-img-top {
@@ -92,27 +92,27 @@ th, td {
 	margin-top: -2.5em;
 	font: 15px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft JhengHei;   
 }
-#gointo{
+#gointo {
     border: none;
-    padding: 5px 5px;
+    padding: 5px 10px;
     border-radius: 5px;
     width: auto;
     background: orange;
-    box-shadow: inset 0 0 10px #000000;
-    font: 15px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft JhengHei; 
+    box-shadow: inset 0 0 10px #a29e9e;
+    font: 15px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft JhengHei;
     font-weight: bold;
-	
+    margin: 4px 16px;
 }
 #gointo:hover{
     border: none;
-    padding: 5px 5px;
+    padding: 5px 10px;
     border-radius: 5px;
     width: auto;
-    background: red;
-    box-shadow: inset 0 0 10px #000000;
-    font: 15px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft JhengHei; 
+    background: #ffc107;
+    box-shadow: inset 0 0 10px #a29e9e;
+    font: 15px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft JhengHei;
     font-weight: bold;
-	
+    margin: 4px 16px;
 }
 .btn-primary {
     color: #fff;
@@ -181,7 +181,7 @@ font: 100px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft Jh
 							pageContext.setAttribute("liveVO", liveVO);
 			%>
 					
-			<div class="card border-danger mb-3">
+			<div class="card shadow p-3 mb-5">
 			<c:if test="${liveVO.live_pic != null}">
 				<img src="<%=request.getContextPath()%>/ShowPic?HOST_ID=<%=liveVO.getHost_ID()%>"
 					id='pic' class="card-img-top"></c:if>
