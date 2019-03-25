@@ -48,9 +48,9 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" style="font-size:large;" href="<%=request.getContextPath()%>/FrontEnd/cart/EShop.jsp">瀏覽商品</a>
           <a class="dropdown-item" style="font-size:large;" href="<%=request.getContextPath()%>/FrontEnd/cart/cart.jsp">查看購物車</a>
-          <a class="dropdown-item" style="font-size:large;" href="<%=request.getContextPath()%>/FrontEnd/od/listMyOm.jsp" ${memVO != null ? '' : 'style="display:none;"'}>我的訂單</a>
-          <a class="dropdown-item" style="font-size:large;" href="<%=request.getContextPath()%>/FrontEnd/point/storePoint.jsp" ${memVO != null ? '' : 'style="display:none;"'}>儲值點數</a>
-          <a class="dropdown-item" style="font-size:large;" href="<%=request.getContextPath()%>/FrontEnd/point/listMyPr.jsp" ${memVO != null ? '' : 'style="display:none;"'}>我的儲值紀錄</a>
+          <a class="dropdown-item" style="font-size:large;${memVO != null ? '' : 'display:none;'}" href="<%=request.getContextPath()%>/FrontEnd/od/listMyOm.jsp" >我的訂單</a>
+          <a class="dropdown-item" style="font-size:large;${memVO != null ? '' : 'display:none;'}" href="<%=request.getContextPath()%>/FrontEnd/point/storePoint.jsp" >儲值點數</a>
+          <a class="dropdown-item" style="font-size:large;${memVO != null ? '' : 'display:none;'}" href="<%=request.getContextPath()%>/FrontEnd/point/listMyPr.jsp">我的儲值紀錄</a>
         </div>
       </li>
            
