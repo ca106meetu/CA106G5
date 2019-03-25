@@ -217,6 +217,7 @@
   <filter-mapping>
     <filter-name>backLoginFilter</filter-name>
     <url-pattern>/back-end/*</url-pattern>
+    <url-pattern>/FrontEnd/prod/*</url-pattern>
     <url-pattern>/protected/select_page2_protected.jsp</url-pattern>
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>FORWARD</dispatcher>

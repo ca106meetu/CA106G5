@@ -172,7 +172,6 @@
 				 success: function(){
 					 
 					 $('#myModal').modal('show');
-// 					 alert("555");
 					},
 			     
 	             error: function(){alert("AJAX-grade發生錯誤囉!")}

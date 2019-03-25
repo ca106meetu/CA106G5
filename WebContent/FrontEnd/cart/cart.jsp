@@ -59,7 +59,10 @@
         <div class="col-2">${prodVO.prod_name}</div>
         <div class="col-2"></div>
         <div class="col-3">$${prodVO.prod_price}</div>
-        <div class="col-1">${prodVO.quantity}</div>
+        <div class="col-1">
+        	<input class="form-control quantity" type="number" min="1" max="${prodVO.prod_stock < 5 ? 'prodVO.prod_stock' : '5'}" value="${prodVO.quantity}" id="example-number-input">
+        	<input type="hidden" value="${prodVO.prof_ID}">
+        </div>
         <div class="col-1">${prodVO.prod_price*prodVO.quantity}</div>
         <div class="col-1">
         		<form method='post' action='ShoppingServlet' style="margin-bottom: 0px;" >
@@ -131,6 +134,22 @@
 				window.location.href=('http://www.ncu.edu.tw');
 			 } 
 	});
+	 
+	 
+	 $('.quantity').change(function(){
+		 $.ajax({
+			 type: "POST",
+			 url: "ShoppingServlet",
+			 data: {"prod_ID":$(this).next().attr('value'), "action":"add", "quantity":$(this).parent().prev().val()},
+			 dataType: "json",
+			 success: function(){
+				 
+				 $('#myModal').modal('show');
+				},
+		     
+             error: function(){alert("AJAX-grade發生錯誤囉!")}
+         });
+ });
     
     
     
