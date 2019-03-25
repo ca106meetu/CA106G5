@@ -53,7 +53,7 @@
           </div>
           <div class='row' style='height:50px;'>
             <div class="col-3">商品價格</div>
-            <div class="col-9">${prodVO.prod_price}</div>
+            <div class="col-9">${prodVO.prod_price.intValue()}元</div>
           </div>
           <div class='row' style='height:50px;'>
             <div class="col-3">商品庫存</div>
@@ -61,12 +61,23 @@
           </div>
           <div class='row' style='height:50px;width:60%;'>
             <div class="col-3">數量</div>
-            <div class="col-9"><input class="form-control qq" type="number" min="1" max="${prodVO.prod_stock}" value="1" id="example-number-input" name='quantity'></div>
+            <div class="col-9">
+            	<input class="form-control qq" type="number" min="1" max="${prodVO.prod_stock}" value="1" id="example-number-input" name='quantity'>
+            	<input type="hidden" value="${prodVO.prod_price.intValue()}">
+            
+            </div>
           </div>
           <div class='row' style='height:150px;'> 
             <div class="col-3">商品詳情</div>
             <div class="col-9">${prodVO.prod_info}</div>
           </div>
+          <hr>
+          
+          <div class='row' style='height:50px;'>  
+            <div class="col-3" style="font-size:20px">總金額: </div>
+            <div class="col-9 total" style="color:green;font-size:20px">${prodVO.prod_price.intValue()}元</div>
+          </div>
+          
           <div class='row'>
             <div class="col-3">
             	<button type="button" class="btn btn-outline-danger cart"> 加 入 購 物 車 </button>
@@ -122,6 +133,17 @@
     <script>
     
     $(document).ready(function(){
+    	
+    	
+    	$('.qq').change(function(){
+    		
+    		var total = $(this).val() * parseInt($(this).next().val());
+			$('.total').text(total);    	
+    	
+    	})
+    	
+    	
+    	
 		 $('.cart').click(function(){
 			 $.ajax({
 				 type: "POST",
