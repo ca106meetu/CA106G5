@@ -61,7 +61,7 @@
 
 <ul>
   <li>
-    <h3><a href='listAllMem.jsp'>List all Mems.</a></h3>
+    <h4><a href='listAllMem.jsp'>List all Mems.</a></h4>
   </li>
   <br><br>
   
@@ -123,9 +123,9 @@
   </li>
 </ul>
 
-
+<br>
 <ul>
-<!--   <li><a href='addMem.jsp'>Add</a> a new Mem.</li> -->
+  <li><a href='addMem.jsp'>Add a new Mem.</a></li>
 </ul>
 </div>
 </div>

@@ -107,67 +107,66 @@
 	<tr>
 		<td>會員密碼:</td>
 		<td>
-		<input type="hidden" name="mem_pw" value="<%=memVO.getMem_pw()%>" />
-		<%=memVO.getMem_pw() %>
+		<input type="TEXT" name="mem_pw" class="form-control"
+			 value="<%= (memVO==null)? "1234" : memVO.getMem_pw()%>" />
 		</td>
 	</tr>
 	<tr>
 		<td>會員姓名:</td>
-		<td><input type="hidden" name="mem_name" value="<%=memVO.getMem_name()%>" />
-		<%=memVO.getMem_name() %>
+		<td>
+		<input type="TEXT" name="mem_name" class="form-control" 
+			 value="<%= (memVO==null)? "陸游" : memVO.getMem_name()%>" />
 		</td>
 	</tr>
 	<tr>
 		<td>會員帳號:</td>
 		<td>
-		<input type="hidden" name="mem_acc" value="<%= memVO.getMem_acc()%>" />
-		<%=memVO.getMem_acc() %>
+		<input type="TEXT" name="mem_acc" class="form-control"
+			 value="<%= (memVO==null)? "LuYou" : memVO.getMem_acc()%>" />
 		</td>
 	</tr>
 	<tr>
 		<td>會員暱稱:</td>
-		<td><input type="hidden" name="mem_nickname" value="<%=memVO.getMem_nickname()%>" />
-		<%=memVO.getMem_nickname() %>
+		<td><input type="TEXT" name="mem_nickname" class="form-control"
+			 value="<%= (memVO==null)? "放翁" : memVO.getMem_nickname()%>" />
 		</td>
 	</tr>
 	<tr>
 		<td>會員生日:</td>
 		<td>
-		<input name="mem_bday" id="f_date1" type="hidden">
-		<%=memVO.getMem_bday() %>
+		<input name="mem_bday" id="f_date1" type="text" class="form-control">
 		</td>
 	</tr>	
 	<tr>
 		<td>會員電子郵件信箱:</td>
 		<td>
-		<input type="hidden" name="mem_email" value="<%= memVO.getMem_email()%>" />
-		<%=memVO.getMem_email() %>
+		<input type="TEXT" name="mem_email" class="form-control" 
+			 value="<%= (memVO==null)? "bell0923tw@gmail.com" : memVO.getMem_email()%>" />
 		</td>
 	</tr>
 	<tr>
 		<td>會員手機:</td>
 		<td>
-		<input type="hidden" name="mem_pho" value="<%=memVO.getMem_pho()%>" />
-		<%= memVO.getMem_pho()%>
+		<input type="TEXT" name="mem_pho" class="form-control" 
+			 value='<%= (memVO==null)? "0988885761" : memVO.getMem_pho()%>' />
 		</td>
 	</tr>	
 	<tr>
 		<td>會員性別:</td>
 		<td>
-		<input type="hidden" name="mem_gend" value="<%=memVO.getMem_gend()%>" />
-		<%= memVO.getMem_gend()%>
+		<input type="TEXT" name="mem_gend" class="form-control" 
+			 value="<%= (memVO==null)? "男性" : memVO.getMem_gend()%>" />
 		</td>
 	</tr>
 	<tr>
 		<td>會員大頭照:</td>
-		<td><input type="hidden" name="mem_pic" onchange='readURL(this)'/><br>
+		<td><input type="file" name="mem_pic" onchange='readURL(this)'/><br>
 		<img id='pic1' class='pic' src='data:img/png;base64,${encodeText}'  ${(memVO.mem_pic==null) ? 'style="display:none"' : ''}></td>
 	</tr>
 	<tr>
 		<td>會員自我介紹:</td>
 		<td>
-			<input type="hidden" name="mem_intro" value="<%= memVO.getMem_intro()%>"/>
-			<%=memVO.getMem_intro()%>
+			<textarea name="mem_intro" rows="4" cols="50"><%= (memVO==null)? "陸游出身於一個由貧居苦學而仕進的世宦家庭" : memVO.getMem_intro()%></textarea>
 		</td>
 	</tr>
 		<input type="hidden" name="mem_code" value="<%= memVO.getMem_code()%>" />
@@ -185,8 +184,7 @@
 	<tr>
 		<td>會員註冊日期:</td>
 		<td>
-		<input name="mem_date" id="f_date2" type="hidden">
-		<%= memVO.getMem_date() %>
+		<input name="mem_date" id="f_date2" type="text" class="form-control">
 		</td>
 	</tr>
 		<input name="mem_sign_day" id="f_date3" type="hidden">
@@ -194,14 +192,14 @@
 	<tr>
 		<td>會員居住地:</td>
 		<td>
-		<input type="hidden" name="mem_address" value="<%=memVO.getMem_address()%>" />
-		<%=memVO.getMem_address()%>
+		<input type="TEXT" name="mem_address" class="form-control"
+			 value="<%= (memVO==null)? "台北市" : memVO.getMem_address()%>" />
 		</td>
 	</tr>
 		<input name="last_pair" id="f_date4" type="hidden">
 	
-		<td><input type="hidden" name="mem_QRCODE" onchange='readURL2(this)'/><br>
-		<img id='pic2' class='pic' src='data:img/png;base64,${encodeText2}'  ${(memVO.mem_QRCODE==null) ? 'style="display:none"' : 'style="display:none"'}></td>
+		<input type="hidden" name="mem_QRCODE" onchange='readURL2(this)'/>
+		<img id='pic2' class='pic' src='data:img/png;base64,${encodeText2}'  ${(memVO.mem_QRCODE==null) ? 'style="display:none"' : 'style="display:none"'}>
 	
 	<tr>
 		<td>會員點數:</td>
@@ -216,7 +214,7 @@
 <button class="btn btn-outline-info" type="submit"><b>送出修改</b></button>
 
 </FORM>
-
+</center>
 </div>
 </div>
 </div>

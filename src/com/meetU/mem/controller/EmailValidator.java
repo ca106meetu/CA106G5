@@ -59,7 +59,7 @@ public class EmailValidator extends HttpServlet {
 			}
 			
 			String url = sb.toString();
-			System.out.println(url);
+			//System.out.println(url);
 			pendingList.put(url,mem_ID);
 			
 			MailService mailSvc = new MailService();
@@ -99,7 +99,7 @@ public class EmailValidator extends HttpServlet {
 			MemService memSvc = new MemService();
 			MemVO memVO = memSvc.getOneMem(pendingList.get(validationLink));
 			pendingList.remove(validationLink);
-			System.out.println(pendingList.get(memVO.getMem_ID()));
+			//System.out.println(pendingList.get(memVO.getMem_ID()));
 			memVO.setMem_state(1);
 			memSvc.updateMem(memVO);
 			req.getSession().setAttribute("memVO", memVO);

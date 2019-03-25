@@ -41,7 +41,7 @@
 
 <style>
   table {
-	width: 450px;
+	
 	background-color: white;
 	margin-top: 1px;
 	margin-bottom: 1px;
@@ -59,21 +59,31 @@
 <jsp:include page="/Templates/bootstrap4/backHeader.jsp" />
     
 <div class="container justify-content-center">
-<div class="row">
-<div class="col-6">
-<table id="table-1">
-	<tr>
-	     <td>
+<div class="row justify-content-center">
+<div class="col">   
+		 <center>
 		     <h3>會員資料新增 - addEmp.jsp</h3>
-		 </td>
-		 <td>
+		 </center>
+		</div>
+	 </div>
+	<div class="row justify-content-center">
+		<div class="col">
+		 <center>
 		     <h4><a href="select_page.jsp">回首頁</a></h4>
-	     </td>
-	</tr>
-</table>
+	     </center>
+		</div>
+	</div>
+	<div class="row justify-content-center">
+		<div class="col">
+		 <center> 
 
 <h3>資料新增:</h3>
-
+</center>
+		</div>
+	 </div>
+<div class="row justify-content-center">
+	<div class="col-4">
+		<center> 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
@@ -83,113 +93,101 @@
 		</c:forEach>
 	</ul>
 </c:if>
-
+</center>
+	</div>
+ </div>
+<div class="row justify-content-center">
+	<div class="col">
+		<center>
 <FORM METHOD="post" ACTION="mem.do" name="form1" enctype="multipart/form-data">
 <table>
     <tr>
 		<td>會員密碼:</td>
-		<td><input type="TEXT" name="mem_pw" size="45" 
+		<td><input type="TEXT" name="mem_pw" class="form-control"
 			 value="<%= (memVO==null)? "1234" : memVO.getMem_pw()%>" /></td>
 	</tr>
 	<tr>
 		<td>會員姓名:</td>
-		<td><input type="TEXT" name="mem_name" size="45" 
+		<td><input type="TEXT" name="mem_name" class="form-control" 
 			 value="<%= (memVO==null)? "陸游" : memVO.getMem_name()%>" /></td>
 	</tr>
 	<tr>
 		<td>會員帳號:</td>
-		<td><input type="TEXT" name="mem_acc" size="45" 
+		<td>
+		<input type="TEXT" name="mem_acc" class="form-control"
 			 value="<%= (memVO==null)? "LuYou" : memVO.getMem_acc()%>" /></td>
 	</tr>
 	<tr>
 		<td>會員暱稱:</td>
-		<td><input type="TEXT" name="mem_nickname" size="45" 
+		<td><input type="TEXT" name="mem_nickname" class="form-control"
 			 value="<%= (memVO==null)? "放翁" : memVO.getMem_nickname()%>" /></td>
 	</tr>
 	<tr>
 		<td>會員生日:</td>
-		<td><input name="mem_bday" id="f_date1" type="text"></td>
+		<td><input name="mem_bday" id="f_date1" type="text" class="form-control"></td>
 	</tr>	
 	<tr>
 		<td>會員電子郵件信箱:</td>
-		<td><input type="TEXT" name="mem_email" size="45" 
-			 value="<%= (memVO==null)? "jack931@gmail.com" : memVO.getMem_email()%>" /></td>
+		<td><input type="TEXT" name="mem_email" class="form-control" 
+			 value="<%= (memVO==null)? "bell0924tw@gmail.com" : memVO.getMem_email()%>" /></td>
 	</tr>
 	<tr>
 		<td>會員手機:</td>
-		<td><input type="TEXT" name="mem_pho" size="45" 
-			 value="<%= (memVO==null)? "0988885761" : memVO.getMem_pho()%>" /></td>
+		<td><input type="TEXT" name="mem_pho" class="form-control" 
+			 value='<%= (memVO==null)? "0988885761" : memVO.getMem_pho()%>' /></td>
 	</tr>	
 	<tr>
 		<td>會員性別:</td>
-		<td><input type="TEXT" name="mem_gend" size="45" 
+		<td><input type="TEXT" name="mem_gend" class="form-control" 
 			 value="<%= (memVO==null)? "男性" : memVO.getMem_gend()%>" /></td>
 	</tr>
 	<tr>
 		<td>會員大頭照:</td>
 		<td><input type="file" name="mem_pic" onchange='readURL(this)'/><br>
-		<img id='pic1' class='pic' src='data:img/png;base64,${encodeText}'  ${(memVO.mem_pic==null) ? 'style="display:none"' : ''}></td>
+		<img id='pic1' class='pic' src='data:img/png;base64,${encodeText2}'  ${(memVO.mem_pic==null) ? 'style="display:none"' : ''}></td>
 	</tr>
 	<tr>
 		<td>會員自我介紹:</td>
 		<td>
-			<textarea name="mem_intro" rows="4" cols="50"><%= (memVO==null)? "陸游出身於一個由「貧居苦學而仕進」的世宦家庭。陸游的高祖是宋仁宗時太傅陸軫，祖父陸佃，父親陸宰。出生時正值宋朝腐敗不振、屢遭金國（女真族）侵略的年代。出生次年，金兵攻陷北宋首都汴京，他於襁褓中即隨家人顛沛流離，因受社會及家庭環境影響，自幼即立志殺胡（金兵）救國。" : memVO.getMem_intro()%>"</textarea>
+			<textarea name="mem_intro" rows="4" cols="50"><%= (memVO==null)? "陸游出身於一個由貧居苦學而仕進的世宦家庭" : memVO.getMem_intro()%></textarea>
 		 </td>
 	</tr>
-	<tr>
-		<td>會員驗證碼:</td>
-		<td><input type="TEXT" name="mem_code" size="45" 
-			 value="<%= (memVO==null)? 1 : memVO.getMem_code()%>" /></td>
-	</tr>
+	<!--<td>會員驗證碼:</td> -->
+		<input type="hidden" name="mem_code" class="form-control" 
+			 value="<%= (memVO==null)? 1 : memVO.getMem_code()%>" />
 	<tr>
 		<td>會員帳號狀態:</td>
-		<td><input type="TEXT" name="mem_state" size="45" 
-			 value="<%= (memVO==null)? 1 : memVO.getMem_state()%>" /></td>
-	</tr>
-	<tr>
-		<td>會員註冊日期:</td>
-		<td><input name="mem_date" id="f_date2" type="text"></td>
-	</tr>
-	<tr>
-		<td>會員最後簽到時間:</td>
-		<td><input name="mem_sign_day" id="f_date3" type="text"></td>
-	</tr>	
-	<tr>
-		<td>會員登入狀態:</td>
-		<td><input type="TEXT" name="mem_login_state" size="45"
-			 value="<%= (memVO==null)? 1 : memVO.getMem_login_state()%>" /></td>
-	</tr>
-	<tr>
-		<td>會員居住地:</td>
-		<td><input type="TEXT" name="mem_address" size="45"
-			 value="<%= (memVO==null)? "台北市" : memVO.getMem_address()%>" /></td>
-	</tr>
-	<tr>
-		<td>上次配對時間:</td>
-		<td><input name="last_pair" id="f_date4" type="text"></td>
-	</tr>
-	<jsp:useBean id="hobbySvc" scope="page" class="com.meetU.hobby.model.HobbyService" />
-	<tr>
-		<td>會員興趣:</td>
-		<td>
-		<input type="hidden" name="mem_hobby" size="45"
-			 value="<%= (memVO==null)? "寫Java" : memVO.getMem_hobby()%>" />
-		<c:forEach var="hobbyVO" items="${hobbySvc.all}" varStatus="s" >
-		${(s.index%4==0)? '<br>' : ''}
-			<input type="checkbox"  name="hobby_ID" value="${hobbyVO.hobby_ID}" > ${hobbyVO.hobby_name}
-		</c:forEach>	 
+		<td><select name="mem_state" class="form-control">
+			<c:forEach var='mem_state' items='${mS}'>
+			<option value='${mS.indexOf(mem_state)}' 
+								${memVO.mem_state==mS.indexOf(mem_state) ? 'selected' : '' }> ${mem_state}		
+			</c:forEach>
+		</select>
 		</td>
 	</tr>
 	<tr>
-		<td>會員QRCODE:</td>
-		<td><input type="file" name="mem_QRCODE" onchange='readURL2(this)'/><br>
-		<img id='pic2' class='pic' src='data:img/png;base64,${encodeText2}'  ${(memVO.mem_QRCODE==null) ? 'style="display:none"' : ''}></td>
+		<td>會員註冊日期:</td>
+		<td><input name="mem_date" id="f_date2" type="text" class="form-control"></td>
 	</tr>
+		<input name="mem_sign_day" id="f_date3" type="hidden">
+
+		<input type="hidden" name="mem_login_state" class="form-control"
+			 value="<%= (memVO==null)? 1 : memVO.getMem_login_state()%>" />
+	
+	<tr>
+		<td>會員居住地:</td>
+		<td><input type="TEXT" name="mem_address" class="form-control"
+			 value="<%= (memVO==null)? "台北市" : memVO.getMem_address()%>" /></td>
+	</tr>
+		<input name="last_pair" id="f_date4" type="hidden">
+		
+		<input type="hidden" name="mem_QRCODE" onchange='readURL2(this)'/>
+		<img id='pic2' class='pic' src='data:img/png;base64,${encodeText2}'  ${(memVO.mem_QRCODE==null) ? 'style="display:none"' : 'style="display:none"'}>
 	
 	<tr>
 		<td>會員點數:</td>
-		<td><input type="TEXT" name="mem_get_point" size="45"
-			 value="<%= (memVO==null)? "10" : memVO.getMem_get_point()%>" /></td>
+		<td><input type="TEXT" name="mem_get_point" class="form-control"
+			 value="<%= (memVO==null)? "0" : memVO.getMem_get_point()%>" /></td>
 	</tr>
 
 </table>
@@ -197,9 +195,13 @@
 <input type="hidden" name="action" value="insert">
 <button class="btn btn-outline-info" type="submit"><b>送出新增</b></button>
 </FORM>
+</center>
 </div>
 </div>
 </div>
+
+<br><br><br><br>
+
  <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="<%=request.getContextPath()%>/bootstrap4/jquery-3.3.1.slim.min.js"></script>
