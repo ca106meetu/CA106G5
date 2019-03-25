@@ -232,10 +232,11 @@ public class MemServlet extends HttpServlet {
 				}
 				
 				String mem_intro = req.getParameter("mem_intro").trim();//11
-				String mem_introReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{0,1000}$";
-				if(!mem_intro.trim().matches(mem_introReg)) {
-					errorMsgs.add("會員自我介紹:不能超過1000個字");
-				}
+				//^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!-/:-@\[-`{-~])[!-~]{6,16}$
+//				String mem_introReg = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[!-/:-@\\[-`{-~])[!-~][(\u4e00-\u9fa5)]{0,1000}$";
+//				if(!mem_intro.trim().matches(mem_introReg)) {
+//					errorMsgs.add("會員自我介紹:不能超過1000個字");
+//				}
 				
 				Integer mem_code = null;//12會員登入狀態
 				try {
@@ -492,10 +493,11 @@ public class MemServlet extends HttpServlet {
 				}
 				
 				String mem_intro = req.getParameter("mem_intro").trim();//11
-				String mem_introReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{0,1000}$";
-				if(!mem_intro.trim().matches(mem_introReg)) {
-					errorMsgs.add("會員自我介紹:不能超過1000個字");
-				}
+				//"^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[!-/:-@\\[-`{-~])[!-~][(\u4e00-\u9fa5)]{0,1000}$"
+				//String mem_introReg = "^[(\\x21-\\x7e)(\u4e00-\u9fa5)]{0,1000}$";
+//				if(!mem_intro.trim().matches(mem_introReg)) {
+//					errorMsgs.add("會員自我介紹:不能超過1000個字");
+//				}
 				
 				Integer mem_code = null;//12會員登入狀態
 				try {

@@ -23,7 +23,7 @@
     <meta charset="utf-8">
       <link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
   <link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">

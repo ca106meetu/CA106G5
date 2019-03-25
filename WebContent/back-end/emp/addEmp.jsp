@@ -91,41 +91,47 @@
 </center>
 </div>
  </div>
+ <div class="row justify-content-end">
+    <div class="col-1">
+      <button type="button" class="btn btn-outline-secondary btn-sm" id="Qclick">小按鈕</button>
+    </div>
+</div>
 <div class="row justify-content-center">
 	<div class="col">
+	
 <center>
 <FORM METHOD="post" ACTION="emp.do" name="form1" enctype="multipart/form-data">
 <table>
     <tr>
 		<td>員工密碼:</td>
-		<td><input type="TEXT" name="emp_pw" class="form-control" id="te_pw"
-			 value="<%= (empVO==null)? "1234" : empVO.getEmp_pw()%>" /></td>
+		<td><input type="password" name="emp_pw" class="form-control" id="te_pw"
+			 value="<%= (empVO==null)? "" : empVO.getEmp_pw()%>" /></td>
 	</tr>
 	<tr>
 		<td>員工姓名:</td>
 		<td><input type="TEXT" name="emp_name" class="form-control" id="te_name"
-			 value="<%= (empVO==null)? "史蒂夫·迪特科" : empVO.getEmp_name()%>" /></td>
+			 value="<%= (empVO==null)? "" : empVO.getEmp_name()%>" /></td>
 	</tr>
 	<tr>
 		<td>員工生日:</td>
 		<td>
-		<input name="emp_bday" id="f_date1" type="text" class="form-control" id="te_bday">
+		<input name="emp_bday" id="f_date1" type="text" class="form-control" >
 		</td>
 	</tr>	
 	<tr>
 		<td>員工電子郵件信箱:</td>
 		<td><input type="TEXT" name="emp_email" class="form-control" id="te_email"
-			 value="<%= (empVO==null)? "jack931@gmail.com" : empVO.getEmp_email()%>" /></td>
+			 value="<%= (empVO==null)? "" : empVO.getEmp_email()%>" /></td>
 	</tr>
 	<tr>
 		<td>員工手機:</td>
 		<td><input type="TEXT" name="emp_pho" class="form-control" id="te_pho"
-			 value="<%= (empVO==null)? "098885761" : empVO.getEmp_pho()%>" /></td>
+			 value="<%= (empVO==null)? "" : empVO.getEmp_pho()%>" /></td>
 	</tr>	
 	<tr>
 		<td>員工性別:</td>
 		<td><input type="TEXT" name="emp_gend" class="form-control" id="te_gend"
-			 value="<%= (empVO==null)? "男性" : empVO.getEmp_gend()%>" /></td>
+			 value="<%= (empVO==null)? "" : empVO.getEmp_gend()%>" /></td>
 	</tr>
 	 <tr>
 		<td>員工大頭照:</td>
@@ -135,7 +141,7 @@
 	<tr>
 		<td>員工帳號狀態:</td>
 		<td>
-		<select name="emp_state">
+		<select name="emp_state" class="form-control">
 		<c:forEach var='emp_state' items='${eS}'>
 		<option value='${eS.indexOf(emp_state)}' 
 							${empVO.emp_state==eS.indexOf(emp_state) ? 'selected' : '' }> ${emp_state}		
@@ -145,12 +151,12 @@
 	</tr>
 	<tr>
 		<td>員工就職時間:</td>
-		<td><input name="emp_hday" id="f_date2" type="text" class="form-control" id="te_hday"></td>
+		<td><input name="emp_hday" id="f_date2" type="text" class="form-control" ></td>
 	</tr>
 	<tr>
 		<td>員工居住地:</td>
 		<td><input type="TEXT" name="emp_address" class="form-control" id="te_address"
-			 value="<%= (empVO==null)? "桃園市平鎮區中央路187號" : empVO.getEmp_address()%>" /></td>
+			 value="<%= (empVO==null)? "" : empVO.getEmp_address()%>" /></td>
 	</tr>
 
 
@@ -165,7 +171,20 @@
 </div>
 </div>
   
-    
+    <script type="text/javascript">
+    $(document).ready(function(){
+    	$("#Qclick").click(function(){
+    	  	$("#te_pw").val("1234");
+    	    $("#te_name").val("史蒂夫");
+    	    $("#f_date1").val("1991-03-31");
+    	    $("#te_email").val("jack931@gmail.com");
+    	    $("#te_pho").val("098885761");
+    	    $("#te_gend").val("男性");
+    	    $("#f_date2").val("2019-03-26");
+    	    $("#te_address").val("桃園市平鎮區中央路187號");
+    	});
+    });
+    </script>
     
     <jsp:include page="/Templates/bootstrap4/backFooter.jsp" />
 
@@ -193,7 +212,7 @@
   try {
 	  emp_hday = empVO.getEmp_hday();
    } catch (Exception e) {
-	   emp_hday = new java.sql.Date(System.currentTimeMillis());
+	  emp_hday = new java.sql.Date(System.currentTimeMillis());
    }
 %>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />

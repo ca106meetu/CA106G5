@@ -96,6 +96,11 @@
 </center>
 	</div>
  </div>
+<div class="row justify-content-end">
+    <div class="col-1">
+      <button type="button" class="btn btn-outline-secondary btn-sm" id="Qclick">小按鈕</button>
+    </div>
+</div> 
 <div class="row justify-content-center">
 	<div class="col">
 		<center>
@@ -103,24 +108,24 @@
 <table>
     <tr>
 		<td>會員密碼:</td>
-		<td><input type="TEXT" name="mem_pw" class="form-control"
-			 value="<%= (memVO==null)? "1234" : memVO.getMem_pw()%>" /></td>
+		<td><input type="TEXT" name="mem_pw" class="form-control" id="tm_pw"
+			 value="<%= (memVO==null)? "" : memVO.getMem_pw()%>" /></td>
 	</tr>
 	<tr>
 		<td>會員姓名:</td>
-		<td><input type="TEXT" name="mem_name" class="form-control" 
-			 value="<%= (memVO==null)? "陸游" : memVO.getMem_name()%>" /></td>
+		<td><input type="TEXT" name="mem_name" class="form-control" id="tm_name"
+			 value="<%= (memVO==null)? "" : memVO.getMem_name()%>" /></td>
 	</tr>
 	<tr>
 		<td>會員帳號:</td>
 		<td>
-		<input type="TEXT" name="mem_acc" class="form-control"
-			 value="<%= (memVO==null)? "LuYou" : memVO.getMem_acc()%>" /></td>
+		<input type="TEXT" name="mem_acc" class="form-control" id="tm_acc"
+			 value="<%= (memVO==null)? "" : memVO.getMem_acc()%>" /></td>
 	</tr>
 	<tr>
 		<td>會員暱稱:</td>
-		<td><input type="TEXT" name="mem_nickname" class="form-control"
-			 value="<%= (memVO==null)? "放翁" : memVO.getMem_nickname()%>" /></td>
+		<td><input type="TEXT" name="mem_nickname" class="form-control" id="tm_nickname"
+			 value="<%= (memVO==null)? "" : memVO.getMem_nickname()%>" /></td>
 	</tr>
 	<tr>
 		<td>會員生日:</td>
@@ -128,18 +133,18 @@
 	</tr>	
 	<tr>
 		<td>會員電子郵件信箱:</td>
-		<td><input type="TEXT" name="mem_email" class="form-control" 
-			 value="<%= (memVO==null)? "bell0924tw@gmail.com" : memVO.getMem_email()%>" /></td>
+		<td><input type="TEXT" name="mem_email" class="form-control" id="tm_email"
+			 value="<%= (memVO==null)? "" : memVO.getMem_email()%>" /></td>
 	</tr>
 	<tr>
 		<td>會員手機:</td>
-		<td><input type="TEXT" name="mem_pho" class="form-control" 
-			 value='<%= (memVO==null)? "0988885761" : memVO.getMem_pho()%>' /></td>
+		<td><input type="TEXT" name="mem_pho" class="form-control" id="tm_pho"
+			 value='<%= (memVO==null)? "" : memVO.getMem_pho()%>' /></td>
 	</tr>	
 	<tr>
 		<td>會員性別:</td>
-		<td><input type="TEXT" name="mem_gend" class="form-control" 
-			 value="<%= (memVO==null)? "男性" : memVO.getMem_gend()%>" /></td>
+		<td><input type="TEXT" name="mem_gend" class="form-control" id="tm_gend"
+			 value="<%= (memVO==null)? "" : memVO.getMem_gend()%>" /></td>
 	</tr>
 	<tr>
 		<td>會員大頭照:</td>
@@ -149,7 +154,7 @@
 	<tr>
 		<td>會員自我介紹:</td>
 		<td>
-			<textarea name="mem_intro" rows="4" cols="50"><%= (memVO==null)? "陸游出身於一個由貧居苦學而仕進的世宦家庭" : memVO.getMem_intro()%></textarea>
+			<textarea name="mem_intro" rows="4" cols="50" id="tm_intro"><%= (memVO==null)? "陸游出身於一個由貧居苦學而仕進的世宦家庭" : memVO.getMem_intro()%></textarea>
 		 </td>
 	</tr>
 	<!--<td>會員驗證碼:</td> -->
@@ -176,8 +181,8 @@
 	
 	<tr>
 		<td>會員居住地:</td>
-		<td><input type="TEXT" name="mem_address" class="form-control"
-			 value="<%= (memVO==null)? "台北市" : memVO.getMem_address()%>" /></td>
+		<td><input type="TEXT" name="mem_address" class="form-control" id="tm_address"
+			 value="<%= (memVO==null)? "" : memVO.getMem_address()%>" /></td>
 	</tr>
 		<input name="last_pair" id="f_date4" type="hidden">
 		
@@ -202,6 +207,24 @@
 
 <br><br><br><br>
 
+
+<script type="text/javascript">
+    $(document).ready(function(){
+    	$("#Qclick").click(function(){
+    	  	$("#tm_pw").val("123456");
+    	  	$("#tm_name").val("哈莉");
+    	  	$("#tm_acc").val("Harley");
+    	    $("#tm_nickname").val("小丑女");
+    	    $("#f_date1").val("1988-04-17");
+    	    $("#tm_email").val("minmushroom@gmail.com");
+    	    $("#tm_pho").val("0916066866");
+    	    $("#tm_gend").val("女性");
+    	    $("#f_date2").val("2019-03-26");
+    	    $("#tm_intro").val("哈莉是一名心理醫生,在她治療小丑的期間,對小丑的過去深感同情且被感動,從此她便開始無法自拔的迷戀起小丑這個人,之後哈莉為了愛而開始幫助小丑逃離精神病院,最後哈莉也跟著離開精神病院,並開始跟著穿上小丑的服飾成為後來的哈莉.");
+    	    $("#tm_address").val("桃園市");
+    	});
+    });
+    </script>
  <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="<%=request.getContextPath()%>/bootstrap4/jquery-3.3.1.slim.min.js"></script>

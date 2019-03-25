@@ -115,7 +115,7 @@
 		<td>會員姓名:</td>
 		<td>
 		<input type="TEXT" name="mem_name" class="form-control" 
-			 value="<%= (memVO==null)? "陸游" : memVO.getMem_name()%>" /> 
+			 value="<%= (memVO==null)? "陸游" : memVO.getMem_name()%>" />
 		</td>
 	</tr>
 	<tr>
