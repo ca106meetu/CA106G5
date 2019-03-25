@@ -82,33 +82,33 @@
 <table>
     <tr>
 		<td>員工密碼:</td>
-		<td><input type="TEXT" name="emp_pw" class="form-control" 
+		<td><input type="TEXT" name="emp_pw" class="form-control" id="te_pw"
 			 value="<%= (empVO==null)? "1234" : empVO.getEmp_pw()%>" /></td>
 	</tr>
 	<tr>
 		<td>員工姓名:</td>
-		<td><input type="TEXT" name="emp_name" class="form-control"
-			 value="<%= (empVO==null)? "陸游" : empVO.getEmp_name()%>" /></td>
+		<td><input type="TEXT" name="emp_name" class="form-control" id="te_name"
+			 value="<%= (empVO==null)? "史蒂夫·迪特科" : empVO.getEmp_name()%>" /></td>
 	</tr>
 	<tr>
 		<td>員工生日:</td>
 		<td>
-		<input name="emp_bday" id="f_date1" type="text" class="form-control">
+		<input name="emp_bday" id="f_date1" type="text" class="form-control" id="te_bday">
 		</td>
 	</tr>	
 	<tr>
 		<td>員工電子郵件信箱:</td>
-		<td><input type="TEXT" name="emp_email" class="form-control"
+		<td><input type="TEXT" name="emp_email" class="form-control" id="te_email"
 			 value="<%= (empVO==null)? "jack931@gmail.com" : empVO.getEmp_email()%>" /></td>
 	</tr>
 	<tr>
 		<td>員工手機:</td>
-		<td><input type="TEXT" name="emp_pho" class="form-control"
+		<td><input type="TEXT" name="emp_pho" class="form-control" id="te_pho"
 			 value="<%= (empVO==null)? "098885761" : empVO.getEmp_pho()%>" /></td>
 	</tr>	
 	<tr>
 		<td>員工性別:</td>
-		<td><input type="TEXT" name="emp_gend" class="form-control" 
+		<td><input type="TEXT" name="emp_gend" class="form-control" id="te_gend"
 			 value="<%= (empVO==null)? "男性" : empVO.getEmp_gend()%>" /></td>
 	</tr>
 	 <tr>
@@ -129,12 +129,12 @@
 	</tr>
 	<tr>
 		<td>員工就職時間:</td>
-		<td><input name="emp_hday" id="f_date2" type="text" class="form-control"></td>
+		<td><input name="emp_hday" id="f_date2" type="text" class="form-control" id="te_hday"></td>
 	</tr>
 	<tr>
 		<td>員工居住地:</td>
-		<td><input type="TEXT" name="emp_address" class="form-control"
-			 value="<%= (empVO==null)? "" : empVO.getEmp_address()%>" /></td>
+		<td><input type="TEXT" name="emp_address" class="form-control" id="te_address"
+			 value="<%= (empVO==null)? "桃園市平鎮區中央路187號" : empVO.getEmp_address()%>" /></td>
 	</tr>
 
 
