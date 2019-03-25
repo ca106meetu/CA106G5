@@ -209,35 +209,34 @@ $('.mustlogin').click(function(){
 		
 		$(function(){
 			
-		    	$('.login').click(function(){
-					 $.ajax({
-						 type: "POST",
-						 url: "<%=request.getContextPath()%>/FrontLoginHandler",
-						 data: {"mem_acc":$(".mem_acc").val(),
-							    "mem_pw":$(".mem_pw").val()},
-						 dataType: "json",
-						 success: function(data){
-							 if(data.access == 'true'){
-								$('#login').modal('hide');
-								swal({
-									title: "登入成功!",
-									text: "歡迎您~",
-									type:"success"}).then(function(){ 
-								   		location.reload();
-								   	}
-								);
-															
-							}else{
-								swal('你的帳號,密碼無效!','請您重新輸入帳號密碼','error');
-		
-							}
-						 },
-			             error: function(){
-			             
-			             }
-			         });
-				});
-		    	setTimeout(checkRegisterBtn, 500);
+			$('.login').click(function(){
+				 $.ajax({
+					 type: "POST",
+					 url: "<%=request.getContextPath()%>/lorenTest",
+					 data: {"mem_acc":$(".mem_acc").val(),
+						    "mem_pw":$(".mem_pw").val()},
+					 dataType: "json",
+					 success: function(data){
+						 if(data.access == 'true'){
+							$('#login').modal('hide');
+							swal({
+								title: "登入成功!",
+								text: "歡迎您~",
+								type:"success"}).then(function(){ 
+							   		location.reload();
+							   	}
+							);
+														
+						}else{
+							swal('你的帳號,密碼無效!','請您重新輸入帳號密碼','error');
+
+						}
+					 },
+		             error: function(){
+		             
+		             }
+		         });
+			});
 				
 				$('#register_text_mem_acc').on('keyup', function(){
 					if( $('#register_text_mem_acc').val().trim().length == 0){
