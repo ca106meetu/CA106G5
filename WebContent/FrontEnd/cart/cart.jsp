@@ -6,6 +6,16 @@
 
 <%
 	List<ProductVO> buyList = (Vector<ProductVO>) session.getAttribute("shoppingCart");
+
+		double total = 0;
+	if(buyList != null){
+		for (int i = 0; i < buyList.size(); i++) {
+			ProductVO ProdVO = buyList.get(i);
+			Double Price = ProdVO.getProd_price();
+			Integer Quantity = ProdVO.getQuantity();
+			total += (Price * Quantity);
+		}
+	}
 	
 %>
 <!doctype html>
@@ -60,10 +70,10 @@
         <div class="col-2"></div>
         <div class="col-3">$${prodVO.prod_price}</div>
         <div class="col-1">
-        	<input class="form-control quantity" type="number" min="1" max="${prodVO.prod_stock < 5 ? 'prodVO.prod_stock' : '5'}" value="${prodVO.quantity}" id="example-number-input">
-        	<input type="hidden" value="${prodVO.prof_ID}">
+        	<input class="form-control quantity" type="number" min="1" max="${prodVO.prod_stock < 5 ? prodVO.prod_stock : '5'}" value="${prodVO.quantity}" id="example-number-input">
+        	<input type="hidden" value="${prodVO.prod_ID}">
         </div>
-        <div class="col-1">${prodVO.prod_price*prodVO.quantity}</div>
+        <div class="col-1" id='${prodVO.prod_ID}'>${prodVO.prod_price*prodVO.quantity}</div>
         <div class="col-1">
         		<form method='post' action='ShoppingServlet' style="margin-bottom: 0px;" >
 					<input type='submit' value='刪除'>
@@ -73,6 +83,17 @@
         </div>
       </div>
       </c:forEach>
+      
+      
+      <div class='row'>
+      	<div class="col-8"></div>
+        <div class="col-1" style="font-size:20px">總金額: </div>
+        <div class="col-1 amount" style="color:green;font-size:20px"><%=total%></div>
+        <div class="col-1" style="font-size:20px">元</div>
+        <div class="col-1"></div>
+      </div>
+      
+      
       
       <div class='row'>
       	<div class="col-8"></div>
@@ -137,15 +158,18 @@
 	 
 	 
 	 $('.quantity').change(function(){
+		 var prod_ID = $(this).next().val();
 		 $.ajax({
 			 type: "POST",
 			 url: "ShoppingServlet",
-			 data: {"prod_ID":$(this).next().attr('value'), "action":"add", "quantity":$(this).parent().prev().val()},
+			 data: {"quantity":$(this).val(), "prod_ID":prod_ID, "action":"changeQ"},
 			 dataType: "json",
-			 success: function(){
-				 
-				 $('#myModal').modal('show');
-				},
+			 success: function(data){
+					$(".amount").text(data.amount);
+					$(".amount").attr("style", "font-size:20px;color:red;"); 
+					document.getElementById(data.prod_ID).innerText = data.total;
+					
+			 },
 		     
              error: function(){alert("AJAX-grade發生錯誤囉!")}
          });

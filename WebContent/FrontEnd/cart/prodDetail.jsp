@@ -61,7 +61,7 @@
           </div>
           <div class='row' style='height:50px;width:60%;'>
             <div class="col-3">數量</div>
-            <div class="col-9"><input class="form-control qq" type="number" min="1" max="5" value="1" id="example-number-input" name='quantity'></div>
+            <div class="col-9"><input class="form-control qq" type="number" min="1" max="${prodVO.prod_stock < 5 ? prodVO.prod_stock : '5'}" value="1" id="example-number-input" name='quantity'></div>
           </div>
           <div class='row' style='height:150px;'> 
             <div class="col-3">商品詳情</div>

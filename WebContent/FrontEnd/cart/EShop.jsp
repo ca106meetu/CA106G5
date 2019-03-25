@@ -88,7 +88,7 @@
      
      
 	  	<div class="input-group mb-3">
-	  		<input class="form-control" type="number" min="1" max="5" value="1" id="example-number-input" name='quantity'>
+	  		<input class="form-control" type="number" min="1" max="${prodVO.prod_stock < 5 ? prodVO.prod_stock : '5'}" value="1" id="example-number-input" name='quantity'>
 		  	
 		  	<div class="input-group-append">
 		    	<input class='shopping-cart cart' type='image' src='images/shopping-cart.png'>

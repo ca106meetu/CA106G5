@@ -122,12 +122,14 @@ public class ShoppingServlet extends HttpServlet {
 			}
 		
 		if ("DcheckOut".equals(action)) {
+			
 			if(buyList != null) {
 				buyList.clear();
 			}else {
 				buyList = new Vector<ProductVO>();
 				session.setAttribute("shoppingCart", buyList);
 			}
+			
 				ProductVO prodVO = prodSvc.getOneProd(req.getParameter("prod_ID"));
 				prodVO.setQuantity(Integer.valueOf(req.getParameter("quantity")));
 				buyList.add(prodVO);
@@ -231,9 +233,45 @@ public class ShoppingServlet extends HttpServlet {
 			
 		}
 		
+		
+		if("changeQ".equals(action)) {
+			Integer quantity = Integer.valueOf(req.getParameter("quantity"));
+			ProductVO prodVO = prodSvc.getOneProd(req.getParameter("prod_ID"));
+			
+			ProductVO innerProdVO = buyList.get(buyList.indexOf(prodVO));
+			innerProdVO.setQuantity(quantity);
+			
+			session.setAttribute("shoppingCart", buyList);
+			PrintWriter out = res.getWriter();
+			JSONObject object = new JSONObject();
+			try {
+				object.put("amount", calPrice(buyList));
+				object.put("prod_ID", prodVO.getProd_ID());	
+				object.put("total", prodVO.getProd_price()*quantity);	
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			out.write(object.toString());
+			out.flush();
+			out.close();
+			
+			
+			
+		}
+		
 	
 	}
 	
-	
+	public String calPrice(List<ProductVO> buyList) {
+		double total = 0;
+		for (int i = 0; i < buyList.size(); i++) {
+			ProductVO prodVO = buyList.get(i);
+			Double price = prodVO.getProd_price();
+			Integer quantity = prodVO.getQuantity();
+			total += (price * quantity);
+		}
+
+		return String.valueOf(total);
+	}
 
 }
