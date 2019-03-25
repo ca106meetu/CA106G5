@@ -55,17 +55,29 @@
 <jsp:include page="/Templates/bootstrap4/backHeader.jsp" />
     
 <div class="container justify-content-center">
-<div class="row">
-<div class="col">
-			<center>
+<div class="row justify-content-center">
+<div class="col">   
+		 <center>
 		     <h3>員工資料新增 - addEmp.jsp</h3>
 			</center>
-			<center>
+		</div>
+	 </div>
+	<div class="row justify-content-center">
+		<div class="col">
+		 <center>
 		     <h4><a href="select_page.jsp">回首頁</a></h4>
 	    	</center>
-			<center>
+		</div>
+	</div>
+	<div class="row justify-content-center">
+		<div class="col">
+		 <center>
 			<h3>資料新增:</h3>
 			</center>
+		</div>
+	 </div>
+<div class="row justify-content-center">
+	<div class="col-4">
 <%-- 錯誤表列 --%>
 <center>
 <c:if test="${not empty errorMsgs}">
@@ -77,6 +89,10 @@
 	</ul>
 </c:if>
 </center>
+</div>
+ </div>
+<div class="row justify-content-center">
+	<div class="col">
 <center>
 <FORM METHOD="post" ACTION="emp.do" name="form1" enctype="multipart/form-data">
 <table>
