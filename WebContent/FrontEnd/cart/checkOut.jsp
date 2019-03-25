@@ -81,7 +81,7 @@
             
       <div class="row">
         <div class="col-8"></div>
-        <div class="col-2">訂單金額: </div>
+        <div class="col-2">剩餘金額: </div> 
         <div class="col-1 text-${(memVO.mem_get_point-amount) < 0 ? 'danger' : 'success'} justify-content-end">${(memVO.mem_get_point-amount) < 0 ? '餘額不足' :  (memVO.mem_get_point-amount)}</div>
         <div class="col-1">${(memVO.mem_get_point-amount) < 0 ? '' : '元'}</div>
       </div>      

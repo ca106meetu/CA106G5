@@ -86,7 +86,7 @@
       <p class="card-text text-warning">商品庫存量:  <%=prodVO.getProd_stock()%></p>
     </div>
     <div class="card-footer">
-      <small class="text-muted" >價錢: <%=prodVO.getProd_price()%> 元</small>
+      <small class="text-muted" >價錢: <%=prodVO.getProd_price().intValue()%> 元</small>
      
      
 	  	<div class="input-group mb-3">
