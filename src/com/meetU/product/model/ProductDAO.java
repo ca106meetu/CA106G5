@@ -25,7 +25,7 @@ public class ProductDAO implements ProductDAO_interface{
 	private static final String GET_ALL_STMT = 
 		"SELECT * FROM PRODUCT";
 	private static final String GET_SOME_STMT = 
-			"SELECT * FROM PRODUCT WHERE PROD_STATUS = 0";
+			"SELECT * FROM PRODUCT WHERE PROD_STATUS = 0 AND PROD_STOCK > 0";
 	private static final String GET_ONE_STMT = 
 		"SELECT * FROM PRODUCT where PROD_ID = ?";
 	private static final String DELETE = 

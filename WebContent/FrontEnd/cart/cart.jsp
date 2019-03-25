@@ -70,7 +70,7 @@
         <div class="col-2"></div>
         <div class="col-3">$${prodVO.prod_price}</div>
         <div class="col-1">
-        	<input class="form-control quantity" type="number" min="1" max="${prodVO.prod_stock < 5 ? prodVO.prod_stock : '5'}" value="${prodVO.quantity}" id="example-number-input">
+        	<input class="form-control quantity" type="number" min="1" max="${prodVO.prod_stock}" value="${prodVO.quantity}" id="example-number-input">
         	<input type="hidden" value="${prodVO.prod_ID}">
         </div>
         <div class="col-1" id='${prodVO.prod_ID}'>${prodVO.prod_price*prodVO.quantity}</div>

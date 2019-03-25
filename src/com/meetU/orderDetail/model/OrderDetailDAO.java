@@ -19,6 +19,7 @@ import com.meetU.mem.model.MemVO;
 import com.meetU.orderDetail.model.OrderDetailVO;
 import com.meetU.orderMaster.model.OrderMasterDAO;
 import com.meetU.orderMaster.model.OrderMasterVO;
+import com.meetU.product.model.ProductDAO;
 import com.meetU.product.model.ProductVO;
 
 public class OrderDetailDAO implements OrderDetailDAO_interface{
@@ -286,6 +287,7 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 		PreparedStatement pstmt = null;
 		OrderMasterDAO ordDAO = new OrderMasterDAO();
 		MemDAO memDAO = new MemDAO(); 
+		ProductDAO prodDAO = new ProductDAO();
 		try {
 			
 			
@@ -303,12 +305,17 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
 			for(ProductVO prodVO: buyList) {
-			pstmt.setString(1, prodVO.getProd_ID());
-			pstmt.setString(2, key);
-			pstmt.setInt(3, prodVO.getQuantity());
-			pstmt.setDouble(4, prodVO.getProd_price());
-			pstmt.executeUpdate();
-			pstmt.clearParameters();
+				pstmt.setString(1, prodVO.getProd_ID());
+				pstmt.setString(2, key);
+				pstmt.setInt(3, prodVO.getQuantity());
+				pstmt.setDouble(4, prodVO.getProd_price());
+				pstmt.executeUpdate();
+				pstmt.clearParameters();
+			}
+			
+			for(ProductVO prodVO: buyList) {
+				prodVO.setProd_stock(prodVO.getProd_stock()-prodVO.getQuantity());
+				prodDAO.update(prodVO);
 			}
 			
 			

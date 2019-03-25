@@ -74,21 +74,23 @@
 <div class="card-deck">
 <%for(int i =0; i<=2; i++){
 	if(3*j+i <= list.size()-1){
-		
 	ProductVO prodVO = list.get(3*j+i);
+	Integer	max = prodVO.getProd_stock();
+		
 	%>	
   <div class="card border-danger mb-3">
   	<a href='<%=request.getContextPath()%>/FrontEnd/cart/prodDetail.jsp?prod_ID=<%=prodVO.getProd_ID()%>'><img src="/CA106G5/ShowPic?PROD_ID=<%=prodVO.getProd_ID()%>" id='pic' class="card-img-top"></a>
     <div class="card-body ">
       <h5 class="card-title"><%=prodVO.getProd_name()%></h5>
       <p class="card-text text-warning"><%=prodVO.getProd_info()%></p>
+      <p class="card-text text-warning">商品庫存量:  <%=prodVO.getProd_stock()%></p>
     </div>
     <div class="card-footer">
       <small class="text-muted" >價錢: <%=prodVO.getProd_price()%> 元</small>
      
      
 	  	<div class="input-group mb-3">
-	  		<input class="form-control" type="number" min="1" max="${prodVO.prod_stock < 5 ? prodVO.prod_stock : '5'}" value="1" id="example-number-input" name='quantity'>
+	  		<input class="form-control" type="number" min="1" max="<%=max%>" value="1" id="example-number-input" name='quantity'>
 		  	
 		  	<div class="input-group-append">
 		    	<input class='shopping-cart cart' type='image' src='images/shopping-cart.png'>
@@ -158,24 +160,48 @@
   </div>
 </div>
 
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id='alert' aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+    	<div class="modal-header">
+    		<h3 class="modal-title" style='color:red;'>提示</h3>
+      		
+ 	   	</div>
+ 	   	
+ 	   	<div class="modal-body" style='color:blue;'>
+        	<h5>數量輸入錯誤</h5>
+      	</div>
+    </div>
+  </div> 
+</div>
+
     <jsp:include page="/Templates/bootstrap4/frontFooter.jsp" />
     
     <script>
     
     $(document).ready(function(){
 		 $('.cart').click(function(){
-			 $.ajax({
-				 type: "POST",
-				 url: "ShoppingServlet",
-				 data: {"prod_ID":$(this).next().attr('value'), "action":"add", "quantity":$(this).parent().prev().val()},
-				 dataType: "json",
-				 success: function(){
-					 
-					 $('#myModal').modal('show');
-					},
-			     
-	             error: function(){alert("AJAX-grade發生錯誤囉!")}
-	         });
+			 
+			 if( $(this).parent().prev().val() <= 0 || $(this).parent().prev().val() > parseInt($(this).parent().prev().attr('max'))){
+				 
+				 $("#alert").modal('show');
+			 }else{
+				 
+				 $.ajax({
+					 type: "POST",
+					 url: "ShoppingServlet",
+					 data: {"prod_ID":$(this).next().attr('value'), "action":"add", "quantity":$(this).parent().prev().val()},
+					 dataType: "json",
+					 success: function(){
+						 
+						 $('#myModal').modal('show');
+						},
+				     
+		             error: function(){alert("AJAX-grade發生錯誤囉!")}
+		         });
+				 
+			 }
+			 
 	 });
     })
     
