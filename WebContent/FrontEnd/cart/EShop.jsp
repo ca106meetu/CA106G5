@@ -19,9 +19,7 @@
   <link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
   	<link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
   <style>
-	  	div {
-			  font-family:DFKai-sb;
-			}
+	  	
 	  #menu {
 	  position: fixed;
 	  right: 0;
@@ -29,12 +27,27 @@
 	  width: 8em;
 	  margin-top: -2.5em;
 	}
+	
   	.card-img-top {
     width:auto; 
  	height:auto; 
     border-top-left-radius: calc(.25rem - 1px);
     border-top-right-radius: calc(.25rem - 1px);
+     border-radius: 5%;
 	}
+	.card-deck .card {
+    
+    margin: 15px;
+}
+
+.card {
+   
+    
+    border-radius: 3%;
+    border: 2px solid rgba(0, 0, 0, 0.23);
+    color: black;
+    box-shadow: 0 0 3px black;
+}
  
 	table {
 	width: 800px;
@@ -80,7 +93,7 @@
 	Integer	max = prodVO.getProd_stock();
 		
 	%>	
-  <div class="card border-danger mb-3">
+  <div class="card ">
   	<a href='<%=request.getContextPath()%>/FrontEnd/cart/prodDetail.jsp?prod_ID=<%=prodVO.getProd_ID()%>'><img src="/CA106G5/ShowPic?PROD_ID=<%=prodVO.getProd_ID()%>" id='pic' class="card-img-top"></a>
     <div class="card-body ">
       <h5 class="card-title"><%=prodVO.getProd_name()%></h5>
