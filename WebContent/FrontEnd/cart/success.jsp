@@ -3,6 +3,8 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+  	<link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
   <style>
   	body {
 		  font-family: '微軟正黑體';
@@ -16,7 +18,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
 
-    <title>Hello, world!</title>  
+    <title>購物成功!!水喔</title>  
   </head>
   <body>
     <jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />

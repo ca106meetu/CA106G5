@@ -7,6 +7,8 @@
 %>
 <html lang="en">
   <head>
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+  	<link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
   <style>
 	.pic{
 		width:172.5px;
@@ -34,14 +36,14 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
 
-    <title>Hello, world!</title> 
+    <title>新增商品</title> 
   </head>
   <body>
     <jsp:include page="/Templates/bootstrap4/backHeader.jsp" />
     
     <table id="table-1">
 	<tr><td>
-		 <h3>員工資料新增 - addEmp.jsp</h3></td><td>
+		 <h3>商品資料新增 - addEmp.jsp</h3></td><td>
 		 <h4><a href="selectPage.jsp"><img src="images/tomcat.png" width="100" height="100" border="0">回首頁</a></h4>
 	</td></tr>
 </table>

@@ -21,6 +21,8 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+  	<link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
 	  <style type="text/css">
 	  	.pic{
 		width:86.25px;
@@ -35,7 +37,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
 
-    <title>Hello, world!</title> 
+    <title>${memVO.mem_name}購物車內容</title> 
   </head>
   <body>
     <jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />

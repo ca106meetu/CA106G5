@@ -14,6 +14,8 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+  	<link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
   <style>
 	.pic{
 		width:172.5px;
@@ -41,7 +43,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
 
-    <title>Hello, world!</title> 
+    <title>所有訂單資料</title> 
   </head>
   <body>
     <jsp:include page="/Templates/bootstrap4/backHeader.jsp" />

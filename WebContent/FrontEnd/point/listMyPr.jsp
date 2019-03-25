@@ -15,6 +15,8 @@
 <!doctype html>
 <html lang="en">
   <head>
+  <link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+  	<link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
   <style>
 	.pic{
 		width:172.5px;
@@ -42,15 +44,21 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
 
-    <title>Hello, world!</title> 
+    <title>儲值紀錄</title> 
   </head>
   <body>
     <jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
     
     
- <table id = 'table-1'>
+<div class='container justify-content-center'>
+ 	<div class='row justify-content-center'>
+	<%@ include file="page1.file" %> 
+	</div>
+ 	<div class='row justify-content-center'>
+ 	
+ 	<table id = 'table-1'>
 	<tr><td>
-		<h3>${memVO.mem_name}的儲值紀錄-listMyPr.jsp</h3>
+		<h3>${memVO.mem_name}的儲值紀錄</h3>
 	
 	
 	</td>
@@ -62,7 +70,7 @@
 
 
 </table>
-
+ 
 <%-- 錯誤列表 --%>
 <c:if test='${not empty errorMsgs }'>
 	<font style='color:red'>請修正以下錯誤</font>
@@ -75,12 +83,11 @@
 
 <table>
 	<tr>
-		<th>訂單編號</th>
-		<th>會員名稱</th>
-		<th>訂單金額</th>
+		<th>儲值編號</th>
+		<th>儲值金額</th>
+		<th>儲值日期</th>
 
 	</tr>
-	<%@ include file="page1.file" %> 
 	
 	<jsp:useBean id='memSvc' scope='page' class='com.meetU.mem.model.MemService'/>
 	<c:forEach var="prVO" items= "${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
@@ -94,7 +101,14 @@
  	
 	</c:forEach>
 </table>
+ 	
 <%@ include file="page2.file" %> 
+ 	</div>
+ 	
+ 	
+</div>
+ 
+ 
     
     
     

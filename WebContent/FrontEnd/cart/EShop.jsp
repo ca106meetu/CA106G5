@@ -16,6 +16,8 @@
 <!doctype html>
 <html lang="en">
   <head>
+  <link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+  	<link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
   <style>
 	  	div {
 			  font-family:DFKai-sb;
@@ -62,7 +64,7 @@
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
 
-    <title>Hello, world!</title> 
+    <title>meetU商城&lt;3</title> 
   </head>
   <body onload="connect();">
     <jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
