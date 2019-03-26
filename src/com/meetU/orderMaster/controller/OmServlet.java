@@ -283,11 +283,11 @@ public class OmServlet extends HttpServlet {
 					//**********************************
 					OrderMasterService omSvc = new OrderMasterService();
 					omVO = omSvc.updateOm(order_ID, mem_ID, price, order_date, tip, out_add, recipient, phone, out_date, out_status, order_status);
-					req.setAttribute("lastPage", true);
+//					req.setAttribute("lastPage", true);
 					//**********************************
 					
 					req.setAttribute("omVO", omVO);
-					String url = "/back-end/om/listOneOm.jsp";
+					String url = "/back-end/om/listAllOm.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url);
 					successView.forward(req, res);
 					

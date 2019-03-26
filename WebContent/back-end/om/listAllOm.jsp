@@ -92,7 +92,7 @@
 	%>
 	<jsp:useBean id='memSvc' scope='page' class='com.meetU.mem.model.MemService'/>
 	<c:forEach var="omVO" items= "${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-		<tr>
+		<tr ${(omVO.order_ID==param.order_ID) ? 'bgcolor=#AFEEEE':''}>
 			<td>${omVO.order_ID}</td>
 			<td>${memSvc.getOneMem(omVO.mem_ID).mem_name}</td>
 			<td>${omVO.price}</td>
@@ -125,6 +125,7 @@
 				<form method='post' action='om.do' style="margin-bottom: 0px;">
 					<input type='submit' class='btn btn-${omVO.order_status != 0 ? "success" : "primary"}' value='${omVO.order_status != 0 ? "已出貨" : "出貨"}' ${omVO.order_status != 0 ? 'disabled="disabled"' : ''}>
 					<input type='hidden' name='order_ID' value='${omVO.order_ID}'>
+					<input type='hidden' name='whichPage' value='${param.whichPage}'>
 					<input type='hidden' name='location' value='<%=request.getServletPath()%>'>
 					<input type='hidden' name='action' value='out'>				
 				</form>

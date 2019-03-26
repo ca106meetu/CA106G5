@@ -4,7 +4,7 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
 	PrService prSvc = new PrService();
 	MemVO memVO = (MemVO) session.getAttribute("memVO");
@@ -106,8 +106,9 @@
 		<tr>
 			<td>${prVO.rec_ID}</td>
 			<td>${prVO.amount}</td>
-			<td>${prVO.rec_date}</td>
-			
+			<td>
+			<fmt:formatDate value="${prVO.rec_date}" pattern="yyyy-MM-dd HH:mm" />
+			</td>
 			
 		</tr>
  	
