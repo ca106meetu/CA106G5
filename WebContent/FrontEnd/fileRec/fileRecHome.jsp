@@ -67,6 +67,10 @@ html,body {
    
     text-align: center;
 }
+.btn-warning {
+   
+    margin: 5px;
+}
 
 
 
