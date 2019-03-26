@@ -2,6 +2,7 @@ package com.meetU.meetup_mem.model;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Set;
 
 public class MeetupMemService {
 private MeetupMemDAO_interface dao;
@@ -47,5 +48,9 @@ private MeetupMemDAO_interface dao;
 
 	public List<MeetupMemVO> getMyAllMeetup(String mem_ID) {
 		return dao.findMyAllMeetup(mem_ID);
+	}
+	
+	public Set<MeetupMemVO> getHostRate(String mem_ID) {
+		return dao.findHostRate(mem_ID);
 	}
 }

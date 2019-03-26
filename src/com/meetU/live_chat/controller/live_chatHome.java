@@ -49,6 +49,7 @@ private static final Map<Session, String> map = Collections.synchronizedMap(new 
 		 MemService memSvc = new MemService();
 		
 		List<Live_chatVO> result =  live_chatSvc.getOneLive_chat(myName);
+
 //		for (Session session : allSessions) {
 			if (userSession.isOpen() && map.get(userSession).equals(myName)) {
 				for (Live_chatVO live_chatVO : result ) {
@@ -92,6 +93,29 @@ private static final Map<Session, String> map = Collections.synchronizedMap(new 
 //						session.getAsyncRemote().sendText();
 					}
 				}
+				
+				
+				if(result.size()!=0) {
+					
+					Date today = new Date();
+					JSONObject jObject=new JSONObject();
+					jObject.put("mem_ID",""); 
+					jObject.put("userName","系統通知"); 
+					jObject.put("message","-------以上為歷史訊息-------"); 
+					jObject.put("action","text");
+					jObject.put("host_ID","");
+					
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+					String formattedDate = sdf.format(new Timestamp(today.getTime()));
+					jObject.put("chat_date",formattedDate); 
+					userSession.getAsyncRemote().sendText(jObject.toString());
+					
+					
+				}
+				
+				
+			
+				
 			}
 //		}
 		

@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.meetU.meetup.model.MeetupDAO_interface;
 import com.meetU.meetup.model.MeetupJDBCDAO;
@@ -22,6 +24,8 @@ public class MeetupMemJDBCDAO implements MeetupMemDAO_interface{
 	private static final String GET_ALL_STMT = "SELECT * FROM MEETUP_MEM WHERE meetup_ID =?";
 	private static final String GET_ONE_STMT = "SELECT * FROM MEETUP_MEM WHERE meetup_ID =? AND MEM_ID=?";
 	private static final String GET_MYALL_STMT = "SELECT * FROM MEETUP_MEM WHERE MEM_ID =?";
+	private static final String GET_HOST_RATE  = "SELECT MEETUP.*,MEETUP_MEM.* FROM MEETUP JOIN MEETUP_MEM ON MEETUP.MEETUP_ID = MEETUP_MEM.MEETUP_ID "
+			+ "AND MEETUP.MEETUP_STATUS=1 AND MEETUP_MEM.MEETUP_RATE IS NOT NULL AND MEETUP_MEM.MEM_ID =?";
 	private static final String DELETE = "DELETE FROM MEETUP_MEM WHERE meetup_ID =? and MEM_ID =?";
 	
 	private static final String UPDATE = "UPDATE MEETUP_MEM SET meetup_rate=?, meetup_comment=?, mem_showup=? WHERE meetup_ID =? and MEM_ID =?";
@@ -292,6 +296,58 @@ public class MeetupMemJDBCDAO implements MeetupMemDAO_interface{
 			}
 		}return list;
 	}
+	
+	@Override
+	public Set<MeetupMemVO> findHostRate(String mem_ID) {
+		Set<MeetupMemVO> hset = new HashSet<MeetupMemVO>();
+		MeetupMemVO meetupMemVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_HOST_RATE);
+			pstmt.setString(1, mem_ID);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				meetupMemVO = new MeetupMemVO();
+				meetupMemVO.setMeetup_ID(rs.getString("meetup_ID"));
+				meetupMemVO.setMem_ID(rs.getString("mem_ID"));
+				meetupMemVO.setMeetup_rate(rs.getInt("meetup_rate"));
+				meetupMemVO.setMeetup_comment(rs.getString("meetup_comment"));
+				hset.add(meetupMemVO);
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "	+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}return hset;
+	}
+	
 	public static void main(String[] args) {
 		MeetupMemJDBCDAO dao = new MeetupMemJDBCDAO();
 		
@@ -345,4 +401,6 @@ public class MeetupMemJDBCDAO implements MeetupMemDAO_interface{
 //			System.out.println("----------------");
 //		}
 	}
+
+	
 }

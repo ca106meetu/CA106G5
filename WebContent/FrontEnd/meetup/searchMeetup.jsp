@@ -5,11 +5,7 @@
 <%@ page import="com.meetU.meetup_like.model.*"%>
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
-<%-- 
-	MeetupService meetupSvc = new MeetupService();
-	List<MeetupVO> list = meetupSvc.getAll();
-	pageContext.setAttribute("list", list);
-	--%>	
+
 <%
 	List<MeetupVO> list =(List) request.getAttribute("list");
 %>
@@ -100,16 +96,20 @@
 	
 <div class="container">
 	<div class="row">
-		<div class="col searchDiv">
-			<div class="search"> <span class="glyphicon glyphicon-filter"></span>
-			<form METHOD="POST" action="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do">
-				<input type="radio" name="searchType" value="nam">名稱
-				<input type="radio" name="searchType" value="loc">區域
-				<input type=hidden name=action value="getSearch">
-				<input type="text" class="searchInfo" name="searchInfo" placeholder="Search.." >
-				<button type="submit" class="btn btn-info"> 查詢 <i class="fa fa-search"></i></button>
-			</form>
-	</div></div></div>
+		<div class="col-3"></div>
+		<div class="col-6">
+			<div class="search">
+				<form METHOD="POST" action="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do">
+					<input type="radio" name="searchType" value="nam">名稱
+					<input type="radio" name="searchType" value="loc">區域
+					<input type=hidden name=action value="getSearch">
+					<input type="text" class="searchInfo" name="searchInfo" placeholder="Search.." >
+					<button type="submit" class="btn btn-info"> 查詢 <i class="fa fa-search"></i></button>
+				</form>
+			</div>
+		</div>
+		<div class="col-3"></div>
+	</div>
 	
 	<div class="row">
 	<c:forEach var="meetupVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">

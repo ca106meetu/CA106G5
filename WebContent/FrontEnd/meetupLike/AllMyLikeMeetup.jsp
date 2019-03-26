@@ -108,8 +108,8 @@
 <%-- 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do" class="itemTitle"> --%>
 <%-- 						<button type="submit" class="btn btn-light">${meetupSvc.getOneMeetup(meetupLikeVO.meetup_ID).meetup_name}</button>  --%>
 <%-- 						<input type="hidden" name="meetup_ID"  value="${meetupLikeVO.meetup_ID}"> --%>
-<!-- 			     		<input type="hidden" name="action"	value="getOne_For_Display"> -->
-<!-- 					</FORM> -->
+<%-- 			     		<input type="hidden" name="action"	value="getOne_For_Display"> --%>
+<%-- 					</FORM> --%>
 					</div>
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/FrontEnd/meetupLike/meetupLike.do">
 						<input type='image' src="<%=request.getContextPath()%>/FrontEnd/meetup/img/heart_red.png" class='heart' title='取消收藏' alt="favorite">

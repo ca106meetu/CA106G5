@@ -14,7 +14,7 @@
 	MeetupService meetupSvc = new MeetupService();
 	pageContext.setAttribute("meetupSvc", meetupSvc);
 %>
-
+<% request.setAttribute("currentTime", new Date()); %>
 
 
 <!DOCTYPE html>
@@ -128,7 +128,6 @@
       		</div>
           		
       		<div class="itemEdit">
-	      		<% request.setAttribute("currentTime", new Date()); %>
 	      			<c:choose>
 						<c:when test="${meetupSvc.getOneMeetup(meetupMemVO.meetup_ID).meetup_date.compareTo(currentTime)<0}">
 							<p><font style="color:red">活動已結束</font></p>
@@ -140,31 +139,31 @@
 			</div>
 			
 			<div class="itemEdit">
-				<form METHOD="post" ACTION="<%=request.getContextPath()%>/FrontEnd/meetupMem/meetupMem.do">
+				<form METHOD="post" ACTION="<%=request.getContextPath()%>/FrontEnd/meetupMem/meetupMem.do" >
 				<c:if test="${meetupSvc.getOneMeetup(meetupMemVO.meetup_ID).meetup_date.compareTo(currentTime)<0 and meetupSvc.getOneMeetup(meetupMemVO.meetup_ID).mem_ID!=memVO.mem_ID}">
 					<input type="hidden" name="meetup_ID"  value="${meetupMemVO.meetup_ID}">
 					<input type="hidden" name="mem_ID"  value="${memVO.mem_ID}">
 					<input type="hidden" name="action"	value="getOne_For_Update">
-					<input type="submit" class="btn btn-warning" value="前往評價">
+					<input type="submit" class="btn btn-danger" value="前往評價" ${meetupMemVO.meetup_rate=='0'?'':'disabled'}>
 				</c:if>
 				</form>	
 			
 				<c:if test="${meetupSvc.getOneMeetup(meetupMemVO.meetup_ID).meetup_date.compareTo(currentTime)>0}">
-	  					<input type="submit" class="btn btn-warning disabled" value="尚未開放評價">
+	  					<input type="submit" class="btn btn-warning" disabled value="尚未開放評價">
 				</c:if>
 			</div>
 			    
 			<div class="itemEdit">
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/FrontEnd/meetupMem/meetupMem.do" >
 			  	<c:if test="${meetupSvc.getOneMeetup(meetupMemVO.meetup_ID).mem_ID!=memVO.mem_ID}">
-			     <button type="submit" class="btn" class="btn btn-warning"><i class="fa fa-trash"></i> 退出</button>
+			     <button type="submit" class="btn" class="btn btn-warning" ${meetupSvc.getOneMeetup(meetupMemVO.meetup_ID).meetup_date.compareTo(currentTime)>0?'':'disabled'}>
+			     	<i class="fa fa-trash"></i> 退出</button>
 			    </c:if>
 			     <input type="hidden" name="meetup_ID"  value="${meetupMemVO.meetup_ID}">
 			     <input type="hidden" name="mem_ID"  value="${memVO.mem_ID}">
 			     <input type="hidden" name="action" value="delete">
 			  </FORM>
 			</div>
-			
 	    </div>
    </div>    
 </c:forEach>

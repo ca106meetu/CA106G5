@@ -17,6 +17,14 @@
 	MemService memSvc = new MemService();
 %>
 
+<%
+	MeetupMemService mtRateSvc = new MeetupMemService();
+	Set <MeetupMemVO> hset = mtRateSvc.getHostRate(meetupVO.getMem_ID());
+	pageContext.setAttribute("hset", hset);
+%>
+
+<% request.setAttribute("currentTime", new Date()); %> 
+
 <html>
 <head>
 <script src="http://maps.google.com/maps/api/js?key=AIzaSyBbAAPKAKdERmjzz1pWIZVULGozcKOY6Y8&sensor=false"></script>
@@ -37,12 +45,13 @@
 <style>
 	 
 	 img{
-	 	width:300px;
-	 	height:auto;
+	 	width:400px;
+	 	height:400px;
 	 }
 	 
 	  .headIntro{
         height: 400px;
+        height:400px;
         margin-bottom: 20px;
         margin-top: 50px;
       }
@@ -58,21 +67,39 @@
       }
       
       .heart{
-   		margin: 16px 10px 0px 16px;
+   		margin: 16px 0px 0px 16px;
    	  }
    	  #btnRep{
    		margin-right:50px;
    		float:right;
    	  }
    
-      .HeartnRep{
-   	  	margin-top:5px;
-      }
-      
       .map{
       	margin:20px;
       	margin-left:15%;
       }
+      
+      .checked{
+      	color:orange;
+      }
+      
+      .hostP{
+      	text-align:center;
+      }
+      
+      .hostDiv{
+      	margin:20px;
+      }
+      .commentP{
+      	display: inline;
+      	margin-left:20px;
+      }
+      
+      .btnAjax{
+      	display: inline;
+      }
+      
+      
       
 </style>
 
@@ -100,37 +127,43 @@
           		<p>聯誼主揪 : <%=memSvc.getOneMem(meetupVO.getMem_ID()).getMem_nickname()%></p>
 				<p>至少 <%=meetupVO.getMeetup_minppl()%> 人成團</p>
 				<p>至多 <font style="color:red" > <%=meetupVO.getMeetup_maxppl()%> </font>人滿團</p>
-        		
-          <div class="join"> 
-          	<input type="button" class="${mtMemSvc.getOneMeetupMem(meetupVO.meetup_ID, memVO.mem_ID)!=null?'btn btn-warning disabled': 'btn btn-warning btnJoin'}" 
-          		id="btnJoin" value="${mtMemSvc.getOneMeetupMem(meetupVO.meetup_ID, memVO.mem_ID)!=null?'已報名':'報名'}" >
-          	<input type="hidden" name="meetup_ID" value="${meetupVO.meetup_ID}">
-			<input type="hidden" name="mem_ID"	value="${memVO.mem_ID}"> 
-          		 <i class="fa fa-user"></i> <%=mtMemSvc.getAll(meetupVO.getMeetup_ID()).size()%> 位
-          	    
-		  </div>
-			
-		  <div class="HeartnRep"> 
-			<input type='image' src="${mLikeSvc.getOneMeetupLike(meetupVO.meetup_ID, memVO.mem_ID)!= null?'img/heart_red.png':'img/heart_white.png'}" 
-			   class='heart' title="${mLikeSvc.getOneMeetupLike(meetupVO.meetup_ID, memVO.mem_ID) != null ? '取消收藏' : '加入收藏' }" 
-			   alt="${mLikeSvc.getOneMeetupLike(meetupVO.meetup_ID, memVO.mem_ID) != null ? 'favorite' : 'unfavorite' }" >
-			<input type="hidden" name="meetup_ID" value="${meetupVO.meetup_ID}">
-			<input type="hidden" name="mem_ID"	value="${memVO.mem_ID}">
- 				<%=mLikeSvc.LikeByWho(meetupVO.getMeetup_ID()).size()%> 位			
-			<button class="btn btn-info" type="submit" id="btnRep"><i class="fa fa-bullhorn"></i> 檢舉</button>
-		  </div>		
+		
+		  	<div class="btnAjax">        			
+	          	<c:choose>
+					<c:when test="${meetupVO.meetup_date.compareTo(currentTime)>0 and mtMemSvc.getAll(meetupVO.meetup_ID).size()< meetupVO.meetup_maxppl}">
+			          	<input type="button" id="btnJoin" value="${mtMemSvc.getOneMeetupMem(meetupVO.meetup_ID, memVO.mem_ID)!=null?'已報名':'報名'}" 
+			          		class="btn btn-warning btnJoin" ${mtMemSvc.getOneMeetupMem(meetupVO.meetup_ID, memVO.mem_ID)!=null?'disabled': ''} >
+			          	<input type="hidden" name="meetup_ID" value="${meetupVO.meetup_ID}">
+						<input type="hidden" name="mem_ID"	value="${memVO.mem_ID}"> 
+			          		 <i class="fa fa-user"></i> <%=mtMemSvc.getAll(meetupVO.getMeetup_ID()).size()%> 位
+		          	</c:when>
+		          	<c:otherwise>
+		          		<input type="button" class="btn btn-dark btnJoin" disabled id="btnJoin" value="${mtMemSvc.getOneMeetupMem(meetupVO.meetup_ID, memVO.mem_ID)!=null?'已報名':'報名'}" >
+			          	<input type="hidden" name="meetup_ID" value="${meetupVO.meetup_ID}">
+						<input type="hidden" name="mem_ID"	value="${memVO.mem_ID}"> 
+			          		 <i class="fa fa-user"></i> <%=mtMemSvc.getAll(meetupVO.getMeetup_ID()).size()%> 位
+		          	</c:otherwise>	 
+	          	</c:choose>    
+				
+				<input type='image' src="${mLikeSvc.getOneMeetupLike(meetupVO.meetup_ID, memVO.mem_ID)!= null?'img/heart_red.png':'img/heart_white.png'}" 
+				   class='heart' title="${mLikeSvc.getOneMeetupLike(meetupVO.meetup_ID, memVO.mem_ID) != null ? '取消收藏' : '加入收藏' }" 
+				   alt="${mLikeSvc.getOneMeetupLike(meetupVO.meetup_ID, memVO.mem_ID) != null ? 'favorite' : 'unfavorite' }" >
+				<input type="hidden" name="meetup_ID" value="${meetupVO.meetup_ID}">
+				<input type="hidden" name="mem_ID"	value="${memVO.mem_ID}">
+	 				<%=mLikeSvc.LikeByWho(meetupVO.getMeetup_ID()).size()%> 位			
+				<button class="btn btn-info" type="submit" id="btnRep"><i class="fa fa-bullhorn"></i> 檢舉</button>
+			</div>
+        
         </div>
        </div>
       </div><!-- 來自ROW-->	
       
       <div class="row">
-      	<div class="col">
-	      <div class="item"><!-- 假文假圖-->
-	      	<p><%=meetupVO.getMeetup_info()%></p>
-	      </div>
-      	</div>
-	 </div>
-	       	
+      	<div class="col-1"></div>
+      	<div class="col-11"><p><%=meetupVO.getMeetup_info()%></p></div>
+      	
+	  </div>
+
       <div class="row">
       	<div class="map">
       		<iframe width="800" height="600" frameborder="0" style="border:0" 
@@ -139,6 +172,62 @@
       	</div>
       </div>
       
+      <hr>
+      
+      <div class="row">
+      	<div class="col-2"></div>
+      	<div class="col-8">
+	      	<h5 class="hostP">主揪的過去評價</h5>
+		      <c:forEach var="hostRate" items="${hset}">
+			      <div class="hostDiv">
+			      		<c:if test="${hostRate.meetup_rate==5}">
+			      			<%for(int i=1;i<=5;i++){%>
+			      				<span class="fa fa-star checked"></span>
+			      				<% }%>
+								<p class="commentP">${hostRate.meetup_comment}</p>
+			      		</c:if>
+			      		
+			      		<c:if test="${hostRate.meetup_rate==4}">
+			      			<%for(int i=1;i<=4;i++){%>
+			      				<span class="fa fa-star checked"></span>
+			      				<% }%>
+			      			<span class="fa fa-star"></span>
+							<p class="commentP">${hostRate.meetup_comment}</p>
+			      		</c:if>
+			      		
+			      		<c:if test="${hostRate.meetup_rate==3}">
+			      			<%for(int i=1;i<=3;i++){%>
+			      				<span class="fa fa-star checked"></span>
+			      				<% }%>
+							<%for(int i=1;i<=2;i++){%>
+			      				<span class="fa fa-star"></span>
+			      				<% }%>	      				
+							<p class="commentP">${hostRate.meetup_comment}</p>
+			      		</c:if>
+			      		
+			      		<c:if test="${hostRate.meetup_rate==2}">
+			      			<%for(int i=1;i<=2;i++){%>
+			      				<span class="fa fa-star checked"></span>
+			      				<% }%>
+							<%for(int i=1;i<=3;i++){%>
+			      				<span class="fa fa-star"></span>
+			      				<% }%>	      				
+							<p class="commentP">${hostRate.meetup_comment}</p>
+			      		</c:if>
+			      		
+			      		<c:if test="${hostRate.meetup_rate==1}">
+			      			<span class="fa fa-star checked"></span>
+			      			<%for(int i=1;i<=4;i++){%>
+			      				<span class="fa fa-star checked"></span>
+			      				<% }%>
+							<p class="commentP">${hostRate.meetup_comment}</p>
+			      		</c:if>
+		     		 </div>
+	      	   </c:forEach>
+		  </div>
+		  <div class="col-2"></div>
+	  </div><%-- 來自ROW --%>
+	  
       <div class="row">
       	<div class="col-12">
       		<div id="rep">
@@ -230,7 +319,7 @@ $(document).ready(function(){
 			 success: function(){
 				 alert("成功報名");
 				 $(".btnJoin").val("已報名")
-				 $(".btnJoin").addClass("disabled");
+				 $("#btnJoin").prop("disabled",true);
 				},
 	         error: function(){alert("AJAX-grade發生錯誤囉!")}
 	    });	

@@ -33,11 +33,11 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"> 	
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/FrontEnd/meetup/fontawesome/css/fontawesome.min.css"/>
 <!-- Favicon -->
-    <link rel="icon" href="<%=request.getContextPath()%>/FrontEnd/meetup/modelMaster/img/core-img/favicon.ico">
+    <link rel="icon" href="<%=request.getContextPath()%>/FrontEnd/lorenTest/img/core-img/favicon.ico">
 <!-- Core Stylesheet -->
-    <link href="<%=request.getContextPath()%>/FrontEnd/meetup/modelMaster/style.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/FrontEnd/lorenTest/style.css" rel="stylesheet">
 <!-- Responsive CSS -->
-    <link href="<%=request.getContextPath()%>/FrontEnd/meetup/modelMaster/css/responsive/responsive.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/FrontEnd/lorenTest/css/responsive/responsive.css" rel="stylesheet">
 		
     <title>聯誼首頁</title>    
     <style>
@@ -68,9 +68,11 @@
 	  margin: 10px;
 	}
 	
-   	.searchDiv{
-   		margin:50px;
-   	}
+	.search{
+		margin-top:50px;
+	}
+	
+   	
    
 </style> 
     
@@ -83,16 +85,20 @@
 	
 <div class="container">
 	<div class="row">
-		<div class="col searchDiv">
+		<div class="col-3"></div>
+		<div class="col-6">
 			<div class="search">
-			<form METHOD="POST" action="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do">
-				<input type="radio" name="searchType" value="nam">名稱
-				<input type="radio" name="searchType" value="loc">區域
-				<input type=hidden name=action value="getSearch">
-				<input type="text" class="searchInfo" name="searchInfo" placeholder="Search.." >
-				<button type="submit" class="btn btn-info"> 查詢 <i class="fa fa-search"></i></button>
-			</form>
-	</div></div></div>
+				<form METHOD="POST" action="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do">
+					<input type="radio" name="searchType" value="nam">名稱
+					<input type="radio" name="searchType" value="loc">區域
+					<input type=hidden name=action value="getSearch">
+					<input type="text" class="searchInfo" name="searchInfo" placeholder="Search.." >
+					<button type="submit" class="btn btn-info"> 查詢 <i class="fa fa-search"></i></button>
+				</form>
+			</div>
+		</div>
+		<div class="col-3"></div>
+	</div>
 	
 	<div class="row">
 	<c:forEach var="meetupVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
@@ -117,13 +123,6 @@
                 </a> 	
 			</div>
 <jsp:useBean id="mLikeSvc" scope="page" class="com.meetU.meetup_like.model.MeetupLikeService"/>					
-					
-<%-- 				<input type='image' class='heart' id="${meetupVO.meetup_ID}"  --%>
-<%-- 						src=" ${mLikeSvc.getOneMeetupLike(meetupVO.meetup_ID, memVO.mem_ID)!= null?'img/heart_red.png':'img/heart_white.png'}"  --%>
-<%-- 		 				title="${mLikeSvc.getOneMeetupLike(meetupVO.meetup_ID, memVO.mem_ID) != null ? '取消收藏' : '加入收藏' }"  --%>
-<%-- 		   				alt="${mLikeSvc.getOneMeetupLike(meetupVO.meetup_ID, memVO.mem_ID) != null ? 'favorite' : 'unfavorite' }" > --%>
-<%-- 				<input type="hidden" name="meetup_ID" value="${meetupVO.meetup_ID}"> --%>
-<%-- 				<input type="hidden" name="mem_ID"	value="${memVO.mem_ID}"> --%>
 					
 			</div>
 		</div>

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.meetU.meetup_report.model.*, com.meetU.meetup.model.*"%>
 <%-- 此頁練習採用 EL 的寫法取值 --%>
@@ -7,6 +8,7 @@
 <% 
 	MeetupRepService meetupRepSvc = new MeetupRepService();
 	List<MeetupRepVO> list = meetupRepSvc.getAll();
+	
 	pageContext.setAttribute("list", list);	
 %>
 
@@ -49,7 +51,6 @@
 	    border:1px solid #ddd;
 	}
 
-	
 	.redBall{
 		width:20px;
 		height:20px;
@@ -95,12 +96,11 @@
 
 <div class="container">
 	<div class="row">
-
+		<div class="col-12">
 <jsp:useBean id="meetupSvc" scope="page" class="com.meetU.meetup.model.MeetupService"/>
 
 <%@ include file="page1.file"%>  
 
-		<FORM METHOD="post" action="meetupRep.do">
 			<table class="table1">
 				<tr>
 					<th>檢舉狀態</th>
@@ -119,20 +119,37 @@
 					<td><A href="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do?meetup_ID=${meetupRepVO.meetup_ID}&action=getOne_For_Display">
 						${meetupSvc.getOneMeetup(meetupRepVO.meetup_ID).meetup_name}</a></td>
 					<td>${meetupRepVO.mem_ID}</td>
-					<td>${meetupRepVO.rep_date}</td>
+					<td><fmt:formatDate value="${meetupRepVO.rep_date}" pattern="yyyy-MM-dd HH:mm"/></td>
 					<td>${meetupRepVO.rep_content}</td>	
-					<td><A href="<%=request.getContextPath()%>/FrontEnd/meetupRep/meetupRep.do?meetup_rep_ID=${meetupRepVO.meetup_rep_ID}&action=getOne_For_Update">
-							前往處理</A></td>	
+					<td>
+						<FORM METHOD="post" action="meetupRep.do">
+							<select class="rep_ans" name="rep_ans">
+								<option value="1">內容無不妥</option>
+								<option value="0">聯誼被隱形</option>
+							</select>
+							<button type="submit" class="btn btn-outline-dark" class="btnSaveAns">確認</button>
+							<input type="hidden" name="meetup_rep_ID" value="${meetupRepVO.meetup_rep_ID}"/>
+							<input type="hidden" name="meetup_ID" value="${meetupRepVO.meetup_ID}"/>
+							<input type="hidden" name="rep_status" value="1">
+							<input type="hidden" name="action" value="update">
+						</Form>
+					</td>
 				</tr>
 			</c:forEach>
 			</table>
-		</Form>
 
 <%@ include file="page2.file" %>
+		</div>
 	</div>
 </div>
+<script>
 		
-			 
+$(document).ready(function(){
+		
+	
+		 
+});		
+</script>
 <jsp:include page="/Templates/bootstrap4/backFooter.jsp" />
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

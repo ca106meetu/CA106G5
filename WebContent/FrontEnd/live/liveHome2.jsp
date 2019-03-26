@@ -1,3 +1,4 @@
+<%@page import="com.meetU.live.model.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="java.util.*"%>
@@ -8,6 +9,9 @@
 <%
 	String host_ID = request.getParameter("host_ID");
 	pageContext.setAttribute("host_ID", host_ID);
+	LiveService liveSvc = new LiveService();
+	LiveVO liveVO = liveSvc.getOneLive(host_ID);
+	pageContext.setAttribute("liveVO",liveVO);
 	
    
     MemService memSvc = new MemService();
@@ -184,13 +188,17 @@ html,body {
 				<div class="col-8">
 				
 				<div class="jumbotron" style="margin-bottom: 0rem">
-                <h1 class="display-3"><%= host_name%>的直播間
+                <h1>房間名稱:<%=liveVO.getLive_name()%><br>
+              會員名稱:<%= host_name%>
+                
+                
 <%--  <button style="${(memVO.mem_ID eq host_ID) ? '': 'display:none' }"  class='btn btn-success' onclick='connect2();'>直播推播</button> --%>
  <button style="${(memVO.mem_ID eq host_ID) ? '': 'display:none' }"  class='btn btn-info' onclick="location.href='<%=request.getContextPath()%>/FrontEnd/live/liveHostHome.jsp?host_ID=<%=host_ID%>';" >開始直播</button>
                		<a href='<%=request.getContextPath()%>/FrontEnd/live/liveHome.jsp'>
 					<img  src="<%=request.getContextPath()%>/FrontEnd/live/images/back1.gif"	width="100" height="32">
 					</a>
                 </h1>
+                
   				<hr class="my-4">
   				
   				
