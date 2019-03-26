@@ -82,7 +82,7 @@
   <body onload="connect();">
     <jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
     
-	
+	<hr>
 
 <div class='container'>
 <%for(int j =0; j<=(list.size())/3; j++){%>
@@ -166,7 +166,7 @@
       <div class='row'>
       	<div class='col-3'></div>
         <div class='col-6'>
-	        <button type="button" class="btn btn-primary">前往搶購</button>
+        	<a class="btn btn-primary" role="button" id='prodDetail'>前往搶購</a>
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">繼續選購</button></div>
         <div class='col-3'></div>
       </div>
@@ -252,11 +252,13 @@
 	        var jsonObj = JSON.parse(event.data);
 	        var message1 = jsonObj.prodName
 	        var message2 = jsonObj.message
+	        var message3 = jsonObj.prod_ID
 	        var img1 = jsonObj.img1
 	        if(img1 != null && img1 != '')
 	        $('#img1').attr('src', img1);
 	        $('#info1').text(message1);
 	        $('#info2').text(message2);
+	        $('#prodDetail').attr('href','prodDetail.jsp?prod_ID='+message3);
 	        $('#myModal2').modal('show');
 // 	        alert(message);
 		};

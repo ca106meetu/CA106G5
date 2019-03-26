@@ -1,7 +1,7 @@
 <%@page import="com.meetU.orderMaster.model.OrderMasterVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
 	OrderMasterVO omVO =  (OrderMasterVO) request.getAttribute("omVO");
 %>
@@ -42,12 +42,11 @@
   <body>
     <jsp:include page="/Templates/bootstrap4/backHeader.jsp" />
     
-    
-    <h4>此頁暫練習採用 Script 的寫法取值:</h4>
+    <div class='container'>
 <table id="table-1">
 	<tr><td>
-		 <h3>員工資料 - ListOneOm.jsp</h3>
-		 <h4><a href="selectPageOm.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
+		 <h3>訂單資料</h3>
+		 <h4><a href="selectPageOm.jsp"><img src="images/back1.png" width="60" border="0">回訂單管理</a></h4>
 	</td></tr>
 </table>
 
@@ -64,12 +63,16 @@
 		<th>出貨狀態</th>
 		<th>訂單狀態</th>
 		<th>備註</th>
+		<th>查看明細</th>
+		<th>出貨</th>
 	</tr>
 	<tr>
 		<td>${omVO.order_ID}</td>
 		<td>${omVO.mem_ID}</td>
 		<td>${omVO.price}</td>
-		<td>${omVO.order_date}</td>
+		<td>
+			<fmt:formatDate value="${omVO.order_date}" pattern="yyyy-MM-dd HH:mm" />
+		</td>
 		<td>${omVO.out_add}</td>
 		<td>${omVO.recipient}</td>
 		<td>${omVO.phone}</td>
@@ -77,11 +80,25 @@
 		<td>${outs[omVO.out_status]}</td>
 		<td>${ords[omVO.order_status]}</td>
 		<td>${omVO.tip}</td>
+		<td>
+			<form method='post' action='listDetail.jsp' style="margin-bottom: 0px;">
+				<input type='submit' value='查看明細' class='btn btn-warning'>
+				<input type='hidden' name='order_ID' value='${omVO.order_ID}'>
+			</form>
+		</td>
+		<td>
+			<form method='post' action='om.do' style="margin-bottom: 0px;">
+				<input type='submit' class='btn btn-${omVO.order_status != 0 ? "success" : "primary"}' value='${omVO.order_status != 0 ? "已出貨" : "出貨"}' ${omVO.order_status != 0 ? 'disabled="disabled"' : ''}>
+				<input type='hidden' name='order_ID' value='${omVO.order_ID}'>
+				<input type='hidden' name='location' value='<%=request.getServletPath()%>'>
+				<input type='hidden' name='action' value='out'>				
+			</form>
+		</td>
 	</tr>
 </table>
     
     
-    
+    </div>
     
     
     <jsp:include page="/Templates/bootstrap4/backFooter.jsp" />

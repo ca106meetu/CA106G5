@@ -15,12 +15,19 @@
 <br><br>
 
   <%if (pageNumber>1) {%>
-    <FORM METHOD="post" ACTION="<%=request.getRequestURI()%>">   
-       <select size="1" name="whichPage">
-         <%for (int i=1; i<=pageNumber; i++){%>
-            <option value="<%=i%>">跳至第<%=i%>頁
-         <%}%> 
-       </select>
-       <input type="submit" value="確定" >  
-    </FORM>
+    <div class='row'>
+    <div class='col-2'>
+	    <FORM METHOD="post" ACTION="<%=request.getRequestURI()%>">   
+	       <select class="custom-select" size="1" name="whichPage">
+	         <%for (int i=1; i<=pageNumber; i++){%>
+	            <option value="<%=i%>">跳至第<%=i%>頁
+	         <%}%> 
+	       </select>
+
+    </div>
+    <div class='col-1'>
+	       <input class='form-control btn-outline-info' type="submit" value="確定" >  
+	    </FORM>
+    </div>
+    </div>
   <%}%>

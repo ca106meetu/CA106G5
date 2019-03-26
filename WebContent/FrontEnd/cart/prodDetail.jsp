@@ -43,7 +43,7 @@
   <body>
     <jsp:include page="/Templates/bootstrap4/frontHeader.jsp"/> 
     
-    
+    <hr>
 <div class="container">
             	<form method='post' action='ShoppingServlet' onsubmit='return allowUser();'>
       <div class="row">

@@ -50,7 +50,7 @@ public class InitializeStatus implements ServletContextListener{
 		
 		ords = new ArrayList<>();
 		ords.add(0,"待出貨");
-		ords.add(1,"出貨中");
+		ords.add(1,"已出貨");
 		ords.add(2,"已到貨");
 
 		mS =  new ArrayList<>();

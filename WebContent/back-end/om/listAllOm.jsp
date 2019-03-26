@@ -3,7 +3,7 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
 	OrderMasterService omSvc = new OrderMasterService(); 
 	List<OrderMasterVO> list = omSvc.getAll();
@@ -48,11 +48,11 @@
   <body>
     <jsp:include page="/Templates/bootstrap4/backHeader.jsp" />
     
-    
+	<div class='container'>    
  <table id = 'table-1'>
 	<tr><td>
-		<h3>所有訂單資料-listAllOm.jsp</h3>
-		<h4><a href='selectPageOm.jsp'><img src="images/back1.gif" width="100" height="32">回首頁</a></h4>
+		<h3>所有訂單資料</h3>
+		<h4><a href='selectPageOm.jsp'><img src="images/back1.png" width="60">回訂單管理</a></h4>
 	
 	
 	</td>
@@ -65,15 +65,6 @@
 
 </table>
 
-<%-- 錯誤列表 --%>
-<c:if test='${not empty errorMsgs }'>
-	<font style='color:red'>請修正以下錯誤</font>
-	<ul>
-		<c:forEach var='message' items='${errorMsgs}'>
-			<li style='color:red'>${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
 
 <table>
 	<tr>
@@ -90,6 +81,7 @@
 		<th>備註</th>
 		<th>明細</th>
 		<th>修改</th>
+		<th>出貨</th>
 <!-- 		<th>刪除</th>		 -->
 	</tr>
 	<%@ include file="page1.file" %> 
@@ -104,26 +96,39 @@
 			<td>${omVO.order_ID}</td>
 			<td>${memSvc.getOneMem(omVO.mem_ID).mem_name}</td>
 			<td>${omVO.price}</td>
-			<td>${omVO.order_date}</td>
+			<td>
+			<fmt:formatDate value="${omVO.order_date}" pattern="yyyy-MM-dd HH:mm" />
+			</td>
 			<td>${omVO.out_add}</td>
 			<td>${omVO.recipient}</td>
 			<td>${omVO.phone}</td>
-			<td>${omVO.out_date}</td>
+			<td>
+			<fmt:formatDate value="${omVO.out_date}" pattern="yyyy-MM-dd HH:mm" />
+			</td>
 			<td>${outs[omVO.out_status]}</td>
 			<td>${ords[omVO.order_status]}</td>
 			<td>${omVO.tip}</td>
 			<td>
 				<form method='post' action='listDetail.jsp' style="margin-bottom: 0px;">
-					<input type='submit' value='查看明細'>
+					<input type='submit' value='查看明細' class='btn btn-warning'>
 					<input type='hidden' name='order_ID' value='${omVO.order_ID}'>
 				</form>
 			</td>
 			<td>
 				<form method='post' action='om.do' style="margin-bottom: 0px;">
-					<input type='submit' value='修改'>
+					<input type='submit' class='btn btn-primary' value='修改'>
 					<input type='hidden' name='order_ID' value='${omVO.order_ID}'>
 					<input type='hidden' name='action' value='getOne_For_Update'>				
-				</form></td>
+				</form>
+			</td>
+			<td>
+				<form method='post' action='om.do' style="margin-bottom: 0px;">
+					<input type='submit' class='btn btn-${omVO.order_status != 0 ? "success" : "primary"}' value='${omVO.order_status != 0 ? "已出貨" : "出貨"}' ${omVO.order_status != 0 ? 'disabled="disabled"' : ''}>
+					<input type='hidden' name='order_ID' value='${omVO.order_ID}'>
+					<input type='hidden' name='location' value='<%=request.getServletPath()%>'>
+					<input type='hidden' name='action' value='out'>				
+				</form>
+			</td>
 <!-- 			<td>	 -->
 <!-- 				<form method='post' action='om.do' style="margin-bottom: 0px;"> -->
 <!-- 					<input type='submit' value='刪除'> -->
@@ -138,7 +143,8 @@
  	
 	</c:forEach>
 </table>
-<%@ include file="page2.file" %> 
+<%@ include file="page3.file" %> 
+</div>
     
     
     
