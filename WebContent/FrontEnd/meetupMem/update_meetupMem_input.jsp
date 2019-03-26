@@ -47,7 +47,7 @@
 	}
 	.star-rating__wrap{
 		display: inline-block;
-		font-size: 1rem;
+		font-size: 3rem;
 	}
 	.star-rating__wrap:after{
 		content: "";

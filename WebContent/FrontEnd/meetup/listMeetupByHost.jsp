@@ -9,7 +9,7 @@
 	List<MeetupVO> list = meetupSvc.getAllByHost(memVO.getMem_ID());
 	pageContext.setAttribute("list", list);
 %>
-
+<% request.setAttribute("currentTime", new Date()); %> 
 
 <!DOCTYPE html>
 <html>
@@ -133,9 +133,18 @@
 			</div>
 			<div class="itemEdit">
 			  	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do" style="margin-bottom: 0px;">
-			     <button type="submit"  class="btn btn-warning">刪除<i class="fa fa-trash"></i></button>
-			     <input type="hidden" name="meetup_ID"  value="${meetupVO.meetup_ID}">
-			     <input type="hidden" name="action" value="invisible">
+					<c:choose>
+						<c:when test="${meetupVO.meetup_date.compareTo(currentTime)<0}">
+						     <button type="submit"  class="btn btn-warning" disabled>刪除<i class="fa fa-trash"></i></button>
+						     <input type="hidden" name="meetup_ID"  value="${meetupVO.meetup_ID}">
+						     <input type="hidden" name="action" value="invisible">
+				     	</c:when>
+				     	<c:otherwise>
+				     		 <button type="submit"  class="btn btn-warning">刪除<i class="fa fa-trash"></i></button>
+						     <input type="hidden" name="meetup_ID"  value="${meetupVO.meetup_ID}">
+						     <input type="hidden" name="action" value="invisible">	
+				     	</c:otherwise>
+				     </c:choose>	
 			    </FORM>
 			</div>
 	    </div>

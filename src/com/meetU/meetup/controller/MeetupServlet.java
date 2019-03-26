@@ -36,7 +36,7 @@ public class MeetupServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-//			try {
+			try {
 				/*=================1.接收請求參數 - 輸入格式的錯誤處理=================*/
 				String meetup_ID = req.getParameter("meetup_ID");
 				if(meetup_ID == null || (meetup_ID.trim()).length()==0) {
@@ -58,23 +58,22 @@ public class MeetupServlet extends HttpServlet {
 				}
 				if(!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/FrontEnd/meetup/select_page.jsp");
+							.getRequestDispatcher("/FrontEnd/meetup/meetupHomePg.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
 				/*=================3.查詢完成,準備轉交(Send the Success view)=================*/
 				req.getSession().setAttribute("meetupVO", meetupVO); // 資料庫取出的empVO物件,存入req
-				System.out.println(meetupVO.getMeetup_ID());
 				String url = "/FrontEnd/meetup/listOneMeetup.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 				successView.forward(req, res);
-				
-//			}catch(Exception e) {
-//				errorMsgs.add("無法取得資料:" + e.getMessage());
-//				RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/meetup/select_page.jsp");
-//				failureView.forward(req, res);
-//			}
+			}catch(Exception e) {
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/meetup/meetupHomePg.jsp");
+				failureView.forward(req, res);
+			}
 		}
+		
 		if("getOne_For_Update".equals(action)) {// 單筆修改;來自listAllEmp.jsp的請求
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -385,7 +384,7 @@ public class MeetupServlet extends HttpServlet {
 				meetupSvc.InvisibleUpdate(meetup_ID);
 				
 				/***************************3.隱形完成,準備轉交(Send the Success view)***********/								
-				String url = "listMeetupByHost.jsp";
+				String url = "/FrontEnd/meetup/listMeetupByHost.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 				
