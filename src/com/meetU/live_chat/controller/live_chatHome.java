@@ -52,9 +52,11 @@ private static final Map<Session, String> map = Collections.synchronizedMap(new 
 
 //		for (Session session : allSessions) {
 			if (userSession.isOpen() && map.get(userSession).equals(myName)) {
+				Date today = new Date();
+				JSONObject jObject = new JSONObject();
 				for (Live_chatVO live_chatVO : result ) {
 					if ("stick".equals(live_chatVO.getChat_type())) {
-						JSONObject jObject=new JSONObject();
+//						JSONObject jObject=new JSONObject();
 						
 						Base64.Encoder encoder = Base64.getEncoder();
 						StickService sSvc = new StickService(); 
@@ -77,7 +79,7 @@ private static final Map<Session, String> map = Collections.synchronizedMap(new 
 						
 						userSession.getAsyncRemote().sendText(jObject.toString());
 					} else {
-						JSONObject jObject=new JSONObject();
+//						JSONObject jObject=new JSONObject();
 						jObject.put("mem_ID",live_chatVO.getMem_ID()); 
 						jObject.put("userName",memSvc.getOneMem(live_chatVO.getMem_ID()).getMem_name()); 
 						jObject.put("message",live_chatVO.getChat_cont()); 
@@ -97,13 +99,12 @@ private static final Map<Session, String> map = Collections.synchronizedMap(new 
 				
 				if(result.size()!=0) {
 					
-					Date today = new Date();
-					JSONObject jObject=new JSONObject();
-					jObject.put("mem_ID",""); 
+					
+				
 					jObject.put("userName","系統通知"); 
 					jObject.put("message","-------以上為歷史訊息-------"); 
 					jObject.put("action","text");
-					jObject.put("host_ID","");
+					
 					
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 					String formattedDate = sdf.format(new Timestamp(today.getTime()));
