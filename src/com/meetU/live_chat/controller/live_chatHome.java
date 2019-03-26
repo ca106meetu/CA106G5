@@ -92,6 +92,20 @@ private static final Map<Session, String> map = Collections.synchronizedMap(new 
 //						session.getAsyncRemote().sendText();
 					}
 				}
+				Date today = new Date();
+				JSONObject jObject=new JSONObject();
+				jObject.put("mem_ID",""); 
+				jObject.put("userName","系統通知"); 
+				jObject.put("message","---以上為歷史訊息---"); 
+				jObject.put("action","text");
+				jObject.put("host_ID","");
+				
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+				String formattedDate = sdf.format(new Timestamp(today.getTime()));
+				jObject.put("chat_date",formattedDate); 
+				userSession.getAsyncRemote().sendText(jObject.toString());
+				
+				
 			}
 //		}
 		
