@@ -49,7 +49,7 @@ private static final Map<Session, String> map = Collections.synchronizedMap(new 
 		 MemService memSvc = new MemService();
 		
 		List<Live_chatVO> result =  live_chatSvc.getOneLive_chat(myName);
-		System.out.println("result:"+result);
+
 //		for (Session session : allSessions) {
 			if (userSession.isOpen() && map.get(userSession).equals(myName)) {
 				for (Live_chatVO live_chatVO : result ) {
