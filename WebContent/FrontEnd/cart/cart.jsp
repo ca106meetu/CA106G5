@@ -78,7 +78,7 @@
         <div class="col-1" id='${prodVO.prod_ID}'>${prodVO.prod_price*prodVO.quantity}</div>
         <div class="col-1">
         		<form method='post' action='ShoppingServlet' style="margin-bottom: 0px;" >
-					<input type='submit' value='刪除'>
+					<input type='submit' value='刪除' class='btn btn-danger'>
 					<input type='hidden' name='prod_ID' value='${prodVO.prod_ID}'>
 					<input type='hidden' name='action' value='del'>				
 				</form>
