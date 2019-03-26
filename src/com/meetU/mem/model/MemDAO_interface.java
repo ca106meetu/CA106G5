@@ -10,7 +10,7 @@ public interface MemDAO_interface {
     public MemVO findByPrimaryKey(String mem_ID);
     public MemVO findByACC(String mem_acc, String mem_pw);
     public boolean findByMEM_ACC(String mem_acc);
-    public boolean findByMEM_EMAIL(String mem_email); 
+    public boolean findByMEM_EMAIL(String mem_email);
     public List<MemVO> getAll();
     //萬用複合查詢(傳入參數型態Map)(回傳 List)
     //  public List<MemVO> getAll(Map<String, String[]> map); 

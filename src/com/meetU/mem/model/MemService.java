@@ -14,7 +14,7 @@ public class MemService {
 			Integer mem_code, Integer mem_state, java.sql.Date mem_date, java.sql.Timestamp mem_sign_day, Integer mem_login_state,
 			String mem_address, java.sql.Timestamp last_pair, String mem_hobby,byte[] mem_QRCODE,Integer mem_get_point ) {
 		
-		MemVO memVO = new MemVO(); 
+		MemVO memVO = new MemVO();
 		
 		memVO.setMem_pw(mem_pw);
 		memVO.setMem_name(mem_name);
