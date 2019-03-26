@@ -1,14 +1,14 @@
 
 <%@page import="com.meetU.product.model.ProductVO"%>
 <%@page import="com.meetU.product.model.ProductService"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="com.meetU.mem.model.MemVO"%>
-<%@page import="java.util.ArrayList"%>
+<%@page import="com.meetU.mem.model.*"%>
 <%@page import="java.util.*"%>
 <%@page import="com.meetU.live.model.*"%>
 <%@page import="com.meetU.filerec.model.*"%>
-<%@page import="java.util.List"%>
+<%@page import="com.meetU.meetup.model.*"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
@@ -21,6 +21,25 @@
 	List<ProductVO> listP = prodSvc.getAll();
 	pageContext.setAttribute("listP", listP);
 	
+%>
+
+<%
+  MeetupService meetupSvc = new MeetupService();
+  MeetupVO mtVO5 = meetupSvc.getOneMeetup("MP000005");
+  pageContext.setAttribute("mtVO5", mtVO5);
+  MeetupVO mtVO6 = meetupSvc.getOneMeetup("MP000006");
+  pageContext.setAttribute("mtVO6", mtVO6);
+  MeetupVO mtVO7 = meetupSvc.getOneMeetup("MP000007");
+  pageContext.setAttribute("mtVO7", mtVO7);
+  
+  Set <MeetupVO> hsetMT = new HashSet <MeetupVO>();
+  hsetMT.add(mtVO6);
+  hsetMT.add(mtVO7);
+  hsetMT.add(mtVO5);
+  pageContext.setAttribute("hsetMT", hsetMT);
+  
+  MemService memSvc = new MemService();
+
 %>
 
 <!doctype html>
@@ -77,14 +96,10 @@
                     </div>
                 </div>
             </div>
-
-   
         </div>
     </header>
     
     <section class="welcome-post-sliders owl-carousel">
-    
-    
     
     	<c:forEach var="liveVO" items="${list}">
 
@@ -106,89 +121,7 @@
                 </a>
             </div>
         </div>
-        
-        
 		</c:forEach>
-
-<!--         Single Slide -->
-<!--         <div class="welcome-single-slide"> -->
-<!--             Post Thumb -->
-<!--             <img src="img/bg-img/slide-2.jpg" alt=""> -->
-<!--             Overlay Text -->
-<!--             <div class="project_title"> -->
-<!--                 <div class="post-date-commnents d-flex"> -->
-<!--                     <a href="#">May 19, 2017</a> -->
-<!--                     <a href="#">5 Comment</a> -->
-<!--                 </div> -->
-<!--                 <a href="#"> -->
-<!--                     <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5> -->
-<!--                 </a> -->
-<!--             </div> -->
-<!--         </div> -->
-
-<!--         Single Slide -->
-<!--         <div class="welcome-single-slide"> -->
-<!--             Post Thumb -->
-<!--             <img src="img/bg-img/slide-3.jpg" alt=""> -->
-<!--             Overlay Text -->
-<!--             <div class="project_title"> -->
-<!--                 <div class="post-date-commnents d-flex"> -->
-<!--                     <a href="#">May 19, 2017</a> -->
-<!--                     <a href="#">5 Comment</a> -->
-<!--                 </div> -->
-<!--                 <a href="#"> -->
-<!--                     <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5> -->
-<!--                 </a> -->
-<!--             </div> -->
-<!--         </div> -->
-
-<!--         Single Slide -->
-<!--         <div class="welcome-single-slide"> -->
-<!--             Post Thumb -->
-<!--             <img src="img/bg-img/slide-4.jpg" alt=""> -->
-<!--             Overlay Text -->
-<!--             <div class="project_title"> -->
-<!--                 <div class="post-date-commnents d-flex"> -->
-<!--                     <a href="#">May 19, 2017</a> -->
-<!--                     <a href="#">5 Comment</a> -->
-<!--                 </div> -->
-<!--                 <a href="#"> -->
-<!--                     <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5> -->
-<!--                 </a> -->
-<!--             </div> -->
-<!--         </div> -->
-
-<!--         Single Slide -->
-<!--         <div class="welcome-single-slide"> -->
-<!--             Post Thumb -->
-<!--             <img src="img/bg-img/slide-5.jpg" alt=""> -->
-<!--             Overlay Text -->
-<!--             <div class="project_title"> -->
-<!--                 <div class="post-date-commnents d-flex"> -->
-<!--                     <a href="#">May 19, 2017</a> -->
-<!--                     <a href="#">5 Comment</a> -->
-<!--                 </div> -->
-<!--                 <a href="#"> -->
-<!--                     <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5> -->
-<!--                 </a> -->
-<!--             </div> -->
-<!--         </div> -->
-
-<!--         Single Slide -->
-<!--         <div class="welcome-single-slide"> -->
-<!--             Post Thumb -->
-<!--             <img src="img/bg-img/slide-6.jpg" alt=""> -->
-<!--             Overlay Text -->
-<!--             <div class="project_title"> -->
-<!--                 <div class="post-date-commnents d-flex"> -->
-<!--                     <a href="#">May 19, 2017</a> -->
-<!--                     <a href="#">5 Comment</a> -->
-<!--                 </div> -->
-<!--                 <a href="#"> -->
-<!--                     <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5> -->
-<!--                 </a> -->
-<!--             </div> -->
-<!--         </div> -->
 
     </section>
     <!-- ****** Welcome Area End ****** -->
@@ -211,7 +144,7 @@
                     <div class="single_catagory wow fadeInUp" data-wow-delay=".6s">
                         <img src="img/catagory-img/2.jpg" alt="">
                         <div class="catagory-title">
-                            <a href="#">
+                            <a href="<%=request.getContextPath()%>/FrontEnd/meetup/meetupHomePg.jsp">
                                 <h5>聯誼活動</h5>
                             </a>
                         </div>
@@ -236,8 +169,6 @@
     <section class="blog_area section_padding_0_80">
         <div class="container">
             <div class="row justify-content-center">
-
-
                <!-- Single Post -->
                <div class="col-12">
               	  <div class="list-blog single-post d-sm-flex wow fadeInUpBig" data-wow-delay=".2s">
@@ -251,18 +182,108 @@
                         	  <div class="post-author-date-area d-flex">
                         		   <!-- Post Author -->
                                    <div class="post-author">
-                                      <a href="#">By Marian</a>
+                                      <a href="#">By <%=memSvc.getOneMem(mtVO5.getMem_ID()).getMem_nickname()%></a>
                                    </div>
                                    <!-- Post Date -->
                                    <div class="post-date">
-                                      <a href="#">May 19, 2017</a>
+                                      <a href="#"><fmt:formatDate value="${mtVO5.meetup_date}" pattern="yyyy-MM-dd HH:mm"/></a>
                                    </div>
                               </div>
                               <!-- Post Comment & Share Area -->
                               <div class="post-comment-share-area d-flex">
                                 <!-- Post Favourite -->
                                    <div class="post-favourite">
-                                       <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i> 10</a>
+                                       <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i> 2</a>
+                                   </div>
+                                   <!-- Post Comments -->
+                                   <div class="post-comments">
+                                      <a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> 3</a>
+                                   </div>
+                                   <!-- Post Share -->
+                                   <div class="post-share">
+                                       <a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+                                   </div>
+                              </div>
+                        </div>
+						<a href="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do?meetup_ID=${mtVO5.meetup_ID}&action=getOne_For_Display">
+                        	<h4 class="post-headline">${mtVO5.meetup_name}</h4>
+                        </a>
+                        <p>Tiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+                        	<a href="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do?meetup_ID=${mtVO5.meetup_ID}&action=getOne_For_Display" class="read-more">Continue Reading..</a>
+                        </div>
+                   </div>
+           	 	</div>
+           	 	
+           	 	<!-- Single Post -->
+               <div class="col-12">
+              	  <div class="list-blog single-post d-sm-flex wow fadeInUpBig" data-wow-delay=".2s">
+                  <!-- Post Thumb -->
+	                  <div class="post-thumb">
+	                	   <img src="img/blog-img/6.jpg" alt="">
+	                  </div>
+                  	 <!-- Post Content -->
+                      <div class="post-content">
+                    	 <div class="post-meta d-flex">
+                        	  <div class="post-author-date-area d-flex">
+                        		   <!-- Post Author -->
+                                   <div class="post-author">
+                                      <a href="#">By <%=memSvc.getOneMem(mtVO6.getMem_ID()).getMem_nickname()%></a>
+                                   </div>
+                                   <!-- Post Date -->
+                                   <div class="post-date">
+                                      <a href="#"><fmt:formatDate value="${mtVO6.meetup_date}" pattern="yyyy-MM-dd HH:mm"/></a>
+                                   </div>
+                              </div>
+                              <!-- Post Comment & Share Area -->
+                              <div class="post-comment-share-area d-flex">
+                                <!-- Post Favourite -->
+                                   <div class="post-favourite">
+                                       <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i> 1</a>
+                                   </div>
+                                   <!-- Post Comments -->
+                                   <div class="post-comments">
+                                      <a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> </a>
+                                   </div>
+                                   <!-- Post Share -->
+                                   <div class="post-share">
+                                       <a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+                                   </div>
+                              </div>
+                        </div>
+						<a href="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do?meetup_ID=${mtVO7.meetup_ID}&action=getOne_For_Display">
+                        	<h4 class="post-headline">${mtVO6.meetup_name}</h4>
+                        </a>
+                        <p>Tiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+                        	<a href="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do?meetup_ID=${mtVO7.meetup_ID}&action=getOne_For_Display" class="read-more">Continue Reading..</a>
+                        </div>
+                   </div>
+           	 	</div>
+           	 	
+           	 	<!-- Single Post -->
+               <div class="col-12">
+              	  <div class="list-blog single-post d-sm-flex wow fadeInUpBig" data-wow-delay=".2s">
+                  <!-- Post Thumb -->
+	                  <div class="post-thumb">
+	                	   <img src="img/blog-img/6.jpg" alt="">
+	                  </div>
+                  	 <!-- Post Content -->
+                      <div class="post-content">
+                    	 <div class="post-meta d-flex">
+                        	  <div class="post-author-date-area d-flex">
+                        		   <!-- Post Author -->
+                                   <div class="post-author">
+                                      <a href="#">By <%=memSvc.getOneMem(mtVO7.getMem_ID()).getMem_nickname()%></a>
+                                   </div>
+                                   <!-- Post Date -->
+                                   <div class="post-date">
+                                      <a href="#"><fmt:formatDate value="${mtVO7.meetup_date}" pattern="yyyy-MM-dd HH:mm"/></a>
+                                   </div>
+                              </div>
+                              <!-- Post Comment & Share Area -->
+                              <div class="post-comment-share-area d-flex">
+                                <!-- Post Favourite -->
+                                   <div class="post-favourite">
+                                       <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i> 4</a>
                                    </div>
                                    <!-- Post Comments -->
                                    <div class="post-comments">
@@ -274,11 +295,11 @@
                                    </div>
                               </div>
                         </div>
-						<a href="#">
-                        	<h4 class="post-headline">The 10 Best Bars By The Seaside In Blackpool, UK</h4>
+						<a href="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do?meetup_ID=${mtVO7.meetup_ID}&action=getOne_For_Display">
+                        	<h4 class="post-headline">${mtVO7.meetup_name}</h4>
                         </a>
-                        <p>Tiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
-                        	<a href="#" class="read-more">Continue Reading..</a>
+                        	<a href="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do?meetup_ID=${mtVO7.meetup_ID}&action=getOne_For_Display" class="read-more">
+                        	Continue Reading..</a>
                         </div>
                    </div>
            	 	</div>
@@ -289,7 +310,6 @@
 
     <!-- ****** Instagram Area Start ****** -->
     <div class="instargram_area owl-carousel section_padding_100_0 clearfix" id="portfolio">
-
 
 	<c:forEach var="prodVO" items="${listP}">
         <!-- Instagram Item -->
@@ -309,10 +329,7 @@
         </div>
      </c:forEach>
 </div>
-
     <!-- ****** Our Creative Portfolio Area End ****** -->
-
-    
 
     <!-- ****** Footer Menu Area Start ****** -->
     <footer class="footer_area">
@@ -330,41 +347,13 @@
         </div>
     </footer>
       
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-   
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
     <jsp:include page="/Templates/bootstrap4/frontFooter.jsp" />
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/popper.min.js"></script>
     <script src="<%=request.getContextPath()%>/Templates/bootstrap4/js/bootstrap.min.js"></script>
-    
-     <script src="js/others/plugins.js"></script>
-    
+    <script src="js/others/plugins.js"></script>
     <script src="js/active.js"></script>
       
   </body>
