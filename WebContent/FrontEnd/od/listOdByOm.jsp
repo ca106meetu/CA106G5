@@ -55,7 +55,7 @@
   <body>
     <jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
     
-    
+    <div class='container'>
  <table id = 'table-1'>
 	<tr>
 		<td>
@@ -102,7 +102,7 @@
 	</c:forEach>
 </table> 
     
-    
+    </div> 
     
     
     

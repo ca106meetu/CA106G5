@@ -3,7 +3,7 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
 	OrderMasterService omSvc = new OrderMasterService(); 
 	List<OrderMasterVO> list = omSvc.getAll();
@@ -48,11 +48,11 @@
   <body>
     <jsp:include page="/Templates/bootstrap4/backHeader.jsp" />
     
-    
+	<div class='container'>    
  <table id = 'table-1'>
 	<tr><td>
-		<h3>所有訂單資料-listAllOm.jsp</h3>
-		<h4><a href='selectPageOm.jsp'><img src="images/back1.gif" width="100" height="32">回首頁</a></h4>
+		<h3>所有訂單資料</h3>
+		<h4><a href='selectPageOm.jsp'><img src="images/back1.png" width="60">回訂單管理</a></h4>
 	
 	
 	</td>
@@ -65,15 +65,6 @@
 
 </table>
 
-<%-- 錯誤列表 --%>
-<c:if test='${not empty errorMsgs }'>
-	<font style='color:red'>請修正以下錯誤</font>
-	<ul>
-		<c:forEach var='message' items='${errorMsgs}'>
-			<li style='color:red'>${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
 
 <table>
 	<tr>
@@ -84,7 +75,6 @@
 		<th>出貨地址</th>
 		<th>收件人</th>
 		<th>收件人電話</th>
-		<th>出貨日期</th>
 		<th>出貨狀態</th>
 		<th>訂單狀態</th>
 		<th>備註</th>
@@ -104,11 +94,12 @@
 			<td>${omVO.order_ID}</td>
 			<td>${memSvc.getOneMem(omVO.mem_ID).mem_name}</td>
 			<td>${omVO.price}</td>
-			<td>${omVO.order_date}</td>
+			<td>
+			<fmt:formatDate value="${omVO.order_date}" pattern="yyyy-MM-dd HH:mm" />
+			</td>
 			<td>${omVO.out_add}</td>
 			<td>${omVO.recipient}</td>
 			<td>${omVO.phone}</td>
-			<td>${omVO.out_date}</td>
 			<td>${outs[omVO.out_status]}</td>
 			<td>${ords[omVO.order_status]}</td>
 			<td>${omVO.tip}</td>
@@ -138,7 +129,8 @@
  	
 	</c:forEach>
 </table>
-<%@ include file="page2.file" %> 
+<%@ include file="page3.file" %> 
+</div>
     
     
     

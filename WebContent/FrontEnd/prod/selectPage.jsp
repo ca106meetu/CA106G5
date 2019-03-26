@@ -3,6 +3,18 @@
 <!doctype html>
 <html lang="en">
   <head>
+  <style>
+  	
+		  	footer {
+		  position: fixed;
+		  right: 0;
+		  left: 0;
+		  z-index: 1030;
+		  bottom: 0;
+		  margin-bottom: 0;
+		  border-width: 1px 0 0;
+		}
+  	</style>
     <link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
   	<link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
     <!-- Required meta tags -->
@@ -26,9 +38,8 @@
 <div class="col-6">
 
 <table id='table-1'>
-<tr><td><h3>meetU Prod: Home</h3></td></tr>
+<tr><td><h3>商品管理</h3></td></tr>
 </table>
-<p>This is the Home page for meetU Prod: Home</p>
 <%-- 錯誤列表 --%>
 <c:if test='${not empty errorMsgs }'>
 	<font style='color:red'>請修正以下錯誤</font>
@@ -40,24 +51,18 @@
 </c:if>
 
 <ul>
-	<li><a href='listAllProd.jsp' class="btn btn-link" role="button">List all Prods.</a></li>
-	<br></br>
-	<li>
-		<form method='post' action="prod.do">
-		<div class="input-group mb-3">
-	  		<input type="text" class="form-control" name='prod_ID' placeholder="請輸入商品編號(如P000001)" aria-label="Recipient's username" aria-describedby="button-addon2">
-	  	<div class="input-group-append">
-	    	<button class="btn btn-info" type="submit" id="button-addon2">送出</button>
-	  	</div>
-		</div>
-			<input type='hidden' name='action' value='getOne_For_Display'>
-		</form>
-		<%-- 
-			<b>輸入商品編號(如P000001):</b>
-			<input type='text' name='empno'>
-			<input type='submit' value='送出'>
-		--%>
-	</li>
+	<li><a href='listAllProd.jsp' class="btn btn-link" role="button">查看商品清單</a></li>
+<!-- 	<li> -->
+<!-- 		<form method='post' action="prod.do"> -->
+<!-- 		<div class="input-group mb-3"> -->
+<!-- 	  		<input type="text" class="form-control" name='prod_ID' placeholder="請輸入商品編號(如P000001)" aria-label="Recipient's username" aria-describedby="button-addon2"> -->
+<!-- 	  	<div class="input-group-append"> -->
+<!-- 	    	<button class="btn btn-info" type="submit" id="button-addon2">送出</button> -->
+<!-- 	  	</div> -->
+<!-- 		</div> -->
+<!-- 			<input type='hidden' name='action' value='getOne_For_Display'> -->
+<!-- 		</form> -->
+<!-- 	</li> -->
 	<jsp:useBean id='prodSvc' scope='page' class='com.meetU.product.model.ProductService'/>
 	
 	<li>
@@ -75,16 +80,6 @@
 			  </div>
 			</div>
 			<input type='hidden' name='action' value='getOne_For_Display'>
-			<%--
-			<b>選擇商品編號:</b>
-			<select size='1' name='prod_ID'>
-				<c:forEach var='prodVO' items='${prodSvc.all}'>
-					<option value='${prodVO.prod_ID}'>${prodVO.prod_ID}
-				</c:forEach>
-			
-			</select>
-			<input type='submit' value='送出'>
-			--%>
 		</form>
 	
 	</li>
@@ -123,7 +118,7 @@
 	<h3>新增商品</h3>
 	
 	<ul>
-	<li><a href='addProd.jsp'>Add</a> a new Prod.</li>
+	<li><a href='addProd.jsp'>新增</a>一項商品</li>
 	</ul>
 	</div>
 </div>

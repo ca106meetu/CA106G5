@@ -41,14 +41,11 @@
   <body>
     <jsp:include page="/Templates/bootstrap4/backHeader.jsp" />
     
-    <table id="table-1">
-	<tr><td>
-		 <h3>商品資料新增 - addEmp.jsp</h3></td><td>
-		 <h4><a href="selectPage.jsp"><img src="images/tomcat.png" width="100" height="100" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
+  <div class='container'>
+    
 
-<h3>資料新增:</h3>
+<h3>商品資料新增:</h3>
+  <div class='row'>
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -65,19 +62,19 @@
 <table>
 	<tr>
 		<td>商品名稱:</td>
-		<td><input type="TEXT" name='prod_name' size="45" 
-			 value='<%= (prodVO==null)? "Captain Marvel" : prodVO.getProd_name()%>'/></td>
+		<td><input type="TEXT" class='form-control' name='prod_name' size="45" 
+			 value='<%= (prodVO==null)? "Marvel" : prodVO.getProd_name()%>'/></td>
 	</tr>
 	<tr>
 		<td>商品價格:</td>
-		<td><input type="TEXT" name="prod_price" size="45"
+		<td><input type="TEXT" class='form-control' name="prod_price" size="45"
 			 value='<%= (prodVO==null)? "699.5" : prodVO.getProd_price()%>'/></td>
 	</tr>
 	<tr>
 		<td>類型:</td>
 		<td>
 		
-		<select name='prod_type'>
+		<select name='prod_type' class='form-control'>
 		<c:forEach var='prod_type' items='${pt}'>
 			<option value='${pt.indexOf(prod_type)}' 
 							${prodVO.prod_type==pt.indexOf(prod_type) ? 'selected' : '' }> ${prod_type}		
@@ -89,19 +86,32 @@
 	</tr>
 	<tr>
 		<td>庫存量:</td>
-		<td><input type="TEXT" name='prod_stock' size="45"
+		<td><input type="TEXT" class='form-control' name='prod_stock' size="45"
 			 value='<%= (prodVO==null)? "69" : prodVO.getProd_stock()%>' /></td>
 	</tr>
 	<tr>
 		<td>圖片:</td>
-		<td><input type="file" name="prod_pic" size="45" onchange='readURL(this)' /><br>
-		<input type='hidden' name='encodeText' value='${encodeText}'>
-		<img class='pic' src='data:img/png;base64,${encodeText}' ${(prodVO.prod_pic==null)? 'style="display:none"' : ''}></td>
+		<td>
+		
+		<div class="custom-file">
+		    <input type="file" class="custom-file-input" id="validatedCustomFile" required onchange='readURL(this)'><br>
+		    <input type='hidden' name='encodeText' value='${encodeText}'>
+		    <label class="custom-file-label" for="validatedCustomFile">挑一張圖吧!</label>
+		    <div class="invalid-feedback">Example invalid custom file feedback</div>
+	  	</div>
+		    <img class='pic' src='data:img/png;base64,${encodeText}' ${(prodVO.prod_pic==null)? 'style="display:none"' : ''}>
+		
+		
+<!-- 		<input type="file" class='custom-file-input' name="prod_pic" size="45" onchange='readURL(this)' /><br> -->
+<%-- 		<input type='hidden' name='encodeText' value='${encodeText}'> --%>
+<%-- 		<img class='pic' src='data:img/png;base64,${encodeText}' ${(prodVO.prod_pic==null)? 'style="display:none"' : ''}> --%>
+		
+		</td>
 	</tr>
 	<tr>
 		<td>促銷狀態:</td>
 		<td>
-		<select name='prod_promt_status'>
+		<select name='prod_promt_status' class='form-control'>
 		<c:forEach var='prod_promt_status' items='${pps}'>
 			<option value='${pps.indexOf(prod_promt_status)}' 
 							${prodVO.prod_promt_status==pps.indexOf(prod_promt_status) ? 'selected' : '' }> ${prod_promt_status}		
@@ -112,7 +122,7 @@
 	<tr>
 		<td>上架狀態:</td>
 		<td>
-		<select name='prod_status'>
+		<select name='prod_status' class='form-control'>
 		<c:forEach var='prod_status' items='${ps}'>
 			<option value='${ps.indexOf(prod_status)}' 
 							${prodVO.prod_status==ps.indexOf(prod_status) ? 'selected' : '' }> ${prod_status}		
@@ -122,14 +132,14 @@
 	</tr>
 	<tr>
 		<td>商品資訊:</td>
-		<td><input type="TEXT" name="prod_info" size="45"
+		<td><input type="TEXT" class='form-control' name="prod_info" size="45"
 			 value='<%= (prodVO==null)? "asdasdijaojuewhildhi" : prodVO.getProd_info()%>'/></td>
 	</tr>
 
 </table>
 
-<input type='hidden' name='action' value='insert'>
-<button type='submit'>送出新增</button>
+<input type='hidden'  name='action' value='insert'>
+<button type='submit' class="btn btn-outline-success">送出新增</button>
 </form>
 <script>
 	function readURL(input){
@@ -141,6 +151,8 @@
   		reader.readAsDataURL(input.files[0]);
 	}
 </script>
+  </div>
+  </div>
     
     
     

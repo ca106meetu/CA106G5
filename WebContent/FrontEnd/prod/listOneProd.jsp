@@ -41,13 +41,11 @@
   </head>
   <body>
     <jsp:include page="/Templates/bootstrap4/backHeader.jsp" />
+    <div class='container'>
     
-    
-    <h4>此頁暫練習採用 Script 的寫法取值:</h4>
 <table id="table-1">
 	<tr><td>
-		 <h3>商品資料 - ListOneProd.jsp</h3>
-		 <h4><a href="selectPage.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
+		 <h4><a href="selectPage.jsp"><img src="images/back1.png" width="60"  border="0">回首頁</a></h4>
 	</td></tr>
 </table>
 
@@ -84,7 +82,7 @@
 </table>
     
     
-    
+    </div>
     
     
     <jsp:include page="/Templates/bootstrap4/backFooter.jsp" />
@@ -132,7 +130,8 @@
 		webSocket.onopen = function(event) {
 			
 			var prod_name = '${prodVO.prod_name}';
-			var jsonObj = {"prodName" : prod_name , "message" : "上架囉~~快去搶購!", "img1" : $('#img1').attr('src')};
+			var prod_ID = '${prodVO.prod_ID}'
+ 			var jsonObj = {"prodName" : prod_name , "message" : "上架囉~~快去搶購!", "img1" : $('#img1').attr('src'), "prod_ID": prod_ID};
 	        webSocket.send(JSON.stringify(jsonObj));
 		};
 		

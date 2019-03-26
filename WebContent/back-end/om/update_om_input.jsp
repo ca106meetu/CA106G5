@@ -29,11 +29,11 @@
   <body>
     <jsp:include page="/Templates/bootstrap4/backHeader.jsp" />
     
-    
+    <div class='container'>
     <table id="table-1">
 	<tr><td>
-		 <h3>訂單資料修改- update_prod_input.jsp</h3>
-		 <h4><a href="selectPageOm.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
+		 <h3>訂單資料修改</h3>
+		 <h4><a href="selectPageOm.jsp"><img src="images/back1.png" width="60" border="1">回首頁</a></h4>
 	</td></tr>
 </table>
 
@@ -146,6 +146,7 @@
 <input type="hidden" name="order_ID" value="<%=omVO.getOrder_ID()%>">
 <button type='submit' class="btn btn-outline-success">送出修改</button>
 </FORM>
+</div>
 </body>
     
     

@@ -15,6 +15,18 @@
 <!doctype html>
 <html lang="en">
   <head>
+  <style>
+  	
+		  	footer {
+		  position: fixed;
+		  right: 0;
+		  left: 0;
+		  z-index: 1030;
+		  bottom: 0;
+		  margin-bottom: 0;
+		  border-width: 1px 0 0;
+		}
+  	</style>
   <link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
   	<link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
   <style>
@@ -49,12 +61,12 @@
   <body>
     <jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
     
-    
-<div class='container justify-content-center'>
- 	<div class='row justify-content-center'>
+    <hr>
+<div class='container'>
+ 	<div class='row'>
 	<%@ include file="page1.file" %> 
 	</div>
- 	<div class='row justify-content-center'>
+ 	<div class='row'>
  	
  	<table id = 'table-1'>
 	<tr><td>
@@ -102,8 +114,10 @@
 	</c:forEach>
 </table>
  	
-<%@ include file="page2.file" %> 
  	</div>
+ 	
+ 	
+<%@ include file="page2.file" %> 
  	
  	
 </div>
