@@ -183,8 +183,10 @@ font: 100px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft Jh
 					
 			<div class="card shadow p-3 mb-5">
 			<c:if test="${liveVO.live_pic != null}">
+			<a href='<%=request.getContextPath()%>/FrontEnd/fileRec/fileRec.do?action=go_to_fileRec_front&host_ID=<%=liveVO.getHost_ID()%>'>
 				<img src="<%=request.getContextPath()%>/ShowPic?HOST_ID=<%=liveVO.getHost_ID()%>"
-					id='pic' class="card-img-top"></c:if>
+					id='pic' class="card-img-top">
+					</a></c:if>
 				<div class="card-body ">
 					<h5 class="card-title"><%=liveVO.getLive_name()%></h5>
 					直播創立時間<br>

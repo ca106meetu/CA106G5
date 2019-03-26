@@ -95,7 +95,7 @@ public class ProdServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
-				try {
+//				try {
 					String prod_name = req.getParameter("prod_name");
 					String prod_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 					if(prod_name == null || prod_name.trim().length() ==0) {
@@ -230,12 +230,12 @@ public class ProdServlet extends HttpServlet {
 					String url = "/FrontEnd/prod/listAllProd.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url);
 					successView.forward(req, res);
-				} catch (Exception e) {
-					errorMsgs.add("無法取得資料:"+e.getMessage());
-					RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/prod/addProd.jsp");
-					failureView.forward(req, res);
-				}
-			
+//				} catch (Exception e) {
+//					errorMsgs.add("無法取得資料:"+e.getMessage());
+//					RequestDispatcher failureView = req.getRequestDispatcher("/FrontEnd/prod/addProd.jsp");
+//					failureView.forward(req, res);
+//				}
+//			
 		}
 		
 		if("getOne_For_Update".equals(action)) {

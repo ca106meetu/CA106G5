@@ -64,7 +64,7 @@
           <div class='row' style='height:50px;width:60%;'>
             <div class="col-3">數量</div>
             <div class="col-9">
-            	<input class="form-control qq" type="number" min="1" max="${prodVO.prod_stock}" value="1" id="example-number-input" name='quantity'>
+            	<input id='quantity' class="form-control qq" type="number" min="1" max="${prodVO.prod_stock}" value="1" id="example-number-input" name='quantity'>
             	<input type="hidden" value="${prodVO.prod_price.intValue()}">
             
             </div>
@@ -122,6 +122,20 @@
 	  </div> 
 	</div>
     
+    <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id='alert' aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+    	<div class="modal-header">
+    		<h3 class="modal-title" style='color:red;'>提示</h3>
+      		
+ 	   	</div>
+ 	   	
+ 	   	<div class="modal-body" style='color:blue;'>
+        	<h5>數量輸入錯誤</h5>
+      	</div>
+    </div>
+  </div> 
+</div>
     
     
     <jsp:include page="/Templates/bootstrap4/frontFooter.jsp" />
@@ -145,24 +159,30 @@
     	})
     	
     	
-    	
-		 $('.cart').click(function(){
-			 $.ajax({
-				 type: "POST",
-				 url: "ShoppingServlet",
-				 data: {"prod_ID":$(this).next().val(), "action":"add", "quantity":$('.qq').val()},
-				 dataType: "json",
-				 success: function(){
-					 
-					 $('#myModal').modal('show');
-// 					 alert("555");
-					},
-			     
-	             error: function(){alert("AJAX-grade發生錯誤囉!")}
-	         });
-	 });
+			 $('.cart').click(function(){
+				 var quantity = parseInt(document.getElementById("quantity").value);
+				 var max = document.getElementById("quantity").getAttribute("max");
+	    	 if( quantity <= 0 || quantity > max ){
+				 
+				 $("#alert").modal('show');
+			 }else{
+				 $.ajax({
+					 type: "POST",
+					 url: "ShoppingServlet",
+					 data: {"prod_ID":$(this).next().val(), "action":"add", "quantity":$('.qq').val()},
+					 dataType: "json",
+					 success: function(){
+						 
+						 $('#myModal').modal('show');
+	// 					 alert("555");
+						},
+				     
+		             error: function(){alert("AJAX-grade發生錯誤囉!")}
+		         });
+			 }
+		 	});
 		 
-		 
+		  
 		 $('.dCheckOut').click(function(){
 			 if(!allowUser()){ 
 				 <%session.setAttribute("location", request.getRequestURI());%>

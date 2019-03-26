@@ -97,7 +97,7 @@
 		}
 	%>
 	<c:forEach var="prodVO" items= "${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" varStatus='status'>
-		<tr ${(prodVO.prod_ID==param.prod_ID) ? 'bgcolor=#CCCCFF':''}>
+		<tr ${(prodVO.prod_ID==param.prod_ID) ? 'bgcolor=#AFEEEE':''}>
 			<td>${prodVO.prod_ID}</td>
 			<td>${prodVO.prod_name}</td>
 			<td>${prodVO.prod_price}</td>

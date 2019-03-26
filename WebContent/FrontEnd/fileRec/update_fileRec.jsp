@@ -117,19 +117,19 @@ th, td {
 			
 			<tr>
 				<td>影片名稱:</td>
-				<td><input type="TEXT" name="file_name" size="20"
+				<td><input type="TEXT" name="file_name" size="20" id="fname"
 					value="<%=(fileRecVO == null) ? " " : fileRecVO.getFile_name()%>" /></td>
 			</tr>
 			
 			<tr>
 				<td>影片描述:</td>
-				<td><input type="TEXT" name="live_des" size="20"
+				<td><input type="TEXT" name="live_des" size="20" id="ldes"
 					value="<%=(fileRecVO == null) ? " " : fileRecVO.getLive_des()%>" /></td>
 			</tr>
 			
 			<tr>
 				<td>影片內容:</td>
-				<td><input type="TEXT" name="file_cont" size="20"
+				<td><input type="TEXT" name="file_cont" size="20" id="fcont"
 					value="<%=(fileRecVO == null) ? " " : fileRecVO.getFile_cont()%>" /></td>
 			</tr>
 		
@@ -141,12 +141,38 @@ th, td {
 		<input type="submit" value="送出修改">
 	</FORM>
 				</div>
-				<div class="col-4"><div class="xxx"></div></div>
+				<div class="col-4">
+				<button type="button" class="btn btn-outline-secondary btn-sm" id="Qclick"></button>
+				<button type="button" class="btn btn-outline-secondary btn-sm" id="Qclick2"></button>
+				<button type="button" class="btn btn-outline-secondary btn-sm" id="Qclick3"></button>
+				</div>
 				
 			</div>
 		</div>
 
-
+<script type="text/javascript">
+    $(document).ready(function(){
+    	$("#Qclick").click(function(){
+    	  	$("#fname").val("周杰倫");
+    	    $("#ldes").val("手寫的從前");
+    	    $("#fcont").val("https://www.youtube.com/embed/TMB6-YflpA4");
+    	   
+    	});
+    	
+    	$("#Qclick2").click(function(){
+    	  	$("#fname").val("李友廷");
+    	    $("#ldes").val("誰");
+    	    $("#fcont").val("https://www.youtube.com/embed/moyV8-g-SwM");
+    	   
+    	});
+    	$("#Qclick3").click(function(){
+    	  	$("#fname").val("茄子蛋");
+    	    $("#ldes").val("親愛的無情孫小美");
+    	    $("#fcont").val("https://www.youtube.com/embed/UXHTGeGkZwU");
+    	   
+    	});
+    });
+    </script>
 
 
 

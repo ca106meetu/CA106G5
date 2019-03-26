@@ -1,4 +1,6 @@
 
+<%@page import="com.meetU.product.model.ProductVO"%>
+<%@page import="com.meetU.product.model.ProductService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="com.meetU.mem.model.MemVO"%>
@@ -14,6 +16,10 @@
 	List<LiveVO> list = liveSvc.getAll();
 	pageContext.setAttribute("list", list);
 	MemVO memVO = (MemVO)session.getAttribute("memVO");
+	
+	ProductService prodSvc = new ProductService(); 
+	List<ProductVO> listP = prodSvc.getAll();
+	pageContext.setAttribute("listP", listP);
 	
 %>
 
@@ -284,135 +290,26 @@
     <!-- ****** Instagram Area Start ****** -->
     <div class="instargram_area owl-carousel section_padding_100_0 clearfix" id="portfolio">
 
+
+	<c:forEach var="prodVO" items="${listP}">
         <!-- Instagram Item -->
         <div class="instagram_gallery_item">
             <!-- Instagram Thumb -->
-            <img src="img/instagram-img/1.jpg" alt="">
+            <img src="/CA106G5/ShowPic?PROD_ID=${prodVO.prod_ID}" alt="">
             <!-- Hover -->
             <div class="hover_overlay">
                 <div class="yummy-table">
                     <div class="yummy-table-cell">
                         <div class="follow-me text-center">
-                            <a href="<%=request.getContextPath()%>/FrontEnd/cart/EShop.jsp"><i class="fa fa-instagram" aria-hidden="true"></i>前往購買</a>
+                            <a href="<%=request.getContextPath()%>/FrontEnd/cart/prodDetail.jsp?prod_ID=${prodVO.prod_ID}"><i class="fa fa-instagram" aria-hidden="true"></i>前往購買</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+     </c:forEach>
+</div>
 
-        <!-- Instagram Item -->
-        <div class="instagram_gallery_item">
-            <!-- Instagram Thumb -->
-            <img src="img/instagram-img/2.jpg" alt="">
-            <!-- Hover -->
-            <div class="hover_overlay">
-                <div class="yummy-table">
-                    <div class="yummy-table-cell">
-                        <div class="follow-me text-center">
-                            <a href="<%=request.getContextPath()%>/FrontEnd/cart/EShop.jsp"><i class="fa fa-instagram" aria-hidden="true"></i>前往購買</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Instagram Item -->
-        <div class="instagram_gallery_item">
-            <!-- Instagram Thumb -->
-            <img src="img/instagram-img/3.jpg" alt="">
-            <!-- Hover -->
-            <div class="hover_overlay">
-                <div class="yummy-table">
-                    <div class="yummy-table-cell">
-                        <div class="follow-me text-center">
-                            <a href="<%=request.getContextPath()%>/FrontEnd/cart/EShop.jsp"><i class="fa fa-instagram" aria-hidden="true"></i>前往購買</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Instagram Item -->
-        <div class="instagram_gallery_item">
-            <!-- Instagram Thumb -->
-            <img src="img/instagram-img/4.jpg" alt="">
-            <!-- Hover -->
-            <div class="hover_overlay">
-                <div class="yummy-table">
-                    <div class="yummy-table-cell">
-                        <div class="follow-me text-center">
-                            <a href="<%=request.getContextPath()%>/FrontEnd/cart/EShop.jsp"><i class="fa fa-instagram" aria-hidden="true"></i>前往購買</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Instagram Item -->
-        <div class="instagram_gallery_item">
-            <!-- Instagram Thumb -->
-            <img src="img/instagram-img/5.jpg" alt="">
-            <!-- Hover -->
-            <div class="hover_overlay">
-                <div class="yummy-table">
-                    <div class="yummy-table-cell">
-                        <div class="follow-me text-center">
-                            <a href="<%=request.getContextPath()%>/FrontEnd/cart/EShop.jsp"><i class="fa fa-instagram" aria-hidden="true"></i>前往購買</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Instagram Item -->
-        <div class="instagram_gallery_item">
-            <!-- Instagram Thumb -->
-            <img src="img/instagram-img/6.jpg" alt="">
-            <!-- Hover -->
-            <div class="hover_overlay">
-                <div class="yummy-table">
-                    <div class="yummy-table-cell">
-                        <div class="follow-me text-center">
-                            <a href="<%=request.getContextPath()%>/FrontEnd/cart/EShop.jsp"><i class="fa fa-instagram" aria-hidden="true"></i>前往購買</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Instagram Item -->
-        <div class="instagram_gallery_item">
-            <!-- Instagram Thumb -->
-            <img src="img/instagram-img/7.jpg" alt="">
-            <!-- Hover -->
-            <div class="hover_overlay">
-                <div class="yummy-table">
-                    <div class="yummy-table-cell">
-                        <div class="follow-me text-center">
-                            <a href="<%=request.getContextPath()%>/FrontEnd/cart/EShop.jsp"><i class="fa fa-instagram" aria-hidden="true"></i>前往購買</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Instagram Item -->
-        <div class="instagram_gallery_item">
-            <!-- Instagram Thumb -->
-            <img src="img/instagram-img/8.jpg" alt="">
-            <!-- Hover -->
-            <div class="hover_overlay">
-                <div class="yummy-table">
-                    <div class="yummy-table-cell">
-                        <div class="follow-me text-center">
-                            <a href="<%=request.getContextPath()%>/FrontEnd/cart/EShop.jsp"><i class="fa fa-instagram" aria-hidden="true"></i>前往購買</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
     <!-- ****** Our Creative Portfolio Area End ****** -->
 
     

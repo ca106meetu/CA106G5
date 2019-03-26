@@ -61,29 +61,34 @@ html,body {
 	font: 15px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft JhengHei;   
 	 
 }
-#gointo{
+#gointo {
     border: none;
-    padding: 5px 5px;
+    padding: 5px 10px;
     border-radius: 5px;
     width: auto;
     background: orange;
-    box-shadow: inset 0 0 10px #000000;
-    font: 15px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft JhengHei; 
+    box-shadow: inset 0 0 10px #a29e9e;
+    font: 15px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft JhengHei;
     font-weight: bold;
-	
 }
 #gointo:hover{
     border: none;
-    padding: 5px 5px;
+    padding: 5px 10px;
     border-radius: 5px;
     width: auto;
-    background: 	#FFFF77;
-    box-shadow: inset 0 0 10px #000000;
-    font: 15px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft JhengHei; 
+    background: #ffc107;
+    box-shadow: inset 0 0 10px #a29e9e;
+    font: 15px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft JhengHei;
     font-weight: bold;
-	
 }
-
+.btn-danger {
+	border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    width: auto;
+  	font: 15px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft JhengHei;
+    font-weight: bold;
+}
 
 </style>
 </head>
