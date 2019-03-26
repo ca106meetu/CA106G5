@@ -308,8 +308,8 @@
             </div>
         </div>
      </c:forEach>
+</div>
 
-    </div>
     <!-- ****** Our Creative Portfolio Area End ****** -->
 
     
