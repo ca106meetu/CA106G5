@@ -101,7 +101,7 @@ private static final Map<Session, String> map = Collections.synchronizedMap(new 
 					JSONObject jObject=new JSONObject();
 					jObject.put("mem_ID",""); 
 					jObject.put("userName","系統通知"); 
-					jObject.put("message","---以上為歷史訊息---"); 
+					jObject.put("message","-------以上為歷史訊息-------"); 
 					jObject.put("action","text");
 					jObject.put("host_ID","");
 					
