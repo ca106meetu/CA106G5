@@ -30,7 +30,7 @@
   <body>
     <jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
     
-    
+    <hr>
     
     <div class="container">
     		

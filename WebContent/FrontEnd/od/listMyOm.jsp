@@ -78,9 +78,10 @@
 		<th>收件人</th>
 		<th>收件人電話</th>
 		<th>出貨狀態</th>
+		<th>出貨日期</th>
 		<th>訂單狀態</th>
 		<th>備註</th>
-		<th>明細</th>
+		<th>查看明細</th>
 
 	</tr>
 	<%@ include file="page1.file" %> 
@@ -98,12 +99,15 @@
 			<td>${omVO.recipient}</td>
 			<td>${omVO.phone}</td>
 			<td>${outs[omVO.out_status]}</td>
+			<td>
+			<fmt:formatDate value="${omVO.out_date}" pattern="yyyy-MM-dd HH:mm" />
+			</td>
 			<td>${ords[omVO.order_status]}</td>
 			<td>${omVO.tip}</td>
 			
 			<td>
 				<form method='post' action='listOdByOm.jsp' style="margin-bottom: 0px;">
-					<input type='submit' value='查看明細'>
+					<input type='submit' value='查看明細' class='btn btn-primary'>
 					<input type='hidden' name='order_ID' value='${omVO.order_ID}'>
 				</form>
 			</td>

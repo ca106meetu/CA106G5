@@ -93,6 +93,7 @@
 		<th>備註</th>
 		<th>修改</th>
 		<th>查看明細</th>		
+		<th>出貨</th>		
 	</tr>
 	<%@ include file="page1.file" %> 
 	
@@ -108,20 +109,31 @@
 			<td>${omVO.out_add}</td>
 			<td>${omVO.recipient}</td>
 			<td>${omVO.phone}</td>
-			<td>${omVO.out_date}</td>
+			<td>
+			<fmt:formatDate value="${omVO.out_date}" pattern="yyyy-MM-dd HH:mm" />
+			</td>
 			<td>${outs[omVO.out_status]}</td>
 			<td>${ords[omVO.order_status]}</td>
 			<td>${omVO.tip}</td>
 			<td>
 				<form method='post' action='om.do' style="margin-bottom: 0px;">
-					<input type='submit' value='修改'>
+					<input type='submit' value='修改' class='btn btn-primary'>
 					<input type='hidden' name='order_ID' value='${omVO.order_ID}'>
 					<input type='hidden' name='action' value='getOne_For_Update'>				
 				</form></td>
 			<td>
 				<form method='post' action='listDetail.jsp' style="margin-bottom: 0px;">
-					<input type='submit' value='查看明細'>
+					<input type='submit' value='查看明細' class='btn btn-warning'>
 					<input type='hidden' name='order_ID' value='${omVO.order_ID}'>
+				</form>
+			</td>
+			<td>
+				<form method='post' action='om.do' style="margin-bottom: 0px;">
+					<input type='submit' class='btn btn-${omVO.order_status != 0 ? "success" : "primary"}' value='${omVO.order_status != 0 ? "已出貨" : "出貨"}' ${omVO.order_status != 0 ? 'disabled="disabled"' : ''}>
+					<input type='hidden' name='order_ID' value='${omVO.order_ID}'>
+					<input type='hidden' name='location' value='<%=request.getServletPath()%>'>
+					<input type='hidden' name='action' value='out'>				
+					<input type='hidden' name='mem_ID' value='<%=memVO.getMem_ID()%>'>				
 				</form>
 			</td>
 		

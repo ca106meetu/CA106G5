@@ -34,6 +34,32 @@ public class OmServlet extends HttpServlet {
 		String action = req.getParameter("action");
 		
 		
+		if("out".equals(action)) {
+			try {
+				String order_ID = req.getParameter("order_ID");
+				OrderMasterService omSvc = new OrderMasterService();
+				OrderMasterVO omVO = omSvc.getOneOm(order_ID);
+				
+				Date now = new Date();
+				Timestamp out_date = new Timestamp(now.getTime());
+				
+				omVO.setOut_date(out_date);
+				omVO.setOrder_status(1);
+				omVO = omSvc.updateOm(omVO.getOrder_ID(),omVO.getMem_ID(), omVO.getPrice(), omVO.getOrder_date(), omVO.getTip(), omVO.getOut_add()
+						, omVO.getRecipient(), omVO.getPhone(), omVO.getOut_date(), omVO.getOut_status(), omVO.getOrder_status());
+				req.setAttribute("omVO", omVO);
+				String url = req.getParameter("location");
+				System.out.println(url);
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
+		
 		if ("getOne_For_Display".equals(action)) {
 			
 			List<String> errorMsgs = new LinkedList<>();

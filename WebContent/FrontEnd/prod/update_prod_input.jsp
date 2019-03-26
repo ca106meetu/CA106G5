@@ -107,7 +107,7 @@
 		<td>
 		
 		<div class="custom-file">
-		    <input type="file" class="custom-file-input" id="validatedCustomFile" required onchange='readURL(this)'><br>
+		    <input type="file" name="prod_pic" class="custom-file-input" id="validatedCustomFile" onchange='readURL(this)'><br>
 		    <input type='hidden' name='encodeText' value='${encodeText}'>
 		    <label class="custom-file-label" for="validatedCustomFile">換一張圖吧!</label>
 		    <div class="invalid-feedback">Example invalid custom file feedback</div>

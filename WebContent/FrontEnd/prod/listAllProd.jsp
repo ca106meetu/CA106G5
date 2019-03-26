@@ -90,7 +90,6 @@
 		<th>上架狀態</th>
 		<th>商品資訊</th>
 		<th>修改</th>
-		<th>刪除</th>		
 	</tr>
 	<%
 		if(request.getAttribute("lastPage") != null &&(boolean)request.getAttribute("lastPage")){
@@ -110,22 +109,12 @@
 			<td>${prodVO.prod_info}</td>
 			<td>
 				<form method='post' action='prod.do' style="margin-bottom: 0px;">
-					<input type='submit' value='修改'>
+					<input type='submit' value='修改' class='btn btn-primary'>
 					<input type='hidden' name='prod_ID' value='${prodVO.prod_ID}'>
 					<input type='hidden' name='action' value='getOne_For_Update'>
 					<input type='hidden' name='whichPage' value='${param.whichPage}'>				
 					<input type='hidden' name='requestURL' value='<%=request.getServletPath()%>'>				
 				</form></td>
-			<td>	
-				<form method='post' action='prod.do' style="margin-bottom: 0px;">
-					<input type='submit' value='刪除'>
-					<input type='hidden' name='action' value='delete'>				
-					<input type='hidden' name='prod_ID' value='${prodVO.prod_ID}'>
-					<input type='hidden' name='whichPage' value='${param.whichPage}'>				
-					<input type='hidden' name='requestURL' value='<%=request.getServletPath()%>'>				
-				</form>
-			
-			</td>
 			
 		
 		
