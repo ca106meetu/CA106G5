@@ -237,8 +237,8 @@ $('.mustlogin').click(function(){
 		             }
 		         });
 			});
-				
-				$('#register_text_mem_acc').on('keyup', function(){
+				//$('#register_text_mem_acc').on('keyup', function(){
+				$('#register_text_mem_acc').on('change', function(){
 					if( $('#register_text_mem_acc').val().trim().length == 0){
 						$('#register_text_mem_acc_answer').text('會員帳號: 請勿空白.');
 						//register_text_mem_acc_flag = false;
@@ -257,7 +257,7 @@ $('.mustlogin').click(function(){
 				});
 			
 				
-				$('#register_text_mem_pw').on('keyup', function(){
+				$('#register_text_mem_pw').on('change', function(){
 					if($('#register_text_mem_pw').val().trim().length == 0){
 						$('#register_text_mem_pw_answer').text('會員密碼: 請勿空白');
 		
@@ -273,7 +273,7 @@ $('.mustlogin').click(function(){
 				});
 				
 				
-				$('#register_text_mem_email').on('keyup', function(){
+				$('#register_text_mem_email').on('change', function(){
 					if($('#register_text_mem_email').val().trim().length == 0 ){
 						$('#register_text_mem_email_answer').text('會員電子信箱: 請勿空白');
 						

@@ -6,6 +6,9 @@
 <html lang="zh-TW">
 <head>
 	<meta charset="utf-8">
+	<!-- Required meta tags -->
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+  <link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<script src="<%=request.getContextPath()%>/Templates/bootstrap4/jquery/jquery-3.3.1.min.js"></script>
 	<script src="<%=request.getContextPath()%>/Templates/bootstrap4/js/sweetalert2.all.js"></script>
