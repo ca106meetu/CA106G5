@@ -99,8 +99,6 @@
       	display: inline;
       }
       
-      
-      
 </style>
 
 </head>
@@ -199,7 +197,7 @@
 			      			<%for(int i=1;i<=3;i++){%>
 			      				<span class="fa fa-star checked"></span>
 			      				<% }%>
-							<%for(int i=1;i<=2;i++){%>
+							<%for(int j=1;j<=2;j++){%>
 			      				<span class="fa fa-star"></span>
 			      				<% }%>	      				
 							<p class="commentP">${hostRate.meetup_comment}</p>
@@ -209,7 +207,7 @@
 			      			<%for(int i=1;i<=2;i++){%>
 			      				<span class="fa fa-star checked"></span>
 			      				<% }%>
-							<%for(int i=1;i<=3;i++){%>
+							<%for(int j=1;j<=3;j++){%>
 			      				<span class="fa fa-star"></span>
 			      				<% }%>	      				
 							<p class="commentP">${hostRate.meetup_comment}</p>

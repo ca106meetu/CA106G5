@@ -197,7 +197,7 @@
 						<a href="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do?meetup_ID=${meetupVO.meetup_ID}&action=getOne_For_Display">
                         	<h4 class="post-headline">${meetupVO.meetup_name}</h4>
                         </a>
-                        <p>Tiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+                        <p>${meetupVO.meetup_info}</p>
                         	<a href="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do?meetup_ID=${meetupVO.meetup_ID}&action=getOne_For_Display" class="read-more">Continue Reading..</a>
                         </div>
                    </div>

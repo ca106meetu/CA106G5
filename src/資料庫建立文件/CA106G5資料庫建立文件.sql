@@ -686,27 +686,58 @@ NOCYCLE
 NOCACHE;
 
 Insert into MEETUP (MEETUP_ID,MEETUP_NAME,MEM_ID,MEETUP_DATE,MEETUP_LOC,MEETUP_STATUS,MEETUP_PIC,MEETUP_INFO, MEETUP_MINPPL, MEETUP_MAXPPL, MEETUP_JOINDATE) 
-  values ('MP'||LPAD(to_char(meetup_seq.NEXTVAL), 6, '0'),'ValentinesDates','M000001',TO_TIMESTAMP('2019-03-14 12:30:00', 'syyyy-mm-dd hh24:mi:ss'),'110台北市信義區市府路1號','1',null,'大家一起過白色情人節',3,10, TO_DATE('2019-03-10','YYYY-MM-DD'));
+  values ('MP'||LPAD(to_char(meetup_seq.NEXTVAL), 6, '0'),'ValentinesDates','M000001',
+  TO_TIMESTAMP('2019-03-14 12:30:00', 'syyyy-mm-dd hh24:mi:ss'),'110台北市信義區市府路1號','1',null,'Lets share the day, just you and me',2,5, TO_DATE('2019-03-10','YYYY-MM-DD'));
 
 Insert into MEETUP (MEETUP_ID,MEETUP_NAME,MEM_ID,MEETUP_DATE,MEETUP_LOC,MEETUP_STATUS,MEETUP_PIC,MEETUP_INFO, MEETUP_MINPPL, MEETUP_MAXPPL, MEETUP_JOINDATE) 
   values ('MP'||LPAD(to_char(meetup_seq.NEXTVAL), 6, '0'),'Mr. Right','M000002',
-    TO_TIMESTAMP('2019-05-12 08:30:00', 'syyyy-mm-dd hh24:mi:ss'),'320桃園市中壢區中央路300號','1',null,'異男限定',3,10,TO_DATE('2019-05-10','YYYY-MM-DD'));
+    TO_TIMESTAMP('2019-03-12 08:30:00', 'syyyy-mm-dd hh24:mi:ss'),'320桃園市中壢區中央路300號','1',null,'Dont be shy, Ms. Right are looking for u',2,4,TO_DATE('2019-03-10','YYYY-MM-DD'));
   
 Insert into MEETUP (MEETUP_ID,MEETUP_NAME,MEM_ID,MEETUP_DATE,MEETUP_LOC,MEETUP_STATUS,MEETUP_PIC,MEETUP_INFO, MEETUP_MINPPL, MEETUP_MAXPPL, MEETUP_JOINDATE) 
-  values ('MP'||LPAD(to_char(meetup_seq.NEXTVAL), 6, '0'),'好山好水好幸福','M000003',
-    TO_TIMESTAMP('2019-06-12 18:30:00', 'syyyy-mm-dd hh24:mi:ss'),'970花蓮市中正路106號','1',null,'一起找到幸福',3,10,TO_DATE('2019-06-10','YYYY-MM-DD'));
+  values ('MP'||LPAD(to_char(meetup_seq.NEXTVAL), 6, '0'),'Love is in the Air','M000003',
+    TO_TIMESTAMP('2019-03-15 18:30:00', 'syyyy-mm-dd hh24:mi:ss'),'970花蓮市中正路106號','1',null,'I want to do something with u, like bees to flowers',2,4,TO_DATE('2019-02-10','YYYY-MM-DD'));
 
 Insert into MEETUP (MEETUP_ID,MEETUP_NAME,MEM_ID,MEETUP_DATE,MEETUP_LOC,MEETUP_STATUS,MEETUP_PIC,MEETUP_INFO, MEETUP_MINPPL, MEETUP_MAXPPL, MEETUP_JOINDATE) 
   values ('MP'||LPAD(to_char(meetup_seq.NEXTVAL), 6, '0'),'404錯誤的愛不要來','M000004',
-    TO_TIMESTAMP('2019-04-15 15:30:00', 'syyyy-mm-dd hh24:mi:ss'),'404台中市北區雙十路106號','1',null,'一起找到200',3,10,TO_DATE('2019-04-10','YYYY-MM-DD'));
+    TO_TIMESTAMP('2019-04-15 15:30:00', 'syyyy-mm-dd hh24:mi:ss'),'404台中市北區雙十路106號','1',null,'一起找到200',2,5,TO_DATE('2019-04-10','YYYY-MM-DD'));
 
 Insert into MEETUP (MEETUP_ID,MEETUP_NAME,MEM_ID,MEETUP_DATE,MEETUP_LOC,MEETUP_STATUS,MEETUP_PIC,MEETUP_INFO, MEETUP_MINPPL, MEETUP_MAXPPL, MEETUP_JOINDATE) 
   values ('MP'||LPAD(to_char(meetup_seq.NEXTVAL), 6, '0'),'拍拖成功','M000005',
-    TO_TIMESTAMP('2019-04-18 19:30:00', 'syyyy-mm-dd hh24:mi:ss'),'700台南市友愛街100號','1',null,'一起拍拖',3,10,TO_DATE('2019-04-10','YYYY-MM-DD'));
+    TO_TIMESTAMP('2019-03-28 19:30:00', 'syyyy-mm-dd hh24:mi:ss'),'700台南市友愛街100號','1',null,'一起拍拖',3,5,TO_DATE('2019-03-23','YYYY-MM-DD'));
         
 Insert into MEETUP (MEETUP_ID,MEETUP_NAME,MEM_ID,MEETUP_DATE,MEETUP_LOC,MEETUP_STATUS,MEETUP_PIC,MEETUP_INFO, MEETUP_MINPPL, MEETUP_MAXPPL, MEETUP_JOINDATE) 
   values ('MP'||LPAD(to_char(meetup_seq.NEXTVAL), 6, '0'),'愛情摩天輪','M000006',
-    TO_TIMESTAMP('2019-06-01 21:30:00', 'syyyy-mm-dd hh24:mi:ss'),'812高雄市小港區小港二街31號','1',null,'讓摩天輪轉吧!',3,10,TO_DATE('2019-05-25','YYYY-MM-DD'));
+    TO_TIMESTAMP('2019-03-01 21:30:00', 'syyyy-mm-dd hh24:mi:ss'),'812高雄市小港區小港二街31號','1',null,'讓摩天輪轉吧!',3,5,TO_DATE('2019-02-25','YYYY-MM-DD'));
+----------------------------------
+Insert into MEETUP (MEETUP_ID,MEETUP_NAME,MEM_ID,MEETUP_DATE,MEETUP_LOC,MEETUP_STATUS,MEETUP_PIC,MEETUP_INFO, MEETUP_MINPPL, MEETUP_MAXPPL, MEETUP_JOINDATE) 
+  values ('MP'||LPAD(to_char(meetup_seq.NEXTVAL), 6, '0'),'Join for Movie','M000001', TO_TIMESTAMP('2019-03-30 12:30:00', 'syyyy-mm-dd hh24:mi:ss'),
+  '110台北市信義區市府路1號','1',null,'Lonely I am so lonely, please come and see a movie with me QQ, 邊緣人想找伴 一起去揪影影城看電影',2,5, TO_DATE('2019-03-29','YYYY-MM-DD'));
+
+Insert into MEETUP (MEETUP_ID,MEETUP_NAME,MEM_ID,MEETUP_DATE,MEETUP_LOC,MEETUP_STATUS,MEETUP_PIC,MEETUP_INFO, MEETUP_MINPPL, MEETUP_MAXPPL, MEETUP_JOINDATE) 
+  values ('MP'||LPAD(to_char(meetup_seq.NEXTVAL), 6, '0'),'GoodHouse','M000002',TO_TIMESTAMP('2019-03-31 08:30:00', 'syyyy-mm-dd hh24:mi:ss'),
+  '320桃園市中壢區中央路300號','1',null,'I am super interesting in the notorious haunted house, but at the same time I am scared, anybody is also interested in it?
+Please join me…
+我想參觀鬼屋，但有點害怕，有人有興趣嗎? 聽說GoodHouse好宅網上有間公寓很可怕，想揪團預約跟房東看房',2,4,TO_DATE('2019-03-10','YYYY-MM-DD'));
+  
+Insert into MEETUP (MEETUP_ID,MEETUP_NAME,MEM_ID,MEETUP_DATE,MEETUP_LOC,MEETUP_STATUS,MEETUP_PIC,MEETUP_INFO, MEETUP_MINPPL, MEETUP_MAXPPL, MEETUP_JOINDATE) 
+  values ('MP'||LPAD(to_char(meetup_seq.NEXTVAL), 6, '0'),'CookGod is here','M000003', TO_TIMESTAMP('2019-04-15 14:30:00', 'syyyy-mm-dd hh24:mi:ss'),
+  '970花蓮市中正路106號','1',null,'CookGod website send Chef to your place to cook for you, What a great idea, Let’s meet up to enjoy the brunch and have a party
+食神來了提供主廚到府服務, 我想辦個派對，大家可以一起享用早午餐, 重點是主廚將是前Raw的廚師群之一, 老饕們，快報名參加吧!',2,4,TO_DATE('2019-04-10','YYYY-MM-DD'));
+
+Insert into MEETUP (MEETUP_ID,MEETUP_NAME,MEM_ID,MEETUP_DATE,MEETUP_LOC,MEETUP_STATUS,MEETUP_PIC,MEETUP_INFO, MEETUP_MINPPL, MEETUP_MAXPPL, MEETUP_JOINDATE) 
+  values ('MP'||LPAD(to_char(meetup_seq.NEXTVAL), 6, '0'),'PiCAR Car Nerds','M000004', TO_TIMESTAMP('2019-04-17 15:30:00', 'syyyy-mm-dd hh24:mi:ss'),
+  '404台中市北區雙十路106號','1',null,'PiCAR Car Nerds 
+  Ride or Die is my motto, Car nerds are wanted, Come and enjoy the fast and furious ride style with me. We can spend 3 hours together, driving GTR around, have some food…
+老司機共乘聯誼遊城市',2,5,TO_DATE('2019-04-10','YYYY-MM-DD'));
+
+Insert into MEETUP (MEETUP_ID,MEETUP_NAME,MEM_ID,MEETUP_DATE,MEETUP_LOC,MEETUP_STATUS,MEETUP_PIC,MEETUP_INFO, MEETUP_MINPPL, MEETUP_MAXPPL, MEETUP_JOINDATE) 
+  values ('MP'||LPAD(to_char(meetup_seq.NEXTVAL), 6, '0'),'鮮肉找地方媽媽','M000005',TO_TIMESTAMP('2019-04-28 19:30:00', 'syyyy-mm-dd hh24:mi:ss'),
+ '綠島','1',null,'我是肥美多汁的肉肉大叔，想多找幾位同樣肥肥等級的酥酥們以及漂亮的地方媽媽，期待能共譜一段美好的戀曲
+We are juicy, we are yummy, let’s have some love',3,5,TO_DATE('2019-04-22','YYYY-MM-DD'));
+        
+Insert into MEETUP (MEETUP_ID,MEETUP_NAME,MEM_ID,MEETUP_DATE,MEETUP_LOC,MEETUP_STATUS,MEETUP_PIC,MEETUP_INFO, MEETUP_MINPPL, MEETUP_MAXPPL, MEETUP_JOINDATE) 
+  values ('MP'||LPAD(to_char(meetup_seq.NEXTVAL), 6, '0'),'Welcome to my Java World','M000006',TO_TIMESTAMP('2019-03-31 21:30:00', 'syyyy-mm-dd hh24:mi:ss'),
+  '812高雄市小港區小港二街31號','1',null,'Java is a little difficult, 紙上得來終覺淺, 覺知此事必躬行',3,5,TO_DATE('2019-03-25','YYYY-MM-DD'));
 
 ----------------------------
 --  for Table MEETUP_MEM
@@ -726,41 +757,67 @@ CREATE TABLE MEETUP_MEM(
 Insert into MEETUP_MEM (MEETUP_ID,MEM_ID, MEM_SHOWUP, MEETUP_RATE, MEETUP_COMMENT)
   values ('MP000001','M000001',1,null,null);
 Insert into MEETUP_MEM (MEETUP_ID,MEM_ID, MEM_SHOWUP, MEETUP_RATE, MEETUP_COMMENT)
-  values ('MP000001','M000002',1,null,null);
+  values ('MP000001','M000002',1,4,'主揪就和doGet一樣不夠保密');
 Insert into MEETUP_MEM (MEETUP_ID,MEM_ID, MEM_SHOWUP, MEETUP_RATE, MEETUP_COMMENT)
-  values ('MP000001','M000003',1,null,null);
+  values ('MP000001','M000007',1,5,'我想告白:主揪我愛你');
+Insert into MEETUP_MEM (MEETUP_ID,MEM_ID, MEM_SHOWUP, MEETUP_RATE, MEETUP_COMMENT)
+  values ('MP000001','M000012',1,3,'404錯誤的愛不要來');
+Insert into MEETUP_MEM (MEETUP_ID,MEM_ID, MEM_SHOWUP, MEETUP_RATE, MEETUP_COMMENT)
+  values ('MP000001','M000013',1,1,'我沒找到伴RRR');
 
 Insert into MEETUP_MEM (MEETUP_ID,MEM_ID, MEM_SHOWUP, MEETUP_RATE, MEETUP_COMMENT)
   values ('MP000002','M000002',1,null,null);
 Insert into MEETUP_MEM (MEETUP_ID,MEM_ID, MEM_SHOWUP, MEETUP_RATE, MEETUP_COMMENT)
-  values ('MP000002','M000004',1,null,null);
+  values ('MP000002','M000004',1,4,'我和他的距離就和Servlet一樣,servlet開始servlet結束，短短幾行');
+Insert into MEETUP_MEM (MEETUP_ID,MEM_ID, MEM_SHOWUP, MEETUP_RATE, MEETUP_COMMENT)
+  values ('MP000002','M000008',1,5,'節奏抓得非常好');
+Insert into MEETUP_MEM (MEETUP_ID,MEM_ID, MEM_SHOWUP, MEETUP_RATE, MEETUP_COMMENT)
+  values ('MP000002','M000009',1,3,'整個活動都讓我傻眼');
+
 
 Insert into MEETUP_MEM (MEETUP_ID,MEM_ID, MEM_SHOWUP, MEETUP_RATE, MEETUP_COMMENT)
   values ('MP000003','M000003',1,null,null);
 Insert into MEETUP_MEM (MEETUP_ID,MEM_ID, MEM_SHOWUP, MEETUP_RATE, MEETUP_COMMENT)
-  values ('MP000003','M000004',1,null,null);
+  values ('MP000003','M000005',1,3,'commit我們的關係，不要讓其他人rollback');
 Insert into MEETUP_MEM (MEETUP_ID,MEM_ID, MEM_SHOWUP, MEETUP_RATE, MEETUP_COMMENT)
-  values ('MP000003','M000005',1,null,null);
+  values ('MP000003','M000007',1,4,'活動的妹子都好可愛RRRR');
+Insert into MEETUP_MEM (MEETUP_ID,MEM_ID, MEM_SHOWUP, MEETUP_RATE, MEETUP_COMMENT)
+  values ('MP000003','M000010',1,2,'其他妹子太漂亮 害我找不到男伴');  
 
 Insert into MEETUP_MEM (MEETUP_ID,MEM_ID, MEM_SHOWUP, MEETUP_RATE, MEETUP_COMMENT)
   values ('MP000004','M000004',1,null,null);
 Insert into MEETUP_MEM (MEETUP_ID,MEM_ID, MEM_SHOWUP, MEETUP_RATE, MEETUP_COMMENT)
-  values ('MP000004','M000001',1,null,null);
+  values ('MP000004','M000001',1,3,'這個活動是500的愛');
 Insert into MEETUP_MEM (MEETUP_ID,MEM_ID, MEM_SHOWUP, MEETUP_RATE, MEETUP_COMMENT)
-  values ('MP000004','M000006',1,null,null);
+  values ('MP000004','M000006',1,4,'一起找到200');
+Insert into MEETUP_MEM (MEETUP_ID,MEM_ID, MEM_SHOWUP, MEETUP_RATE, MEETUP_COMMENT)
+  values ('MP000004','M000008',1,4,'愛情中的bug是不是我自己');
+Insert into MEETUP_MEM (MEETUP_ID,MEM_ID, MEM_SHOWUP, MEETUP_RATE, MEETUP_COMMENT)
+  values ('MP000004','M000010',1,5,'重新導向304的愛');
+
 
 Insert into MEETUP_MEM (MEETUP_ID,MEM_ID, MEM_SHOWUP, MEETUP_RATE, MEETUP_COMMENT)
   values ('MP000005','M000005',1,null,null);
 Insert into MEETUP_MEM (MEETUP_ID,MEM_ID, MEM_SHOWUP, MEETUP_RATE, MEETUP_COMMENT)
-  values ('MP000005','M000006',1,null,null);
+  values ('MP000005','M000006',1,3,'200是ok的愛');
 Insert into MEETUP_MEM (MEETUP_ID,MEM_ID, MEM_SHOWUP, MEETUP_RATE, MEETUP_COMMENT)
-  values ('MP000005','M000002',1,null,null);
+  values ('MP000005','M000007',1,4,'503 Server重啟即可找到對的人');
+Insert into MEETUP_MEM (MEETUP_ID,MEM_ID, MEM_SHOWUP, MEETUP_RATE, MEETUP_COMMENT)
+  values ('MP000005','M000009',1,4,'我是被include的那個人嗎?');
+Insert into MEETUP_MEM (MEETUP_ID,MEM_ID, MEM_SHOWUP, MEETUP_RATE, MEETUP_COMMENT)
+  values ('MP000005','M000011',1,5,'我被forward到錯誤的愛了');
+
 
 Insert into MEETUP_MEM (MEETUP_ID,MEM_ID, MEM_SHOWUP, MEETUP_RATE, MEETUP_COMMENT)
   values ('MP000006','M000006',1,null,null);
 Insert into MEETUP_MEM (MEETUP_ID,MEM_ID, MEM_SHOWUP, MEETUP_RATE, MEETUP_COMMENT)
-  values ('MP000006','M000003',1,null,null);
-
+  values ('MP000006','M000003',1,3,'doPost可以容納很多的愛');
+Insert into MEETUP_MEM (MEETUP_ID,MEM_ID, MEM_SHOWUP, MEETUP_RATE, MEETUP_COMMENT)
+  values ('MP000006','M000011',1,4,'很棒的活動，我找到伴了');
+Insert into MEETUP_MEM (MEETUP_ID,MEM_ID, MEM_SHOWUP, MEETUP_RATE, MEETUP_COMMENT)
+  values ('MP000006','M000012',1,2,'pretty good');
+Insert into MEETUP_MEM (MEETUP_ID,MEM_ID, MEM_SHOWUP, MEETUP_RATE, MEETUP_COMMENT)
+  values ('MP000006','M000013',1,5,'把我們的愛放在ServletContext，讓大家都看到');
 ----------------------------
 --  for Table MEETUP_CHAT
 ----------------------------
@@ -811,17 +868,17 @@ CREATE TABLE MEETUP_LIKE(
 --MEM_ID → MEM
 Insert into MEETUP_LIKE (MEETUP_ID,MEM_ID) values ( 'MP000001','M000001');   
 Insert into MEETUP_LIKE (MEETUP_ID,MEM_ID) values ( 'MP000001','M000002');
-Insert into MEETUP_LIKE (MEETUP_ID,MEM_ID) values ( 'MP000001','M000003');
-Insert into MEETUP_LIKE (MEETUP_ID,MEM_ID) values ( 'MP000001','M000004');
 Insert into MEETUP_LIKE (MEETUP_ID,MEM_ID) values ( 'MP000002','M000003');
-Insert into MEETUP_LIKE (MEETUP_ID,MEM_ID) values ( 'MP000002','M000006');
-Insert into MEETUP_LIKE (MEETUP_ID,MEM_ID) values ( 'MP000003','M000004');
-Insert into MEETUP_LIKE (MEETUP_ID,MEM_ID) values ( 'MP000003','M000006');
-Insert into MEETUP_LIKE (MEETUP_ID,MEM_ID) values ( 'MP000004','M000005');
-Insert into MEETUP_LIKE (MEETUP_ID,MEM_ID) values ( 'MP000004','M000002');
-Insert into MEETUP_LIKE (MEETUP_ID,MEM_ID) values ( 'MP000005','M000003');
-Insert into MEETUP_LIKE (MEETUP_ID,MEM_ID) values ( 'MP000005','M000001');
-Insert into MEETUP_LIKE (MEETUP_ID,MEM_ID) values ( 'MP000006','M000002');
+Insert into MEETUP_LIKE (MEETUP_ID,MEM_ID) values ( 'MP000002','M000004');
+Insert into MEETUP_LIKE (MEETUP_ID,MEM_ID) values ( 'MP000003','M000003');
+Insert into MEETUP_LIKE (MEETUP_ID,MEM_ID) values ( 'MP000004','M000006');
+Insert into MEETUP_LIKE (MEETUP_ID,MEM_ID) values ( 'MP000005','M000007');
+Insert into MEETUP_LIKE (MEETUP_ID,MEM_ID) values ( 'MP000006','M000008');
+Insert into MEETUP_LIKE (MEETUP_ID,MEM_ID) values ( 'MP000007','M000009');
+Insert into MEETUP_LIKE (MEETUP_ID,MEM_ID) values ( 'MP000008','M000010');
+Insert into MEETUP_LIKE (MEETUP_ID,MEM_ID) values ( 'MP000009','M000011');
+Insert into MEETUP_LIKE (MEETUP_ID,MEM_ID) values ( 'MP000010','M000012');
+Insert into MEETUP_LIKE (MEETUP_ID,MEM_ID) values ( 'MP000011','M000013');
 ----------------------------
 --  for Table MEETUP_REPORT
 ----------------------------
@@ -848,13 +905,13 @@ NOCACHE;
 --REPER_ID → MEM
 --MEETUP_ID → MEETUP
 Insert into MEETUP_REP (MEETUP_REP_ID,MEETUP_ID,MEM_ID,REP_CONTENT,REP_DATE,REP_STATUS,REP_ANS,REP_ANS_DATE)
-  values ( 'MPREP'||LPAD(to_char(meetup_rep_seq.NEXTVAL), 6, '0'),'MP000003','M000001','怪怪的',
+  values ( 'MPREP'||LPAD(to_char(meetup_rep_seq.NEXTVAL), 6, '0'),'MP000003','M000001','母湯',
         TO_TIMESTAMP('2019-3-1 22', 'syyyy-mm-dd hh24'),'1','真的怪怪的', SYSTIMESTAMP);
 Insert into MEETUP_REP (MEETUP_REP_ID,MEETUP_ID,MEM_ID,REP_CONTENT,REP_DATE,REP_STATUS,REP_ANS,REP_ANS_DATE)
-  values ( 'MPREP'||LPAD(to_char(meetup_rep_seq.NEXTVAL), 6, '0'),'MP000004','M000001','怪怪的',
+  values ( 'MPREP'||LPAD(to_char(meetup_rep_seq.NEXTVAL), 6, '0'),'MP000004','M000002','怪怪的',
         TO_TIMESTAMP('2019-2-15 22', 'syyyy-mm-dd hh24'),'1','真的怪怪的', SYSTIMESTAMP);
 Insert into MEETUP_REP (MEETUP_REP_ID,MEETUP_ID,MEM_ID,REP_CONTENT,REP_DATE,REP_STATUS,REP_ANS,REP_ANS_DATE)
-  values ( 'MPREP'||LPAD(to_char(meetup_rep_seq.NEXTVAL), 6, '0'),'MP000006','M000001','怪怪的',
+  values ( 'MPREP'||LPAD(to_char(meetup_rep_seq.NEXTVAL), 6, '0'),'MP000006','M000003','圖文不符',
         TO_TIMESTAMP('2019-1-1 22', 'syyyy-mm-dd hh24'),'1','真的怪怪的', SYSTIMESTAMP); 
 ------------------------------------------------
 -- for Table PRODUCT

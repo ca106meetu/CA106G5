@@ -42,7 +42,7 @@ public class MeetupDAO implements MeetupDAO_interface{
 
 	private static final String INSERT_FOUNDER_STMT = "INSERT INTO MEETUP_MEM (meetup_ID, mem_ID, mem_showup) VALUES (?,?,?)";
 	
-	private static final String HOMEPAGE = "SELECT * FROM MEETUP WHERE ROWNUM <=3 order by meetup_ID desc";//for HomePG
+	private static final String HOMEPAGE = "SELECT * FROM MEETUP WHERE ROWNUM <=3";//for HomePG
 	
 	@Override
 	public void insert(MeetupVO meetupVO) {
