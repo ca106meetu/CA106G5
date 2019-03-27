@@ -10,7 +10,7 @@
 	OrderDetailService odSvc = new OrderDetailService();
 	OrderMasterService omSvc = new OrderMasterService();
 	String order_ID = request.getParameter("order_ID");
-	List<OrderDetailVO> list = odSvc.findOdByOm(order_ID); 
+	List<OrderDetailVO> list = odSvc.findOdByOm(order_ID);
 	pageContext.setAttribute("list", list);
 
 	
@@ -53,7 +53,7 @@
     <title>訂單明細</title> 
   </head>
   <body>
-    <jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
+    <jsp:include page="/Templates/bootstrap4/backHeader.jsp" />
     
     <div class='container'>
  <table id = 'table-1'>
@@ -117,7 +117,7 @@
     
     
     
-    <jsp:include page="/Templates/bootstrap4/frontFooter.jsp" />
+    <jsp:include page="/Templates/bootstrap4/backFooter.jsp" />
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

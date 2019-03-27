@@ -145,6 +145,8 @@
 <input type="hidden" name="action" value="update">
 <input type="hidden" name="order_ID" value="<%=omVO.getOrder_ID()%>">
 <input type='hidden' name='whichPage' value='${param.whichPage}'>
+<input type='hidden' name='mem_ID' value='${param.mem_ID}'>
+<input type='hidden' name='location' value='${param.location}'>
 <button type='submit' class="btn btn-outline-success">送出修改</button>
 </FORM>
 </div>

@@ -48,17 +48,28 @@
     
     <div class="container">
       <div class="row">
-        <div class="col-5"><h3>商品</h3></div>
+        <div class="col-1"></div>
+        <div class="col-4"><h3>商品</h3></div>
         <div class="col-3"><h3>單價</h3></div>
         <div class="col-2"><h3>數量</h3></div>
         <div class="col-2"><h3>總計</h3></div>
       </div>
-      <br><br>
       
+      <br>
+      <hr>
       <c:forEach var="prodVO" items= "${shoppingCart}">
       <div class="row align-items-center">
-        <div class="col-1"><img class='pic' src='/CA106G5/ShowPic?PROD_ID=${prodVO.prod_ID}'></div>
-        <div class="col-2">${prodVO.prod_name}</div>
+        <div class="col-1">
+	        <a href='<%=request.getContextPath()%>/FrontEnd/cart/prodDetail.jsp?prod_ID=${prodVO.prod_ID}'>
+	        	<img class='pic' src='/CA106G5/ShowPic?PROD_ID=${prodVO.prod_ID}'>
+	        </a>
+        </div>
+        
+        <div class="col-2">
+        	<a href='<%=request.getContextPath()%>/FrontEnd/cart/prodDetail.jsp?prod_ID=${prodVO.prod_ID}'>
+        		${prodVO.prod_name}
+        	</a>
+        </div>
         <div class="col-2"></div>
         <div class="col-3">$${prodVO.prod_price}</div>
         <div class="col-2">${prodVO.quantity}</div>
@@ -163,7 +174,7 @@
 					${(memVO.mem_get_point-amount) < 0 ? 'disabled="disabled"' : ''}>${(memVO.mem_get_point-amount) < 0 ? '餘額不足請儲值' : '確認付款'}</button>
 			</form>
       
-      
+      	<br>
       </div>
       <div class='col-3'></div>
       

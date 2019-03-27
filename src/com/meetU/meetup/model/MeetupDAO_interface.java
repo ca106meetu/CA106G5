@@ -1,6 +1,7 @@
 package com.meetU.meetup.model;
 
 import java.util.List;
+import java.util.Set;
 
 public interface MeetupDAO_interface {
 	
@@ -15,4 +16,5 @@ public interface MeetupDAO_interface {
 	public List <MeetupVO> getHostAll(String mem_ID);
 	public List<MeetupVO> getSearchName(String name);
 	public List<MeetupVO> getSearchLoc(String location);
+	public Set<MeetupVO> homePG();
 }

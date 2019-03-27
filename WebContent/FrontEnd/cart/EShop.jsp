@@ -91,17 +91,21 @@
 	if(3*j+i <= list.size()-1){
 	ProductVO prodVO = list.get(3*j+i);
 	Integer	max = prodVO.getProd_stock();
-		
+		 
 	%>	
   <div class="card ">
   	<a href='<%=request.getContextPath()%>/FrontEnd/cart/prodDetail.jsp?prod_ID=<%=prodVO.getProd_ID()%>'><img src="/CA106G5/ShowPic?PROD_ID=<%=prodVO.getProd_ID()%>" id='pic' class="card-img-top"></a>
     <div class="card-body ">
-      <h5 class="card-title"><%=prodVO.getProd_name()%></h5>
+      <h5 class="card-title">
+      			 <a href='<%=request.getContextPath()%>/FrontEnd/cart/prodDetail.jsp?prod_ID=${prodVO.prod_ID}' class="card-link">	
+	        		<%=prodVO.getProd_name()%>
+	        	</a>
+	  </h5>
       <p class="card-text text-warning"><%=prodVO.getProd_info()%></p>
-      <p class="card-text text-warning">商品庫存量:  <%=prodVO.getProd_stock()%></p>
+      <p class="card-text text-success">商品庫存量:  <%=prodVO.getProd_stock()%></p>
     </div>
     <div class="card-footer">
-      <small class="text-muted" >價錢: <%=prodVO.getProd_price().intValue()%> 元</small>
+      <h3 class="text-muted" >$ <%=prodVO.getProd_price().intValue()%> TWD</h3>
      
      
 	  	<div class="input-group mb-3">
