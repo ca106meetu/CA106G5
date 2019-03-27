@@ -85,11 +85,18 @@
 
 	<%@ include file="page1.file" %> 
 		
+		<div class='row'>
+	 	<div class='col-9'><hr></div>
+	 	</div>
 		<div class="row">
 		<div class="col-3" style="color:#0a0ac3"><h3>訂單編號 </h3></div>
         <div class="col-3" style="color:#0a0ac3"><h3>訂單金額 </h3></div>
         <div class="col-3" style="color:#0a0ac3"><h3>下訂日期 </h3></div>
         </div>
+        <div class='row'>
+	 	<div class='col-9'><hr></div>
+	 	</div>
+        
 	<jsp:useBean id='memSvc' scope='page' class='com.meetU.mem.model.MemService'/>
 	<c:forEach var="omVO" items= "${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 
@@ -100,14 +107,14 @@
           
         <p>
           <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#${omVO.order_ID}" aria-expanded="false" aria-controls="collapseExample">
-            	【${omVO.order_ID}】
+            	<h4>【${omVO.order_ID}】</h4>
           </button>
         </p>
         
 
         </div>
-        <div class="col-3">${omVO.price}</div>
-        <div class="col-3"><fmt:formatDate value="${omVO.order_date}" pattern="yyyy-MM-dd HH:mm" /></div>
+        <div class="col-3"><h4>${omVO.price}</h4></div>
+        <div class="col-3"><h4><fmt:formatDate value="${omVO.order_date}" pattern="yyyy-MM-dd HH:mm" /></h4></div>
       </div>
       <div class="row">
         <div class="collapse" id="${omVO.order_ID}">
