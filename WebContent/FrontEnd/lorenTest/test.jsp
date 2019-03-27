@@ -80,7 +80,7 @@
                 <!-- Logo Area Start -->
                 <div class="col-12">
                     <div class="logo_area text-center">
-                        <a href="index.html" class="yummy-logo">MeetU</a>
+                        <a href="" class="yummy-logo">MeetU</a>
                     </div>
                 </div>
             </div>
