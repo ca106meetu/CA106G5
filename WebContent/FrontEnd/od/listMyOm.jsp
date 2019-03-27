@@ -151,7 +151,7 @@
       <div class="col-6 t">出貨日期</div>
       <div class="col-6 d">
       	${omVO.out_date != null ? '' : '<font style="color:red;">待出貨</font>'}
-      	<fmt:formatDate value="${omVO.out_date != null ? 'omVO.out_date' : ''}" pattern="yyyy-MM-dd HH:mm" />
+      	<fmt:formatDate value="${omVO.out_date}" pattern="yyyy-MM-dd HH:mm" />
       </div>
     </div>
     <div class="row inner border border-info rounded">
