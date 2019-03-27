@@ -25,7 +25,7 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
 
-<title>成為直播主 - addLiveHome.jsp</title>
+<title>成為直播主</title>
 
 
 <style>
@@ -68,6 +68,12 @@ table, th, td {
 th, td {
 	padding: 1px;
 }
+
+.bg-warning {
+    
+    margin-top: 170px;
+}
+
 </style>
 
 </head>
@@ -75,10 +81,17 @@ th, td {
 	<jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
 
 
-	<table id="table-1">
+
+
+<div class="container-fluid">
+			<div class="row">
+				
+				<div class="col-4"><div class="xxx"></div></div>
+				<div class="col-4">     
+				<table id="table-1">
 		<tr>
 			<td>
-				<h3>成為直播主 - addLiveHome.jsp</h3>
+				<h3>成為直播主</h3>
 			</td>
 			<td>
 				<h4>
@@ -130,6 +143,19 @@ th, td {
 		<br> <input type="hidden" name="action" value="insertHome"> <input
 			type="submit" value="送出新增">
 	</FORM>
+				
+				                  </div>
+				<div class="col-4"><div class="xxx"></div></div>
+				
+			</div>
+		</div>
+
+
+
+
+
+
+	
 	<script>
 		function readURL(input) {
 			var reader = new FileReader();
