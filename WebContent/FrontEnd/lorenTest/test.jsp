@@ -27,7 +27,7 @@
   MeetupService meetupSvc = new MeetupService();
   Set<MeetupVO> meetupSet = meetupSvc.gethomePG();
   pageContext.setAttribute("meetupSet", meetupSet);
-  MemService memSvc = new MemService();
+
 %>
 
 <!doctype html>
@@ -152,7 +152,7 @@
         </div>
     </section>
     <!-- ****** Categories Area End ****** -->
-
+<jsp:useBean id="memSvc" scope="page" class="com.meetU.mem.model.MemService"/>
     <!-- ****** Blog Area Start ****** -->
     <section class="blog_area section_padding_0_80">
         <div class="container">
@@ -163,7 +163,7 @@
               	  <div class="list-blog single-post d-sm-flex wow fadeInUpBig" data-wow-delay=".2s">
                   <!-- Post Thumb -->
 	                  <div class="post-thumb">
-	                	   <img src="<%=request.getContextPath()%>/CA106G5/ShowPic?MEETUP_ID=${meetupVO.meetup_ID}" alt="">
+	                	   <img src="/CA106G5/ShowPic?MEETUP_ID=${meetupVO.meetup_ID}" alt="${meetupVO.meetup_ID}">
 	                  </div>
                   	 <!-- Post Content -->
                       <div class="post-content">
@@ -171,7 +171,7 @@
                         	  <div class="post-author-date-area d-flex">
                         		   <!-- Post Author -->
                                    <div class="post-author">
-                                      <a href="#">By ${memSvc.getOneMem(meetupVO.getMem_ID()).mem_nickname}</a>
+                                      <a href="#">By ${memSvc.getOneMem(meetupVO.mem_ID).mem_nickname}</a>
                                    </div>
                                    <!-- Post Date -->
                                    <div class="post-date">
