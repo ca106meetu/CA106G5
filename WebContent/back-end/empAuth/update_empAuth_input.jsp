@@ -104,7 +104,7 @@
 	<tr>
 		<td>員工名稱:<font color=red><b>*</b></font></td>
 		<td>
-			 ${empVO.emp_name}
+			 ${empVO2.emp_name}
 		</td>
 	</tr>
 		<jsp:useBean id="authSvc" scope="page" class="com.meetU.auth.model.AuthService" />
@@ -122,7 +122,7 @@
 </table>
 <br>
 <input type="hidden" name="action" value="update">
-<input type="hidden" name="emp_ID" value="${empVO.emp_ID}">
+<input type="hidden" name="emp_ID" value="${empVO2.emp_ID}">
 <button class="btn btn-outline-info" type="submit">送出修改</button>
 </FORM>
 </center>

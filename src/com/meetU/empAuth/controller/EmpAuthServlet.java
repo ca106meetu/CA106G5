@@ -200,7 +200,7 @@ public class EmpAuthServlet extends HttpServlet {
 				EmpVO empVO = empSvc.getOneEmp(emp_ID);
 								
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
-				req.getSession().setAttribute("empVO", empVO);
+				req.getSession().setAttribute("empVO2", empVO);
 				req.getSession().setAttribute("listEmpAuthVO", listEmpAuthVO);         // 資料庫取出的empAuthVO物件,存入req //???
 				req.getSession().setAttribute("listAuth_ID", listAuth_ID);         // 資料庫取出的empAuthVO物件,存入req //???
 				String url = "/back-end/empAuth/update_empAuth_input.jsp";
