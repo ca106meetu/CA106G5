@@ -3,6 +3,7 @@ package com.meetU.meetup.model;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Set;
 
 public class MeetupService {
 	
@@ -81,5 +82,9 @@ public class MeetupService {
 	
 	public List<MeetupVO> getVisibleAll() {
 		return dao.getVisibleAll();
+	}
+	
+	public Set<MeetupVO> gethomePG() {
+		return dao.homePG();
 	}
 }
