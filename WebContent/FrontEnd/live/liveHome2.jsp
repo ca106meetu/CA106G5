@@ -370,7 +370,7 @@ html,body {
     var host = window.location.host;
     var path = window.location.pathname;
     var webCtx = path.substring(0, path.indexOf('/', 1));
-    var endPointURL = "ws://" + window.location.host + MyPoint;
+    var endPointURL = "wss://" + window.location.host + MyPoint;
     
 	var statusOutput = document.getElementById("statusOutput");
 	var webSocket;
@@ -474,7 +474,7 @@ html,body {
     var host2 = window.location.host;
     var path2 = window.location.pathname;
     
-    var endPointURL2 = "ws://" + window.location.host + MyPoint2;
+    var endPointURL2 = "wss://" + window.location.host + MyPoint2;
 	var webSocket2;
 	
 	function connect2() {

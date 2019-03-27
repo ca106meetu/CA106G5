@@ -281,7 +281,7 @@ font: 100px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft Jh
     var host2 = window.location.host;
     var path2 = window.location.pathname;
     
-    var endPointURL2 = "ws://" + window.location.host + MyPoint2;
+    var endPointURL2 = "wss://" + window.location.host + MyPoint2;
     var webSocket2;
 	
 	function connect2() {

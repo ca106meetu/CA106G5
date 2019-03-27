@@ -7,7 +7,7 @@
 %>
 
 <!doctype html>
-<html lang="zh-Hant-TW">
+<html lang="zh-Hant-TW"> 
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
