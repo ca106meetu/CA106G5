@@ -125,8 +125,8 @@
           		<p>報名截止 : <fmt:formatDate value="${meetupVO.meetup_joindate}" pattern="yyyy-MM-dd"/></p>
           		<p>聯誼地點 : <%=meetupVO.getMeetup_loc()%></p>
           		<p>聯誼主揪 : <%=memSvc.getOneMem(meetupVO.getMem_ID()).getMem_nickname()%></p>
-				<p>至少 <%=meetupVO.getMeetup_minppl()%> 人成團</p>
-				<p>至多 <font style="color:red" > <%=meetupVO.getMeetup_maxppl()%> </font>人滿團</p>
+				<p>至少 <font style="color:#3CB371" ><%=meetupVO.getMeetup_minppl()%> </font>人成團</p>
+				<p>至多 <font style="color:#3CB371" > <%=meetupVO.getMeetup_maxppl()%> </font>人滿團</p>
 		
 		  	<div class="btnAjax">        			
 	          	<c:choose>

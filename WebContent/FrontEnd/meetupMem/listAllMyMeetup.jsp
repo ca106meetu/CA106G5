@@ -41,22 +41,20 @@
 		height:auto;
 	}
     
-    .itemImg{
-		width: 150px;
-		height: 150px;
-		align:center;
-	}
-    
-    .itemTitle{
-    	width:180px;
-    	margin:0px;
-  		font-weight: bold;
-  	}
+     .itemImg{ 
+ 		width: 150px; 
+ 		height: 150px;
+ 		align:center; 
+ 	} 
     
     *{
     	font-family:微軟正黑體;	
     }
     
+    .title{
+    	font-weight: bold;
+    	text-align:center; 
+    }
     .cart-item {
 		position: relative;
 		margin-bottom: 30px;
@@ -65,25 +63,11 @@
 		box-shadow: 0 12px 20px 1px rgba(64, 64, 64, .09);
 	}
 	
-	.itemImg, .itemTitle, .itemEdit{
-    	float:left;
-		margin:20px;
-    	height: 150px;
-    	line-height:150px;
-    	text-align:center;
-    }
-    
-    .itemEdit{
-    	width:150px;
-    }
-    
-    .itemEdit .textRate{
-    	margin-top:35%;
-    	height: 30px;
-    	line-height:30px;
-    	text-align:center;
-    	width:150px;
-    }
+ 	.itemImg, .itemTitle, .itemEdit{ 
+     	height: 150px; 
+     	line-height:150px; 
+     	text-align:center; 
+     } 
     
 </style>
 </head>
@@ -103,14 +87,16 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col cart-item">
-		    <div class="itemHeader">
-		    	<div class="itemImg">
-		    	
-		    </div></div></div></div>
-<c:forEach var="meetupMemVO" items="${listAll}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">	
+		<div class="col-2 cart-item title">Cover</div>
+		<div class="col-3 cart-item title">Name</div>
+		<div class="col-2 cart-item title">Status</div>
+		<div class="col-2 cart-item title">Rating</div>
+		<div class="col-2 cart-item title">Delete</div>
+		<div class="col-1 cart-item"></div>
+	</div>
+	<c:forEach var="meetupMemVO" items="${listAll}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">	
 	<div class="row">
-		<div class="col cart-item">
+		<div class="col-2 cart-item">
 		    <div class="itemImg">
                 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do">
                     <input type=hidden name=meetup_ID value="${meetupMemVO.meetup_ID}">
@@ -118,7 +104,8 @@
                     <input class='pic' type='image' src='/CA106G5/ShowPic?MEETUP_ID=${meetupMemVO.meetup_ID}' alt='submit'>                    
                  </FORM>
             </div>
-            
+         </div>  
+         <div class="col-3 cart-item"> 
             <div class="itemTitle">
             	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do">
                     <button type="submit" class="btn btn-light">${meetupSvc.getOneMeetup(meetupMemVO.meetup_ID).meetup_name}</button>
@@ -126,18 +113,20 @@
                     <input type="hidden" name="action"  value="getOne_For_Display">
             	</FORM>
       		</div>
-          		
+          </div>
+          <div class="col-2 cart-item">		
       		<div class="itemEdit">
 	      			<c:choose>
 						<c:when test="${meetupSvc.getOneMeetup(meetupMemVO.meetup_ID).meetup_date.compareTo(currentTime)<0}">
-							<p><font style="color:red">活動已結束</font></p>
+							<B><font style="color:#FF1493">活動已結束</font></B>
 						</c:when>					
 	  					<c:otherwise>
-	  						<p><font style="color:blue">未來的活動</font></p>
+	  						<B><font style="color:#6495ED">未來的活動</font></B>
 	  					</c:otherwise>	
 					</c:choose>  								      				
 			</div>
-			
+		   </div>
+		   <div class="col-2 cart-item">			
 			<div class="itemEdit">
 				<form METHOD="post" ACTION="<%=request.getContextPath()%>/FrontEnd/meetupMem/meetupMem.do" >
 				<c:if test="${meetupSvc.getOneMeetup(meetupMemVO.meetup_ID).meetup_date.compareTo(currentTime)<0 and meetupSvc.getOneMeetup(meetupMemVO.meetup_ID).mem_ID!=memVO.mem_ID}">
@@ -152,7 +141,8 @@
 	  					<input type="submit" class="btn btn-warning" disabled value="尚未開放評價">
 				</c:if>
 			</div>
-			    
+		</div>
+		<div class="col-2 cart-item">		    
 			<div class="itemEdit">
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/FrontEnd/meetupMem/meetupMem.do" >
 			  	<c:if test="${meetupSvc.getOneMeetup(meetupMemVO.meetup_ID).mem_ID!=memVO.mem_ID}">
@@ -165,9 +155,11 @@
 			  </FORM>
 			</div>
 	    </div>
-   </div>    
-</c:forEach>
+	    <div class="col-1 cart-item"></div>
+	   </div>
+	</c:forEach>
 </div>
+   
 
 <%@ include file="page2.file" %>
 

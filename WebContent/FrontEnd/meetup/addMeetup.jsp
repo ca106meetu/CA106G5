@@ -80,7 +80,7 @@
           		<li>聯誼時間 <input type="text" class="form-control" name="meetup_date" id="f_date1"/></li>
           		<li>報名截止 <input type="text" class="form-control" name="meetup_joindate" id="f_date2"/></li>
           		<li>人數下限<select name="meetup_minppl" class="form-control" id="minppl">
-								  <%for(int i=1; i<100; i++){%>
+								  <%for(int i=0; i<100; i++){%>
 								  	<option value="<%=i%>"> <%=i%>
 							  		</option>
 						      	  <%} %>
