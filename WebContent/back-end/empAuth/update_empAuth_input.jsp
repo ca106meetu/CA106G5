@@ -28,7 +28,7 @@
 	background-color: #CCCCFF;
     border: 2px solid black;
     text-align: center;
-  }
+  } 
   table#table-1 h4 {
     color: red;
     display: block;

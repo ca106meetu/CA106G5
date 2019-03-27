@@ -176,7 +176,7 @@ public class EmpAuthServlet extends HttpServlet {
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/back-end/empAuth/select_page.jsp");
 				failureView.forward(req, res);
-			}
+			} 
 		}
 		if ("getAuths_For_Update".equals(action)) { // 來自listAllEmp.jsp的請求
 
