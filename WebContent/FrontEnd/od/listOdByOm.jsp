@@ -75,32 +75,35 @@
 	</ul>
 </c:if>
 
-<table>
-	<tr>
-		<th>商品名稱</th>
-		<th>類型</th>
-		<th>商品單價</th>
-		<th>數量</th>
-		<th>圖片</th>
-	</tr>
-	
+
+	<div class='row'>
+	<div class="col-3" style="color:#0a0ac3"><h3>商品名稱 </h3></div>
+    <div class="col-2" style="color:#0a0ac3"><h3>商品單價 </h3></div>
+    <div class="col-1" style="color:#0a0ac3"><h3>數量 </h3></div>
+    <div class="col-6" style="color:#0a0ac3"><h3>圖片 </h3></div>
+	</div>
+	<div class='row'>
+ 	<div class='col-9'><hr></div>
+ 	</div>
 	<jsp:useBean id='prodSvc' scope='page' class='com.meetU.product.model.ProductService'/>
 	<c:forEach var="odVO" items= "${list}" begin="0" end="${list.size()-1}" >
 		
-		<tr>
+		
 		
 			<c:set scope="page" var="prod_type">
     				<c:out value="${prodSvc.getOneProd(odVO.prod_ID).prod_type}"/>  
 			</c:set>
-			<td>${prodSvc.getOneProd(odVO.prod_ID).prod_name}</td>
-			<td>${pt[prod_type]}</td>
-			<td>${odVO.price}</td>
-			<td>${odVO.quantity}</td>
-			<td><img class='pic' src='/CA106G5/ShowPic?PROD_ID=${prodSvc.getOneProd(odVO.prod_ID).prod_ID}'></td>
-		</tr>
- 	
+			<div class='row'>		
+			<div class="col-3"><h4>${prodSvc.getOneProd(odVO.prod_ID).prod_name}</h4></div>
+		    <div class="col-2"><h4>${odVO.price}</h4></div>
+		    <div class="col-1"><h4>${odVO.quantity}</h4></div>
+		    <div class="col-6"><img class='pic' src='/CA106G5/ShowPic?PROD_ID=${prodSvc.getOneProd(odVO.prod_ID).prod_ID}'></div>
+			</div>
+ 	<div class='row'>
+ 	<div class='col-9'><hr></div>
+ 	</div>
 	</c:forEach>
-</table> 
+
     
     </div> 
     

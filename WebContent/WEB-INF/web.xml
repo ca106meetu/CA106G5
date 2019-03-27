@@ -16,6 +16,66 @@
   <listener>
     <listener-class>com.meetU.toolClass.InitializeStatus</listener-class>
   </listener>
+  
+  <servlet>
+    <servlet-name>android_MemServlet</servlet-name>
+    <servlet-class>android.com.meetU.mem.controller.android_MemServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>android_MemServlet</servlet-name>
+    <url-pattern>/Android/android_MemServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>android_LiveServlet</servlet-name>
+    <servlet-class>android.com.meetU.live.controller.android_LiveServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>android_LiveServlet</servlet-name>
+    <url-pattern>/Android/android_LiveServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>android_Live_likeServlet</servlet-name>
+    <servlet-class>android.com.meetU.live_like.controller.android_Live_likeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>android_Live_likeServlet</servlet-name>
+    <url-pattern>/Android/android_Live_likeServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>android_FriendServlet</servlet-name>
+    <servlet-class>android.com.meetU.friend.controller.android_FriendServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>android_FriendServlet</servlet-name>
+    <url-pattern>/Android/android_FriendServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>android_MeetupServlet</servlet-name>
+    <servlet-class>android.com.meetU.meetup.controller.android_MeetupServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>android_MeetupServlet</servlet-name>
+    <url-pattern>/Android/android_MeetupServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>android_MeetupLikeServlet</servlet-name>
+    <servlet-class>android.com.meetU.meetup_like.controller.android_MeetupLikeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>android_MeetupLikeServlet</servlet-name>
+    <url-pattern>/Android/android_MeetupLikeServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>android_MeetupMemServlet</servlet-name>
+    <servlet-class>android.com.meetU.meetup_mem.controller.android_MeetupMemServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>android_MeetupMemServlet</servlet-name>
+    <url-pattern>/Android/android_MeetupMemServlet</url-pattern>
+  </servlet-mapping>
+  
+  
+  
   <servlet>
     <servlet-name>ProdServlet</servlet-name>
     <servlet-class>com.meetU.product.controller.ProdServlet</servlet-class>

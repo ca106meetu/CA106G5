@@ -1,28 +1,33 @@
-<%@page import="com.meetU.pointRec.model.PointRecVO"%>
-<%@page import="com.meetU.pointRec.model.PrService"%>
-<%@page import="com.meetU.mem.model.MemVO"%>
+<%@page import="com.meetU.orderDetail.model.OrderDetailVO"%>
+<%@page import="com.meetU.orderDetail.model.OrderDetailService"%>
+<%@page import="com.meetU.orderMaster.model.OrderMasterVO"%>
+<%@page import="com.meetU.orderMaster.model.OrderMasterService"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <%
-	PrService prSvc = new PrService();
-	MemVO memVO = (MemVO) session.getAttribute("memVO");
-	List<PointRecVO> list = prSvc.getPrByMem(memVO.getMem_ID());
+	OrderDetailService odSvc = new OrderDetailService();
+	OrderMasterService omSvc = new OrderMasterService();
+	String order_ID = request.getParameter("order_ID");
+	List<OrderDetailVO> list = odSvc.findOdByOm(order_ID);
 	pageContext.setAttribute("list", list);
+
+	
+	java.text.DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
+	String order_date = df.format(omSvc.getOneOm(order_ID).getOrder_date());
 %>
 
 <!doctype html>
 <html lang="en">
   <head>
-
-  <link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
   	<link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
   <style>
 	.pic{
-		width:172.5px;
-		height:230px;
-	}
+		width:86.25px;
+		height:115px;
+		}
 	table {
 	width: 800px;
 	background-color: white;
@@ -34,7 +39,7 @@
   }
   th, td {
     padding: 2px;
-    text-align: center; 
+    text-align: center;
   }
 	
 </style>
@@ -45,33 +50,21 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/Templates/bootstrap4/css/bootstrap.min.css">
 
-    <title>儲值紀錄</title> 
+    <title>訂單明細</title> 
   </head>
   <body>
     <jsp:include page="/Templates/bootstrap4/frontHeader.jsp" />
     
-    <hr>
-<div class='container'>
- 	<div class='row'>
-	<%@ include file="page1.file" %> 
-	</div>
- 	<div class='row'>
- 	
- 	<table id = 'table-1'>
-	<tr><td>
-		<h3>${memVO.mem_name}的儲值紀錄</h3>
-	
-	
-	</td>
-	
-	
+    <div class='container'>
+ <table id = 'table-1'>
+	<tr>
+		<td>
+			<h3>訂單明細【<%=order_ID%>】</h3>
+			<h4>訂單成立時間: <%=order_date%></h4>
+		</td>
 	</tr>
-
-
-
-
 </table>
- 
+
 <%-- 錯誤列表 --%>
 <c:if test='${not empty errorMsgs }'>
 	<font style='color:red'>請修正以下錯誤</font>
@@ -84,37 +77,32 @@
 
 <table>
 	<tr>
-		<th>儲值編號</th>
-		<th>儲值金額</th>
-		<th>儲值日期</th>
-
+		<th>商品名稱</th>
+		<th>類型</th>
+		<th>商品單價</th>
+		<th>數量</th>
+		<th>圖片</th>
 	</tr>
 	
-	<jsp:useBean id='memSvc' scope='page' class='com.meetU.mem.model.MemService'/>
-	<c:forEach var="prVO" items= "${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+	<jsp:useBean id='prodSvc' scope='page' class='com.meetU.product.model.ProductService'/>
+	<c:forEach var="odVO" items= "${list}" begin="0" end="${list.size()-1}" >
+		
 		<tr>
-			<td>${prVO.rec_ID}</td>
-			<td>${prVO.amount}</td>
-			<td>
-			<fmt:formatDate value="${prVO.rec_date}" pattern="yyyy-MM-dd HH:mm" />
-			</td>
-			
+		
+			<c:set scope="page" var="prod_type">
+    				<c:out value="${prodSvc.getOneProd(odVO.prod_ID).prod_type}"/>  
+			</c:set>
+			<td>${prodSvc.getOneProd(odVO.prod_ID).prod_name}</td>
+			<td>${pt[prod_type]}</td>
+			<td>${odVO.price}</td>
+			<td>${odVO.quantity}</td>
+			<td><img class='pic' src='/CA106G5/ShowPic?PROD_ID=${prodSvc.getOneProd(odVO.prod_ID).prod_ID}'></td>
 		</tr>
  	
 	</c:forEach>
-</table>
- 	
- 	</div>
- 	
- 	
-<%@ include file="page2.file" %> 
- 	
- 	
-</div>
- 
- 
+</table> 
     
-    
+    </div> 
     
     
     

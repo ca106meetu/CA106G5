@@ -17,6 +17,20 @@
     <link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
   	<link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
   <style>
+  
+  .t {
+  	color:black;
+  }
+  .d {
+  	color:blue;
+  }
+  
+  .card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.25rem;
+    width: 800px;
+}
 	.pic{
 		width:172.5px;
 		height:230px;
@@ -78,50 +92,114 @@
 </c:if>
 
 	<%@ include file="page1.file" %> 
-<table>
-	<tr>
-		<th>商品編號</th>
-		<th>商品名稱</th>
-		<th>商品價格</th>
-		<th>類型</th>
-		<th>庫存量</th>
-		<th>圖片</th>
-		<th>促銷狀態</th>
-		<th>上架狀態</th>
-		<th>商品資訊</th>
-		<th>修改</th>
-	</tr>
+
+		<div class='row'>
+	 	<div class='col-9'><hr></div>
+	 	</div>
+		<div class="row">
+		<div class="col-3" style="color:#0a0ac3"><h3>商品編號 </h3></div>
+        <div class="col-3" style="color:#0a0ac3"><h3>商品名稱 </h3></div>
+        <div class="col-3" style="color:#0a0ac3"><h3>上架狀態 </h3></div>
+        </div>
+        <div class='row'>
+	 	<div class='col-9'><hr></div>
+	 	</div>
+	
 	<%
 		if(request.getAttribute("lastPage") != null &&(boolean)request.getAttribute("lastPage")){
 			pageIndex = pageIndexArray[pageNumber-1];
 		}
 	%>
 	<c:forEach var="prodVO" items= "${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" varStatus='status'>
-		<tr ${(prodVO.prod_ID==param.prod_ID) ? 'bgcolor=#AFEEEE':''}>
-			<td>${prodVO.prod_ID}</td>
-			<td>${prodVO.prod_name}</td>
-			<td>${prodVO.prod_price}</td>
-			<td>${pt[prodVO.prod_type]}</td>
-			<td>${prodVO.prod_stock}</td>
-			<td><img class='pic' src='/CA106G5/ShowPic?PROD_ID=${prodVO.prod_ID}'></td>
-			<td>${pps[prodVO.prod_promt_status]}</td>
-			<td>${ps[prodVO.prod_status]}</td>
-			<td>${prodVO.prod_info}</td>
-			<td>
-				<form method='post' action='prod.do' style="margin-bottom: 0px;">
+
+
+
+		<div class="row" ${(prodVO.prod_ID==param.prod_ID) ?  'style="background-color:#AFEEEE;"':''}>
+        <div class="col-3">
+          
+        <p>
+          <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#${prodVO.prod_ID}" aria-expanded="false" aria-controls="collapseExample">
+            	<h4>【${prodVO.prod_ID}】</h4>
+          </button>
+        </p>
+        
+
+        </div>
+        <div class="col-3"><h4>${prodVO.prod_name}</h4></div>
+        <div class="col-3"><h4>${ps[prodVO.prod_status]}</h4></div>
+      </div>
+
+	<div class="row">
+        <div class="collapse" id="${prodVO.prod_ID}">
+          <div class="card card-body" style='border:0px;'>
+	<div class="row">
+	<div class='col-6'>
+    <div class="row inner border border-info rounded">
+      <div class="col-6 t">商品編號</div>
+      <div class="col-6 d">${prodVO.prod_ID}</div>
+    </div>
+    <div class="row inner border border-info rounded">
+      <div class="col-6 t">商品名稱</div>
+      <div class="col-6 d">${prodVO.prod_name}</div>
+    </div>
+    <div class="row inner border border-info rounded">
+      <div class="col-6 t">商品價格</div>
+      <div class="col-6 d">${prodVO.prod_price}</div>
+    </div>
+    <div class="row inner border border-info rounded">
+      <div class="col-6 t">類型</div>
+      <div class="col-6 d">${pt[prodVO.prod_type]}</div>
+    </div>
+    <div class="row inner border border-info rounded">
+      <div class="col-6 t">庫存量</div>
+      <div class="col-6 d">${prodVO.prod_stock}</div>
+    </div>
+    <div class="row inner border border-info rounded">
+      <div class="col-6 t">促銷狀態</div>
+      <div class="col-6 d">${pps[prodVO.prod_promt_status]}</div>
+    </div>
+    <div class="row inner border border-info rounded">
+      <div class="col-6 t">上架狀態</div>
+      <div class="col-6 d">${ps[prodVO.prod_status]}</div>
+    </div>
+    <div class="row inner border border-info rounded">
+      <div class="col-6 t">商品資訊</div>
+      <div class="col-6 d">${prodVO.prod_info}</div>
+    </div>
+    <div class="row inner border border-info rounded">
+      <div class="col-6 t">修改</div>
+      <div class="col-6 d">
+      			<form method='post' action='prod.do' style="margin-bottom: 0px;">
 					<input type='submit' value='修改' class='btn btn-primary'>
 					<input type='hidden' name='prod_ID' value='${prodVO.prod_ID}'>
 					<input type='hidden' name='action' value='getOne_For_Update'>
 					<input type='hidden' name='whichPage' value='${param.whichPage}'>				
 					<input type='hidden' name='requestURL' value='<%=request.getServletPath()%>'>				
-				</form></td>
-			
-		
-		
-		</tr>
+				</form>
+	   </div> 
+    
+    
+          </div>
+
+    </div>
+<div class='col-6'>
+
+<img class='pic' src='/CA106G5/ShowPic?PROD_ID=${prodVO.prod_ID}'>
+</div>
+</div>
+   
+    
+    
+        </div>
+
+      </div>
+      
+      </div>
+		<div class='row'>
+	 	<div class='col-9'><hr></div>
+	 	</div>
  	
 	</c:forEach>
-</table> 	
 <%@ include file="page2.file" %> 
  	</div>
     
