@@ -45,13 +45,13 @@
     
 <table id="table-1">
 	<tr><td>
-		 <h4><a href="selectPage.jsp"><img src="images/back1.png" width="60"  border="0">回首頁</a></h4>
+		<h4>【${prodVO.prod_ID}】</h4>
+		 <h4><a href="selectPage.jsp"><img src="images/back1.png" width="60"  border="0">回商品管理</a></h4>
 	</td></tr>
 </table>
 
 <table>
 	<tr>
-		<th>商品編號</th>
 		<th>商品名稱</th>
 		<th>商品價格</th>
 		<th>類型</th>
@@ -64,7 +64,6 @@
 		
 	</tr>
 	<tr>
-		<td>${prodVO.prod_ID}</td>
 		<td>${prodVO.prod_name}</td>
 		<td>${prodVO.prod_price}</td>
 		<td>${pt[prodVO.prod_type]}</td>

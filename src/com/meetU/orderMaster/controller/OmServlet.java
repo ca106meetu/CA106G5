@@ -49,7 +49,6 @@ public class OmServlet extends HttpServlet {
 						, omVO.getRecipient(), omVO.getPhone(), omVO.getOut_date(), omVO.getOut_status(), omVO.getOrder_status());
 				req.setAttribute("omVO", omVO);
 				String url = req.getParameter("location");
-				System.out.println(url);
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 			} catch (Exception e) {
@@ -287,7 +286,8 @@ public class OmServlet extends HttpServlet {
 					//**********************************
 					
 					req.setAttribute("omVO", omVO);
-					String url = "/back-end/om/listAllOm.jsp";
+//					String url = "/back-end/om/listAllOm.jsp";
+					String url = req.getParameter("location");
 					RequestDispatcher successView = req.getRequestDispatcher(url);
 					successView.forward(req, res);
 					

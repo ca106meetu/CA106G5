@@ -81,7 +81,7 @@
 		<td>${ords[omVO.order_status]}</td>
 		<td>${omVO.tip}</td>
 		<td>
-			<form method='post' action='listDetail.jsp' style="margin-bottom: 0px;">
+			<form method='post' action='listOdByOm.jsp' style="margin-bottom: 0px;">
 				<input type='submit' value='查看明細' class='btn btn-warning'>
 				<input type='hidden' name='order_ID' value='${omVO.order_ID}'>
 			</form>

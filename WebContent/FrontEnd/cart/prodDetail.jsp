@@ -96,6 +96,7 @@
         </div>
       </div>
             	</form>
+            	<br>
 </div>
 <div id='menu'>
 <a class="btn btn-primary" href="cart.jsp" role="button">查看購物車</a>

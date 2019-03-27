@@ -93,11 +93,19 @@
 			<c:set scope="page" var="prod_type">
     				<c:out value="${prodSvc.getOneProd(odVO.prod_ID).prod_type}"/>  
 			</c:set>
-			<div class='row'>		
-			<div class="col-3"><h4>${prodSvc.getOneProd(odVO.prod_ID).prod_name}</h4></div>
+			<div class='row align-items-center'>		
+			<div class="col-3">
+				<a href='<%=request.getContextPath()%>/FrontEnd/cart/prodDetail.jsp?prod_ID=${odVO.prod_ID}'>
+					<h4>${prodSvc.getOneProd(odVO.prod_ID).prod_name}</h4>
+				</a>
+			</div>
 		    <div class="col-2"><h4>${odVO.price}</h4></div>
 		    <div class="col-1"><h4>${odVO.quantity}</h4></div>
-		    <div class="col-6"><img class='pic' src='/CA106G5/ShowPic?PROD_ID=${prodSvc.getOneProd(odVO.prod_ID).prod_ID}'></div>
+		    <div class="col-6">
+		    	<a href='<%=request.getContextPath()%>/FrontEnd/cart/prodDetail.jsp?prod_ID=${odVO.prod_ID}'>
+		    		<img class='pic' src='/CA106G5/ShowPic?PROD_ID=${prodSvc.getOneProd(odVO.prod_ID).prod_ID}'>
+		    	</a>
+		    </div>
 			</div>
  	<div class='row'>
  	<div class='col-9'><hr></div>

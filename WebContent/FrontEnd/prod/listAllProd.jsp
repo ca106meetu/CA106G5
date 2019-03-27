@@ -36,7 +36,7 @@
 		height:230px;
 	}
 	table {
-	width: 800px;
+	width: 100%;
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -65,7 +65,7 @@
     
  	<div class='container'>
  		
-<table id = 'table-1'>
+	<table id = 'table-1'>
 	<tr><td>
 		<h3>所有商品資料</h3>
 		<h4><a href='selectPage.jsp'><img src="images/back1.png" width="60" >回商品管理</a></h4>
@@ -79,31 +79,20 @@
 
 
 
-</table>
+	</table>
 
-<%-- 錯誤列表 --%>
-<c:if test='${not empty errorMsgs }'>
-	<font style='color:red'>請修正以下錯誤</font>
-	<ul>
-		<c:forEach var='message' items='${errorMsgs}'>
-			<li style='color:red'>${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
+
 
 	<%@ include file="page1.file" %> 
 
-		<div class='row'>
-	 	<div class='col-9'><hr></div>
-	 	</div>
+	<hr>
 		<div class="row">
 		<div class="col-3" style="color:#0a0ac3"><h3>商品編號 </h3></div>
         <div class="col-3" style="color:#0a0ac3"><h3>商品名稱 </h3></div>
         <div class="col-3" style="color:#0a0ac3"><h3>上架狀態 </h3></div>
+        <div class="col-3" style="color:#0a0ac3"><h3>修改 </h3></div>
         </div>
-        <div class='row'>
-	 	<div class='col-9'><hr></div>
-	 	</div>
+    <hr>
 	
 	<%
 		if(request.getAttribute("lastPage") != null &&(boolean)request.getAttribute("lastPage")){
@@ -117,16 +106,33 @@
 		<div class="row" ${(prodVO.prod_ID==param.prod_ID) ?  'style="background-color:#AFEEEE;"':''}>
         <div class="col-3">
           
-        <p>
           <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#${prodVO.prod_ID}" aria-expanded="false" aria-controls="collapseExample">
             	<h4>【${prodVO.prod_ID}】</h4>
           </button>
-        </p>
         
 
         </div>
-        <div class="col-3"><h4>${prodVO.prod_name}</h4></div>
-        <div class="col-3"><h4>${ps[prodVO.prod_status]}</h4></div>
+        <div class="col-3">
+        	<h4>
+	        	<a href='<%=request.getContextPath()%>/FrontEnd/cart/prodDetail.jsp?prod_ID=${prodVO.prod_ID}'>	
+	        		${prodVO.prod_name}
+	        	</a>
+        	</h4>
+        </div>
+        <div class="col-3" style='color:${ps[prodVO.prod_status] == "上架" ? "#28a745" : "#dc3545"};'><h4>${ps[prodVO.prod_status]}</h4></div>
+        <div class="col-3">
+        
+        	<form method='post' action='prod.do' style="margin-bottom: 0px;">
+        		<button class="btn btn-outline-primary" type="submit">
+		            	<h4>修改商品資料</h4>
+				</button>
+				<input type='hidden' name='prod_ID' value='${prodVO.prod_ID}'>
+				<input type='hidden' name='action' value='getOne_For_Update'>
+				<input type='hidden' name='whichPage' value='${param.whichPage}'>				
+				<input type='hidden' name='requestURL' value='<%=request.getServletPath()%>'>				
+			</form>
+        
+        </div>
       </div>
 
 	<div class="row">
@@ -134,39 +140,39 @@
           <div class="card card-body" style='border:0px;'>
 	<div class="row">
 	<div class='col-6'>
-    <div class="row inner border border-info rounded">
+    <div class="row inner border border-info rounded-top">
       <div class="col-6 t">商品編號</div>
       <div class="col-6 d">${prodVO.prod_ID}</div>
     </div>
-    <div class="row inner border border-info rounded">
+    <div class="row inner border border-info ">
       <div class="col-6 t">商品名稱</div>
       <div class="col-6 d">${prodVO.prod_name}</div>
     </div>
-    <div class="row inner border border-info rounded">
+    <div class="row inner border border-info ">
       <div class="col-6 t">商品價格</div>
       <div class="col-6 d">${prodVO.prod_price}</div>
     </div>
-    <div class="row inner border border-info rounded">
+    <div class="row inner border border-info ">
       <div class="col-6 t">類型</div>
       <div class="col-6 d">${pt[prodVO.prod_type]}</div>
     </div>
-    <div class="row inner border border-info rounded">
+    <div class="row inner border border-info ">
       <div class="col-6 t">庫存量</div>
       <div class="col-6 d">${prodVO.prod_stock}</div>
     </div>
-    <div class="row inner border border-info rounded">
+    <div class="row inner border border-info ">
       <div class="col-6 t">促銷狀態</div>
       <div class="col-6 d">${pps[prodVO.prod_promt_status]}</div>
     </div>
-    <div class="row inner border border-info rounded">
+    <div class="row inner border border-info ">
       <div class="col-6 t">上架狀態</div>
       <div class="col-6 d">${ps[prodVO.prod_status]}</div>
     </div>
-    <div class="row inner border border-info rounded">
+    <div class="row inner border border-info ">
       <div class="col-6 t">商品資訊</div>
       <div class="col-6 d">${prodVO.prod_info}</div>
     </div>
-    <div class="row inner border border-info rounded">
+    <div class="row inner border border-info rounded-bottom">
       <div class="col-6 t">修改</div>
       <div class="col-6 d">
       			<form method='post' action='prod.do' style="margin-bottom: 0px;">
@@ -195,12 +201,11 @@
       </div>
       
       </div>
-		<div class='row'>
-	 	<div class='col-9'><hr></div>
-	 	</div>
+		<hr>
  	
 	</c:forEach>
 <%@ include file="page2.file" %> 
+<br>
  	</div>
     
     

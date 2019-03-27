@@ -39,7 +39,7 @@
 		height:230px;
 	}
 	table {
-	width: 800px;
+	width: 75%;
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -102,14 +102,12 @@
 
 
 
-		 <div class="row">
+		 <div class="row align-items-center">
         <div class="col-3">
           
-        <p>
-          <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#${omVO.order_ID}" aria-expanded="false" aria-controls="collapseExample">
+          <button class="btn btn-warning" type="button" data-toggle="collapse" data-target="#${omVO.order_ID}" aria-expanded="false" aria-controls="collapseExample">
             	<h4>【${omVO.order_ID}】</h4>
           </button>
-        </p>
         
 
         </div>
@@ -119,54 +117,54 @@
       <div class="row">
         <div class="collapse" id="${omVO.order_ID}">
           <div class="card card-body" style='border:0px;'>
-    <div class="row inner border border-info rounded">
+    <div class="row inner border-bottom border-info ">
       <div class="col-6 t">訂單編號</div>
       <div class="col-6 d">${omVO.order_ID}</div>
     </div>
-    <div class="row inner border border-info rounded">
+    <div class="row inner border-bottom border-info ">
       <div class="col-6 t">會員名稱</div>
       <div class="col-6 d">${memSvc.getOneMem(omVO.mem_ID).mem_name}</div>
     </div>
-    <div class="row inner border border-info rounded">
+    <div class="row inner border-bottom border-info ">
       <div class="col-6 t">訂單金額</div>
       <div class="col-6 d">${omVO.price}</div>
     </div>
-    <div class="row inner border border-info rounded">
+    <div class="row inner border-bottom border-info ">
       <div class="col-6 t">訂單日期</div>
       <div class="col-6 d"><fmt:formatDate value="${omVO.order_date}" pattern="yyyy-MM-dd HH:mm" /></div>
     </div>
-    <div class="row inner border border-info rounded">
+    <div class="row inner border-bottom border-info ">
       <div class="col-6 t">出貨地址</div>
       <div class="col-6 d">${omVO.out_add}</div>
     </div>
-    <div class="row inner border border-info rounded">
+    <div class="row inner border-bottom border-info ">
       <div class="col-6 t">收件人</div>
       <div class="col-6 d">${omVO.recipient}</div>
     </div>
-    <div class="row inner border border-info rounded">
+    <div class="row inner border-bottom border-info ">
       <div class="col-6 t">收件人電話</div>
       <div class="col-6 d">${omVO.phone}</div>
     </div>
-    <div class="row inner border border-info rounded">
+    <div class="row inner border-bottom border-info ">
       <div class="col-6 t">出貨日期</div>
       <div class="col-6 d">
       	${omVO.out_date != null ? '' : '<font style="color:red;">待出貨</font>'}
       	<fmt:formatDate value="${omVO.out_date}" pattern="yyyy-MM-dd HH:mm" />
       </div>
     </div>
-    <div class="row inner border border-info rounded">
+    <div class="row inner border-bottom border-info ">
       <div class="col-6 t">訂單狀態</div>
-      <div class="col-6 d">${ords[omVO.order_status]}</div>
+      <div class="col-6 d" style='color:${ords[omVO.order_status] == "待出貨" ? "#dc3545" :  "#28a745"};'>${ords[omVO.order_status]}</div>
     </div>
-    <div class="row inner border border-info rounded">
+    <div class="row inner border-bottom border-info ">
       <div class="col-6 t">備註</div>
       <div class="col-6 d">${omVO.tip}</div>
     </div>
-    <div class="row inner border border-info rounded">
+    <div class="row inner border-bottom border-info ">
       <div class="col-6 t">查看明細</div>
       <div class="col-6 d">
       			<form method='post' action='listOdByOm.jsp' style="margin-bottom: 0px;">
-					<input type='submit' value='查看明細' class='btn btn-primary'>
+					<input type='submit' value='查看明細' class='btn btn-outline-success'>
 					<input type='hidden' name='order_ID' value='${omVO.order_ID}'>
 				</form></div>
     </div>
@@ -208,6 +206,7 @@
 	</c:forEach>
 
 <%@ include file="page2.file" %> 
+<br>
 </div>
     
     
