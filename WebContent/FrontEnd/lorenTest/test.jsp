@@ -29,12 +29,12 @@
   pageContext.setAttribute("mtVO5", mtVO5);
   MeetupVO mtVO6 = meetupSvc.getOneMeetup("MP000006");
   pageContext.setAttribute("mtVO6", mtVO6);
-  MeetupVO mtVO7 = meetupSvc.getOneMeetup("MP000007");
-  pageContext.setAttribute("mtVO7", mtVO7);
+  MeetupVO mtVO4 = meetupSvc.getOneMeetup("MP000004");
+  pageContext.setAttribute("mtVO4", mtVO4);
   
   Set <MeetupVO> hsetMT = new HashSet <MeetupVO>();
   hsetMT.add(mtVO6);
-  hsetMT.add(mtVO7);
+  hsetMT.add(mtVO4);
   hsetMT.add(mtVO5);
   pageContext.setAttribute("hsetMT", hsetMT);
   
@@ -250,11 +250,11 @@
                                    </div>
                               </div>
                         </div>
-						<a href="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do?meetup_ID=${mtVO7.meetup_ID}&action=getOne_For_Display">
+						<a href="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do?meetup_ID=${mtVO4.meetup_ID}&action=getOne_For_Display">
                         	<h4 class="post-headline">${mtVO6.meetup_name}</h4>
                         </a>
                         <p>Tiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
-                        	<a href="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do?meetup_ID=${mtVO7.meetup_ID}&action=getOne_For_Display" class="read-more">Continue Reading..</a>
+                        	<a href="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do?meetup_ID=${mtVO4.meetup_ID}&action=getOne_For_Display" class="read-more">Continue Reading..</a>
                         </div>
                    </div>
            	 	</div>
@@ -272,11 +272,11 @@
                         	  <div class="post-author-date-area d-flex">
                         		   <!-- Post Author -->
                                    <div class="post-author">
-                                      <a href="#">By <%=memSvc.getOneMem(mtVO7.getMem_ID()).getMem_nickname()%></a>
+                                      <a href="#">By <%=memSvc.getOneMem(mtVO4.getMem_ID()).getMem_nickname()%></a>
                                    </div>
                                    <!-- Post Date -->
                                    <div class="post-date">
-                                      <a href="#"><fmt:formatDate value="${mtVO7.meetup_date}" pattern="yyyy-MM-dd HH:mm"/></a>
+                                      <a href="#"><fmt:formatDate value="${mtVO4.meetup_date}" pattern="yyyy-MM-dd HH:mm"/></a>
                                    </div>
                               </div>
                               <!-- Post Comment & Share Area -->
@@ -295,10 +295,10 @@
                                    </div>
                               </div>
                         </div>
-						<a href="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do?meetup_ID=${mtVO7.meetup_ID}&action=getOne_For_Display">
-                        	<h4 class="post-headline">${mtVO7.meetup_name}</h4>
+						<a href="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do?meetup_ID=${mtVO4.meetup_ID}&action=getOne_For_Display">
+                        	<h4 class="post-headline">${mtVO4.meetup_name}</h4>
                         </a>
-                        	<a href="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do?meetup_ID=${mtVO7.meetup_ID}&action=getOne_For_Display" class="read-more">
+                        	<a href="<%=request.getContextPath()%>/FrontEnd/meetup/meetup.do?meetup_ID=${mtVO4.meetup_ID}&action=getOne_For_Display" class="read-more">
                         	Continue Reading..</a>
                         </div>
                    </div>
