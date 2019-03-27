@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class MeetupJDBCDAO implements MeetupDAO_interface{
 
@@ -31,7 +33,7 @@ public class MeetupJDBCDAO implements MeetupDAO_interface{
 	private static final String GET_NAME_STMT1 = "SELECT * FROM MEETUP where MEETUP_STATUS=1 and meetup_name like '%";//
 
 	private static final String INSERT_FOUNDER_STMT = "INSERT INTO MEETUP_MEM (meetup_ID, mem_ID, mem_showup) VALUES (?,?,?)";
-	
+	private static final String HOMEPAGE = "SELECT * FROM MEETUP WHERE ROWNUM <=3 order by meetup_ID desc";//for HomePG
 	@Override
 	public void insert(MeetupVO meetupVO) {
 		Connection con = null;
@@ -467,6 +469,7 @@ public class MeetupJDBCDAO implements MeetupDAO_interface{
 		ResultSet rs = null;
 		try {
 			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_VISIBLE_ALL_STMT);
 			rs = pstmt.executeQuery();
 			
@@ -525,6 +528,7 @@ public class MeetupJDBCDAO implements MeetupDAO_interface{
 		ResultSet rs = null;
 		try {
 			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INVISIBLE);
 			
 			pstmt.setString(1, meetup_ID);
@@ -550,6 +554,67 @@ public class MeetupJDBCDAO implements MeetupDAO_interface{
 				e.printStackTrace(System.err);
 			}
 		}
+	}
+	
+	@Override
+	public Set<MeetupVO> homePG() {
+		Set<MeetupVO> HomeSet = new HashSet<MeetupVO>();
+		MeetupVO meetupVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(HOMEPAGE);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				meetupVO = new MeetupVO();
+				meetupVO.setMeetup_ID(rs.getString("meetup_ID"));
+				meetupVO.setMeetup_name(rs.getString("meetup_name"));
+				meetupVO.setMem_ID(rs.getString("mem_ID"));
+				meetupVO.setMeetup_date(rs.getTimestamp("meetup_date"));
+				meetupVO.setMeetup_loc(rs.getString("meetup_loc"));
+				meetupVO.setMeetup_status(rs.getInt("meetup_status"));
+				meetupVO.setMeetup_pic(rs.getBytes("meetup_pic"));
+				meetupVO.setMeetup_info(rs.getString("meetup_info"));
+				meetupVO.setMeetup_minppl(rs.getInt("meetup_minppl"));
+				meetupVO.setMeetup_maxppl(rs.getInt("meetup_maxppl"));
+				meetupVO.setMeetup_joindate(rs.getDate("meetup_joindate"));
+				HomeSet.add(meetupVO);
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}return HomeSet;
 	}
 	
 	public static void main(String[] args) {
@@ -669,6 +734,22 @@ public class MeetupJDBCDAO implements MeetupDAO_interface{
 //				System.out.println(mtupVO.getMeetup_joindate());
 //				System.out.println("----------------");
 //			}	
+		
+		Set<MeetupVO> homeSet = dao.homePG();
+		for(MeetupVO mtupVO : homeSet) {
+			System.out.println(mtupVO.getMeetup_ID());
+			System.out.println(mtupVO.getMeetup_name());
+			System.out.println(mtupVO.getMem_ID());
+			System.out.println(mtupVO.getMeetup_date());
+			System.out.println(mtupVO.getMeetup_loc());
+			System.out.println(mtupVO.getMeetup_status());
+			System.out.println(mtupVO.getMeetup_pic());
+			System.out.println(mtupVO.getMeetup_info());
+			System.out.println(mtupVO.getMeetup_minppl());
+			System.out.println(mtupVO.getMeetup_maxppl());
+			System.out.println(mtupVO.getMeetup_joindate());
+			System.out.println("----------------");
+		}
 		
 	}
 

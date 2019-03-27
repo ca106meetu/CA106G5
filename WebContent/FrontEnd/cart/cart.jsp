@@ -48,7 +48,7 @@
     <div class="container">
       
       <%if(buyList != null && !buyList.isEmpty()){ %>
-      <div class="row bg-info">
+      <div class="row bg-info rounded">
       	<div class="col-5"></div>
       	<div class="col-2"><h2 class="text-dark">購物車內容</h2></div>
       	<div class="col-5"></div>
@@ -57,18 +57,28 @@
       <br>
       <br>
       <div class="row">
-        <div class="col-5">商品</div>
-        <div class="col-3">單價</div>
-        <div class="col-1">數量</div>
-        <div class="col-1">總計</div>
-        <div class="col-1">操作</div>
+        <div class="col-1"><h4></h4></div>
+        <div class="col-4"><h4>商品</h4></div>
+        <div class="col-3"><h4>單價</h4></div>
+        <div class="col-1"><h4>數量</h4></div>
+        <div class="col-1"><h4>總計</h4></div>
+        <div class="col-1"><h4>操作</h4></div>
       </div>
       <br>
+      <hr>
       
       <c:forEach var="prodVO" items= "${shoppingCart}">
-      <div class="row">
-        <div class="col-1"><img class='pic' src='/CA106G5/ShowPic?PROD_ID=${prodVO.prod_ID}'></div>
-        <div class="col-2">${prodVO.prod_name}</div>
+      <div class="row align-items-center">
+        <div class="col-1">
+        	<a href='<%=request.getContextPath()%>/FrontEnd/cart/prodDetail.jsp?prod_ID=${prodVO.prod_ID}'>
+        		<img class='pic' src='/CA106G5/ShowPic?PROD_ID=${prodVO.prod_ID}'>
+        	</a>
+        </div>
+        <div class="col-2">
+        	<a href='<%=request.getContextPath()%>/FrontEnd/cart/prodDetail.jsp?prod_ID=${prodVO.prod_ID}'>	
+        		${prodVO.prod_name}
+        	</a>
+        </div>
         <div class="col-2"></div>
         <div class="col-3">$${prodVO.prod_price}</div>
         <div class="col-1">
@@ -84,6 +94,7 @@
 				</form>
         </div>
       </div>
+      <hr> 
       </c:forEach>
       
       
@@ -94,6 +105,10 @@
         <div class="col-1" style="font-size:20px">元</div>
         <div class="col-1"></div>
       </div>
+      <div class='row'>
+      	<div class="col-8"></div>
+        <div class="col-4"><hr></div>
+      </div>
       
       
       
@@ -102,11 +117,12 @@
         <div class="col-3">
         	<form method='post' action='ShoppingServlet' onsubmit='return allowUser();'>
         		<input type='hidden' name='action' value='checkOut'>
-        		<button type="submit" class="btn btn-warning checkOut">前往結帳</button>
+        		<button type="submit" class="btn btn-outline-success checkOut">前往結帳</button>
         	</form>
         </div>
         <div class="col-1"></div>
       </div>
+      <br>
 
     
      <%}else {%>
@@ -142,6 +158,7 @@
     
     
     
+    <jsp:include page="/Templates/bootstrap4/frontFooter.jsp" />
 
    
     
@@ -182,7 +199,6 @@
     </script>
     
     
-    <jsp:include page="/Templates/bootstrap4/frontFooter.jsp" />
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
