@@ -10,7 +10,7 @@
 	OrderDetailService odSvc = new OrderDetailService();
 	OrderMasterService omSvc = new OrderMasterService();
 	String order_ID = request.getParameter("order_ID");
-	List<OrderDetailVO> list = odSvc.findOdByOm(order_ID);
+	List<OrderDetailVO> list = odSvc.findOdByOm(order_ID); 
 	pageContext.setAttribute("list", list);
 
 	
