@@ -5,19 +5,6 @@
   <head>
   
   
-  	<style>
-  	
-		  	footer {
-		  position: fixed;
-		  right: 0;
-		  left: 0;
-		  z-index: 1030;
-		  bottom: 0;
-		  margin-bottom: 0;
-		  border-width: 1px 0 0;
-		}
-  	</style>
-  
   	
     <link rel="shortcut icon" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
   	<link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>

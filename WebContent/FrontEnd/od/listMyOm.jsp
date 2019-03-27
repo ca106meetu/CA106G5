@@ -20,6 +20,20 @@
   	<link rel="bookmark" href="<%=request.getContextPath()%>/Templates/favico.ico"/>
   <style>
   
+  .t {
+  	color:black;
+  }
+  .d {
+  	color:blue;
+  }
+  
+  .card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.25rem;
+    width: 500px;
+}
+  
 	.pic{
 		width:172.5px;
 		height:230px;
@@ -68,53 +82,124 @@
 
 </table>
 	<br>
-<table>
-	<tr>
-		<th>訂單編號</th>
-		<th>會員名稱</th>
-		<th>訂單金額</th>
-		<th>訂單日期</th>
-		<th>出貨地址</th>
-		<th>收件人</th>
-		<th>收件人電話</th>
-		<th>出貨狀態</th>
-		<th>出貨日期</th>
-		<th>訂單狀態</th>
-		<th>備註</th>
-		<th>查看明細</th>
 
-	</tr>
 	<%@ include file="page1.file" %> 
-	
+		
+		<div class="row">
+		<div class="col-3" style="color:#0a0ac3"><h3>訂單編號 </h3></div>
+        <div class="col-3" style="color:#0a0ac3"><h3>訂單金額 </h3></div>
+        <div class="col-3" style="color:#0a0ac3"><h3>下訂日期 </h3></div>
+        </div>
 	<jsp:useBean id='memSvc' scope='page' class='com.meetU.mem.model.MemService'/>
 	<c:forEach var="omVO" items= "${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-		<tr>
-			<td>${omVO.order_ID}</td>
-			<td>${memSvc.getOneMem(omVO.mem_ID).mem_name}</td>
-			<td>${omVO.price}</td>
-			<td>
-			<fmt:formatDate value="${omVO.order_date}" pattern="yyyy-MM-dd HH:mm" />
-			</td>
-			<td>${omVO.out_add}</td>
-			<td>${omVO.recipient}</td>
-			<td>${omVO.phone}</td>
-			<td>${outs[omVO.out_status]}</td>
-			<td>
-			<fmt:formatDate value="${omVO.out_date}" pattern="yyyy-MM-dd HH:mm" />
-			</td>
-			<td>${ords[omVO.order_status]}</td>
-			<td>${omVO.tip}</td>
-			
-			<td>
-				<form method='post' action='listOdByOm.jsp' style="margin-bottom: 0px;">
+
+
+
+		 <div class="row">
+        <div class="col-3">
+          
+        <p>
+          <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#${omVO.order_ID}" aria-expanded="false" aria-controls="collapseExample">
+            	【${omVO.order_ID}】
+          </button>
+        </p>
+        
+
+        </div>
+        <div class="col-3">${omVO.price}</div>
+        <div class="col-3"><fmt:formatDate value="${omVO.order_date}" pattern="yyyy-MM-dd HH:mm" /></div>
+      </div>
+      <div class="row">
+        <div class="collapse" id="${omVO.order_ID}">
+          <div class="card card-body" style='border:0px;'>
+    <div class="row inner border border-info rounded">
+      <div class="col-6 t">訂單編號</div>
+      <div class="col-6 d">${omVO.order_ID}</div>
+    </div>
+    <div class="row inner border border-info rounded">
+      <div class="col-6 t">會員名稱</div>
+      <div class="col-6 d">${memSvc.getOneMem(omVO.mem_ID).mem_name}</div>
+    </div>
+    <div class="row inner border border-info rounded">
+      <div class="col-6 t">訂單金額</div>
+      <div class="col-6 d">${omVO.price}</div>
+    </div>
+    <div class="row inner border border-info rounded">
+      <div class="col-6 t">訂單日期</div>
+      <div class="col-6 d"><fmt:formatDate value="${omVO.order_date}" pattern="yyyy-MM-dd HH:mm" /></div>
+    </div>
+    <div class="row inner border border-info rounded">
+      <div class="col-6 t">出貨地址</div>
+      <div class="col-6 d">${omVO.out_add}</div>
+    </div>
+    <div class="row inner border border-info rounded">
+      <div class="col-6 t">收件人</div>
+      <div class="col-6 d">${omVO.recipient}</div>
+    </div>
+    <div class="row inner border border-info rounded">
+      <div class="col-6 t">收件人電話</div>
+      <div class="col-6 d">${omVO.phone}</div>
+    </div>
+    <div class="row inner border border-info rounded">
+      <div class="col-6 t">出貨日期</div>
+      <div class="col-6 d">
+      	${omVO.out_date != null ? '' : '<font style="color:red;">待出貨</font>'}
+      	<fmt:formatDate value="${omVO.out_date != null ? 'omVO.out_date' : ''}" pattern="yyyy-MM-dd HH:mm" />
+      </div>
+    </div>
+    <div class="row inner border border-info rounded">
+      <div class="col-6 t">訂單狀態</div>
+      <div class="col-6 d">${ords[omVO.order_status]}</div>
+    </div>
+    <div class="row inner border border-info rounded">
+      <div class="col-6 t">備註</div>
+      <div class="col-6 d">${omVO.tip}</div>
+    </div>
+    <div class="row inner border border-info rounded">
+      <div class="col-6 t">查看明細</div>
+      <div class="col-6 d">
+      			<form method='post' action='listOdByOm.jsp' style="margin-bottom: 0px;">
 					<input type='submit' value='查看明細' class='btn btn-primary'>
 					<input type='hidden' name='order_ID' value='${omVO.order_ID}'>
-				</form>
-			</td>
-		</tr>
+				</form></div>
+    </div>
+          </div>
+        </div>
+
+      </div>
+
+
+<!-- 		<tr> -->
+<%-- 			<td>${omVO.order_ID}</td> --%>
+<%-- 			<td>${memSvc.getOneMem(omVO.mem_ID).mem_name}</td> --%>
+<%-- 			<td>${omVO.price}</td> --%>
+<!-- 			<td> -->
+<%-- 			<fmt:formatDate value="${omVO.order_date}" pattern="yyyy-MM-dd HH:mm" /> --%>
+<!-- 			</td> -->
+<%-- 			<td>${omVO.out_add}</td> --%>
+<%-- 			<td>${omVO.recipient}</td> --%>
+<%-- 			<td>${omVO.phone}</td> --%>
+<%-- 			<td>${outs[omVO.out_status]}</td> --%>
+<!-- 			<td> -->
+<%-- 			<fmt:formatDate value="${omVO.out_date}" pattern="yyyy-MM-dd HH:mm" /> --%>
+<!-- 			</td> -->
+<%-- 			<td>${ords[omVO.order_status]}</td> --%>
+<%-- 			<td>${omVO.tip}</td> --%>
+			
+<!-- 			<td> -->
+<!-- 				<form method='post' action='listOdByOm.jsp' style="margin-bottom: 0px;"> -->
+<!-- 					<input type='submit' value='查看明細' class='btn btn-primary'> -->
+<%-- 					<input type='hidden' name='order_ID' value='${omVO.order_ID}'> --%>
+<!-- 				</form> -->
+<!-- 			</td> -->
+<!-- 		</tr> -->
+ 	<div class='row'>
+ 	<div class='col-9'><hr></div>
+ 	</div>
+ 	
  	
 	</c:forEach>
-</table>
+
 <%@ include file="page2.file" %> 
 </div>
     
