@@ -91,7 +91,7 @@
 	if(3*j+i <= list.size()-1){
 	ProductVO prodVO = list.get(3*j+i);
 	Integer	max = prodVO.getProd_stock();
-		
+		 
 	%>	
   <div class="card ">
   	<a href='<%=request.getContextPath()%>/FrontEnd/cart/prodDetail.jsp?prod_ID=<%=prodVO.getProd_ID()%>'><img src="/CA106G5/ShowPic?PROD_ID=<%=prodVO.getProd_ID()%>" id='pic' class="card-img-top"></a>
