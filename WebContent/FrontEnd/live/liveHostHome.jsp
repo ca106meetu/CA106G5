@@ -103,15 +103,17 @@
     min-width: 50%;
     max-width: 60%;
 }
-.statusOutput{
-	background: #0078ae;
-    text-align:center;
-    color: #ffffff;
-    border: 1px solid grey;
+.statusOutput {
+    background: #ffc107;
+    text-align: center;
+    color: #3069d6;
+    /* border: 1px solid grey; */
     padding: 0.2em;
-    box-shadow: 0 0 5px #000000;
-    
+    box-shadow: 0 0 5px #5d6267;
 }
+
+
+
 html,body {	
 	font: 15px verdana, Times New Roman, arial, helvetica, sans-serif, Microsoft JhengHei;   
 	 
@@ -130,9 +132,16 @@ html,body {
     overflow: auto;
 }
 .input-area {
-    background: #0078ae;
-    box-shadow: inset 0 0 10px #00568c;
+    background: #ffc107;
 }
+
+.jumbotron {
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+    background-color: hsla(0, 83%, 70%, 0.46);
+    border-radius: .3rem;
+}
+
 
 .input-area input {
     margin: 0.5em 0em 0.5em 0.5em;
