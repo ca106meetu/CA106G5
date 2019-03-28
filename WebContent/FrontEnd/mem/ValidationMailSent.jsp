@@ -44,7 +44,7 @@ $(document).ready(function(){
 	swal({title:"驗證信已送出", html:"<h4>提醒您驗證信只有最新的一封有效</h4>", type:"success"}).then(function (result) {
         //導頁寫在此
         //window.location.href = "mailto:bell0920tw@gmail.com";
-        window.location.href = "mailto:${memVO.mem_email}";
+        window.location.href = "<%=request.getContextPath()%>/FrontEnd/lorenTest/test.jsp";
     }); 
 
 }); 
