@@ -42,7 +42,7 @@ public class MeetupDAO implements MeetupDAO_interface{
 			"INSERT INTO MEETUP (meetup_ID, meetup_name, mem_ID, meetup_date, meetup_loc, meetup_status, meetup_pic, meetup_info, MEETUP_MINPPL, MEETUP_MAXPPL, meetup_joindate)"
 			+ "VALUES ('MP'||LPAD(to_char(meetup_seq.NEXTVAL), 6, '0'), ?,?,?,?,?,?,?,?,?,?)";
 	private static final String GET_HOST_ALL_STMT = "SELECT * FROM MEETUP WHERE MEETUP_STATUS=1 and mem_ID=? order by meetup_ID desc";//
-	private static final String GET_ALL_STMT = "SELECT * FROM MEETUP order by meetup_ID desc";
+	private static final String GET_ALL_STMT = "SELECT * FROM MEETUP WHERE MEETUP_STATUS=1 order by meetup_ID desc";
 	private static final String GET_VISIBLE_ALL_STMT = "SELECT * FROM MEETUP WHERE MEETUP_STATUS=1 order by meetup_ID desc";//
 	
 	private static final String GET_ONE_STMT = "SELECT * FROM MEETUP where meetup_ID=?";

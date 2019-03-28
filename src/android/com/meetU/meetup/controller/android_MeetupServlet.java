@@ -60,6 +60,10 @@ public class android_MeetupServlet extends HttpServlet {
 			List<MeetupVO> meetupList = meetupSvc.getHost(mem_ID);
 			writeText(res, gson.toJson(meetupList));
 		
+		} else if(action.equals("getVisibleAll")) {
+			List<MeetupVO> meetupList = meetupSvc.getVisibleAll();
+			writeText(res, gson.toJson(meetupList));
+		
 		} else if(action.equals("getOneMeetup")) {
 			String meetup_ID = jsonObject.get("meetup_ID").getAsString();
 			MeetupVO meetupVO = meetupSvc.getOneMeetup(meetup_ID);
