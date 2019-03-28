@@ -30,12 +30,11 @@ public class MeetupMemDAO implements MeetupMemDAO_interface{
 	private static final String GET_MYALL_STMT = "SELECT MEETUP.*,MEETUP_MEM.* FROM MEETUP JOIN MEETUP_MEM ON MEETUP.MEETUP_ID = MEETUP_MEM.MEETUP_ID "
 													+ "AND MEETUP.MEETUP_STATUS=1 AND MEETUP_MEM.MEM_ID =?";
 	private static final String GET_HOST_RATE  = "SELECT MEETUP.*,MEETUP_MEM.* FROM MEETUP JOIN MEETUP_MEM ON MEETUP.MEETUP_ID = MEETUP_MEM.MEETUP_ID "
-													+ "AND MEETUP.MEETUP_STATUS=1 AND MEETUP_MEM.MEETUP_RATE IS NOT NULL AND MEETUP_MEM.MEM_ID =?";
+													+ "WHERE  MEETUP.MEETUP_STATUS=1 AND MEETUP_MEM.MEETUP_RATE IS NOT NULL AND MEETUP.MEM_ID =?";
 	private static final String DELETE = "DELETE FROM MEETUP_MEM WHERE meetup_ID =? and MEM_ID =?";
 	
 	private static final String UPDATE = "UPDATE MEETUP_MEM SET meetup_rate=?, meetup_comment=? WHERE meetup_ID =? and MEM_ID =?";
 	
-
 	@Override
 	public void insert(MeetupMemVO meetupMemVO) {
 		Connection con = null;
