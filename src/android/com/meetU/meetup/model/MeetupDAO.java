@@ -352,7 +352,7 @@ public class MeetupDAO implements MeetupDAO_interface{
 				meetupVO.setMeetup_date(rs.getTimestamp("meetup_date"));
 				meetupVO.setMeetup_loc(rs.getString("meetup_loc"));
 				meetupVO.setMeetup_status(rs.getInt("meetup_status"));
-				meetupVO.setMeetup_info(rs.getString("meetup_info"));
+//				meetupVO.setMeetup_info(rs.getString("meetup_info"));
 				meetupVO.setMeetup_minppl(rs.getInt("meetup_minppl"));
 				meetupVO.setMeetup_maxppl(rs.getInt("meetup_maxppl"));
 				meetupVO.setMeetup_joindate(rs.getDate("meetup_joindate"));
