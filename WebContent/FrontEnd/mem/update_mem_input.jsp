@@ -74,7 +74,7 @@
 <div class="row">
 <div class="col">   
 	<center>
-		 <h3>會員資料更新 - update_mem_input.jsp</h3>
+		 <h3>會員資料更新</h3>
 	</center>
 </div>
 </div>

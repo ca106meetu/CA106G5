@@ -69,7 +69,7 @@
 <div class="row justify-content-center">
 <div class="col">   
 	<center>
-		 <h3>會員資料註冊 - reg_mem_input.jsp</h3>
+		 <h3>會員資料註冊</h3>
 	</center>
 </div>
 </div>
